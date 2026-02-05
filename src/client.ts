@@ -37,7 +37,14 @@ export interface ScheduleFilter {
 export class ChuvsuClient {
   private lk: LkClient;
   private tt: TtClient;
-  private groupIdCache: number | null = null;
+  private cache = {
+    groupId: null as number | null,
+    personalData: null as PersonalData | null,
+    currentPeriod: undefined as Period | null | undefined,
+    faculties: null as Faculty[] | null,
+    schedule: new Map<number, FullScheduleDay[]>(),
+    groups: new Map<number, Group[]>(),
+  };
 
   constructor(private opts: ChuvsuClientOptions) {
     this.lk = new LkClient(opts.email, opts.password);
@@ -46,7 +53,16 @@ export class ChuvsuClient {
       opts.password,
       opts.educationType ?? EducationType.HigherEducation,
     );
-    if (opts.groupId) this.groupIdCache = opts.groupId;
+    if (opts.groupId) this.cache.groupId = opts.groupId;
+  }
+
+  clearCache(): void {
+    this.cache.groupId = this.opts.groupId ?? null;
+    this.cache.personalData = null;
+    this.cache.currentPeriod = undefined;
+    this.cache.faculties = null;
+    this.cache.schedule.clear();
+    this.cache.groups.clear();
   }
 
   async login(): Promise<void> {
@@ -59,25 +75,36 @@ export class ChuvsuClient {
   }
 
   async getPersonalData(): Promise<PersonalData> {
-    return this.lk.getPersonalData();
+    if (this.cache.personalData) return this.cache.personalData;
+    const data = await this.lk.getPersonalData();
+    this.cache.personalData = data;
+    return data;
   }
 
   async getGroupId(): Promise<number> {
-    if (this.groupIdCache) return this.groupIdCache;
+    if (this.cache.groupId) return this.cache.groupId;
     const id = await this.lk.getGroupId();
     if (!id) throw new Error("Could not determine group ID");
-    this.groupIdCache = id;
+    this.cache.groupId = id;
     return id;
   }
 
   async getFullSchedule(period?: Period): Promise<FullScheduleDay[]> {
     const groupId = await this.getGroupId();
-    return this.tt.getGroupSchedule(groupId, period);
+    const key = period ?? 0;
+    const cached = this.cache.schedule.get(key);
+    if (cached) return cached;
+    const data = await this.tt.getGroupSchedule(groupId, period);
+    this.cache.schedule.set(key, data);
+    return data;
   }
 
   async getCurrentPeriod(): Promise<Period | null> {
+    if (this.cache.currentPeriod !== undefined) return this.cache.currentPeriod;
     const groupId = await this.getGroupId();
-    return this.tt.getCurrentPeriod(groupId);
+    const period = await this.tt.getCurrentPeriod(groupId);
+    this.cache.currentPeriod = period;
+    return period;
   }
 
   async getServerTime(): Promise<Time> {
@@ -123,7 +150,7 @@ export class ChuvsuClient {
 
     const now = new Date();
     const weekday = now.getDay();
-    const slots = await this.getScheduleForDay(weekday, filter);
+    const slots = await this.getScheduleForDay(weekday, filter, period ?? undefined);
 
     const timeMinutes = time.hours * 60 + time.minutes;
 
@@ -147,11 +174,18 @@ export class ChuvsuClient {
   }
 
   async getFaculties(): Promise<Faculty[]> {
-    return this.tt.getFaculties();
+    if (this.cache.faculties) return this.cache.faculties;
+    const data = await this.tt.getFaculties();
+    this.cache.faculties = data;
+    return data;
   }
 
   async getGroupsForFaculty(facultyId: number): Promise<Group[]> {
-    return this.tt.getGroupsForFaculty(facultyId);
+    const cached = this.cache.groups.get(facultyId);
+    if (cached) return cached;
+    const data = await this.tt.getGroupsForFaculty(facultyId);
+    this.cache.groups.set(facultyId, data);
+    return data;
   }
 
   async searchGroup(name: string): Promise<Group[]> {
