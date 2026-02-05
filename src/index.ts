@@ -1,7 +1,7 @@
 export { LkClient } from "./lk.js";
 export { TtClient } from "./tt.js";
-export { ChuvsuClient } from "./schedule.js";
-export type { ChuvsuClientOptions, ScheduleFilter } from "./schedule.js";
+export { ChuvsuClient } from "./client.js";
+export type { ChuvsuClientOptions, ScheduleFilter } from "./client.js";
 export { Period, EducationType } from "./types.js";
 export type {
   PersonalData,
