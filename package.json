@@ -1,0 +1,30 @@
+{
+  "name": "chuvsu-js",
+  "version": "0.1.0",
+  "description": "Node.js library for ChuvSU student portal (lk.chuvsu.ru) and schedule (tt.chuvsu.ru)",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --loader ts-node/esm test.ts"
+  },
+  "keywords": ["chuvsu", "chuvash-university", "schedule", "parser"],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.1",
+  "dependencies": {
+    "linkedom": "^0.18.12",
+    "undici": "^7.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.1",
+    "typescript": "^5.9.3"
+  }
+}
