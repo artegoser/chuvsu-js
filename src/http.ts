@@ -1,6 +1,9 @@
 import { Agent, fetch, type Dispatcher, type Headers as UndiciHeaders } from "undici";
+import { CHUVSU_CA_CERTS } from "./certs.js";
 
-const agent = new Agent({ connect: { rejectUnauthorized: false } });
+const agent = new Agent({
+  connect: { ca: CHUVSU_CA_CERTS },
+});
 
 export interface HttpResponse {
   status: number;

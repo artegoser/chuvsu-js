@@ -46,6 +46,13 @@ export function parseWeeks(s: string): WeekRange {
  * "доц.  к.ф.-м.н. Матвеев С. В." -> {position:"доц.", degree:"к.ф.-м.н.", name:"Матвеев С. В."}
  * "Дигуева О. Г." -> {name:"Дигуева О. Г."}
  */
+/** Parse <sup>*</sup> / <sup>**</sup> markers: * = odd week, ** = even week */
+export function parseWeekParity(html: string): "even" | "odd" | undefined {
+  const match = html.match(/<sup>\s*(\*{1,2})\s*<\/sup>/);
+  if (!match) return undefined;
+  return match[1] === "**" ? "even" : "odd";
+}
+
 export function parseTeacher(s: string): Teacher {
   const trimmed = s.trim();
   if (!trimmed) return { name: "" };

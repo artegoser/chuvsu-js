@@ -1,6 +1,6 @@
 import { HttpClient } from "./http.js";
-import { parseHtml, extractScriptValues, text } from "./parse.js";
-import type { PersonalData, ExamDay, Exam } from "./types.js";
+import { extractScriptValues } from "./parse.js";
+import type { PersonalData } from "./types.js";
 
 const BASE = "https://lk.chuvsu.ru";
 const LOGIN_URL = `${BASE}/info/login.php`;
@@ -42,56 +42,6 @@ export class LkClient {
       email: vals.email ?? "",
       phone: vals.phone ?? "",
     };
-  }
-
-  async getExams(): Promise<ExamDay[]> {
-    const { body } = await this.http.get(`${STUDENT_BASE}/exams.php`);
-    const doc = parseHtml(body);
-    const days: ExamDay[] = [];
-
-    const tabs = doc.querySelectorAll("[role='tabpanel']");
-    const tabHeaders = doc.querySelectorAll("[role='tab'] a");
-
-    for (let i = 0; i < tabs.length; i++) {
-      const panel = tabs[i];
-      const date = text(tabHeaders[i]);
-      const exams: Exam[] = [];
-
-      const rows = panel.querySelectorAll("tbody tr");
-      for (const row of rows) {
-        const cells = row.querySelectorAll("td");
-        if (cells.length < 2) continue;
-
-        const timeParts = text(cells[0]);
-        const info = cells[1];
-
-        const subject = text(info.querySelector(".blue"));
-        const fullText = text(info);
-
-        const typeMatch = fullText.match(/\((зач|экз|зчО|кр)\)/);
-        const subgroupMatch = fullText.match(/\((\d+ подгруппа)\)/);
-        const room = text(info.querySelector(".red")) || "";
-        const teacher = fullText
-          .replace(subject, "")
-          .replace(room, "")
-          .replace(typeMatch?.[0] ?? "", "")
-          .replace(subgroupMatch?.[0] ?? "", "")
-          .trim();
-
-        exams.push({
-          time: timeParts.split("\n")[0]?.trim() ?? "",
-          subject,
-          type: typeMatch?.[1] ?? "",
-          teacher,
-          room,
-          subgroup: subgroupMatch?.[1],
-        });
-      }
-
-      if (exams.length > 0) days.push({ date, exams });
-    }
-
-    return days;
   }
 
   /** Get the group ID from the schedule link on tt.php */

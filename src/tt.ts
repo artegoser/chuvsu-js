@@ -1,16 +1,23 @@
 import { HttpClient } from "./http.js";
-import { parseHtml, text, parseTime, parseWeeks, parseTeacher } from "./parse.js";
+import { parseHtml, text, parseTime, parseWeeks, parseTeacher, parseWeekParity } from "./parse.js";
 import type {
   Faculty,
   Group,
   FullScheduleDay,
-  FullScheduleSlot,
   ScheduleEntry,
-  Teacher,
+  Time,
 } from "./types.js";
+import { type Period, EducationType } from "./types.js";
 
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
+
+const PERIOD_LABELS: Record<string, Period> = {
+  "осенний семестр": 1 as Period,
+  "зимняя сессия": 2 as Period,
+  "весенний семестр": 3 as Period,
+  "летняя сессия": 4 as Period,
+};
 
 export class TtClient {
   private http = new HttpClient();
@@ -18,7 +25,12 @@ export class TtClient {
   constructor(
     private email?: string,
     private password?: string,
+    private educationType: EducationType = EducationType.HigherEducation,
   ) {}
+
+  private get pertt(): string {
+    return String(this.educationType);
+  }
 
   async login(): Promise<boolean> {
     if (!this.email || !this.password) {
@@ -32,7 +44,7 @@ export class TtClient {
         wauto: "1",
         auth: "Войти",
         hfac: "0",
-        pertt: "1",
+        pertt: this.pertt,
       },
       false,
     );
@@ -42,7 +54,7 @@ export class TtClient {
   async loginAsGuest(): Promise<boolean> {
     const res = await this.http.post(
       AUTH_URL,
-      { guest: "Войти гостем", hfac: "0", pertt: "1" },
+      { guest: "Войти гостем", hfac: "0", pertt: this.pertt },
       false,
     );
     return res.status === 302;
@@ -67,7 +79,7 @@ export class TtClient {
   async getGroupsForFaculty(facultyId: number): Promise<Group[]> {
     const { body } = await this.http.post(`${BASE}/`, {
       hfac: String(facultyId),
-      pertt: "1",
+      pertt: this.pertt,
     });
     return parseGroupButtons(parseHtml(body));
   }
@@ -77,7 +89,7 @@ export class TtClient {
       grname: name,
       findgr: "найти",
       hfac: "0",
-      pertt: "1",
+      pertt: this.pertt,
     });
     return parseGroupButtons(parseHtml(body));
   }
@@ -87,7 +99,7 @@ export class TtClient {
       techname: name,
       findtech: "найти",
       hfac: "0",
-      pertt: "1",
+      pertt: this.pertt,
     });
     const doc = parseHtml(body);
     const results: { id: number; name: string }[] = [];
@@ -106,15 +118,38 @@ export class TtClient {
     return results;
   }
 
-  async getGroupSchedule(groupId: number): Promise<FullScheduleDay[]> {
+  async getGroupSchedule(groupId: number, period?: Period): Promise<FullScheduleDay[]> {
+    const url = `${BASE}/index/grouptt/gr/${groupId}`;
+
+    if (period !== undefined) {
+      const { body } = await this.http.post(url, { htype: String(period) });
+      return parseFullSchedule(body);
+    }
+
+    const { body } = await this.http.get(url);
+    return parseFullSchedule(body);
+  }
+
+  async getCurrentPeriod(groupId: number): Promise<Period | null> {
     const { body } = await this.http.get(
       `${BASE}/index/grouptt/gr/${groupId}`,
     );
-    return parseFullSchedule(body);
+    return parsePeriodFromPage(body);
+  }
+
+  async getServerTime(): Promise<Time> {
+    const { body } = await this.http.post(`${BASE}/index/gethtime`, {});
+    return parseTime(body.trim());
   }
 }
 
-/** Parse group buttons: <button name="gr{id}" value="{name}" onClick='$("#hgr").val({id});...'> */
+function parsePeriodFromPage(html: string): Period | null {
+  const match = html.match(/идет\s+(.+?)\s*</i);
+  if (!match) return null;
+  const label = match[1].toLowerCase().trim();
+  return PERIOD_LABELS[label] ?? null;
+}
+
 function parseGroupButtons(doc: Document): Group[] {
   const groups: Group[] = [];
   for (const btn of doc.querySelectorAll("button[id^='gr']")) {
@@ -141,7 +176,6 @@ function parseFullSchedule(html: string): FullScheduleDay[] {
     const style = row.getAttribute("style") ?? "";
     const cls = row.getAttribute("class") ?? "";
 
-    // Day header: lightgray background + trfd class
     if (style.includes("lightgray") && cls.includes("trfd")) {
       const dayName = text(row.querySelector("td"));
       if (dayName) {
@@ -153,7 +187,6 @@ function parseFullSchedule(html: string): FullScheduleDay[] {
 
     if (!currentDay) continue;
 
-    // Lesson row: first td has class "trf"
     const timeCell = row.querySelector("td.trf");
     const dataCell = row.querySelector("td.trdata:not(.trf)");
     if (!timeCell || !dataCell) continue;
@@ -192,27 +225,18 @@ function parseScheduleEntry(el: Element): ScheduleEntry | null {
 
   if (!plainText) return null;
 
-  // Subject: <span style="color: blue;">...</span>
   const subjectEl = td.querySelector('span[style*="color: blue"]');
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  // Type: (лк), (пр), (лб), etc.
   const typeMatch = plainText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-
-  // Weeks: (N нед.) or (N - M нед.)
   const weeksMatch = plainText.match(/\(([^)]*нед\.?[^)]*)\)/);
-
-  // Room: letter-digits pattern like Г-402, И-208, Е-115, Б-314
   const roomMatch = fullHtml.match(
     /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
   );
-
-  // Teacher: after first <br>, text before next <br> or <i>
   const teacherMatch = fullHtml.match(/<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<i|$)/);
-
-  // Subgroup: number before "подгруппа"
   const subgroupMatch = plainText.match(/(\d+)\s*подгруппа/);
+  const weekParity = parseWeekParity(fullHtml);
 
   return {
     room: roomMatch?.[1] ?? "",
@@ -221,5 +245,6 @@ function parseScheduleEntry(el: Element): ScheduleEntry | null {
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: parseTeacher(teacherMatch?.[1] ?? ""),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+    weekParity,
   };
 }

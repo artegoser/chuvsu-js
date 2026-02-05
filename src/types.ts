@@ -1,3 +1,15 @@
+export const enum Period {
+  FallSemester = 1,
+  WinterSession = 2,
+  SpringSemester = 3,
+  SummerSession = 4,
+}
+
+export const enum EducationType {
+  HigherEducation = 1,
+  VocationalEducation = 2,
+}
+
 export interface PersonalData {
   lastName: string;
   firstName: string;
@@ -12,20 +24,6 @@ export interface PersonalData {
   course: string;
   email: string;
   phone: string;
-}
-
-export interface Exam {
-  time: string;
-  subject: string;
-  type: string;
-  teacher: string;
-  room: string;
-  subgroup?: string;
-}
-
-export interface ExamDay {
-  date: string;
-  exams: Exam[];
 }
 
 export interface Time {
@@ -63,6 +61,7 @@ export interface ScheduleEntry {
   weeks: WeekRange;
   teacher: Teacher;
   subgroup?: number;
+  weekParity?: "even" | "odd";
 }
 
 export interface FullScheduleSlot {
@@ -75,4 +74,17 @@ export interface FullScheduleSlot {
 export interface FullScheduleDay {
   weekday: string;
   slots: FullScheduleSlot[];
+}
+
+export interface LessonTimeSlot {
+  number: number;
+  start: Time;
+  end: Time;
+}
+
+export interface CurrentLesson {
+  slot: FullScheduleSlot;
+  entry: ScheduleEntry;
+  weekday: string;
+  period: Period;
 }
