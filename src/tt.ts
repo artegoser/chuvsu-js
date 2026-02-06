@@ -1,13 +1,26 @@
 import { HttpClient } from "./http.js";
-import { parseHtml, text, parseTime, parseWeeks, parseTeacher, parseWeekParity } from "./parse.js";
+import {
+  parseHtml,
+  text,
+  parseTime,
+  parseWeeks,
+  parseTeacher,
+  parseWeekParity,
+} from "./parse.js";
 import type {
   Faculty,
   Group,
   FullScheduleDay,
+  FullScheduleSlot,
   ScheduleEntry,
+  ScheduleFilter,
+  CurrentLesson,
   Time,
+  TtClientOptions,
+  CacheConfig,
 } from "./types.js";
-import { type Period, EducationType } from "./types.js";
+import { type Period, EducationType, AuthError } from "./types.js";
+import { filterSlots, getWeekdayName, getWeekNumber } from "./schedule.js";
 
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
@@ -19,28 +32,90 @@ const PERIOD_LABELS: Record<string, Period> = {
   "летняя сессия": 4 as Period,
 };
 
+interface CacheEntry {
+  data: unknown;
+  timestamp: number;
+}
+
 export class TtClient {
   private http = new HttpClient();
+  private educationType: EducationType;
+  private cacheTtls: CacheConfig | null;
+  private cacheStore = new Map<string, CacheEntry>();
 
-  constructor(
-    private email?: string,
-    private password?: string,
-    private educationType: EducationType = EducationType.HigherEducation,
-  ) {}
+  constructor(opts?: TtClientOptions) {
+    this.educationType = opts?.educationType ?? EducationType.HigherEducation;
+
+    if (opts?.cache == null) {
+      this.cacheTtls = null;
+    } else if (typeof opts.cache === "number") {
+      this.cacheTtls = {
+        schedule: opts.cache,
+        faculties: opts.cache,
+        groups: opts.cache,
+        currentPeriod: opts.cache,
+      };
+    } else {
+      this.cacheTtls = opts.cache;
+    }
+  }
 
   private get pertt(): string {
     return String(this.educationType);
   }
 
-  async login(): Promise<boolean> {
-    if (!this.email || !this.password) {
-      throw new Error("Email and password required for login");
+  // --- Cache helpers ---
+
+  private cacheGet(category: keyof CacheConfig, key: string): unknown | null {
+    if (!this.cacheTtls) return null;
+    const ttl = this.cacheTtls[category];
+    if (ttl == null) return null;
+
+    const entry = this.cacheStore.get(`${category}:${key}`);
+    if (!entry) return null;
+
+    if (ttl !== Infinity && Date.now() - entry.timestamp > ttl) {
+      this.cacheStore.delete(`${category}:${key}`);
+      return null;
     }
+
+    return entry.data;
+  }
+
+  private cacheSet(
+    category: keyof CacheConfig,
+    key: string,
+    data: unknown,
+  ): void {
+    if (!this.cacheTtls) return;
+    if (this.cacheTtls[category] == null) return;
+    this.cacheStore.set(`${category}:${key}`, {
+      data,
+      timestamp: Date.now(),
+    });
+  }
+
+  clearCache(category?: keyof CacheConfig): void {
+    if (!category) {
+      this.cacheStore.clear();
+      return;
+    }
+    const prefix = `${category}:`;
+    for (const key of this.cacheStore.keys()) {
+      if (key.startsWith(prefix)) {
+        this.cacheStore.delete(key);
+      }
+    }
+  }
+
+  // --- Auth ---
+
+  async login(opts: { email: string; password: string }): Promise<void> {
     const res = await this.http.post(
       AUTH_URL,
       {
-        wname: this.email,
-        wpass: this.password,
+        wname: opts.email,
+        wpass: opts.password,
         wauto: "1",
         auth: "Войти",
         hfac: "0",
@@ -48,19 +123,144 @@ export class TtClient {
       },
       false,
     );
-    return res.status === 302;
+    if (res.status !== 302) {
+      throw new AuthError("TT login failed");
+    }
   }
 
-  async loginAsGuest(): Promise<boolean> {
+  async loginAsGuest(): Promise<void> {
     const res = await this.http.post(
       AUTH_URL,
       { guest: "Войти гостем", hfac: "0", pertt: this.pertt },
       false,
     );
-    return res.status === 302;
+    if (res.status !== 302) {
+      throw new AuthError("TT guest login failed");
+    }
   }
 
+  // --- Schedule ---
+
+  async getGroupSchedule(opts: {
+    groupId: number;
+    period?: Period;
+  }): Promise<FullScheduleDay[]> {
+    const cacheKey = `${opts.groupId}:${opts.period ?? 0}`;
+    const cached = this.cacheGet("schedule", cacheKey);
+    if (cached) return cached as FullScheduleDay[];
+
+    const url = `${BASE}/index/grouptt/gr/${opts.groupId}`;
+
+    let body: string;
+    if (opts.period !== undefined) {
+      ({ body } = await this.http.post(url, { htype: String(opts.period) }));
+    } else {
+      ({ body } = await this.http.get(url));
+    }
+
+    const data = parseFullSchedule(body);
+    this.cacheSet("schedule", cacheKey, data);
+    return data;
+  }
+
+  async getScheduleForDay(opts: {
+    groupId: number;
+    weekday: number;
+    filter?: ScheduleFilter;
+    period?: Period;
+  }): Promise<FullScheduleSlot[]> {
+    const schedule = await this.getGroupSchedule({
+      groupId: opts.groupId,
+      period: opts.period,
+    });
+    const dayName = getWeekdayName(opts.weekday);
+    const day = schedule.find(
+      (d) => d.weekday.toLowerCase() === dayName.toLowerCase(),
+    );
+    if (!day) return [];
+    return filterSlots(day.slots, opts.filter);
+  }
+
+  async getScheduleForDate(opts: {
+    groupId: number;
+    date: Date;
+    filter?: ScheduleFilter;
+    period?: Period;
+  }): Promise<FullScheduleSlot[]> {
+    const weekday = opts.date.getDay();
+    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId }));
+
+    const effectiveFilter: ScheduleFilter = { ...opts.filter };
+    if (period && !effectiveFilter.week) {
+      effectiveFilter.week = getWeekNumber({ period, date: opts.date });
+    }
+
+    return this.getScheduleForDay({
+      groupId: opts.groupId,
+      weekday,
+      filter: effectiveFilter,
+      period: period ?? undefined,
+    });
+  }
+
+  async getCurrentLesson(opts: {
+    groupId: number;
+    filter?: ScheduleFilter;
+  }): Promise<CurrentLesson | null> {
+    const now = new Date();
+    const period = await this.getCurrentPeriod({ groupId: opts.groupId });
+    const weekday = now.getDay();
+    const slots = await this.getScheduleForDay({
+      groupId: opts.groupId,
+      weekday,
+      filter: opts.filter,
+      period: period ?? undefined,
+    });
+
+    const timeMinutes = now.getHours() * 60 + now.getMinutes();
+
+    for (const slot of slots) {
+      const start = slot.timeStart.hours * 60 + slot.timeStart.minutes;
+      const end = slot.timeEnd.hours * 60 + slot.timeEnd.minutes;
+
+      if (timeMinutes >= start && timeMinutes <= end && slot.entries.length > 0) {
+        return {
+          slot,
+          entry: slot.entries[0],
+          weekday: getWeekdayName(weekday),
+          period: period ?? (1 as Period),
+        };
+      }
+    }
+
+    return null;
+  }
+
+  // --- Period ---
+
+  async getCurrentPeriod(opts: {
+    groupId: number;
+  }): Promise<Period | null> {
+    const cacheKey = String(opts.groupId);
+    const cached = this.cacheGet("currentPeriod", cacheKey);
+    if (cached !== null) return cached as Period;
+
+    const { body } = await this.http.get(
+      `${BASE}/index/grouptt/gr/${opts.groupId}`,
+    );
+    const period = parsePeriodFromPage(body);
+    if (period !== null) {
+      this.cacheSet("currentPeriod", cacheKey, period);
+    }
+    return period;
+  }
+
+  // --- Search / Discovery ---
+
   async getFaculties(): Promise<Faculty[]> {
+    const cached = this.cacheGet("faculties", "all");
+    if (cached) return cached as Faculty[];
+
     const { body } = await this.http.get(`${BASE}/`);
     const doc = parseHtml(body);
     const faculties: Faculty[] = [];
@@ -73,20 +273,29 @@ export class TtClient {
       }
     }
 
+    this.cacheSet("faculties", "all", faculties);
     return faculties;
   }
 
-  async getGroupsForFaculty(facultyId: number): Promise<Group[]> {
+  async getGroupsForFaculty(opts: {
+    facultyId: number;
+  }): Promise<Group[]> {
+    const cacheKey = String(opts.facultyId);
+    const cached = this.cacheGet("groups", cacheKey);
+    if (cached) return cached as Group[];
+
     const { body } = await this.http.post(`${BASE}/`, {
-      hfac: String(facultyId),
+      hfac: String(opts.facultyId),
       pertt: this.pertt,
     });
-    return parseGroupButtons(parseHtml(body));
+    const data = parseGroupButtons(parseHtml(body));
+    this.cacheSet("groups", cacheKey, data);
+    return data;
   }
 
-  async searchGroup(name: string): Promise<Group[]> {
+  async searchGroup(opts: { name: string }): Promise<Group[]> {
     const { body } = await this.http.post(`${BASE}/`, {
-      grname: name,
+      grname: opts.name,
       findgr: "найти",
       hfac: "0",
       pertt: this.pertt,
@@ -94,9 +303,11 @@ export class TtClient {
     return parseGroupButtons(parseHtml(body));
   }
 
-  async searchTeacher(name: string): Promise<{ id: number; name: string }[]> {
+  async searchTeacher(opts: {
+    name: string;
+  }): Promise<{ id: number; name: string }[]> {
     const { body } = await this.http.post(`${BASE}/`, {
-      techname: name,
+      techname: opts.name,
       findtech: "найти",
       hfac: "0",
       pertt: this.pertt,
@@ -117,31 +328,9 @@ export class TtClient {
 
     return results;
   }
-
-  async getGroupSchedule(groupId: number, period?: Period): Promise<FullScheduleDay[]> {
-    const url = `${BASE}/index/grouptt/gr/${groupId}`;
-
-    if (period !== undefined) {
-      const { body } = await this.http.post(url, { htype: String(period) });
-      return parseFullSchedule(body);
-    }
-
-    const { body } = await this.http.get(url);
-    return parseFullSchedule(body);
-  }
-
-  async getCurrentPeriod(groupId: number): Promise<Period | null> {
-    const { body } = await this.http.get(
-      `${BASE}/index/grouptt/gr/${groupId}`,
-    );
-    return parsePeriodFromPage(body);
-  }
-
-  async getServerTime(): Promise<Time> {
-    const { body } = await this.http.post(`${BASE}/index/gethtime`, {});
-    return parseTime(body.trim());
-  }
 }
+
+// --- Internal parsing ---
 
 function parsePeriodFromPage(html: string): Period | null {
   const match = html.match(/идет\s+(.+?)\s*</i);

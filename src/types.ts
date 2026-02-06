@@ -88,3 +88,40 @@ export interface CurrentLesson {
   weekday: string;
   period: Period;
 }
+
+export interface ScheduleFilter {
+  subgroup?: number;
+  week?: number;
+}
+
+export interface SemesterWeek {
+  week: number;
+  start: Date;
+  end: Date;
+}
+
+export interface CacheConfig {
+  schedule?: number;
+  faculties?: number;
+  groups?: number;
+  currentPeriod?: number;
+}
+
+export interface TtClientOptions {
+  educationType?: EducationType;
+  cache?: number | CacheConfig;
+}
+
+export class AuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "AuthError";
+  }
+}
+
+export class ParseError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ParseError";
+  }
+}

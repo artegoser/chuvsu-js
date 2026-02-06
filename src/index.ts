@@ -1,8 +1,13 @@
 export { LkClient } from "./lk.js";
 export { TtClient } from "./tt.js";
-export { ChuvsuClient } from "./client.js";
-export type { ChuvsuClientOptions, ScheduleFilter } from "./client.js";
-export { Period, EducationType } from "./types.js";
+export {
+  getSemesterStart,
+  getSemesterWeeks,
+  getWeekNumber,
+  getWeekdayName,
+  filterSlots,
+} from "./schedule.js";
+export { Period, EducationType, AuthError, ParseError } from "./types.js";
 export type {
   PersonalData,
   Time,
@@ -15,4 +20,8 @@ export type {
   FullScheduleDay,
   LessonTimeSlot,
   CurrentLesson,
+  ScheduleFilter,
+  SemesterWeek,
+  TtClientOptions,
+  CacheConfig,
 } from "./types.js";
