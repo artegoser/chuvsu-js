@@ -6,6 +6,7 @@ export {
   getWeekNumber,
   getWeekdayName,
   filterSlots,
+  slotsToLessons,
 } from "./schedule.js";
 export { Period, EducationType, AuthError, ParseError } from "./types.js";
 export type {
@@ -19,7 +20,9 @@ export type {
   FullScheduleSlot,
   FullScheduleDay,
   LessonTimeSlot,
-  CurrentLesson,
+  Lesson,
+  LessonTime,
+  ScheduleWeekDay,
   ScheduleFilter,
   SemesterWeek,
   TtClientOptions,

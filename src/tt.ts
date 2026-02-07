@@ -14,13 +14,21 @@ import type {
   FullScheduleSlot,
   ScheduleEntry,
   ScheduleFilter,
-  CurrentLesson,
-  Time,
+  Lesson,
+  ScheduleWeekDay,
   TtClientOptions,
   CacheConfig,
 } from "./types.js";
 import { type Period, EducationType, AuthError } from "./types.js";
-import { filterSlots, getWeekdayName, getWeekNumber } from "./schedule.js";
+import {
+  filterSlots,
+  getMonday,
+  getWeekdayName,
+  getWeekNumber,
+  getSemesterStart,
+  getSemesterWeeks,
+  slotsToLessons,
+} from "./schedule.js";
 
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
@@ -163,7 +171,7 @@ export class TtClient {
     return data;
   }
 
-  async getScheduleForDay(opts: {
+  private async getFilteredSlots(opts: {
     groupId: number;
     weekday: number;
     filter?: ScheduleFilter;
@@ -181,12 +189,46 @@ export class TtClient {
     return filterSlots(day.slots, opts.filter);
   }
 
+  private getDateForWeekday(weekday: number, period: Period, week?: number): Date {
+    if (week != null) {
+      const semesterStart = getSemesterStart({ period });
+      const startMonday = getMonday(semesterStart);
+      const date = new Date(startMonday);
+      date.setDate(startMonday.getDate() + week * 7 + (weekday === 0 ? 6 : weekday - 1));
+      return date;
+    }
+    const now = new Date();
+    const currentDay = now.getDay();
+    const diff = weekday - currentDay;
+    const date = new Date(now);
+    date.setDate(now.getDate() + diff);
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }
+
+  async getScheduleForDay(opts: {
+    groupId: number;
+    weekday: number;
+    filter?: ScheduleFilter;
+    period?: Period;
+  }): Promise<Lesson[]> {
+    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId })) ?? (1 as Period);
+    const slots = await this.getFilteredSlots({
+      groupId: opts.groupId,
+      weekday: opts.weekday,
+      filter: opts.filter,
+      period,
+    });
+    const date = this.getDateForWeekday(opts.weekday, period, opts.filter?.week);
+    return slotsToLessons(slots, date);
+  }
+
   async getScheduleForDate(opts: {
     groupId: number;
     date: Date;
     filter?: ScheduleFilter;
     period?: Period;
-  }): Promise<FullScheduleSlot[]> {
+  }): Promise<Lesson[]> {
     const weekday = opts.date.getDay();
     const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId }));
 
@@ -195,41 +237,67 @@ export class TtClient {
       effectiveFilter.week = getWeekNumber({ period, date: opts.date });
     }
 
-    return this.getScheduleForDay({
+    const slots = await this.getFilteredSlots({
       groupId: opts.groupId,
       weekday,
       filter: effectiveFilter,
       period: period ?? undefined,
     });
+    return slotsToLessons(slots, opts.date);
+  }
+
+  async getScheduleForWeek(opts: {
+    groupId: number;
+    week?: number;
+    filter?: ScheduleFilter;
+    period?: Period;
+  }): Promise<ScheduleWeekDay[]> {
+    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId })) ?? (1 as Period);
+    const week = opts.week ?? getWeekNumber({ period });
+
+    const effectiveFilter: ScheduleFilter = { ...opts.filter, week };
+    const semesterWeeks = getSemesterWeeks({ period, weekCount: week });
+    const weekData = semesterWeeks.find((w) => w.week === week);
+    const mondayDate = weekData ? weekData.start : new Date();
+
+    const result: ScheduleWeekDay[] = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(mondayDate);
+      date.setDate(mondayDate.getDate() + i);
+      date.setHours(0, 0, 0, 0);
+
+      // weekday: 1=Mon, 2=Tue, ..., 6=Sat, 0=Sun
+      const weekday = i === 6 ? 0 : i + 1;
+      const slots = await this.getFilteredSlots({
+        groupId: opts.groupId,
+        weekday,
+        filter: effectiveFilter,
+        period,
+      });
+
+      result.push({ date, lessons: slotsToLessons(slots, date) });
+    }
+    return result;
   }
 
   async getCurrentLesson(opts: {
     groupId: number;
     filter?: ScheduleFilter;
-  }): Promise<CurrentLesson | null> {
+  }): Promise<Lesson | null> {
     const now = new Date();
-    const period = await this.getCurrentPeriod({ groupId: opts.groupId });
-    const weekday = now.getDay();
-    const slots = await this.getScheduleForDay({
+    const lessons = await this.getScheduleForDate({
       groupId: opts.groupId,
-      weekday,
+      date: now,
       filter: opts.filter,
-      period: period ?? undefined,
     });
 
     const timeMinutes = now.getHours() * 60 + now.getMinutes();
 
-    for (const slot of slots) {
-      const start = slot.timeStart.hours * 60 + slot.timeStart.minutes;
-      const end = slot.timeEnd.hours * 60 + slot.timeEnd.minutes;
-
-      if (timeMinutes >= start && timeMinutes <= end && slot.entries.length > 0) {
-        return {
-          slot,
-          entry: slot.entries[0],
-          weekday: getWeekdayName(weekday),
-          period: period ?? (1 as Period),
-        };
+    for (const lesson of lessons) {
+      const start = lesson.start.hours * 60 + lesson.start.minutes;
+      const end = lesson.end.hours * 60 + lesson.end.minutes;
+      if (timeMinutes >= start && timeMinutes <= end) {
+        return lesson;
       }
     }
 

@@ -3,6 +3,8 @@ import type {
   ScheduleEntry,
   ScheduleFilter,
   SemesterWeek,
+  Lesson,
+  LessonTime,
 } from "./types.js";
 import { Period } from "./types.js";
 
@@ -44,8 +46,8 @@ function filterEntries(
     }
     if (filter?.week) {
       if (
-        e.weeks.min > 0 &&
-        (filter.week < e.weeks.min || filter.week > e.weeks.max)
+        e.weeks.from > 0 &&
+        (filter.week < e.weeks.from || filter.week > e.weeks.to)
       ) {
         return false;
       }
@@ -59,7 +61,7 @@ function filterEntries(
   });
 }
 
-function getMonday(date: Date): Date {
+export function getMonday(date: Date): Date {
   const d = new Date(date);
   const day = d.getDay();
   const diff = day === 0 ? -6 : 1 - day;
@@ -71,7 +73,7 @@ function getMonday(date: Date): Date {
 /**
  * Get the start date of a semester.
  * Fall: September 1 of the given year.
- * Spring: last Monday of January of the given year.
+ * Spring: first Monday of February of the given year.
  */
 export function getSemesterStart(opts: {
   period: Period;
@@ -83,14 +85,13 @@ export function getSemesterStart(opts: {
     return new Date(year, 8, 1); // September 1
   }
 
-  // Spring: last Monday of January
-  // Start from Jan 31 and walk back to Monday
-  const jan31 = new Date(year, 0, 31);
-  const day = jan31.getDay();
-  const daysBack = day === 0 ? 6 : day - 1;
-  const lastMonday = new Date(year, 0, 31 - daysBack);
-  lastMonday.setHours(0, 0, 0, 0);
-  return lastMonday;
+  // Spring: first Monday of February
+  const feb1 = new Date(year, 1, 1);
+  const day = feb1.getDay();
+  const daysToAdd = day === 1 ? 0 : day === 0 ? 1 : 8 - day;
+  const firstMonday = new Date(year, 1, 1 + daysToAdd);
+  firstMonday.setHours(0, 0, 0, 0);
+  return firstMonday;
 }
 
 /**
@@ -135,4 +136,31 @@ export function getWeekNumber(opts: {
   const targetMonday = getMonday(date);
   const diff = targetMonday.getTime() - startMonday.getTime();
   return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+}
+
+function makeLessonTime(date: Date, time: { hours: number; minutes: number }): LessonTime {
+  const d = new Date(date);
+  d.setHours(time.hours, time.minutes, 0, 0);
+  return { date: d, hours: time.hours, minutes: time.minutes };
+}
+
+export function slotsToLessons(slots: FullScheduleSlot[], date: Date): Lesson[] {
+  const lessons: Lesson[] = [];
+  for (const slot of slots) {
+    for (const entry of slot.entries) {
+      lessons.push({
+        number: slot.number,
+        start: makeLessonTime(date, slot.timeStart),
+        end: makeLessonTime(date, slot.timeEnd),
+        subject: entry.subject,
+        type: entry.type,
+        room: entry.room,
+        teacher: entry.teacher,
+        weeks: entry.weeks,
+        subgroup: entry.subgroup,
+        weekParity: entry.weekParity,
+      });
+    }
+  }
+  return lessons;
 }

@@ -35,10 +35,10 @@ export function parseTime(s: string): Time {
 /** Parse "2 нед." -> {min:2,max:2}, "6 - 8 нед." -> {min:6,max:8} */
 export function parseWeeks(s: string): WeekRange {
   const range = s.match(/(\d+)\s*-\s*(\d+)/);
-  if (range) return { min: parseInt(range[1]), max: parseInt(range[2]) };
+  if (range) return { from: parseInt(range[1]), to: parseInt(range[2]) };
   const single = s.match(/(\d+)/);
-  if (single) return { min: parseInt(single[1]), max: parseInt(single[1]) };
-  return { min: 0, max: 0 };
+  if (single) return { from: parseInt(single[1]), to: parseInt(single[1]) };
+  return { from: 0, to: 0 };
 }
 
 /**

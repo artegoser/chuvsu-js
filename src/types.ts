@@ -32,8 +32,8 @@ export interface Time {
 }
 
 export interface WeekRange {
-  min: number;
-  max: number;
+  from: number;
+  to: number;
 }
 
 export interface Teacher {
@@ -82,11 +82,28 @@ export interface LessonTimeSlot {
   end: Time;
 }
 
-export interface CurrentLesson {
-  slot: FullScheduleSlot;
-  entry: ScheduleEntry;
-  weekday: string;
-  period: Period;
+export interface LessonTime {
+  date: Date;
+  hours: number;
+  minutes: number;
+}
+
+export interface Lesson {
+  number: number;
+  start: LessonTime;
+  end: LessonTime;
+  subject: string;
+  type: string;
+  room: string;
+  teacher: Teacher;
+  weeks: WeekRange;
+  subgroup?: number;
+  weekParity?: "even" | "odd";
+}
+
+export interface ScheduleWeekDay {
+  date: Date;
+  lessons: Lesson[];
 }
 
 export interface ScheduleFilter {
