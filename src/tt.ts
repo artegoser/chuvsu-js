@@ -7,6 +7,7 @@ import {
   parseTeacher,
   parseWeekParity,
 } from "./parse.js";
+
 import type {
   Faculty,
   Group,
@@ -19,7 +20,9 @@ import type {
   TtClientOptions,
   CacheConfig,
 } from "./types.js";
+
 import { type Period, EducationType, AuthError } from "./types.js";
+
 import {
   filterSlots,
   getMonday,
@@ -40,7 +43,7 @@ const PERIOD_LABELS: Record<string, Period> = {
   "летняя сессия": 4 as Period,
 };
 
-interface CacheEntry {
+export interface CacheEntry {
   data: unknown;
   timestamp: number;
 }
@@ -113,6 +116,16 @@ export class TtClient {
       if (key.startsWith(prefix)) {
         this.cacheStore.delete(key);
       }
+    }
+  }
+
+  exportCache(): Record<string, CacheEntry> {
+    return Object.fromEntries(this.cacheStore);
+  }
+
+  importCache(data: Record<string, CacheEntry>): void {
+    for (const [key, entry] of Object.entries(data)) {
+      this.cacheStore.set(key, entry);
     }
   }
 
@@ -189,12 +202,18 @@ export class TtClient {
     return filterSlots(day.slots, opts.filter);
   }
 
-  private getDateForWeekday(weekday: number, period: Period, week?: number): Date {
+  private getDateForWeekday(
+    weekday: number,
+    period: Period,
+    week?: number,
+  ): Date {
     if (week != null) {
       const semesterStart = getSemesterStart({ period });
       const startMonday = getMonday(semesterStart);
       const date = new Date(startMonday);
-      date.setDate(startMonday.getDate() + week * 7 + (weekday === 0 ? 6 : weekday - 1));
+      date.setDate(
+        startMonday.getDate() + week * 7 + (weekday === 0 ? 6 : weekday - 1),
+      );
       return date;
     }
     const now = new Date();
@@ -212,14 +231,21 @@ export class TtClient {
     filter?: ScheduleFilter;
     period?: Period;
   }): Promise<Lesson[]> {
-    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId })) ?? (1 as Period);
+    const period =
+      opts.period ??
+      (await this.getCurrentPeriod({ groupId: opts.groupId })) ??
+      (1 as Period);
     const slots = await this.getFilteredSlots({
       groupId: opts.groupId,
       weekday: opts.weekday,
       filter: opts.filter,
       period,
     });
-    const date = this.getDateForWeekday(opts.weekday, period, opts.filter?.week);
+    const date = this.getDateForWeekday(
+      opts.weekday,
+      period,
+      opts.filter?.week,
+    );
     return slotsToLessons(slots, date);
   }
 
@@ -230,7 +256,8 @@ export class TtClient {
     period?: Period;
   }): Promise<Lesson[]> {
     const weekday = opts.date.getDay();
-    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId }));
+    const period =
+      opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId }));
 
     const effectiveFilter: ScheduleFilter = { ...opts.filter };
     if (period && !effectiveFilter.week) {
@@ -252,7 +279,10 @@ export class TtClient {
     filter?: ScheduleFilter;
     period?: Period;
   }): Promise<ScheduleWeekDay[]> {
-    const period = opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId })) ?? (1 as Period);
+    const period =
+      opts.period ??
+      (await this.getCurrentPeriod({ groupId: opts.groupId })) ??
+      (1 as Period);
     const week = opts.week ?? getWeekNumber({ period });
 
     const effectiveFilter: ScheduleFilter = { ...opts.filter, week };
@@ -306,9 +336,7 @@ export class TtClient {
 
   // --- Period ---
 
-  async getCurrentPeriod(opts: {
-    groupId: number;
-  }): Promise<Period | null> {
+  async getCurrentPeriod(opts: { groupId: number }): Promise<Period | null> {
     const cacheKey = String(opts.groupId);
     const cached = this.cacheGet("currentPeriod", cacheKey);
     if (cached !== null) return cached as Period;
@@ -345,9 +373,7 @@ export class TtClient {
     return faculties;
   }
 
-  async getGroupsForFaculty(opts: {
-    facultyId: number;
-  }): Promise<Group[]> {
+  async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
     const cacheKey = String(opts.facultyId);
     const cached = this.cacheGet("groups", cacheKey);
     if (cached) return cached as Group[];
@@ -453,9 +479,7 @@ function parseFullSchedule(html: string): FullScheduleDay[] {
 
     const timeText = text(timeDiv);
     const numberMatch = timeText.match(/(\d+)\s*пара/);
-    const timeMatch = timeText.match(
-      /\((\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})\)/,
-    );
+    const timeMatch = timeText.match(/\((\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})\)/);
     if (!numberMatch) continue;
 
     const entries: ScheduleEntry[] = [];
@@ -491,7 +515,9 @@ function parseScheduleEntry(el: Element): ScheduleEntry | null {
   const roomMatch = fullHtml.match(
     /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
   );
-  const teacherMatch = fullHtml.match(/<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<i|$)/);
+  const teacherMatch = fullHtml.match(
+    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<i|$)/,
+  );
   const subgroupMatch = plainText.match(/(\d+)\s*подгруппа/);
   const weekParity = parseWeekParity(fullHtml);
 

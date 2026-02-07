@@ -1,5 +1,6 @@
 export { LkClient } from "./lk.js";
 export { TtClient } from "./tt.js";
+export type { CacheEntry } from "./tt.js";
 export {
   getSemesterStart,
   getSemesterWeeks,
