@@ -1,46 +1,4 @@
-export const enum Period {
-  FallSemester = 1,
-  WinterSession = 2,
-  SpringSemester = 3,
-  SummerSession = 4,
-}
-
-export const enum EducationType {
-  HigherEducation = 1,
-  VocationalEducation = 2,
-}
-
-export interface PersonalData {
-  lastName: string;
-  firstName: string;
-  patronymic: string;
-  sex: string;
-  birthday: string;
-  recordBookNumber: string;
-  faculty: string;
-  specialty: string;
-  profile: string;
-  group: string;
-  course: string;
-  email: string;
-  phone: string;
-}
-
-export interface Time {
-  hours: number;
-  minutes: number;
-}
-
-export interface WeekRange {
-  from: number;
-  to: number;
-}
-
-export interface Teacher {
-  position?: string;
-  degree?: string;
-  name: string;
-}
+import type { Time, WeekRange, Teacher, EducationType } from "../common/types.js";
 
 export interface Faculty {
   id: number;
@@ -127,18 +85,4 @@ export interface CacheConfig {
 export interface TtClientOptions {
   educationType?: EducationType;
   cache?: number | CacheConfig;
-}
-
-export class AuthError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "AuthError";
-  }
-}
-
-export class ParseError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "ParseError";
-  }
 }

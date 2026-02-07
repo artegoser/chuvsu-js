@@ -1,7 +1,7 @@
-import { HttpClient } from "./http.js";
+import { HttpClient } from "../common/http.js";
+import { AuthError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
 import type { PersonalData } from "./types.js";
-import { AuthError } from "./types.js";
 
 const BASE = "https://lk.chuvsu.ru";
 const LOGIN_URL = `${BASE}/info/login.php`;

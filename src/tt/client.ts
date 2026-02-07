@@ -1,28 +1,15 @@
-import { HttpClient } from "./http.js";
+import { HttpClient } from "../common/http.js";
+import { Cache } from "../common/cache.js";
+import type { CacheEntry } from "../common/cache.js";
+import { EducationType, AuthError } from "../common/types.js";
+import type { Period } from "../common/types.js";
 import {
-  parseHtml,
-  text,
-  parseTime,
-  parseWeeks,
-  parseTeacher,
-  parseWeekParity,
+  parsePeriodFromPage,
+  parseGroupButtons,
+  parseFacultyButtons,
+  parseTeacherButtons,
+  parseFullSchedule,
 } from "./parse.js";
-
-import type {
-  Faculty,
-  Group,
-  FullScheduleDay,
-  FullScheduleSlot,
-  ScheduleEntry,
-  ScheduleFilter,
-  Lesson,
-  ScheduleWeekDay,
-  TtClientOptions,
-  CacheConfig,
-} from "./types.js";
-
-import { type Period, EducationType, AuthError } from "./types.js";
-
 import {
   filterSlots,
   getMonday,
@@ -32,42 +19,40 @@ import {
   getSemesterWeeks,
   slotsToLessons,
 } from "./schedule.js";
+import type {
+  Faculty,
+  Group,
+  FullScheduleDay,
+  FullScheduleSlot,
+  ScheduleFilter,
+  Lesson,
+  ScheduleWeekDay,
+  TtClientOptions,
+  CacheConfig,
+} from "./types.js";
 
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
 
-const PERIOD_LABELS: Record<string, Period> = {
-  "осенний семестр": 1 as Period,
-  "зимняя сессия": 2 as Period,
-  "весенний семестр": 3 as Period,
-  "летняя сессия": 4 as Period,
-};
-
-export interface CacheEntry {
-  data: unknown;
-  timestamp: number;
-}
-
 export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
-  private cacheTtls: CacheConfig | null;
-  private cacheStore = new Map<string, CacheEntry>();
+  private cache: Cache | null;
 
   constructor(opts?: TtClientOptions) {
     this.educationType = opts?.educationType ?? EducationType.HigherEducation;
 
     if (opts?.cache == null) {
-      this.cacheTtls = null;
+      this.cache = null;
     } else if (typeof opts.cache === "number") {
-      this.cacheTtls = {
+      this.cache = new Cache({
         schedule: opts.cache,
         faculties: opts.cache,
         groups: opts.cache,
         currentPeriod: opts.cache,
-      };
+      });
     } else {
-      this.cacheTtls = opts.cache;
+      this.cache = new Cache(opts.cache as Record<string, number | undefined>);
     }
   }
 
@@ -75,58 +60,18 @@ export class TtClient {
     return String(this.educationType);
   }
 
-  // --- Cache helpers ---
-
-  private cacheGet(category: keyof CacheConfig, key: string): unknown | null {
-    if (!this.cacheTtls) return null;
-    const ttl = this.cacheTtls[category];
-    if (ttl == null) return null;
-
-    const entry = this.cacheStore.get(`${category}:${key}`);
-    if (!entry) return null;
-
-    if (ttl !== Infinity && Date.now() - entry.timestamp > ttl) {
-      this.cacheStore.delete(`${category}:${key}`);
-      return null;
-    }
-
-    return entry.data;
-  }
-
-  private cacheSet(
-    category: keyof CacheConfig,
-    key: string,
-    data: unknown,
-  ): void {
-    if (!this.cacheTtls) return;
-    if (this.cacheTtls[category] == null) return;
-    this.cacheStore.set(`${category}:${key}`, {
-      data,
-      timestamp: Date.now(),
-    });
-  }
+  // --- Cache ---
 
   clearCache(category?: keyof CacheConfig): void {
-    if (!category) {
-      this.cacheStore.clear();
-      return;
-    }
-    const prefix = `${category}:`;
-    for (const key of this.cacheStore.keys()) {
-      if (key.startsWith(prefix)) {
-        this.cacheStore.delete(key);
-      }
-    }
+    this.cache?.clear(category);
   }
 
   exportCache(): Record<string, CacheEntry> {
-    return Object.fromEntries(this.cacheStore);
+    return this.cache?.export() ?? {};
   }
 
   importCache(data: Record<string, CacheEntry>): void {
-    for (const [key, entry] of Object.entries(data)) {
-      this.cacheStore.set(key, entry);
-    }
+    this.cache?.import(data);
   }
 
   // --- Auth ---
@@ -167,7 +112,7 @@ export class TtClient {
     period?: Period;
   }): Promise<FullScheduleDay[]> {
     const cacheKey = `${opts.groupId}:${opts.period ?? 0}`;
-    const cached = this.cacheGet("schedule", cacheKey);
+    const cached = this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
     const url = `${BASE}/index/grouptt/gr/${opts.groupId}`;
@@ -180,7 +125,7 @@ export class TtClient {
     }
 
     const data = parseFullSchedule(body);
-    this.cacheSet("schedule", cacheKey, data);
+    this.cache?.set("schedule", cacheKey, data);
     return data;
   }
 
@@ -296,7 +241,6 @@ export class TtClient {
       date.setDate(mondayDate.getDate() + i);
       date.setHours(0, 0, 0, 0);
 
-      // weekday: 1=Mon, 2=Tue, ..., 6=Sat, 0=Sun
       const weekday = i === 6 ? 0 : i + 1;
       const slots = await this.getFilteredSlots({
         groupId: opts.groupId,
@@ -338,15 +282,15 @@ export class TtClient {
 
   async getCurrentPeriod(opts: { groupId: number }): Promise<Period | null> {
     const cacheKey = String(opts.groupId);
-    const cached = this.cacheGet("currentPeriod", cacheKey);
-    if (cached !== null) return cached as Period;
+    const cached = this.cache?.get("currentPeriod", cacheKey);
+    if (cached != null) return cached as Period;
 
     const { body } = await this.http.get(
       `${BASE}/index/grouptt/gr/${opts.groupId}`,
     );
     const period = parsePeriodFromPage(body);
     if (period !== null) {
-      this.cacheSet("currentPeriod", cacheKey, period);
+      this.cache?.set("currentPeriod", cacheKey, period);
     }
     return period;
   }
@@ -354,36 +298,26 @@ export class TtClient {
   // --- Search / Discovery ---
 
   async getFaculties(): Promise<Faculty[]> {
-    const cached = this.cacheGet("faculties", "all");
+    const cached = this.cache?.get("faculties", "all");
     if (cached) return cached as Faculty[];
 
     const { body } = await this.http.get(`${BASE}/`);
-    const doc = parseHtml(body);
-    const faculties: Faculty[] = [];
-
-    for (const btn of doc.querySelectorAll(".facbut")) {
-      const onclick = btn.getAttribute("onClick") ?? "";
-      const idMatch = onclick.match(/val\((\d+)\)/);
-      if (idMatch) {
-        faculties.push({ id: parseInt(idMatch[1]), name: text(btn) });
-      }
-    }
-
-    this.cacheSet("faculties", "all", faculties);
-    return faculties;
+    const data = parseFacultyButtons(body);
+    this.cache?.set("faculties", "all", data);
+    return data;
   }
 
   async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
     const cacheKey = String(opts.facultyId);
-    const cached = this.cacheGet("groups", cacheKey);
+    const cached = this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
     const { body } = await this.http.post(`${BASE}/`, {
       hfac: String(opts.facultyId),
       pertt: this.pertt,
     });
-    const data = parseGroupButtons(parseHtml(body));
-    this.cacheSet("groups", cacheKey, data);
+    const data = parseGroupButtons(body);
+    this.cache?.set("groups", cacheKey, data);
     return data;
   }
 
@@ -394,7 +328,7 @@ export class TtClient {
       hfac: "0",
       pertt: this.pertt,
     });
-    return parseGroupButtons(parseHtml(body));
+    return parseGroupButtons(body);
   }
 
   async searchTeacher(opts: {
@@ -406,128 +340,6 @@ export class TtClient {
       hfac: "0",
       pertt: this.pertt,
     });
-    const doc = parseHtml(body);
-    const results: { id: number; name: string }[] = [];
-
-    for (const btn of doc.querySelectorAll(".techbut")) {
-      const onclick = btn.getAttribute("onClick") ?? "";
-      const idMatch = onclick.match(/val\((\d+)\)/);
-      if (idMatch) {
-        results.push({
-          id: parseInt(idMatch[1]),
-          name: btn.getAttribute("value") ?? text(btn),
-        });
-      }
-    }
-
-    return results;
+    return parseTeacherButtons(body);
   }
-}
-
-// --- Internal parsing ---
-
-function parsePeriodFromPage(html: string): Period | null {
-  const match = html.match(/идет\s+(.+?)\s*</i);
-  if (!match) return null;
-  const label = match[1].toLowerCase().trim();
-  return PERIOD_LABELS[label] ?? null;
-}
-
-function parseGroupButtons(doc: Document): Group[] {
-  const groups: Group[] = [];
-  for (const btn of doc.querySelectorAll("button[id^='gr']")) {
-    const onclick = btn.getAttribute("onClick") ?? "";
-    const idMatch = onclick.match(/val\((\d+)\)/);
-    if (idMatch) {
-      groups.push({
-        id: parseInt(idMatch[1]),
-        name: btn.getAttribute("value") ?? text(btn),
-      });
-    }
-  }
-  return groups;
-}
-
-function parseFullSchedule(html: string): FullScheduleDay[] {
-  const doc = parseHtml(html);
-  const days: FullScheduleDay[] = [];
-
-  const rows = doc.querySelectorAll("tr");
-  let currentDay: FullScheduleDay | null = null;
-
-  for (const row of rows) {
-    const style = row.getAttribute("style") ?? "";
-    const cls = row.getAttribute("class") ?? "";
-
-    if (style.includes("lightgray") && cls.includes("trfd")) {
-      const dayName = text(row.querySelector("td"));
-      if (dayName) {
-        currentDay = { weekday: dayName, slots: [] };
-        days.push(currentDay);
-      }
-      continue;
-    }
-
-    if (!currentDay) continue;
-
-    const timeCell = row.querySelector("td.trf");
-    const dataCell = row.querySelector("td.trdata:not(.trf)");
-    if (!timeCell || !dataCell) continue;
-
-    const timeDiv = timeCell.querySelector(".trfd");
-    if (!timeDiv) continue;
-
-    const timeText = text(timeDiv);
-    const numberMatch = timeText.match(/(\d+)\s*пара/);
-    const timeMatch = timeText.match(/\((\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})\)/);
-    if (!numberMatch) continue;
-
-    const entries: ScheduleEntry[] = [];
-    for (const entryRow of dataCell.querySelectorAll("table tr")) {
-      const entry = parseScheduleEntry(entryRow);
-      if (entry) entries.push(entry);
-    }
-
-    currentDay.slots.push({
-      number: parseInt(numberMatch[1]),
-      timeStart: parseTime(timeMatch?.[1] ?? "00:00"),
-      timeEnd: parseTime(timeMatch?.[2] ?? "00:00"),
-      entries,
-    });
-  }
-
-  return days;
-}
-
-function parseScheduleEntry(el: Element): ScheduleEntry | null {
-  const td = el.querySelector("td") ?? el;
-  const fullHtml = td.innerHTML ?? "";
-  const plainText = text(td);
-
-  if (!plainText) return null;
-
-  const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
-  if (!subject) return null;
-
-  const typeMatch = plainText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  const weeksMatch = plainText.match(/\(([^)]*нед\.?[^)]*)\)/);
-  const roomMatch = fullHtml.match(
-    /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
-  );
-  const teacherMatch = fullHtml.match(
-    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<i|$)/,
-  );
-  const subgroupMatch = plainText.match(/(\d+)\s*подгруппа/);
-  const weekParity = parseWeekParity(fullHtml);
-
-  return {
-    room: roomMatch?.[1] ?? "",
-    subject,
-    type: typeMatch?.[1] ?? "",
-    weeks: parseWeeks(weeksMatch?.[1] ?? ""),
-    teacher: parseTeacher(teacherMatch?.[1] ?? ""),
-    subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-    weekParity,
-  };
 }

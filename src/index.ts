@@ -1,6 +1,6 @@
-export { LkClient } from "./lk.js";
-export { TtClient } from "./tt.js";
-export type { CacheEntry } from "./tt.js";
+export { LkClient } from "./lk/client.js";
+export { TtClient } from "./tt/client.js";
+export type { CacheEntry } from "./common/cache.js";
 export {
   getSemesterStart,
   getSemesterWeeks,
@@ -8,13 +8,17 @@ export {
   getWeekdayName,
   filterSlots,
   slotsToLessons,
-} from "./schedule.js";
-export { Period, EducationType, AuthError, ParseError } from "./types.js";
+} from "./tt/schedule.js";
+export { Period, EducationType, AuthError, ParseError } from "./common/types.js";
 export type {
-  PersonalData,
   Time,
   WeekRange,
   Teacher,
+} from "./common/types.js";
+export type {
+  PersonalData,
+} from "./lk/types.js";
+export type {
   Faculty,
   Group,
   ScheduleEntry,
@@ -28,4 +32,4 @@ export type {
   SemesterWeek,
   TtClientOptions,
   CacheConfig,
-} from "./types.js";
+} from "./tt/types.js";

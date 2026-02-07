@@ -6,7 +6,7 @@ import type {
   Lesson,
   LessonTime,
 } from "./types.js";
-import { Period } from "./types.js";
+import { Period } from "../common/types.js";
 
 const WEEKDAY_NAMES = [
   "Воскресенье",
