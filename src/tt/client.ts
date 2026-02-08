@@ -1,4 +1,4 @@
-import { HttpClient } from "../common/http.js";
+import { HttpClient, type HttpResponse } from "../common/http.js";
 import { Cache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
 import { EducationType, AuthError, Period } from "../common/types.js";
@@ -36,6 +36,10 @@ export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
   private cache: Cache | null;
+  private loginMode:
+    | { type: "credentials"; email: string; password: string }
+    | { type: "guest" }
+    | null = null;
 
   constructor(opts?: TtClientOptions) {
     this.educationType = opts?.educationType ?? EducationType.HigherEducation;
@@ -89,6 +93,7 @@ export class TtClient {
     if (res.status !== 302) {
       throw new AuthError("TT login failed");
     }
+    this.loginMode = { type: "credentials", ...opts };
   }
 
   async loginAsGuest(): Promise<void> {
@@ -100,6 +105,41 @@ export class TtClient {
     if (res.status !== 302) {
       throw new AuthError("TT guest login failed");
     }
+    this.loginMode = { type: "guest" };
+  }
+
+  private isSessionExpired(body: string): boolean {
+    return body.includes('name="wname"');
+  }
+
+  private async relogin(): Promise<void> {
+    if (!this.loginMode) return;
+    if (this.loginMode.type === "credentials") {
+      await this.login(this.loginMode);
+    } else {
+      await this.loginAsGuest();
+    }
+  }
+
+  private async authGet(url: string): Promise<HttpResponse> {
+    const res = await this.http.get(url);
+    if (this.loginMode && this.isSessionExpired(res.body)) {
+      await this.relogin();
+      return this.http.get(url);
+    }
+    return res;
+  }
+
+  private async authPost(
+    url: string,
+    data: Record<string, string>,
+  ): Promise<HttpResponse> {
+    const res = await this.http.post(url, data);
+    if (this.loginMode && this.isSessionExpired(res.body)) {
+      await this.relogin();
+      return this.http.post(url, data);
+    }
+    return res;
   }
 
   // --- Schedule ---
@@ -116,9 +156,9 @@ export class TtClient {
 
     let body: string;
     if (opts.period !== undefined) {
-      ({ body } = await this.http.post(url, { htype: String(opts.period) }));
+      ({ body } = await this.authPost(url, { htype: String(opts.period) }));
     } else {
-      ({ body } = await this.http.get(url));
+      ({ body } = await this.authGet(url));
     }
 
     const data = parseFullSchedule(body);
@@ -293,7 +333,7 @@ export class TtClient {
     const cached = this.cache?.get("faculties", "all");
     if (cached) return cached as Faculty[];
 
-    const { body } = await this.http.get(`${BASE}/`);
+    const { body } = await this.authGet(`${BASE}/`);
     const data = parseFacultyButtons(body);
     this.cache?.set("faculties", "all", data);
     return data;
@@ -304,7 +344,7 @@ export class TtClient {
     const cached = this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
-    const { body } = await this.http.post(`${BASE}/`, {
+    const { body } = await this.authPost(`${BASE}/`, {
       hfac: String(opts.facultyId),
       pertt: this.pertt,
     });
@@ -314,7 +354,7 @@ export class TtClient {
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
-    const { body } = await this.http.post(`${BASE}/`, {
+    const { body } = await this.authPost(`${BASE}/`, {
       grname: opts.name,
       findgr: "найти",
       hfac: "0",
@@ -326,7 +366,7 @@ export class TtClient {
   async searchTeacher(opts: {
     name: string;
   }): Promise<{ id: number; name: string }[]> {
-    const { body } = await this.http.post(`${BASE}/`, {
+    const { body } = await this.authPost(`${BASE}/`, {
       techname: opts.name,
       findtech: "найти",
       hfac: "0",
