@@ -124,6 +124,11 @@ export class TtClient {
       ({ body } = await this.http.get(url));
     }
 
+    const period = parsePeriodFromPage(body);
+    if (period !== null) {
+      this.cache?.set("currentPeriod", String(opts.groupId), period);
+    }
+
     const data = parseFullSchedule(body);
     this.cache?.set("schedule", cacheKey, data);
     return data;

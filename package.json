@@ -11,13 +11,28 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsc",
-    "test": "node --loader ts-node/esm test.ts"
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "pnpm clean && tsc",
+    "prepublishOnly": "pnpm build"
   },
-  "keywords": ["chuvsu", "chuvash-university", "schedule", "parser"],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "chuvsu",
+    "chuvash-university",
+    "schedule",
+    "parser"
+  ],
+  "author": "Artemy Egorov",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artegoser/chuvsu-js.git"
+  },
+  "license": "MIT",
   "packageManager": "pnpm@10.28.1",
   "dependencies": {
     "linkedom": "^0.18.12",
