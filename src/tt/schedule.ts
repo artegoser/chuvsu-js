@@ -26,7 +26,7 @@ export function filterSlots(
   slots: FullScheduleSlot[],
   filter?: ScheduleFilter,
 ): FullScheduleSlot[] {
-  if (!filter?.subgroup && !filter?.week) return slots;
+  if (filter?.subgroup == null && filter?.week == null) return slots;
 
   return slots
     .map((slot) => ({
@@ -44,7 +44,7 @@ function filterEntries(
     if (filter?.subgroup && e.subgroup && e.subgroup !== filter.subgroup) {
       return false;
     }
-    if (filter?.week) {
+    if (filter?.week != null) {
       if (
         e.weeks.from > 0 &&
         (filter.week < e.weeks.from || filter.week > e.weeks.to)
@@ -125,11 +125,7 @@ export function getSemesterWeeks(opts: {
 /**
  * Get the current week number within a semester.
  */
-export function getWeekNumber(opts: {
-  period: Period;
-  date?: Date;
-  year?: number;
-}): number {
+export function getWeekNumber(opts: { period: Period; date?: Date }): number {
   const date = opts.date ?? new Date();
   const semesterStart = getSemesterStart(opts);
   const startMonday = getMonday(semesterStart);
@@ -138,13 +134,19 @@ export function getWeekNumber(opts: {
   return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
 }
 
-function makeLessonTime(date: Date, time: { hours: number; minutes: number }): LessonTime {
+function makeLessonTime(
+  date: Date,
+  time: { hours: number; minutes: number },
+): LessonTime {
   const d = new Date(date);
   d.setHours(time.hours, time.minutes, 0, 0);
   return { date: d, hours: time.hours, minutes: time.minutes };
 }
 
-export function slotsToLessons(slots: FullScheduleSlot[], date: Date): Lesson[] {
+export function slotsToLessons(
+  slots: FullScheduleSlot[],
+  date: Date,
+): Lesson[] {
   const lessons: Lesson[] = [];
   for (const slot of slots) {
     for (const entry of slot.entries) {

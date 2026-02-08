@@ -1,10 +1,8 @@
 import { HttpClient } from "../common/http.js";
 import { Cache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
-import { EducationType, AuthError } from "../common/types.js";
-import type { Period } from "../common/types.js";
+import { EducationType, AuthError, Period } from "../common/types.js";
 import {
-  parsePeriodFromPage,
   parseGroupButtons,
   parseFacultyButtons,
   parseTeacherButtons,
@@ -49,7 +47,6 @@ export class TtClient {
         schedule: opts.cache,
         faculties: opts.cache,
         groups: opts.cache,
-        currentPeriod: opts.cache,
       });
     } else {
       this.cache = new Cache(opts.cache as Record<string, number | undefined>);
@@ -124,11 +121,6 @@ export class TtClient {
       ({ body } = await this.http.get(url));
     }
 
-    const period = parsePeriodFromPage(body);
-    if (period !== null) {
-      this.cache?.set("currentPeriod", String(opts.groupId), period);
-    }
-
     const data = parseFullSchedule(body);
     this.cache?.set("schedule", cacheKey, data);
     return data;
@@ -162,7 +154,9 @@ export class TtClient {
       const startMonday = getMonday(semesterStart);
       const date = new Date(startMonday);
       date.setDate(
-        startMonday.getDate() + week * 7 + (weekday === 0 ? 6 : weekday - 1),
+        startMonday.getDate() +
+          (week - 1) * 7 +
+          (weekday === 0 ? 6 : weekday - 1),
       );
       return date;
     }
@@ -181,10 +175,7 @@ export class TtClient {
     filter?: ScheduleFilter;
     period?: Period;
   }): Promise<Lesson[]> {
-    const period =
-      opts.period ??
-      (await this.getCurrentPeriod({ groupId: opts.groupId })) ??
-      (1 as Period);
+    const period = opts.period ?? this.getCurrentPeriod();
     const slots = await this.getFilteredSlots({
       groupId: opts.groupId,
       weekday: opts.weekday,
@@ -202,15 +193,14 @@ export class TtClient {
   async getScheduleForDate(opts: {
     groupId: number;
     date: Date;
-    filter?: ScheduleFilter;
+    subgroup?: number;
     period?: Period;
   }): Promise<Lesson[]> {
     const weekday = opts.date.getDay();
-    const period =
-      opts.period ?? (await this.getCurrentPeriod({ groupId: opts.groupId }));
+    const period = opts.period ?? this.getCurrentPeriod({ date: opts.date });
 
-    const effectiveFilter: ScheduleFilter = { ...opts.filter };
-    if (period && !effectiveFilter.week) {
+    const effectiveFilter: ScheduleFilter = { subgroup: opts.subgroup };
+    if (effectiveFilter.week == null) {
       effectiveFilter.week = getWeekNumber({ period, date: opts.date });
     }
 
@@ -218,7 +208,7 @@ export class TtClient {
       groupId: opts.groupId,
       weekday,
       filter: effectiveFilter,
-      period: period ?? undefined,
+      period,
     });
     return slotsToLessons(slots, opts.date);
   }
@@ -229,10 +219,7 @@ export class TtClient {
     filter?: ScheduleFilter;
     period?: Period;
   }): Promise<ScheduleWeekDay[]> {
-    const period =
-      opts.period ??
-      (await this.getCurrentPeriod({ groupId: opts.groupId })) ??
-      (1 as Period);
+    const period = opts.period ?? this.getCurrentPeriod();
     const week = opts.week ?? getWeekNumber({ period });
 
     const effectiveFilter: ScheduleFilter = { ...opts.filter, week };
@@ -261,13 +248,13 @@ export class TtClient {
 
   async getCurrentLesson(opts: {
     groupId: number;
-    filter?: ScheduleFilter;
+    subgroup?: number;
   }): Promise<Lesson | null> {
     const now = new Date();
     const lessons = await this.getScheduleForDate({
       groupId: opts.groupId,
       date: now,
-      filter: opts.filter,
+      subgroup: opts.subgroup,
     });
 
     const timeMinutes = now.getHours() * 60 + now.getMinutes();
@@ -285,19 +272,19 @@ export class TtClient {
 
   // --- Period ---
 
-  async getCurrentPeriod(opts: { groupId: number }): Promise<Period | null> {
-    const cacheKey = String(opts.groupId);
-    const cached = this.cache?.get("currentPeriod", cacheKey);
-    if (cached != null) return cached as Period;
+  getCurrentPeriod(opts?: { date?: Date }): Period {
+    const date = opts?.date ?? new Date();
+    const month = date.getMonth();
+    const day = date.getDate();
 
-    const { body } = await this.http.get(
-      `${BASE}/index/grouptt/gr/${opts.groupId}`,
-    );
-    const period = parsePeriodFromPage(body);
-    if (period !== null) {
-      this.cache?.set("currentPeriod", cacheKey, period);
-    }
-    return period;
+    // Dec 25+ and Jan → Winter session (зимняя сессия)
+    if (month === 0 || (month === 11 && day >= 25)) return Period.WinterSession;
+    // Feb–May → Spring semester (весенний семестр)
+    if (month >= 1 && month <= 4) return Period.SpringSemester;
+    // Jun–Aug → Summer session (летняя сессия)
+    if (month >= 5 && month <= 7) return Period.SummerSession;
+    // Sep – Dec 24 → Fall semester (осенний семестр)
+    return Period.FallSemester;
   }
 
   // --- Search / Discovery ---

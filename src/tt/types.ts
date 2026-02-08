@@ -79,7 +79,6 @@ export interface CacheConfig {
   schedule?: number;
   faculties?: number;
   groups?: number;
-  currentPeriod?: number;
 }
 
 export interface TtClientOptions {
