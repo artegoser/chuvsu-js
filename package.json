@@ -1,6 +1,6 @@
 {
   "name": "chuvsu-js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node.js library for ChuvSU student portal (lk.chuvsu.ru) and schedule (tt.chuvsu.ru)",
   "type": "module",
   "main": "dist/index.js",
@@ -9,6 +9,10 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./browser": {
+      "import": "./dist/browser.js",
+      "types": "./dist/browser.d.ts"
     }
   },
   "files": [
