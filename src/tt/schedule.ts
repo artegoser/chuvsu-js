@@ -19,16 +19,16 @@ import {
 
 export class Schedule {
   readonly groupId: number;
-  private scheduleMap: Map<number, FullScheduleDay[]>;
+  readonly scheduleMap: Map<number, FullScheduleDay[]>;
   private _period?: Period;
 
   constructor(
     groupId: number,
-    schedules: Map<number, FullScheduleDay[]>,
+    scheduleMap: Map<number, FullScheduleDay[]>,
     period?: Period,
   ) {
     this.groupId = groupId;
-    this.scheduleMap = schedules;
+    this.scheduleMap = scheduleMap;
     this._period = period;
   }
 
@@ -105,9 +105,7 @@ export class Schedule {
     days: FullScheduleDay[],
     date: Date,
   ): Lesson[] {
-    const day = days.find(
-      (d) => d.date && Schedule.isSameDay(d.date, date),
-    );
+    const day = days.find((d) => d.date && Schedule.isSameDay(d.date, date));
     if (!day) return [];
     return slotsToLessons(day.slots, date);
   }
