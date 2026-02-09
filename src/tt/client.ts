@@ -8,23 +8,11 @@ import {
   parseTeacherButtons,
   parseFullSchedule,
 } from "./parse.js";
-import {
-  filterSlots,
-  getMonday,
-  getWeekdayName,
-  getWeekNumber,
-  getSemesterStart,
-  getSemesterWeeks,
-  slotsToLessons,
-} from "./schedule.js";
+import { Schedule } from "./schedule.js";
 import type {
   Faculty,
   Group,
   FullScheduleDay,
-  FullScheduleSlot,
-  ScheduleFilter,
-  Lesson,
-  ScheduleWeekDay,
   TtClientOptions,
   CacheConfig,
 } from "./types.js";
@@ -144,170 +132,32 @@ export class TtClient {
 
   // --- Schedule ---
 
-  async getGroupSchedule(opts: {
+  async getSchedule(opts: {
     groupId: number;
     period?: Period;
-  }): Promise<FullScheduleDay[]> {
-    const cacheKey = `${opts.groupId}:${opts.period ?? 0}`;
+  }): Promise<Schedule> {
+    const period = opts.period ?? this.getCurrentPeriod();
+    const cacheKey = `${opts.groupId}:${period}`;
     const cached = this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as FullScheduleDay[];
 
-    const url = `${BASE}/index/grouptt/gr/${opts.groupId}`;
-
-    let body: string;
-    if (opts.period !== undefined) {
-      ({ body } = await this.authPost(url, { htype: String(opts.period) }));
+    let days: FullScheduleDay[];
+    if (cached) {
+      days = cached as FullScheduleDay[];
     } else {
-      ({ body } = await this.authGet(url));
-    }
+      const url = `${BASE}/index/grouptt/gr/${opts.groupId}`;
 
-    const data = parseFullSchedule(body);
-    this.cache?.set("schedule", cacheKey, data);
-    return data;
-  }
-
-  private async getFilteredSlots(opts: {
-    groupId: number;
-    weekday: number;
-    filter?: ScheduleFilter;
-    period?: Period;
-  }): Promise<FullScheduleSlot[]> {
-    const schedule = await this.getGroupSchedule({
-      groupId: opts.groupId,
-      period: opts.period,
-    });
-    const dayName = getWeekdayName(opts.weekday);
-    const day = schedule.find(
-      (d) => d.weekday.toLowerCase() === dayName.toLowerCase(),
-    );
-    if (!day) return [];
-    return filterSlots(day.slots, opts.filter);
-  }
-
-  private getDateForWeekday(
-    weekday: number,
-    period: Period,
-    week?: number,
-  ): Date {
-    if (week != null) {
-      const semesterStart = getSemesterStart({ period });
-      const startMonday = getMonday(semesterStart);
-      const date = new Date(startMonday);
-      date.setDate(
-        startMonday.getDate() +
-          (week - 1) * 7 +
-          (weekday === 0 ? 6 : weekday - 1),
-      );
-      return date;
-    }
-    const now = new Date();
-    const currentDay = now.getDay();
-    const diff = weekday - currentDay;
-    const date = new Date(now);
-    date.setDate(now.getDate() + diff);
-    date.setHours(0, 0, 0, 0);
-    return date;
-  }
-
-  async getScheduleForDay(opts: {
-    groupId: number;
-    weekday: number;
-    filter?: ScheduleFilter;
-    period?: Period;
-  }): Promise<Lesson[]> {
-    const period = opts.period ?? this.getCurrentPeriod();
-    const slots = await this.getFilteredSlots({
-      groupId: opts.groupId,
-      weekday: opts.weekday,
-      filter: opts.filter,
-      period,
-    });
-    const date = this.getDateForWeekday(
-      opts.weekday,
-      period,
-      opts.filter?.week,
-    );
-    return slotsToLessons(slots, date);
-  }
-
-  async getScheduleForDate(opts: {
-    groupId: number;
-    date: Date;
-    subgroup?: number;
-    period?: Period;
-  }): Promise<Lesson[]> {
-    const weekday = opts.date.getDay();
-    const period = opts.period ?? this.getCurrentPeriod({ date: opts.date });
-
-    const effectiveFilter: ScheduleFilter = { subgroup: opts.subgroup };
-    if (effectiveFilter.week == null) {
-      effectiveFilter.week = getWeekNumber({ period, date: opts.date });
-    }
-
-    const slots = await this.getFilteredSlots({
-      groupId: opts.groupId,
-      weekday,
-      filter: effectiveFilter,
-      period,
-    });
-    return slotsToLessons(slots, opts.date);
-  }
-
-  async getScheduleForWeek(opts: {
-    groupId: number;
-    week?: number;
-    filter?: ScheduleFilter;
-    period?: Period;
-  }): Promise<ScheduleWeekDay[]> {
-    const period = opts.period ?? this.getCurrentPeriod();
-    const week = opts.week ?? getWeekNumber({ period });
-
-    const effectiveFilter: ScheduleFilter = { ...opts.filter, week };
-    const semesterWeeks = getSemesterWeeks({ period, weekCount: week });
-    const weekData = semesterWeeks.find((w) => w.week === week);
-    const mondayDate = weekData ? weekData.start : new Date();
-
-    const result: ScheduleWeekDay[] = [];
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(mondayDate);
-      date.setDate(mondayDate.getDate() + i);
-      date.setHours(0, 0, 0, 0);
-
-      const weekday = i === 6 ? 0 : i + 1;
-      const slots = await this.getFilteredSlots({
-        groupId: opts.groupId,
-        weekday,
-        filter: effectiveFilter,
-        period,
-      });
-
-      result.push({ date, lessons: slotsToLessons(slots, date) });
-    }
-    return result;
-  }
-
-  async getCurrentLesson(opts: {
-    groupId: number;
-    subgroup?: number;
-  }): Promise<Lesson | null> {
-    const now = new Date();
-    const lessons = await this.getScheduleForDate({
-      groupId: opts.groupId,
-      date: now,
-      subgroup: opts.subgroup,
-    });
-
-    const timeMinutes = now.getHours() * 60 + now.getMinutes();
-
-    for (const lesson of lessons) {
-      const start = lesson.start.hours * 60 + lesson.start.minutes;
-      const end = lesson.end.hours * 60 + lesson.end.minutes;
-      if (timeMinutes >= start && timeMinutes <= end) {
-        return lesson;
+      let body: string;
+      if (opts.period !== undefined) {
+        ({ body } = await this.authPost(url, { htype: String(opts.period) }));
+      } else {
+        ({ body } = await this.authGet(url));
       }
+
+      days = parseFullSchedule(body);
+      this.cache?.set("schedule", cacheKey, days);
     }
 
-    return null;
+    return new Schedule(opts.groupId, period, days);
   }
 
   // --- Period ---

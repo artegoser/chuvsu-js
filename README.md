@@ -5,8 +5,6 @@ Node.js библиотека для работы с порталами ЧувГ�
 - **tt.chuvsu.ru** — расписание занятий (факультеты, группы, преподаватели)
 - **lk.chuvsu.ru** — личный кабинет студента (персональные данные)
 
-Пока что очень сырая, много что можно оптимизировать.
-
 ## Установка
 
 ```bash
@@ -27,19 +25,30 @@ await tt.loginAsGuest();
 
 // Найти группу по названию
 const groups = await tt.searchGroup({ name: "КТ-41-24" });
-console.log(groups); // [{ id: 123, name: "КТ-41-24", specialty: "...", profile: "..." }]
+console.log(groups); // [{ id: 8919, name: "КТ-41-24", specialty: "...", profile: "..." }]
 
-// Получить расписание на сегодня
-const lessons = await tt.getScheduleForDate({
-  groupId: groups[0].id,
-  date: new Date(),
-});
+// Получить расписание группы
+const schedule = await tt.getSchedule({ groupId: groups[0].id });
 
-for (const lesson of lessons) {
+// Расписание на сегодня
+const today = schedule.today();
+for (const lesson of today) {
   console.log(
     `${lesson.start.hours}:${lesson.start.minutes} — ${lesson.subject} (${lesson.type})`,
   );
 }
+
+// С фильтром по подгруппе
+schedule.today({ subgroup: 1 });
+
+// На завтра
+schedule.tomorrow();
+
+// На текущую неделю
+schedule.thisWeek();
+
+// Текущая пара
+schedule.currentLesson();
 ```
 
 ### Личный кабинет (LkClient)
@@ -84,30 +93,13 @@ await tt.login({ email: "...", password: "..." });
 await tt.loginAsGuest();
 ```
 
-#### Расписание
+#### Получение расписания
 
 ```ts
-// Полное расписание группы (все дни, все слоты)
-const schedule = await tt.getGroupSchedule({ groupId, period? });
-
-// Расписание на конкретную дату
-const lessons = await tt.getScheduleForDate({ groupId, date, filter?, period? });
-
-// Расписание на день недели (0 = воскресенье, 1 = понедельник, ...)
-const lessons = await tt.getScheduleForDay({ groupId, weekday, filter?, period? });
-
-// Расписание на неделю
-const week = await tt.getScheduleForWeek({ groupId, week?, filter?, period? });
-
-// Текущая пара
-const lesson = await tt.getCurrentLesson({ groupId, filter? });
+const schedule = await tt.getSchedule({ groupId, period? });
 ```
 
-**ScheduleFilter** — фильтрация по подгруппе и/или неделе:
-
-```ts
-{ subgroup?: number; week?: number }
-```
+Возвращает объект `Schedule`, который позволяет получать расписание локально, без дополнительных запросов к серверу.
 
 #### Поиск
 
@@ -125,6 +117,13 @@ const groups = await tt.searchGroup({ name: "ЗИ" });
 const teachers = await tt.searchTeacher({ name: "Иванов" });
 ```
 
+#### Период
+
+```ts
+// Текущий учебный период
+const period = tt.getCurrentPeriod();
+```
+
 #### Кеш
 
 ```ts
@@ -137,9 +136,70 @@ const data = tt.exportCache();
 tt.importCache(data);
 ```
 
-Категории кеша: `schedule`, `faculties`, `groups`, `currentPeriod`.
+Категории кеша: `schedule`, `faculties`, `groups`.
+
+### Schedule
+
+Объект расписания группы. Все методы синхронные — данные уже загружены.
+
+#### Свойства
+
+```ts
+schedule.groupId; // ID группы
+schedule.period; // Учебный период
+schedule.days; // Сырые данные (FullScheduleDay[])
+```
+
+#### Расписание по дате
+
+```ts
+// На сегодня
+schedule.today({ subgroup?: number });
+
+// На завтра
+schedule.tomorrow({ subgroup?: number });
+
+// На конкретную дату
+schedule.forDate(date: Date, { subgroup?: number });
+```
+
+#### Расписание по неделе
+
+```ts
+// На текущую неделю
+schedule.thisWeek({ subgroup?: number });
+
+// На конкретную неделю
+schedule.forWeek(week?: number, { subgroup?: number });
+```
+
+#### Расписание по дню недели
+
+```ts
+// По дню недели (0 = воскресенье, 1 = понедельник, ...)
+schedule.forDay(weekday: number, { subgroup?: number, week?: number });
+```
+
+#### Текущая пара
+
+```ts
+const lesson = schedule.currentLesson({ subgroup?: number });
+```
 
 #### Утилиты семестра
+
+```ts
+// Номер текущей недели
+schedule.getWeekNumber(date?: Date);
+
+// Все недели семестра
+schedule.getSemesterWeeks(weekCount?: number);
+
+// Начало семестра
+schedule.getSemesterStart();
+```
+
+Утилиты также доступны как standalone функции:
 
 ```ts
 import {
@@ -149,13 +209,8 @@ import {
   Period,
 } from "chuvsu-js";
 
-// Начало семестра
 getSemesterStart({ period: Period.FallSemester, year: 2025 });
-
-// Все недели семестра
 getSemesterWeeks({ period: Period.SpringSemester });
-
-// Номер текущей недели
 getWeekNumber({ period: Period.SpringSemester });
 ```
 

@@ -59,16 +59,6 @@ export interface Lesson {
   weekParity?: "even" | "odd";
 }
 
-export interface ScheduleWeekDay {
-  date: Date;
-  lessons: Lesson[];
-}
-
-export interface ScheduleFilter {
-  subgroup?: number;
-  week?: number;
-}
-
 export interface SemesterWeek {
   week: number;
   start: Date;
