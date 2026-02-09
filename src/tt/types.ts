@@ -31,6 +31,7 @@ export interface FullScheduleSlot {
 
 export interface FullScheduleDay {
   weekday: string;
+  date?: Date;
   slots: FullScheduleSlot[];
 }
 

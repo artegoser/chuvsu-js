@@ -1,5 +1,7 @@
 export { Schedule } from "./tt/schedule.js";
 export {
+  getCurrentPeriod,
+  isSessionPeriod,
   getSemesterStart,
   getSemesterWeeks,
   getWeekNumber,

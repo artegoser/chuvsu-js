@@ -3,6 +3,8 @@ export { TtClient } from "./tt/client.js";
 export { Schedule } from "./tt/schedule.js";
 export type { CacheEntry } from "./common/cache.js";
 export {
+  getCurrentPeriod,
+  isSessionPeriod,
   getSemesterStart,
   getSemesterWeeks,
   getWeekNumber,

@@ -6,6 +6,8 @@ import type {
 } from "./types.js";
 import { Period } from "../common/types.js";
 import {
+  getCurrentPeriod,
+  isSessionPeriod,
   getWeekdayName,
   getMonday,
   getSemesterStart,
@@ -17,30 +19,61 @@ import {
 
 export class Schedule {
   readonly groupId: number;
-  readonly period: Period;
-  readonly days: FullScheduleDay[];
+  private scheduleMap: Map<number, FullScheduleDay[]>;
+  private _period?: Period;
 
-  constructor(groupId: number, period: Period, days: FullScheduleDay[]) {
+  constructor(
+    groupId: number,
+    schedules: Map<number, FullScheduleDay[]>,
+    period?: Period,
+  ) {
     this.groupId = groupId;
-    this.period = period;
-    this.days = days;
+    this.scheduleMap = schedules;
+    this._period = period;
   }
+
+  /** Current (or fixed) period for this schedule. */
+  get period(): Period {
+    return this._period ?? getCurrentPeriod();
+  }
+
+  /** Days for the current period. */
+  get days(): FullScheduleDay[] {
+    return this.scheduleMap.get(this.period) ?? [];
+  }
+
+  /** All periods that have data in this schedule. */
+  get periods(): Period[] {
+    return [...this.scheduleMap.keys()] as Period[];
+  }
+
+  /** Get days for a specific period. */
+  getDays(period: Period): FullScheduleDay[] {
+    return this.scheduleMap.get(period) ?? [];
+  }
+
+  // --- Semester helpers (weekday-based) ---
 
   private getSlotsForWeekday(
     weekday: number,
+    days: FullScheduleDay[],
     opts?: { subgroup?: number; week?: number },
   ): FullScheduleSlot[] {
     const dayName = getWeekdayName(weekday);
-    const day = this.days.find(
+    const day = days.find(
       (d) => d.weekday.toLowerCase() === dayName.toLowerCase(),
     );
     if (!day) return [];
     return filterSlots(day.slots, opts);
   }
 
-  private getDateForWeekday(weekday: number, week?: number): Date {
+  private getDateForWeekday(
+    weekday: number,
+    period: Period,
+    week?: number,
+  ): Date {
     if (week != null) {
-      const startMonday = getMonday(getSemesterStart({ period: this.period }));
+      const startMonday = getMonday(getSemesterStart({ period }));
       const date = new Date(startMonday);
       date.setDate(
         startMonday.getDate() +
@@ -58,19 +91,77 @@ export class Schedule {
     return date;
   }
 
+  // --- Session helpers (date-based) ---
+
+  private static isSameDay(a: Date, b: Date): boolean {
+    return (
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth() === b.getMonth() &&
+      a.getDate() === b.getDate()
+    );
+  }
+
+  private getSessionLessonsForDate(
+    days: FullScheduleDay[],
+    date: Date,
+  ): Lesson[] {
+    const day = days.find(
+      (d) => d.date && Schedule.isSameDay(d.date, date),
+    );
+    if (!day) return [];
+    return slotsToLessons(day.slots, date);
+  }
+
+  // --- Public query methods ---
+
   forDay(
     weekday: number,
     opts?: { subgroup?: number; week?: number },
   ): Lesson[] {
-    const slots = this.getSlotsForWeekday(weekday, opts);
-    const date = this.getDateForWeekday(weekday, opts?.week);
+    const period = this.period;
+    const days = this.getDays(period);
+
+    if (isSessionPeriod(period)) {
+      // For sessions, return all entries on days matching this weekday
+      const lessons: Lesson[] = [];
+      const dayName = getWeekdayName(weekday);
+      for (const d of days) {
+        if (d.weekday.toLowerCase() === dayName.toLowerCase() && d.date) {
+          lessons.push(...slotsToLessons(d.slots, d.date));
+        }
+      }
+      return lessons;
+    }
+
+    const slots = this.getSlotsForWeekday(weekday, days, opts);
+    const date = this.getDateForWeekday(weekday, period, opts?.week);
     return slotsToLessons(slots, date);
   }
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
+    const period = getCurrentPeriod({ date });
+    const days = this.getDays(period);
+
+    if (isSessionPeriod(period)) {
+      const lessons = this.getSessionLessonsForDate(days, date);
+      if (lessons.length > 0) return lessons;
+    }
+
+    // Try session periods for exact date match (sessions can have entries
+    // on dates that fall outside their "official" period boundaries)
+    for (const [p, d] of this.scheduleMap) {
+      if (p === period) continue;
+      const match = d.find(
+        (day) => day.date && Schedule.isSameDay(day.date, date),
+      );
+      if (match) return slotsToLessons(match.slots, date);
+    }
+
+    if (isSessionPeriod(period)) return [];
+
     const weekday = date.getDay();
-    const week = getWeekNumber({ period: this.period, date });
-    const slots = this.getSlotsForWeekday(weekday, {
+    const week = getWeekNumber({ period, date });
+    const slots = this.getSlotsForWeekday(weekday, days, {
       subgroup: opts?.subgroup,
       week,
     });
@@ -78,9 +169,29 @@ export class Schedule {
   }
 
   forWeek(week?: number, opts?: { subgroup?: number }): Lesson[] {
-    const effectiveWeek = week ?? getWeekNumber({ period: this.period });
+    const period = this.period;
+    const days = this.getDays(period);
+
+    if (isSessionPeriod(period)) {
+      // For sessions, return all entries within this calendar week
+      const now = new Date();
+      const monday = getMonday(now);
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      sunday.setHours(23, 59, 59, 999);
+
+      const lessons: Lesson[] = [];
+      for (const d of days) {
+        if (d.date && d.date >= monday && d.date <= sunday) {
+          lessons.push(...slotsToLessons(d.slots, d.date));
+        }
+      }
+      return lessons;
+    }
+
+    const effectiveWeek = week ?? getWeekNumber({ period });
     const semesterWeeks = getSemesterWeeks({
-      period: this.period,
+      period,
       weekCount: effectiveWeek,
     });
     const weekData = semesterWeeks.find((w) => w.week === effectiveWeek);
@@ -93,7 +204,7 @@ export class Schedule {
       date.setHours(0, 0, 0, 0);
 
       const weekday = i === 6 ? 0 : i + 1;
-      const slots = this.getSlotsForWeekday(weekday, {
+      const slots = this.getSlotsForWeekday(weekday, days, {
         subgroup: opts?.subgroup,
         week: effectiveWeek,
       });

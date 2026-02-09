@@ -20,6 +20,13 @@ import type {
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
 
+const ALL_PERIODS = [
+  Period.FallSemester,
+  Period.WinterSession,
+  Period.SpringSemester,
+  Period.SummerSession,
+] as const;
+
 export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
@@ -132,49 +139,53 @@ export class TtClient {
 
   // --- Schedule ---
 
-  async getSchedule(opts: {
-    groupId: number;
-    period?: Period;
-  }): Promise<Schedule> {
-    const period = opts.period ?? this.getCurrentPeriod();
-    const cacheKey = `${opts.groupId}:${period}`;
+  private async fetchSchedule(
+    groupId: number,
+    period: Period,
+  ): Promise<FullScheduleDay[]> {
+    const cacheKey = `${groupId}:${period}`;
     const cached = this.cache?.get("schedule", cacheKey);
+    if (cached) return cached as FullScheduleDay[];
 
-    let days: FullScheduleDay[];
-    if (cached) {
-      days = cached as FullScheduleDay[];
-    } else {
-      const url = `${BASE}/index/grouptt/gr/${opts.groupId}`;
-
-      let body: string;
-      if (opts.period !== undefined) {
-        ({ body } = await this.authPost(url, { htype: String(opts.period) }));
-      } else {
-        ({ body } = await this.authGet(url));
-      }
-
-      days = parseFullSchedule(body);
-      this.cache?.set("schedule", cacheKey, days);
-    }
-
-    return new Schedule(opts.groupId, period, days);
+    const url = `${BASE}/index/grouptt/gr/${groupId}`;
+    const { body } = await this.authPost(url, { htype: String(period) });
+    const days = parseFullSchedule(body);
+    this.cache?.set("schedule", cacheKey, days);
+    return days;
   }
 
-  // --- Period ---
+  /**
+   * Get schedule for all periods. The returned Schedule automatically
+   * routes queries to the correct period based on the date.
+   */
+  async getSchedule(groupId: number): Promise<Schedule> {
+    const schedules = new Map<number, FullScheduleDay[]>();
 
-  getCurrentPeriod(opts?: { date?: Date }): Period {
-    const date = opts?.date ?? new Date();
-    const month = date.getMonth();
-    const day = date.getDate();
+    const results = await Promise.all(
+      ALL_PERIODS.map(async (period) => {
+        const days = await this.fetchSchedule(groupId, period);
+        return { period, days };
+      }),
+    );
 
-    // Dec 25+ and Jan → Winter session (зимняя сессия)
-    if (month === 0 || (month === 11 && day >= 25)) return Period.WinterSession;
-    // Feb–May → Spring semester (весенний семестр)
-    if (month >= 1 && month <= 4) return Period.SpringSemester;
-    // Jun–Aug → Summer session (летняя сессия)
-    if (month >= 5 && month <= 7) return Period.SummerSession;
-    // Sep – Dec 24 → Fall semester (осенний семестр)
-    return Period.FallSemester;
+    for (const { period, days } of results) {
+      schedules.set(period, days);
+    }
+
+    return new Schedule(groupId, schedules);
+  }
+
+  /**
+   * Get schedule for a specific period only.
+   */
+  async getScheduleForPeriod(opts: {
+    groupId: number;
+    period: Period;
+  }): Promise<Schedule> {
+    const days = await this.fetchSchedule(opts.groupId, opts.period);
+    const schedules = new Map<number, FullScheduleDay[]>();
+    schedules.set(opts.period, days);
+    return new Schedule(opts.groupId, schedules, opts.period);
   }
 
   // --- Search / Discovery ---

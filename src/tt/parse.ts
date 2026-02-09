@@ -11,6 +11,7 @@ import type {
   Faculty,
   Group,
   FullScheduleDay,
+  FullScheduleSlot,
   ScheduleEntry,
 } from "./types.js";
 
@@ -77,6 +78,18 @@ export function parseTeacherButtons(
 
 export function parseFullSchedule(html: string): FullScheduleDay[] {
   const doc = parseHtml(html);
+
+  // Session layout has date-based cells with ids like "trd20251224"
+  if (doc.querySelector('td[id^="trd2"]')) {
+    return parseSessionSchedule(doc);
+  }
+
+  return parseSemesterSchedule(doc);
+}
+
+// --- Semester schedule parsing (weekday-based, repeating weekly) ---
+
+function parseSemesterSchedule(doc: Document): FullScheduleDay[] {
   const days: FullScheduleDay[] = [];
 
   const rows = doc.querySelectorAll("tr");
@@ -111,7 +124,7 @@ export function parseFullSchedule(html: string): FullScheduleDay[] {
 
     const entries: ScheduleEntry[] = [];
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
-      const entry = parseScheduleEntry(entryRow);
+      const entry = parseSemesterEntry(entryRow);
       if (entry) entries.push(entry);
     }
 
@@ -126,7 +139,7 @@ export function parseFullSchedule(html: string): FullScheduleDay[] {
   return days;
 }
 
-function parseScheduleEntry(el: Element): ScheduleEntry | null {
+function parseSemesterEntry(el: Element): ScheduleEntry | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -156,5 +169,96 @@ function parseScheduleEntry(el: Element): ScheduleEntry | null {
     teacher: parseTeacher(teacherMatch?.[1] ?? ""),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
+  };
+}
+
+// --- Session schedule parsing (date-based, specific dates) ---
+
+function parseSessionSchedule(doc: Document): FullScheduleDay[] {
+  const days: FullScheduleDay[] = [];
+
+  for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
+    // Parse date from cell id: trd20251224 -> 2025-12-24
+    const id = dateCell.getAttribute("id") ?? "";
+    const dateMatch = id.match(/trd(\d{4})(\d{2})(\d{2})/);
+    if (!dateMatch) continue;
+
+    const year = parseInt(dateMatch[1]);
+    const month = parseInt(dateMatch[2]) - 1;
+    const dayNum = parseInt(dateMatch[3]);
+    const date = new Date(year, month, dayNum);
+
+    // Extract weekday from after <br>
+    const cellHtml = dateCell.innerHTML ?? "";
+    const brMatch = cellHtml.match(/<br\s*\/?>\s*(.+)/i);
+    const weekday = brMatch ? brMatch[1].trim() : "";
+
+    // Data cell is the next td.trdata sibling in the same row
+    const row = dateCell.parentElement;
+    if (!row) continue;
+    const dataCell = row.querySelector("td.trdata:not(.trfd)");
+    if (!dataCell) continue;
+
+    // Parse entries
+    const slots: FullScheduleSlot[] = [];
+    let slotNumber = 1;
+
+    for (const entryRow of dataCell.querySelectorAll("table tr")) {
+      const td = entryRow.querySelector("td") ?? entryRow;
+      const entry = parseSessionEntry(td);
+      if (!entry) continue;
+
+      slots.push({
+        number: slotNumber++,
+        timeStart: entry.timeStart,
+        timeEnd: entry.timeEnd,
+        entries: [entry.entry],
+      });
+    }
+
+    if (slots.length > 0) {
+      days.push({ weekday, date, slots });
+    }
+  }
+
+  return days;
+}
+
+function parseSessionEntry(
+  td: Element,
+): { entry: ScheduleEntry; timeStart: { hours: number; minutes: number }; timeEnd: { hours: number; minutes: number } } | null {
+  const fullHtml = td.innerHTML ?? "";
+  const plainText = text(td);
+  if (!plainText) return null;
+
+  // Subject from blue span
+  const subjectEl = td.querySelector('span[style*="color: blue"]');
+  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subject) return null;
+
+  // Room: text before the first <span
+  const roomMatch = fullHtml.match(/^([^<]*?)\s*<span/);
+  const room = roomMatch ? roomMatch[1].trim() : "";
+
+  // Type: parenthesized text after </span>, case-insensitive
+  const typeMatch = plainText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс\.?|Экз)\)/i);
+  const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
+
+  // Time: after <br>, format HH:MM - HH:MM
+  const timeMatch = fullHtml.match(
+    /<br\s*\/?>\s*(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})/,
+  );
+  if (!timeMatch) return null;
+
+  return {
+    entry: {
+      room,
+      subject,
+      type,
+      weeks: { from: 0, to: 0 },
+      teacher: { name: "" },
+    },
+    timeStart: parseTime(timeMatch[1]),
+    timeEnd: parseTime(timeMatch[2]),
   };
 }
