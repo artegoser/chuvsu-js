@@ -7,7 +7,7 @@ export {
   getSemesterWeeks,
   getWeekNumber,
   getWeekdayName,
-} from "./tt/schedule.js";
+} from "./tt/utils.js";
 export { Period, EducationType, AuthError, ParseError } from "./common/types.js";
 export type {
   Time,
