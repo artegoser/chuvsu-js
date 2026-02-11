@@ -6,6 +6,9 @@ export {
   getSemesterWeeks,
   getWeekNumber,
   getWeekdayName,
+  getTimeSlots,
+  getLessonNumber,
+  getAdjacentSemester,
 } from "./tt/utils.js";
 export { Period, EducationType } from "./common/types.js";
 export type {

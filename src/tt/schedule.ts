@@ -4,7 +4,7 @@ import type {
   SemesterWeek,
   Lesson,
 } from "./types.js";
-import { Period } from "../common/types.js";
+import { Period, EducationType } from "../common/types.js";
 import {
   getCurrentPeriod,
   isSessionPeriod,
@@ -13,6 +13,7 @@ import {
   getSemesterStart,
   getSemesterWeeks,
   getWeekNumber,
+  getAdjacentSemester,
   filterSlots,
   slotsToLessons,
 } from "./utils.js";
@@ -20,15 +21,18 @@ import {
 export class Schedule {
   readonly groupId: number;
   readonly scheduleMap: Map<number, FullScheduleDay[]>;
+  readonly educationType: EducationType;
   private _period?: Period;
 
   constructor(
     groupId: number,
     scheduleMap: Map<number, FullScheduleDay[]>,
     period?: Period,
+    educationType?: EducationType,
   ) {
     this.groupId = groupId;
     this.scheduleMap = scheduleMap;
+    this.educationType = educationType ?? EducationType.HigherEducation;
     this._period = period;
   }
 
@@ -101,15 +105,6 @@ export class Schedule {
     );
   }
 
-  private getSessionLessonsForDate(
-    days: FullScheduleDay[],
-    date: Date,
-  ): Lesson[] {
-    const day = days.find((d) => d.date && Schedule.isSameDay(d.date, date));
-    if (!day) return [];
-    return slotsToLessons(day.slots, date);
-  }
-
   // --- Public query methods ---
 
   forDay(
@@ -138,75 +133,60 @@ export class Schedule {
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
     const period = getCurrentPeriod({ date });
-    const days = this.getDays(period);
+    const lessons: Lesson[] = [];
 
-    if (isSessionPeriod(period)) {
-      const lessons = this.getSessionLessonsForDate(days, date);
-      if (lessons.length > 0) return lessons;
+    // 1. Check all periods for date-based (session) entries matching this date
+    for (const [, d] of this.scheduleMap) {
+      for (const day of d) {
+        if (day.date && Schedule.isSameDay(day.date, date)) {
+          lessons.push(...slotsToLessons(day.slots, date));
+        }
+      }
     }
 
-    // Try session periods for exact date match (sessions can have entries
-    // on dates that fall outside their "official" period boundaries)
-    for (const [p, d] of this.scheduleMap) {
-      if (p === period) continue;
-      const match = d.find(
-        (day) => day.date && Schedule.isSameDay(day.date, date),
-      );
-      if (match) return slotsToLessons(match.slots, date);
+    // 2. Check applicable semester for weekday-based entries
+    const semesterPeriod = isSessionPeriod(period)
+      ? getAdjacentSemester(period)
+      : period;
+
+    const semesterDays = this.getDays(semesterPeriod);
+    if (semesterDays.length > 0) {
+      const week = getWeekNumber({ period: semesterPeriod, date });
+      if (week >= 0 && week <= 17) {
+        const weekday = date.getDay();
+        const slots = this.getSlotsForWeekday(weekday, semesterDays, {
+          subgroup: opts?.subgroup,
+          week,
+        });
+        lessons.push(...slotsToLessons(slots, date));
+      }
     }
 
-    if (isSessionPeriod(period)) return [];
-
-    const weekday = date.getDay();
-    const week = getWeekNumber({ period, date });
-    const slots = this.getSlotsForWeekday(weekday, days, {
-      subgroup: opts?.subgroup,
-      week,
-    });
-    return slotsToLessons(slots, date);
+    return lessons;
   }
 
   forWeek(week?: number, opts?: { subgroup?: number }): Lesson[] {
     const period = this.period;
-    const days = this.getDays(period);
 
-    if (isSessionPeriod(period)) {
-      // For sessions, return all entries within this calendar week
-      const now = new Date();
-      const monday = getMonday(now);
-      const sunday = new Date(monday);
-      sunday.setDate(monday.getDate() + 6);
-      sunday.setHours(23, 59, 59, 999);
-
-      const lessons: Lesson[] = [];
-      for (const d of days) {
-        if (d.date && d.date >= monday && d.date <= sunday) {
-          lessons.push(...slotsToLessons(d.slots, d.date));
-        }
-      }
-      return lessons;
+    // Determine the Monday of the target week
+    let mondayDate: Date;
+    if (week != null && !isSessionPeriod(period)) {
+      const semesterWeeks = getSemesterWeeks({
+        period,
+        weekCount: week,
+      });
+      const weekData = semesterWeeks.find((w) => w.week === week);
+      mondayDate = weekData ? weekData.start : getMonday(new Date());
+    } else {
+      mondayDate = getMonday(new Date());
     }
-
-    const effectiveWeek = week ?? getWeekNumber({ period });
-    const semesterWeeks = getSemesterWeeks({
-      period,
-      weekCount: effectiveWeek,
-    });
-    const weekData = semesterWeeks.find((w) => w.week === effectiveWeek);
-    const mondayDate = weekData ? weekData.start : new Date();
 
     const lessons: Lesson[] = [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(mondayDate);
       date.setDate(mondayDate.getDate() + i);
       date.setHours(0, 0, 0, 0);
-
-      const weekday = i === 6 ? 0 : i + 1;
-      const slots = this.getSlotsForWeekday(weekday, days, {
-        subgroup: opts?.subgroup,
-        week: effectiveWeek,
-      });
-      lessons.push(...slotsToLessons(slots, date));
+      lessons.push(...this.forDate(date, opts));
     }
     return lessons;
   }

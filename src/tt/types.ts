@@ -1,4 +1,9 @@
-import type { Time, WeekRange, Teacher, EducationType } from "../common/types.js";
+import type {
+  Time,
+  WeekRange,
+  Teacher,
+  EducationType,
+} from "../common/types.js";
 
 export interface Faculty {
   id: number;

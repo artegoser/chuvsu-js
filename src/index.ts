@@ -9,6 +9,9 @@ export {
   getSemesterWeeks,
   getWeekNumber,
   getWeekdayName,
+  getTimeSlots,
+  getLessonNumber,
+  getAdjacentSemester,
 } from "./tt/utils.js";
 export { Period, EducationType, AuthError, ParseError } from "./common/types.js";
 export type {

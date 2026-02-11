@@ -149,7 +149,7 @@ export class TtClient {
 
     const url = `${BASE}/index/grouptt/gr/${groupId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseFullSchedule(body);
+    const days = parseFullSchedule(body, this.educationType);
     this.cache?.set("schedule", cacheKey, days);
     return days;
   }
@@ -172,7 +172,7 @@ export class TtClient {
       schedules.set(period, days);
     }
 
-    return new Schedule(groupId, schedules);
+    return new Schedule(groupId, schedules, undefined, this.educationType);
   }
 
   /**
@@ -185,7 +185,7 @@ export class TtClient {
     const days = await this.fetchSchedule(opts.groupId, opts.period);
     const schedules = new Map<number, FullScheduleDay[]>();
     schedules.set(opts.period, days);
-    return new Schedule(opts.groupId, schedules, opts.period);
+    return new Schedule(opts.groupId, schedules, opts.period, this.educationType);
   }
 
   // --- Search / Discovery ---

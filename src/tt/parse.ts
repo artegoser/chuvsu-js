@@ -6,7 +6,7 @@ import {
   parseTeacher,
   parseWeekParity,
 } from "../common/parse.js";
-import type { Period } from "../common/types.js";
+import { type Period, EducationType } from "../common/types.js";
 import type {
   Faculty,
   Group,
@@ -14,6 +14,7 @@ import type {
   FullScheduleSlot,
   ScheduleEntry,
 } from "./types.js";
+import { getLessonNumber } from "./utils.js";
 
 const PERIOD_LABELS: Record<string, Period> = {
   "осенний семестр": 1 as Period,
@@ -76,12 +77,16 @@ export function parseTeacherButtons(
   return results;
 }
 
-export function parseFullSchedule(html: string): FullScheduleDay[] {
+export function parseFullSchedule(
+  html: string,
+  educationType?: EducationType,
+): FullScheduleDay[] {
   const doc = parseHtml(html);
+  const edType = educationType ?? EducationType.HigherEducation;
 
   // Session layout has date-based cells with ids like "trd20251224"
   if (doc.querySelector('td[id^="trd2"]')) {
-    return parseSessionSchedule(doc);
+    return parseSessionSchedule(doc, edType);
   }
 
   return parseSemesterSchedule(doc);
@@ -174,7 +179,10 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
 
 // --- Session schedule parsing (date-based, specific dates) ---
 
-function parseSessionSchedule(doc: Document): FullScheduleDay[] {
+function parseSessionSchedule(
+  doc: Document,
+  educationType: EducationType,
+): FullScheduleDay[] {
   const days: FullScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
@@ -201,7 +209,6 @@ function parseSessionSchedule(doc: Document): FullScheduleDay[] {
 
     // Parse entries
     const slots: FullScheduleSlot[] = [];
-    let slotNumber = 1;
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
@@ -209,7 +216,7 @@ function parseSessionSchedule(doc: Document): FullScheduleDay[] {
       if (!entry) continue;
 
       slots.push({
-        number: slotNumber++,
+        number: getLessonNumber(entry.timeStart, educationType),
         timeStart: entry.timeStart,
         timeEnd: entry.timeEnd,
         entries: [entry.entry],
