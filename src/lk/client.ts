@@ -56,6 +56,10 @@ export class LkClient {
     };
   }
 
+  async getPhoto(): Promise<Buffer> {
+    return this.http.getBuffer(`${STUDENT_BASE}/face.php`);
+  }
+
   async getGroupId(): Promise<number | null> {
     const { body } = await this.authGet(`${STUDENT_BASE}/tt.php`);
     const match = body.match(/tt\.chuvsu\.ru\/index\/grouptt\/gr\/(\d+)/);

@@ -43,6 +43,16 @@ export class HttpClient {
     };
   }
 
+  async getBuffer(url: string): Promise<Buffer> {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: { Cookie: this.cookieHeader() },
+      dispatcher: agent as Dispatcher,
+    });
+    this.saveCookies(res.headers);
+    return Buffer.from(await res.arrayBuffer());
+  }
+
   async post(
     url: string,
     data: Record<string, string>,

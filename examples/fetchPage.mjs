@@ -1,12 +1,18 @@
 import { createInterface } from "node:readline/promises";
 import { HttpClient } from "../dist/common/http.js";
 
-const rl = createInterface({ input: process.stdin, output: process.stderr });
+const [,, ...args] = process.argv;
+let email, password, url;
 
-const email = await rl.question("Email: ");
-const password = await rl.question("Password: ");
-const url = await rl.question("URL (lk/tt page): ");
-rl.close();
+if (args.length === 3) {
+  [email, password, url] = args;
+} else {
+  const rl = createInterface({ input: process.stdin, output: process.stderr });
+  email = await rl.question("Email: ");
+  password = await rl.question("Password: ");
+  url = await rl.question("URL (lk/tt page): ");
+  rl.close();
+}
 
 const http = new HttpClient();
 const parsed = new URL(url);
