@@ -16,6 +16,7 @@ import {
   getAdjacentSemester,
   filterSlots,
   slotsToLessons,
+  sortLessons,
 } from "./utils.js";
 
 export class Schedule {
@@ -123,7 +124,7 @@ export class Schedule {
           lessons.push(...slotsToLessons(d.slots, d.date));
         }
       }
-      return lessons;
+      return lessons.sort(sortLessons);
     }
 
     const slots = this.getSlotsForWeekday(weekday, days, opts);
@@ -162,7 +163,7 @@ export class Schedule {
       }
     }
 
-    return lessons;
+    return lessons.sort(sortLessons);
   }
 
   forWeek(week?: number, opts?: { subgroup?: number }): Lesson[] {
@@ -188,21 +189,21 @@ export class Schedule {
       date.setHours(0, 0, 0, 0);
       lessons.push(...this.forDate(date, opts));
     }
-    return lessons;
+    return lessons.sort(sortLessons);
   }
 
   today(opts?: { subgroup?: number }): Lesson[] {
-    return this.forDate(new Date(), opts);
+    return this.forDate(new Date(), opts).sort(sortLessons);
   }
 
   tomorrow(opts?: { subgroup?: number }): Lesson[] {
     const date = new Date();
     date.setDate(date.getDate() + 1);
-    return this.forDate(date, opts);
+    return this.forDate(date, opts).sort(sortLessons);
   }
 
   thisWeek(opts?: { subgroup?: number }): Lesson[] {
-    return this.forWeek(undefined, opts);
+    return this.forWeek(undefined, opts).sort(sortLessons);
   }
 
   currentLesson(opts?: { subgroup?: number }): Lesson | null {

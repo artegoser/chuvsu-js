@@ -28,6 +28,10 @@ export function isSessionPeriod(period: Period): boolean {
   return period === Period.WinterSession || period === Period.SummerSession;
 }
 
+export function sortLessons(a: Lesson, b: Lesson) {
+  return a.start.date.getTime() - b.start.date.getTime();
+}
+
 const WEEKDAY_NAMES = [
   "Воскресенье",
   "Понедельник",
@@ -163,7 +167,10 @@ function makeLessonTime(
   return { date: d, hours: time.hours, minutes: time.minutes };
 }
 
-export function slotsToLessons(slots: FullScheduleSlot[], date: Date): Lesson[] {
+export function slotsToLessons(
+  slots: FullScheduleSlot[],
+  date: Date,
+): Lesson[] {
   const lessons: Lesson[] = [];
   for (const slot of slots) {
     for (const entry of slot.entries) {
@@ -187,24 +194,84 @@ export function slotsToLessons(slots: FullScheduleSlot[], date: Date): Lesson[] 
 // --- Lesson time slots ---
 
 const VO_TIME_SLOTS: LessonTimeSlot[] = [
-  { number: 1, start: { hours: 8, minutes: 20 }, end: { hours: 9, minutes: 40 } },
-  { number: 2, start: { hours: 9, minutes: 50 }, end: { hours: 11, minutes: 10 } },
-  { number: 3, start: { hours: 11, minutes: 40 }, end: { hours: 13, minutes: 0 } },
-  { number: 4, start: { hours: 13, minutes: 30 }, end: { hours: 14, minutes: 50 } },
-  { number: 5, start: { hours: 15, minutes: 0 }, end: { hours: 16, minutes: 20 } },
-  { number: 6, start: { hours: 16, minutes: 40 }, end: { hours: 18, minutes: 0 } },
-  { number: 7, start: { hours: 18, minutes: 10 }, end: { hours: 19, minutes: 30 } },
-  { number: 8, start: { hours: 19, minutes: 40 }, end: { hours: 21, minutes: 0 } },
+  {
+    number: 1,
+    start: { hours: 8, minutes: 20 },
+    end: { hours: 9, minutes: 40 },
+  },
+  {
+    number: 2,
+    start: { hours: 9, minutes: 50 },
+    end: { hours: 11, minutes: 10 },
+  },
+  {
+    number: 3,
+    start: { hours: 11, minutes: 40 },
+    end: { hours: 13, minutes: 0 },
+  },
+  {
+    number: 4,
+    start: { hours: 13, minutes: 30 },
+    end: { hours: 14, minutes: 50 },
+  },
+  {
+    number: 5,
+    start: { hours: 15, minutes: 0 },
+    end: { hours: 16, minutes: 20 },
+  },
+  {
+    number: 6,
+    start: { hours: 16, minutes: 40 },
+    end: { hours: 18, minutes: 0 },
+  },
+  {
+    number: 7,
+    start: { hours: 18, minutes: 10 },
+    end: { hours: 19, minutes: 30 },
+  },
+  {
+    number: 8,
+    start: { hours: 19, minutes: 40 },
+    end: { hours: 21, minutes: 0 },
+  },
 ];
 
 const SPO_TIME_SLOTS: LessonTimeSlot[] = [
-  { number: 1, start: { hours: 8, minutes: 10 }, end: { hours: 9, minutes: 40 } },
-  { number: 2, start: { hours: 9, minutes: 55 }, end: { hours: 11, minutes: 25 } },
-  { number: 3, start: { hours: 11, minutes: 55 }, end: { hours: 13, minutes: 25 } },
-  { number: 4, start: { hours: 13, minutes: 40 }, end: { hours: 15, minutes: 10 } },
-  { number: 5, start: { hours: 15, minutes: 25 }, end: { hours: 16, minutes: 55 } },
-  { number: 6, start: { hours: 17, minutes: 10 }, end: { hours: 18, minutes: 40 } },
-  { number: 7, start: { hours: 18, minutes: 55 }, end: { hours: 20, minutes: 25 } },
+  {
+    number: 1,
+    start: { hours: 8, minutes: 10 },
+    end: { hours: 9, minutes: 40 },
+  },
+  {
+    number: 2,
+    start: { hours: 9, minutes: 55 },
+    end: { hours: 11, minutes: 25 },
+  },
+  {
+    number: 3,
+    start: { hours: 11, minutes: 55 },
+    end: { hours: 13, minutes: 25 },
+  },
+  {
+    number: 4,
+    start: { hours: 13, minutes: 40 },
+    end: { hours: 15, minutes: 10 },
+  },
+  {
+    number: 5,
+    start: { hours: 15, minutes: 25 },
+    end: { hours: 16, minutes: 55 },
+  },
+  {
+    number: 6,
+    start: { hours: 17, minutes: 10 },
+    end: { hours: 18, minutes: 40 },
+  },
+  {
+    number: 7,
+    start: { hours: 18, minutes: 55 },
+    end: { hours: 20, minutes: 25 },
+  },
 ];
 
 export function getTimeSlots(educationType: EducationType): LessonTimeSlot[] {
@@ -217,7 +284,10 @@ function timeToMinutes(t: Time): number {
   return t.hours * 60 + t.minutes;
 }
 
-export function getLessonNumber(time: Time, educationType: EducationType): number {
+export function getLessonNumber(
+  time: Time,
+  educationType: EducationType,
+): number {
   const slots = getTimeSlots(educationType);
   const target = timeToMinutes(time);
 
