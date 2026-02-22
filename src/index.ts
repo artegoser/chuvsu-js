@@ -12,7 +12,10 @@ export {
   getTimeSlots,
   getLessonNumber,
   getAdjacentSemester,
+  isHoliday,
+  RUSSIAN_HOLIDAYS,
 } from "./tt/utils.js";
+export type { Holiday } from "./tt/utils.js";
 export { Period, EducationType, AuthError, ParseError } from "./common/types.js";
 export type {
   Time,

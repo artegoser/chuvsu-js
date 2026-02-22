@@ -310,3 +310,45 @@ export function getAdjacentSemester(session: Period): Period {
     ? Period.FallSemester
     : Period.SpringSemester;
 }
+
+// --- Holidays ---
+
+export interface Holiday {
+  /** Month number, 1–12. */
+  month: number;
+  /** Day of month. */
+  day: number;
+  /** Human-readable name. */
+  name: string;
+}
+
+/** Russian non-working public holidays (Статья 112 ТК РФ). */
+export const RUSSIAN_HOLIDAYS: Holiday[] = [
+  { month: 1, day: 1, name: "Новый год" },
+  { month: 1, day: 2, name: "Новогодние каникулы" },
+  { month: 1, day: 3, name: "Новогодние каникулы" },
+  { month: 1, day: 4, name: "Новогодние каникулы" },
+  { month: 1, day: 5, name: "Новогодние каникулы" },
+  { month: 1, day: 6, name: "Новогодние каникулы" },
+  { month: 1, day: 7, name: "Рождество Христово" },
+  { month: 1, day: 8, name: "Новогодние каникулы" },
+  { month: 2, day: 23, name: "День защитника Отечества" },
+  { month: 3, day: 8, name: "Международный женский день" },
+  { month: 5, day: 1, name: "Праздник Весны и Труда" },
+  { month: 5, day: 9, name: "День Победы" },
+  { month: 6, day: 12, name: "День России" },
+  { month: 11, day: 4, name: "День народного единства" },
+];
+
+/**
+ * Returns true if the given date falls on a holiday.
+ * Pass an empty array to disable holiday checking.
+ */
+export function isHoliday(
+  date: Date,
+  holidays: Holiday[] = RUSSIAN_HOLIDAYS,
+): boolean {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return holidays.some((h) => h.month === month && h.day === day);
+}

@@ -17,12 +17,17 @@ import {
   filterSlots,
   slotsToLessons,
   sortLessons,
+  isHoliday,
+  RUSSIAN_HOLIDAYS,
+  type Holiday,
 } from "./utils.js";
 
 export class Schedule {
   readonly groupId: number;
   readonly scheduleMap: Map<number, FullScheduleDay[]>;
   readonly educationType: EducationType;
+  /** List of holidays to exclude from schedule queries. Pass `[]` to disable. */
+  readonly holidays: Holiday[];
   private _period?: Period;
 
   constructor(
@@ -30,11 +35,13 @@ export class Schedule {
     scheduleMap: Map<number, FullScheduleDay[]>,
     period?: Period,
     educationType?: EducationType,
+    holidays?: Holiday[] | null,
   ) {
     this.groupId = groupId;
     this.scheduleMap = scheduleMap;
     this.educationType = educationType ?? EducationType.HigherEducation;
     this._period = period;
+    this.holidays = holidays ?? RUSSIAN_HOLIDAYS;
   }
 
   /** Current (or fixed) period for this schedule. */
@@ -133,6 +140,8 @@ export class Schedule {
   }
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
+    if (isHoliday(date, this.holidays)) return [];
+
     const period = getCurrentPeriod({ date });
     const lessons: Lesson[] = [];
 
