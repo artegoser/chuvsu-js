@@ -1,4 +1,5 @@
 import type {
+  FullScheduleDay,
   FullScheduleSlot,
   ScheduleEntry,
   SemesterWeek,
@@ -119,11 +120,25 @@ export function getWeekNumber(opts: { period: Period; date?: Date }): number {
   return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
 }
 
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
 function filterEntries(
   entries: ScheduleEntry[],
-  opts?: { subgroup?: number; week?: number },
+  opts?: { subgroup?: number; week?: number; date?: Date },
 ): ScheduleEntry[] {
   return entries.filter((e) => {
+    // Transfer entries: only include when the query date matches the target date
+    if (e.transfer) {
+      if (!opts?.date) return false;
+      return isSameDay(e.transfer.targetDate, opts.date);
+    }
+
     if (opts?.subgroup && e.subgroup && e.subgroup !== opts.subgroup) {
       return false;
     }
@@ -146,9 +161,10 @@ function filterEntries(
 
 export function filterSlots(
   slots: FullScheduleSlot[],
-  opts?: { subgroup?: number; week?: number },
+  opts?: { subgroup?: number; week?: number; date?: Date },
 ): FullScheduleSlot[] {
-  if (opts?.subgroup == null && opts?.week == null) return slots;
+  if (opts?.subgroup == null && opts?.week == null && opts?.date == null)
+    return slots;
 
   return slots
     .map((slot) => ({
@@ -174,21 +190,75 @@ export function slotsToLessons(
   const lessons: Lesson[] = [];
   for (const slot of slots) {
     for (const entry of slot.entries) {
+      let room = entry.room;
+      let teacher = entry.teacher;
+      let originalRoom: string | undefined;
+      let originalTeacher: typeof teacher | undefined;
+
+      // Apply date-specific substitutions
+      if (entry.substitutions) {
+        const sub = entry.substitutions.find((s) => isSameDay(s.date, date));
+        if (sub) {
+          if (sub.room) {
+            originalRoom = room;
+            room = sub.room;
+          }
+          if (sub.teacher) {
+            originalTeacher = teacher;
+            teacher = sub.teacher;
+          }
+        }
+      }
+
       lessons.push({
         number: slot.number,
         start: makeLessonTime(date, slot.timeStart),
         end: makeLessonTime(date, slot.timeEnd),
         subject: entry.subject,
         type: entry.type,
-        room: entry.room,
-        teacher: entry.teacher,
+        room,
+        teacher,
         weeks: entry.weeks,
         subgroup: entry.subgroup,
         weekParity: entry.weekParity,
+        originalRoom,
+        originalTeacher,
+        transfer: entry.transfer,
+        possibleChanges: entry.possibleChanges,
       });
     }
   }
   return lessons;
+}
+
+/** Collect all transfer entries from schedule days. */
+export function collectTransfers(days: FullScheduleDay[]): ScheduleEntry[] {
+  const transfers: ScheduleEntry[] = [];
+  for (const day of days) {
+    for (const slot of day.slots) {
+      for (const entry of slot.entries) {
+        if (entry.transfer) transfers.push(entry);
+      }
+    }
+  }
+  return transfers;
+}
+
+/** Remove lessons whose source date/slot match a transfer. */
+export function suppressTransferredLessons(
+  lessons: Lesson[],
+  transfers: ScheduleEntry[],
+  date: Date,
+): Lesson[] {
+  return lessons.filter((lesson) => {
+    return !transfers.some(
+      (t) =>
+        t.transfer &&
+        isSameDay(t.transfer.fromDate, date) &&
+        t.transfer.fromSlot === lesson.number &&
+        t.transfer.subject === lesson.subject,
+    );
+  });
 }
 
 // --- Lesson time slots ---

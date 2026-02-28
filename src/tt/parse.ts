@@ -6,13 +6,15 @@ import {
   parseTeacher,
   parseWeekParity,
 } from "../common/parse.js";
-import { type Period, EducationType } from "../common/types.js";
+import { type Period, EducationType, type Teacher } from "../common/types.js";
 import type {
   Faculty,
   Group,
   FullScheduleDay,
   FullScheduleSlot,
   ScheduleEntry,
+  Substitution,
+  TransferInfo,
 } from "./types.js";
 import { getLessonNumber } from "./utils.js";
 
@@ -144,6 +146,75 @@ function parseSemesterSchedule(doc: Document): FullScheduleDay[] {
   return days;
 }
 
+function parseDate(dd: string, mm: string, yyyy: string): Date {
+  return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
+}
+
+function parseTransferDiv(
+  div: Element,
+): { transfer: TransferInfo; entry: ScheduleEntry } | null {
+  const divText = text(div);
+  const divHtml = div.innerHTML ?? "";
+
+  const m = divText.match(
+    /(\d{2})\.(\d{2})\.(\d{4})\s*перенос\s*c\s*(\d{2})\.(\d{2})\.(\d{4})\s*\((\d+)\s*пара\)/,
+  );
+  if (!m) return null;
+
+  const targetDate = parseDate(m[1], m[2], m[3]);
+  const fromDate = parseDate(m[4], m[5], m[6]);
+  const fromSlot = parseInt(m[7]);
+
+  const subjectEl = div.querySelector('span[style*="color: blue"]');
+  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subject) return null;
+
+  const roomMatch = divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
+  const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
+  // Teacher: last text line before closing </div>
+  const parts = divHtml.split(/<br\s*\/?>/);
+  const lastPart = parts[parts.length - 1]?.replace(/<[^>]*>/g, "").trim();
+
+  const transfer: TransferInfo = { targetDate, fromDate, fromSlot, subject };
+
+  return {
+    transfer,
+    entry: {
+      room: roomMatch?.[1] ?? "",
+      subject,
+      type: typeMatch?.[1] ?? "",
+      weeks: { from: 0, to: 0 },
+      teacher: parseTeacher(lastPart ?? ""),
+      transfer,
+    },
+  };
+}
+
+function parseSubstitutionDiv(div: Element): Substitution | null {
+  const divText = text(div);
+  const divHtml = div.innerHTML ?? "";
+
+  const m = divText.match(/(\d{2})\.(\d{2})\.(\d{4})\s*замена\s*на:/);
+  if (!m) return null;
+
+  const date = parseDate(m[1], m[2], m[3]);
+
+  let room: string | undefined;
+  let teacher: Teacher | undefined;
+
+  const roomMatch = divHtml.match(
+    /Аудитория:\s*<span[^>]*>([^<]+)<\/span>/,
+  );
+  if (roomMatch) room = roomMatch[1].trim();
+
+  const teacherMatch = divHtml.match(
+    /Преподаватель:\s*<span[^>]*>([^<]+)<\/span>/,
+  );
+  if (teacherMatch) teacher = parseTeacher(teacherMatch[1].trim());
+
+  return { date, room, teacher };
+}
+
 function parseSemesterEntry(el: Element): ScheduleEntry | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
@@ -151,6 +222,31 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
 
   if (!plainText) return null;
 
+  const possibleChanges =
+    (td.getAttribute("class") ?? "").includes("want") || undefined;
+
+  // Detect red-bordered divs (transfers / substitutions)
+  const redDivs = td.querySelectorAll(
+    'div[style*="border: 2px solid red"]',
+  );
+
+  // Check for transfer (перенос) — the whole entry is the transferred lesson
+  for (const div of redDivs) {
+    const result = parseTransferDiv(div);
+    if (result) {
+      if (possibleChanges) result.entry.possibleChanges = true;
+      return result.entry;
+    }
+  }
+
+  // Collect substitutions (замена на)
+  const substitutions: Substitution[] = [];
+  for (const div of redDivs) {
+    const sub = parseSubstitutionDiv(div);
+    if (sub) substitutions.push(sub);
+  }
+
+  // Parse regular entry
   const subjectEl = td.querySelector('span[style*="color: blue"]');
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
@@ -174,6 +270,8 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
     teacher: parseTeacher(teacherMatch?.[1] ?? ""),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
+    substitutions: substitutions.length > 0 ? substitutions : undefined,
+    possibleChanges,
   };
 }
 

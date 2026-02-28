@@ -16,15 +16,14 @@ export {
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils.js";
 export type { Holiday } from "./tt/utils.js";
-export { Period, EducationType, AuthError, ParseError } from "./common/types.js";
-export type {
-  Time,
-  WeekRange,
-  Teacher,
+export {
+  Period,
+  EducationType,
+  AuthError,
+  ParseError,
 } from "./common/types.js";
-export type {
-  PersonalData,
-} from "./lk/types.js";
+export type { Time, WeekRange, Teacher } from "./common/types.js";
+export type { PersonalData } from "./lk/types.js";
 export type {
   Faculty,
   Group,
@@ -35,6 +34,8 @@ export type {
   Lesson,
   LessonTime,
   SemesterWeek,
+  Substitution,
+  TransferInfo,
   TtClientOptions,
   CacheConfig,
 } from "./tt/types.js";

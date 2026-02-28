@@ -18,6 +18,8 @@ import {
   slotsToLessons,
   sortLessons,
   isHoliday,
+  collectTransfers,
+  suppressTransferredLessons,
   RUSSIAN_HOLIDAYS,
   type Holiday,
 } from "./utils.js";
@@ -69,7 +71,7 @@ export class Schedule {
   private getSlotsForWeekday(
     weekday: number,
     days: FullScheduleDay[],
-    opts?: { subgroup?: number; week?: number },
+    opts?: { subgroup?: number; week?: number; date?: Date },
   ): FullScheduleSlot[] {
     const dayName = getWeekdayName(weekday);
     const day = days.find(
@@ -167,8 +169,17 @@ export class Schedule {
         const slots = this.getSlotsForWeekday(weekday, semesterDays, {
           subgroup: opts?.subgroup,
           week,
+          date,
         });
         lessons.push(...slotsToLessons(slots, date));
+      }
+
+      // 3. Suppress lessons that were transferred away from this date
+      const transfers = collectTransfers(semesterDays);
+      if (transfers.length > 0) {
+        return suppressTransferredLessons(lessons, transfers, date).sort(
+          sortLessons,
+        );
       }
     }
 
