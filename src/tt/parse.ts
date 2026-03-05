@@ -246,21 +246,29 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
     if (sub) substitutions.push(sub);
   }
 
+  // Strip red divs from HTML/text before parsing the regular entry
+  let cleanHtml = fullHtml;
+  let cleanText = plainText;
+  for (const div of redDivs) {
+    cleanHtml = cleanHtml.replace(div.outerHTML ?? "", "");
+    cleanText = cleanText.replace(text(div), "");
+  }
+
   // Parse regular entry
   const subjectEl = td.querySelector('span[style*="color: blue"]');
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  const typeMatch = plainText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  const weeksMatch = plainText.match(/\(([^)]*нед\.?[^)]*)\)/);
-  const roomMatch = fullHtml.match(
+  const typeMatch = cleanText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
+  const weeksMatch = cleanText.match(/\(([^)]*нед\.?[^)]*)\)/);
+  const roomMatch = cleanHtml.match(
     /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
   );
-  const teacherMatch = fullHtml.match(
-    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<i|$)/,
+  const teacherMatch = cleanHtml.match(
+    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<div|<i|$)/,
   );
-  const subgroupMatch = plainText.match(/(\d+)\s*подгруппа/);
-  const weekParity = parseWeekParity(fullHtml);
+  const subgroupMatch = cleanText.match(/(\d+)\s*подгруппа/);
+  const weekParity = parseWeekParity(cleanHtml);
 
   return {
     room: roomMatch?.[1] ?? "",

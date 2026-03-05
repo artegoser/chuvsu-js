@@ -36,7 +36,7 @@ export function parseTeacher(s: string): Teacher {
   if (!trimmed) return { name: "" };
 
   const posMatch = trimmed.match(
-    /^(доц\.|проф\.|ст\.преп\.|ст\. преп\.|преп\.|асс\.)\s*/,
+    /^(доц\.|проф\.|ст\.преп\.|ст\. преп\.|преп\.|асс\.|зав\.каф\.)\s*/,
   );
   const afterPos = posMatch ? trimmed.slice(posMatch[0].length) : trimmed;
 
