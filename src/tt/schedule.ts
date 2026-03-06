@@ -22,6 +22,7 @@ import {
   suppressTransferredLessons,
   RUSSIAN_HOLIDAYS,
   type Holiday,
+  type HolidayTransfer,
 } from "./utils.js";
 
 export class Schedule {
@@ -30,6 +31,8 @@ export class Schedule {
   readonly educationType: EducationType;
   /** List of holidays to exclude from schedule queries. Pass `[]` to disable. */
   readonly holidays: Holiday[];
+  /** Government decree day-off transfers (Постановление Правительства). */
+  readonly holidayTransfers: HolidayTransfer[];
   private _period?: Period;
 
   constructor(
@@ -38,12 +41,14 @@ export class Schedule {
     period?: Period,
     educationType?: EducationType,
     holidays?: Holiday[] | null,
+    holidayTransfers?: HolidayTransfer[],
   ) {
     this.groupId = groupId;
     this.scheduleMap = scheduleMap;
     this.educationType = educationType ?? EducationType.HigherEducation;
     this._period = period;
     this.holidays = holidays ?? RUSSIAN_HOLIDAYS;
+    this.holidayTransfers = holidayTransfers ?? [];
   }
 
   /** Current (or fixed) period for this schedule. */
@@ -142,7 +147,7 @@ export class Schedule {
   }
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
-    if (isHoliday(date, this.holidays)) return [];
+    if (isHoliday(date, this.holidays, this.holidayTransfers)) return [];
 
     const period = getCurrentPeriod({ date });
     const lessons: Lesson[] = [];

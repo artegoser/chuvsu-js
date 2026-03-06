@@ -13,9 +13,12 @@ export {
   getLessonNumber,
   getAdjacentSemester,
   isHoliday,
+  getEffectiveHolidays,
+  getHolidayTransfers,
+  getCompensatingWorkDays,
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils.js";
-export type { Holiday } from "./tt/utils.js";
+export type { Holiday, HolidayTransfer } from "./tt/utils.js";
 export {
   Period,
   EducationType,
