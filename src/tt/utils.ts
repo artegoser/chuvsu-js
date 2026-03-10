@@ -218,6 +218,7 @@ export function slotsToLessons(
         type: entry.type,
         room,
         teacher,
+        groups: entry.groups,
         weeks: entry.weeks,
         subgroup: entry.subgroup,
         weekParity: entry.weekParity,

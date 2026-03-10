@@ -45,6 +45,8 @@ export interface ScheduleEntry {
   type: string;
   weeks: WeekRange;
   teacher: Teacher;
+  /** For teacher schedules: group names (e.g. "КТ-42-25 (1 подгруппа)"). */
+  groups?: string;
   subgroup?: number;
   weekParity?: "even" | "odd";
   /** Date-specific substitutions (замена на). */
@@ -88,6 +90,8 @@ export interface Lesson {
   type: string;
   room: string;
   teacher: Teacher;
+  /** For teacher schedules: group names. */
+  groups?: string;
   weeks: WeekRange;
   subgroup?: number;
   weekParity?: "even" | "odd";
@@ -101,6 +105,13 @@ export interface Lesson {
   possibleChanges?: boolean;
 }
 
+/** Teacher info from the schedule page header. */
+export interface TeacherInfo {
+  name: string;
+  degree?: string;
+  department?: string;
+}
+
 export interface SemesterWeek {
   week: number;
   start: Date;
@@ -111,6 +122,7 @@ export interface CacheConfig {
   schedule?: number;
   faculties?: number;
   groups?: number;
+  teachers?: number;
 }
 
 export interface TtClientOptions {

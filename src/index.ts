@@ -39,6 +39,7 @@ export type {
   SemesterWeek,
   Substitution,
   TransferInfo,
+  TeacherInfo,
   TtClientOptions,
   CacheConfig,
 } from "./tt/types.js";

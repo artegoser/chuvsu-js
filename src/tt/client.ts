@@ -7,12 +7,15 @@ import {
   parseFacultyButtons,
   parseTeacherButtons,
   parseFullSchedule,
+  parseTeacherFullSchedule,
+  parseTeacherInfo,
 } from "./parse.js";
 import { Schedule } from "./schedule.js";
 import type {
   Faculty,
   Group,
   FullScheduleDay,
+  TeacherInfo,
   TtClientOptions,
   CacheConfig,
 } from "./types.js";
@@ -234,5 +237,65 @@ export class TtClient {
       pertt: this.pertt,
     });
     return parseTeacherButtons(body);
+  }
+
+  // --- Teacher schedule ---
+
+  async getTeachers(): Promise<{ id: number; name: string }[]> {
+    const cached = this.cache?.get("teachers", "all");
+    if (cached) return cached as { id: number; name: string }[];
+
+    const { body } = await this.authGet(`${BASE}/index/tech`);
+    const data = parseTeacherButtons(body);
+    this.cache?.set("teachers", "all", data);
+    return data;
+  }
+
+  private async fetchTeacherSchedule(
+    teacherId: number,
+    period: Period,
+  ): Promise<FullScheduleDay[]> {
+    const cacheKey = `teacher:${teacherId}:${period}`;
+    const cached = this.cache?.get("schedule", cacheKey);
+    if (cached) return cached as FullScheduleDay[];
+
+    const url = `${BASE}/index/techtt/tech/${teacherId}`;
+    const { body } = await this.authPost(url, { htype: String(period) });
+    const days = parseTeacherFullSchedule(body, this.educationType);
+    this.cache?.set("schedule", cacheKey, days);
+    return days;
+  }
+
+  async getTeacherSchedule(teacherId: number): Promise<Schedule> {
+    const schedules = new Map<number, FullScheduleDay[]>();
+
+    const results = await Promise.all(
+      ALL_PERIODS.map(async (period) => {
+        const days = await this.fetchTeacherSchedule(teacherId, period);
+        return { period, days };
+      }),
+    );
+
+    for (const { period, days } of results) {
+      schedules.set(period, days);
+    }
+
+    return new Schedule(teacherId, schedules, undefined, this.educationType);
+  }
+
+  async getTeacherScheduleForPeriod(opts: {
+    teacherId: number;
+    period: Period;
+  }): Promise<Schedule> {
+    const days = await this.fetchTeacherSchedule(opts.teacherId, opts.period);
+    const schedules = new Map<number, FullScheduleDay[]>();
+    schedules.set(opts.period, days);
+    return new Schedule(opts.teacherId, schedules, opts.period, this.educationType);
+  }
+
+  async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
+    const url = `${BASE}/index/techtt/tech/${teacherId}`;
+    const { body } = await this.authGet(url);
+    return parseTeacherInfo(body);
   }
 }
