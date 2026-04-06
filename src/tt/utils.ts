@@ -133,6 +133,11 @@ function filterEntries(
   opts?: { subgroup?: number; week?: number; date?: Date },
 ): ScheduleEntry[] {
   return entries.filter((e) => {
+    // Subgroup filter applies to all entry types
+    if (opts?.subgroup && e.subgroup && e.subgroup !== opts.subgroup) {
+      return false;
+    }
+
     // Transfer entries: only include when the query date matches the target date
     if (e.transfer) {
       if (!opts?.date) return false;
@@ -143,10 +148,6 @@ function filterEntries(
     if (e.substituteFor) {
       if (!opts?.date) return false;
       return isSameDay(e.substituteFor.date, opts.date);
-    }
-
-    if (opts?.subgroup && e.subgroup && e.subgroup !== opts.subgroup) {
-      return false;
     }
     if (opts?.week != null) {
       if (
