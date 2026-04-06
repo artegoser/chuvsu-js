@@ -122,6 +122,8 @@ export interface TeacherInfo {
   name: string;
   degree?: string;
   department?: string;
+  /** Relative photo URL (e.g. "/index/photo/tech/653/id/653"), or undefined if no photo. */
+  photoUrl?: string;
 }
 
 export interface SemesterWeek {
@@ -135,6 +137,8 @@ export interface CacheConfig {
   faculties?: number;
   groups?: number;
   teachers?: number;
+  teacherInfo?: number;
+  teacherPhotos?: number;
 }
 
 export interface TtClientOptions {

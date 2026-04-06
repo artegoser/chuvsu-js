@@ -128,6 +128,10 @@ export class TtClient {
     return res;
   }
 
+  private async authGetBuffer(url: string): Promise<Buffer> {
+    return this.http.getBuffer(url);
+  }
+
   private async authPost(
     url: string,
     data: Record<string, string>,
@@ -263,6 +267,13 @@ export class TtClient {
     const { body } = await this.authPost(url, { htype: String(period) });
     const days = parseTeacherFullSchedule(body, this.educationType);
     this.cache?.set("schedule", cacheKey, days);
+
+    // Cache teacher info from the same page to avoid extra requests
+    if (!this.cache?.get("teacherInfo", String(teacherId))) {
+      const info = parseTeacherInfo(body);
+      if (info) this.cache?.set("teacherInfo", String(teacherId), info);
+    }
+
     return days;
   }
 
@@ -294,8 +305,67 @@ export class TtClient {
   }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
+    const cached = this.cache?.get("teacherInfo", String(teacherId));
+    if (cached) return cached as TeacherInfo;
+
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authGet(url);
-    return parseTeacherInfo(body);
+    const info = parseTeacherInfo(body);
+    if (info) this.cache?.set("teacherInfo", String(teacherId), info);
+    return info;
+  }
+
+  /**
+   * Get the teacher's photo as a Buffer.
+   * Returns null if the teacher has no photo.
+   * Uses cached teacher info when available to avoid extra requests.
+   */
+  async getTeacherPhoto(teacherId: number): Promise<Buffer | null> {
+    const photoCacheKey = String(teacherId);
+    const cachedPhoto = this.cache?.get("teacherPhotos", photoCacheKey);
+    if (cachedPhoto !== null && cachedPhoto !== undefined) {
+      const entry = cachedPhoto as { data: string | null };
+      return entry.data ? Buffer.from(entry.data, "base64") : null;
+    }
+
+    // Get teacher info (may already be cached from schedule fetch)
+    const info = await this.getTeacherInfo(teacherId);
+    if (!info?.photoUrl) {
+      this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
+      return null;
+    }
+
+    const photoBuffer = await this.authGetBuffer(`${BASE}${info.photoUrl}`);
+    this.cache?.set("teacherPhotos", photoCacheKey, {
+      data: photoBuffer.toString("base64"),
+    });
+    return photoBuffer;
+  }
+
+  /**
+   * Get the teacher's photo without parsing the schedule page.
+   * Uses the known URL pattern directly — no extra page fetch needed.
+   * Returns null if the teacher has no photo.
+   */
+  async getTeacherPhotoLazy(teacherId: number): Promise<Buffer | null> {
+    const photoCacheKey = String(teacherId);
+    const cachedPhoto = this.cache?.get("teacherPhotos", photoCacheKey);
+    if (cachedPhoto !== null && cachedPhoto !== undefined) {
+      const entry = cachedPhoto as { data: string | null };
+      return entry.data ? Buffer.from(entry.data, "base64") : null;
+    }
+
+    const url = `${BASE}/index/photo/tech/${teacherId}/id/${teacherId}`;
+    const photoBuffer = await this.authGetBuffer(url);
+
+    if (photoBuffer.length === 0) {
+      this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
+      return null;
+    }
+
+    this.cache?.set("teacherPhotos", photoCacheKey, {
+      data: photoBuffer.toString("base64"),
+    });
+    return photoBuffer;
   }
 }

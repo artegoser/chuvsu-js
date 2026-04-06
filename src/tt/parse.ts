@@ -640,5 +640,8 @@ export function parseTeacherInfo(html: string): TeacherInfo | null {
   const deptEl = doc.querySelector(".htext");
   const department = deptEl ? text(deptEl).trim() : undefined;
 
-  return { name, degree: degree || undefined, department: department || undefined };
+  const photoImg = doc.querySelector("#photosrc");
+  const photoUrl = photoImg?.getAttribute("src") || undefined;
+
+  return { name, degree: degree || undefined, department: department || undefined, photoUrl };
 }
