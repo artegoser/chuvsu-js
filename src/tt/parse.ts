@@ -527,7 +527,7 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: { name: "" },
-    groups: groupsMatch?.[1]?.trim() ?? "",
+    groups: groupsMatch?.[1]?.trim().replace(/\s*\(\d+\s*подгруппа\)/, "") ?? "",
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
     substitutions: substitutions.length > 0 ? substitutions : undefined,
