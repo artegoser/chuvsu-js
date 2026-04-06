@@ -14,6 +14,7 @@ import type {
   FullScheduleSlot,
   ScheduleEntry,
   Substitution,
+  SubstituteForInfo,
   TransferInfo,
   TeacherInfo,
 } from "./types.js";
@@ -184,6 +185,7 @@ function parseTransferDiv(
   const lastPart = parts[parts.length - 1]?.replace(/<[^>]*>/g, "").trim();
 
   const transfer: TransferInfo = { targetDate, fromDate, fromSlot, subject };
+  const subgroupMatch = divText.match(/(\d+)\s*подгруппа/);
 
   return {
     transfer,
@@ -193,6 +195,7 @@ function parseTransferDiv(
       type: typeMatch?.[1] ?? "",
       weeks: { from: 0, to: 0 },
       teacher: parseTeacher(lastPart ?? ""),
+      subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       transfer,
     },
   };
@@ -221,6 +224,58 @@ function parseSubstitutionDiv(div: Element): Substitution | null {
   if (teacherMatch) teacher = parseTeacher(teacherMatch[1].trim());
 
   return { date, room, teacher };
+}
+
+function parseSubstituteForDiv(div: Element): {
+  entry: ScheduleEntry;
+} | null {
+  const divText = text(div);
+  const divHtml = div.innerHTML ?? "";
+
+  const m = divText.match(/(\d{2})\.(\d{2})\.(\d{4})\s*замена\s*вместо:/);
+  if (!m) return null;
+
+  const date = parseDate(m[1], m[2], m[3]);
+
+  // Original teacher: first blue span (right after "замена вместо:")
+  const origTeacherMatch = divHtml.match(
+    /замена\s*вместо:\s*<\/b><\/span>\s*<span[^>]*>([^<]+)<\/span>/,
+  );
+  const originalTeacher = origTeacherMatch
+    ? parseTeacher(origTeacherMatch[1].trim())
+    : { name: "" };
+
+  // Subject: second blue span
+  const subjectEl = div.querySelectorAll('span[style*="color: blue"]');
+  let subject = "";
+  for (const el of subjectEl) {
+    const t = text(el);
+    if (t && t !== origTeacherMatch?.[1]?.trim()) {
+      subject = t;
+      break;
+    }
+  }
+  if (!subject) return null;
+
+  const roomMatch = divHtml.match(/(?:<br\s*\/?>)\s*([А-Яа-яA-Za-z]-\d+)/);
+  const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
+  const groupsMatch = divHtml.match(
+    /\((?:лк|пр|лб|зач|экз|зчО|кр|конс)\)\s*(?:<br\s*\/?>)\s*([^<]+?)(?:\s*<i|$)/,
+  );
+  const subgroupMatch = divText.match(/(\d+)\s*подгруппа/);
+
+  return {
+    entry: {
+      room: roomMatch?.[1] ?? "",
+      subject,
+      type: typeMatch?.[1] ?? "",
+      weeks: { from: 0, to: 0 },
+      teacher: { name: "" },
+      groups: groupsMatch?.[1]?.trim() ?? "",
+      subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      substituteFor: { date, originalTeacher },
+    },
+  };
 }
 
 function parseSemesterEntry(el: Element): ScheduleEntry | null {
@@ -416,6 +471,15 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
 
   for (const div of redDivs) {
     const result = parseTransferDiv(div);
+    if (result) {
+      if (possibleChanges) result.entry.possibleChanges = true;
+      return result.entry;
+    }
+  }
+
+  // Check for "замена вместо:" (substitute lesson for another teacher)
+  for (const div of redDivs) {
+    const result = parseSubstituteForDiv(div);
     if (result) {
       if (possibleChanges) result.entry.possibleChanges = true;
       return result.entry;

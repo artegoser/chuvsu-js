@@ -29,6 +29,8 @@ export class Schedule {
   readonly groupId: number;
   readonly scheduleMap: Map<number, FullScheduleDay[]>;
   readonly educationType: EducationType;
+  /** Whether this is a teacher schedule (affects substitution handling). */
+  readonly isTeacherSchedule: boolean;
   /** List of holidays to exclude from schedule queries. Pass `[]` to disable. */
   readonly holidays: Holiday[];
   /** Government decree day-off transfers (Постановление Правительства). */
@@ -42,10 +44,12 @@ export class Schedule {
     educationType?: EducationType,
     holidays?: Holiday[] | null,
     holidayTransfers?: HolidayTransfer[],
+    isTeacherSchedule?: boolean,
   ) {
     this.groupId = groupId;
     this.scheduleMap = scheduleMap;
     this.educationType = educationType ?? EducationType.HigherEducation;
+    this.isTeacherSchedule = isTeacherSchedule ?? false;
     this._period = period;
     this.holidays = holidays ?? RUSSIAN_HOLIDAYS;
     this.holidayTransfers = holidayTransfers ?? [];
@@ -135,7 +139,7 @@ export class Schedule {
       const dayName = getWeekdayName(weekday);
       for (const d of days) {
         if (d.weekday.toLowerCase() === dayName.toLowerCase() && d.date) {
-          lessons.push(...slotsToLessons(d.slots, d.date));
+          lessons.push(...slotsToLessons(d.slots, d.date, { isTeacherSchedule: this.isTeacherSchedule }));
         }
       }
       return lessons.sort(sortLessons);
@@ -143,7 +147,7 @@ export class Schedule {
 
     const slots = this.getSlotsForWeekday(weekday, days, opts);
     const date = this.getDateForWeekday(weekday, period, opts?.week);
-    return slotsToLessons(slots, date);
+    return slotsToLessons(slots, date, { isTeacherSchedule: this.isTeacherSchedule });
   }
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
@@ -156,7 +160,7 @@ export class Schedule {
     for (const [, d] of this.scheduleMap) {
       for (const day of d) {
         if (day.date && Schedule.isSameDay(day.date, date)) {
-          lessons.push(...slotsToLessons(day.slots, date));
+          lessons.push(...slotsToLessons(day.slots, date, { isTeacherSchedule: this.isTeacherSchedule }));
         }
       }
     }
@@ -176,7 +180,7 @@ export class Schedule {
           week,
           date,
         });
-        lessons.push(...slotsToLessons(slots, date));
+        lessons.push(...slotsToLessons(slots, date, { isTeacherSchedule: this.isTeacherSchedule }));
       }
 
       // 3. Suppress lessons that were transferred away from this date

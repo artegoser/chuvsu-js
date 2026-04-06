@@ -27,6 +27,14 @@ export interface Substitution {
   teacher?: Teacher;
 }
 
+/** Info about a lesson this teacher is substituting for another teacher. */
+export interface SubstituteForInfo {
+  /** The date this substitute lesson takes place. */
+  date: Date;
+  /** The original teacher being replaced. */
+  originalTeacher: Teacher;
+}
+
 /** Info about a lesson transferred from another date/slot. */
 export interface TransferInfo {
   /** Date when this lesson takes place (target). */
@@ -53,6 +61,8 @@ export interface ScheduleEntry {
   substitutions?: Substitution[];
   /** If this entry is a transferred lesson (перенос). */
   transfer?: TransferInfo;
+  /** If this entry is a substitute lesson (замена вместо). */
+  substituteFor?: SubstituteForInfo;
   /** Whether this entry is marked as potentially changing (class="want"). */
   possibleChanges?: boolean;
 }
@@ -101,6 +111,8 @@ export interface Lesson {
   originalTeacher?: Teacher;
   /** Transfer info if this lesson was moved from another date/slot. */
   transfer?: TransferInfo;
+  /** If this lesson is a substitute (замена вместо), the original teacher. */
+  substituteFor?: SubstituteForInfo;
   /** Whether this lesson is marked as potentially changing. */
   possibleChanges?: boolean;
 }

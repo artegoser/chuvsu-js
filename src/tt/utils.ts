@@ -139,6 +139,12 @@ function filterEntries(
       return isSameDay(e.transfer.targetDate, opts.date);
     }
 
+    // Substitute-for entries: only include when the query date matches
+    if (e.substituteFor) {
+      if (!opts?.date) return false;
+      return isSameDay(e.substituteFor.date, opts.date);
+    }
+
     if (opts?.subgroup && e.subgroup && e.subgroup !== opts.subgroup) {
       return false;
     }
@@ -186,6 +192,7 @@ function makeLessonTime(
 export function slotsToLessons(
   slots: FullScheduleSlot[],
   date: Date,
+  opts?: { isTeacherSchedule?: boolean },
 ): Lesson[] {
   const lessons: Lesson[] = [];
   for (const slot of slots) {
@@ -204,6 +211,9 @@ export function slotsToLessons(
             room = sub.room;
           }
           if (sub.teacher) {
+            // On teacher schedules, a teacher substitution means another teacher
+            // is taking over — exclude the lesson entirely.
+            if (opts?.isTeacherSchedule) continue;
             originalTeacher = teacher;
             teacher = sub.teacher;
           }
@@ -225,6 +235,7 @@ export function slotsToLessons(
         originalRoom,
         originalTeacher,
         transfer: entry.transfer,
+        substituteFor: entry.substituteFor,
         possibleChanges: entry.possibleChanges,
       });
     }

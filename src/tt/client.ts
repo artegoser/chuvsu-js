@@ -280,7 +280,7 @@ export class TtClient {
       schedules.set(period, days);
     }
 
-    return new Schedule(teacherId, schedules, undefined, this.educationType);
+    return new Schedule(teacherId, schedules, undefined, this.educationType, undefined, undefined, true);
   }
 
   async getTeacherScheduleForPeriod(opts: {
@@ -290,7 +290,7 @@ export class TtClient {
     const days = await this.fetchTeacherSchedule(opts.teacherId, opts.period);
     const schedules = new Map<number, FullScheduleDay[]>();
     schedules.set(opts.period, days);
-    return new Schedule(opts.teacherId, schedules, opts.period, this.educationType);
+    return new Schedule(opts.teacherId, schedules, opts.period, this.educationType, undefined, undefined, true);
   }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {

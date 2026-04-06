@@ -38,6 +38,7 @@ export type {
   LessonTime,
   SemesterWeek,
   Substitution,
+  SubstituteForInfo,
   TransferInfo,
   TeacherInfo,
   TtClientOptions,
