@@ -180,9 +180,16 @@ function parseTransferDiv(
 
   const roomMatch = divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
   const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  // Teacher: last text line before closing </div>
+  // Teacher: last text line that isn't a subgroup marker
   const parts = divHtml.split(/<br\s*\/?>/);
-  const lastPart = parts[parts.length - 1]?.replace(/<[^>]*>/g, "").trim();
+  let teacherPart = "";
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const clean = parts[i].replace(/<[^>]*>/g, "").trim();
+    if (clean && !/подгруппа/.test(clean)) {
+      teacherPart = clean;
+      break;
+    }
+  }
 
   const transfer: TransferInfo = { targetDate, fromDate, fromSlot, subject };
   const subgroupMatch = divText.match(/(\d+)\s*подгруппа/);
@@ -194,7 +201,7 @@ function parseTransferDiv(
       subject,
       type: typeMatch?.[1] ?? "",
       weeks: { from: 0, to: 0 },
-      teacher: parseTeacher(lastPart ?? ""),
+      teacher: parseTeacher(teacherPart),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       transfer,
     },
