@@ -3,6 +3,8 @@ import { Cache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
 import { EducationType, AuthError, Period } from "../common/types.js";
 import {
+  parseAudienceButtons,
+  parseAudienceName,
   parseGroupButtons,
   parseFacultyButtons,
   parseTeacherButtons,
@@ -12,6 +14,7 @@ import {
 } from "./parse.js";
 import { Schedule } from "./schedule.js";
 import type {
+  Audience,
   Faculty,
   Group,
   FullScheduleDay,
@@ -229,6 +232,56 @@ export class TtClient {
       pertt: this.pertt,
     });
     return parseGroupButtons(body);
+  }
+
+  /**
+   * Search audiences by name (substring match). The server requires at
+   * least 3 characters in the query.
+   */
+  async searchAudience(opts: { name: string }): Promise<Audience[]> {
+    const { body } = await this.authPost(`${BASE}/`, {
+      audname: opts.name,
+      findaud: "найти",
+      hfac: "0",
+      pertt: this.pertt,
+    });
+    return parseAudienceButtons(body);
+  }
+
+  /**
+   * Get every audience known to the system in a single request.
+   *
+   * The site exposes only a search form ("at least 3 characters") and no
+   * listing endpoint. However the query is passed to a SQL LIKE, so the
+   * 3-character wildcard `%%%` matches every audience at once and returns
+   * the full list of (id, name) pairs.
+   */
+  async getAudiences(): Promise<Audience[]> {
+    const { body } = await this.authPost(`${BASE}/`, {
+      audname: "%%%",
+      findaud: "найти",
+      hfac: "0",
+      pertt: this.pertt,
+    });
+    return parseAudienceButtons(body);
+  }
+
+  /**
+   * Resolve an audience id from its exact name by searching and
+   * selecting the button whose `value` equals the given name.
+   */
+  async findAudienceByName(opts: { name: string }): Promise<Audience | null> {
+    const q = opts.name.length >= 3 ? opts.name : "%%%";
+    const list = await this.searchAudience({ name: q });
+    return list.find((a) => a.name === opts.name) ?? null;
+  }
+
+  /** Fetch the audience's display name from its schedule page. */
+  async getAudienceName(audienceId: number): Promise<string | null> {
+    const { body } = await this.authGet(
+      `${BASE}/index/audtt/aud/${audienceId}`,
+    );
+    return parseAudienceName(body);
   }
 
   async searchTeacher(opts: {

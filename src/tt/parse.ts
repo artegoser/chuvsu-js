@@ -8,6 +8,7 @@ import {
 } from "../common/parse.js";
 import { type Period, EducationType, type Teacher } from "../common/types.js";
 import type {
+  Audience,
   Faculty,
   Group,
   FullScheduleDay,
@@ -61,6 +62,33 @@ export function parseFacultyButtons(html: string): Faculty[] {
     }
   }
   return faculties;
+}
+
+export function parseAudienceButtons(html: string): Audience[] {
+  const results: Audience[] = [];
+  const seen = new Set<number>();
+  const re = /<button[^>]*\bname="aud(\d+)"[^>]*\bvalue="([^"]*)"/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html)) !== null) {
+    const id = parseInt(m[1]);
+    if (seen.has(id)) continue;
+    seen.add(id);
+    results.push({ id, name: m[2] });
+  }
+  return results;
+}
+
+export function parseAudienceName(html: string): string | null {
+  const m = html.match(
+    /id="path"[\s\S]*?findaud[^>]*>[^<]*<\/a>([\s\S]*?)<\/div>/,
+  );
+  if (!m) return null;
+  const tail = m[1]
+    .replace(/&nbsp;/g, " ")
+    .replace(/<[^>]*>/g, "")
+    .replace(/^[\s/]+/, "")
+    .trim();
+  return tail || null;
 }
 
 export function parseTeacherButtons(

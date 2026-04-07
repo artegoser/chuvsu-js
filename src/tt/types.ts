@@ -17,6 +17,11 @@ export interface Group {
   profile?: string;
 }
 
+export interface Audience {
+  id: number;
+  name: string;
+}
+
 /** A date-specific substitution (room and/or teacher change). */
 export interface Substitution {
   /** The date this substitution applies to. */
