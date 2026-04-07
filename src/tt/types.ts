@@ -22,6 +22,22 @@ export interface Audience {
   name: string;
 }
 
+export interface AudienceInfo {
+  name: string;
+  /** Building letter/name, e.g. "Б". */
+  building?: string;
+  /** Floor number, e.g. 3. */
+  floor?: number;
+  /** Free-form usage description, e.g. "Учебная лаборатория". */
+  usage?: string;
+  /** Relative URL of the audience photo (/index/audimage/...). */
+  audImageUrl?: string;
+  /** Relative URL of the building image (/index/blockimage/...). */
+  blockImageUrl?: string;
+  /** Relative URL of the floor plan image (/index/floorplan/...). */
+  floorplanUrl?: string;
+}
+
 /** A date-specific substitution (room and/or teacher change). */
 export interface Substitution {
   /** The date this substitution applies to. */
@@ -144,6 +160,7 @@ export interface CacheConfig {
   teachers?: number;
   teacherInfo?: number;
   teacherPhotos?: number;
+  audienceInfo?: number;
 }
 
 export interface TtClientOptions {

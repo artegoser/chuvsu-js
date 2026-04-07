@@ -4,6 +4,8 @@ import type { CacheEntry } from "../common/cache.js";
 import { EducationType, AuthError, Period } from "../common/types.js";
 import {
   parseAudienceButtons,
+  parseAudienceFullSchedule,
+  parseAudienceInfo,
   parseAudienceName,
   parseGroupButtons,
   parseFacultyButtons,
@@ -15,6 +17,7 @@ import {
 import { Schedule } from "./schedule.js";
 import type {
   Audience,
+  AudienceInfo,
   Faculty,
   Group,
   FullScheduleDay,
@@ -282,6 +285,95 @@ export class TtClient {
       `${BASE}/index/audtt/aud/${audienceId}`,
     );
     return parseAudienceName(body);
+  }
+
+  /**
+   * Fetch detailed info about an audience (building, floor, usage,
+   * image URLs for the audience photo, building photo and floor plan).
+   */
+  async getAudienceInfo(audienceId: number): Promise<AudienceInfo | null> {
+    const cached = this.cache?.get("audienceInfo", String(audienceId));
+    if (cached) return cached as AudienceInfo;
+
+    const { body } = await this.authGet(
+      `${BASE}/index/audtt/aud/${audienceId}`,
+    );
+    const info = parseAudienceInfo(body);
+    if (info) this.cache?.set("audienceInfo", String(audienceId), info);
+    return info;
+  }
+
+  private async fetchAudienceSchedule(
+    audienceId: number,
+    period: Period,
+  ): Promise<FullScheduleDay[]> {
+    const cacheKey = `audience:${audienceId}:${period}`;
+    const cached = this.cache?.get("schedule", cacheKey);
+    if (cached) return cached as FullScheduleDay[];
+
+    const url = `${BASE}/index/audtt/aud/${audienceId}`;
+    const { body } = await this.authPost(url, { htype: String(period) });
+    const days = parseAudienceFullSchedule(body);
+    this.cache?.set("schedule", cacheKey, days);
+
+    // Cache audience info from the same page to avoid an extra request.
+    if (!this.cache?.get("audienceInfo", String(audienceId))) {
+      const info = parseAudienceInfo(body);
+      if (info) this.cache?.set("audienceInfo", String(audienceId), info);
+    }
+
+    return days;
+  }
+
+  async getAudienceSchedule(audienceId: number): Promise<Schedule> {
+    const schedules = new Map<number, FullScheduleDay[]>();
+
+    const results = await Promise.all(
+      ALL_PERIODS.map(async (period) => {
+        const days = await this.fetchAudienceSchedule(audienceId, period);
+        return { period, days };
+      }),
+    );
+
+    for (const { period, days } of results) {
+      schedules.set(period, days);
+    }
+
+    return new Schedule(audienceId, schedules, undefined, this.educationType);
+  }
+
+  async getAudienceScheduleForPeriod(opts: {
+    audienceId: number;
+    period: Period;
+  }): Promise<Schedule> {
+    const days = await this.fetchAudienceSchedule(opts.audienceId, opts.period);
+    const schedules = new Map<number, FullScheduleDay[]>();
+    schedules.set(opts.period, days);
+    return new Schedule(opts.audienceId, schedules, opts.period, this.educationType);
+  }
+
+  /** Get the audience photo (audimage). Returns null if missing. */
+  async getAudienceImage(audienceId: number): Promise<Buffer | null> {
+    const info = await this.getAudienceInfo(audienceId);
+    if (!info?.audImageUrl) return null;
+    const buf = await this.authGetBuffer(`${BASE}${info.audImageUrl}`);
+    return buf.length > 0 ? buf : null;
+  }
+
+  /** Get the building exterior image (blockimage). Returns null if missing. */
+  async getAudienceBlockImage(audienceId: number): Promise<Buffer | null> {
+    const info = await this.getAudienceInfo(audienceId);
+    if (!info?.blockImageUrl) return null;
+    const buf = await this.authGetBuffer(`${BASE}${info.blockImageUrl}`);
+    return buf.length > 0 ? buf : null;
+  }
+
+  /** Get the floor plan image for the audience. Returns null if missing. */
+  async getAudienceFloorplan(audienceId: number): Promise<Buffer | null> {
+    const info = await this.getAudienceInfo(audienceId);
+    if (!info?.floorplanUrl) return null;
+    const buf = await this.authGetBuffer(`${BASE}${info.floorplanUrl}`);
+    return buf.length > 0 ? buf : null;
   }
 
   async searchTeacher(opts: {

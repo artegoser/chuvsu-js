@@ -29,6 +29,7 @@ export type { Time, WeekRange, Teacher } from "./common/types.js";
 export type { PersonalData } from "./lk/types.js";
 export type {
   Audience,
+  AudienceInfo,
   Faculty,
   Group,
   ScheduleEntry,
