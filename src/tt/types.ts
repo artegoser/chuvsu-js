@@ -36,6 +36,8 @@ export interface AudienceInfo {
   blockImageUrl?: string;
   /** Relative URL of the floor plan image (/index/floorplan/...). */
   floorplanUrl?: string;
+  /** Rectangle (in floorplan image pixels) highlighting this audience. */
+  floorplanRect?: { x1: number; y1: number; x2: number; y2: number };
 }
 
 /** A date-specific substitution (room and/or teacher change). */

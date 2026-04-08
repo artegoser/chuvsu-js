@@ -505,6 +505,26 @@ export function parseAudienceInfo(html: string): AudienceInfo | null {
   const blockImg = doc.querySelector("#blocksrc");
   const floorImg = doc.querySelector("#floorsrc");
 
+  // Highlight rect from the image map: prefer the <area> whose id matches
+  // the current audience (planaudNNNN); fall back to the first rect area.
+  let floorplanRect: { x1: number; y1: number; x2: number; y2: number } | undefined;
+  const areas = doc.querySelectorAll('map[name="flooraud"] area[shape="rect"]');
+  let chosen: Element | undefined = undefined;
+  for (const a of areas) {
+    if (a.getAttribute("alt")?.trim() === name) {
+      chosen = a;
+      break;
+    }
+  }
+  if (!chosen && areas.length > 0) chosen = areas[0];
+  if (chosen) {
+    const coords = chosen.getAttribute("coords") ?? "";
+    const parts = coords.split(",").map((s) => parseInt(s.trim(), 10));
+    if (parts.length === 4 && parts.every((n) => Number.isFinite(n))) {
+      floorplanRect = { x1: parts[0], y1: parts[1], x2: parts[2], y2: parts[3] };
+    }
+  }
+
   return {
     name,
     building,
@@ -513,6 +533,7 @@ export function parseAudienceInfo(html: string): AudienceInfo | null {
     audImageUrl: audImg?.getAttribute("src") || undefined,
     blockImageUrl: blockImg?.getAttribute("src") || undefined,
     floorplanUrl: floorImg?.getAttribute("src") || undefined,
+    floorplanRect,
   };
 }
 
