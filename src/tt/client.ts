@@ -352,28 +352,56 @@ export class TtClient {
     return new Schedule(opts.audienceId, schedules, opts.period, this.educationType);
   }
 
+  private async getCachedAudienceImage(
+    cacheKey: string,
+    fetchUrl: () => Promise<string | undefined>,
+  ): Promise<Buffer | null> {
+    const cached = this.cache?.get("audienceImages", cacheKey);
+    if (cached !== null && cached !== undefined) {
+      const entry = cached as { data: string | null };
+      return entry.data ? Buffer.from(entry.data, "base64") : null;
+    }
+
+    const url = await fetchUrl();
+    if (!url) {
+      this.cache?.set("audienceImages", cacheKey, { data: null });
+      return null;
+    }
+
+    const buf = await this.authGetBuffer(`${BASE}${url}`);
+    if (buf.length === 0) {
+      this.cache?.set("audienceImages", cacheKey, { data: null });
+      return null;
+    }
+
+    this.cache?.set("audienceImages", cacheKey, {
+      data: buf.toString("base64"),
+    });
+    return buf;
+  }
+
   /** Get the audience photo (audimage). Returns null if missing. */
   async getAudienceImage(audienceId: number): Promise<Buffer | null> {
-    const info = await this.getAudienceInfo(audienceId);
-    if (!info?.audImageUrl) return null;
-    const buf = await this.authGetBuffer(`${BASE}${info.audImageUrl}`);
-    return buf.length > 0 ? buf : null;
+    return this.getCachedAudienceImage(
+      `aud:${audienceId}`,
+      async () => (await this.getAudienceInfo(audienceId))?.audImageUrl,
+    );
   }
 
   /** Get the building exterior image (blockimage). Returns null if missing. */
   async getAudienceBlockImage(audienceId: number): Promise<Buffer | null> {
-    const info = await this.getAudienceInfo(audienceId);
-    if (!info?.blockImageUrl) return null;
-    const buf = await this.authGetBuffer(`${BASE}${info.blockImageUrl}`);
-    return buf.length > 0 ? buf : null;
+    return this.getCachedAudienceImage(
+      `block:${audienceId}`,
+      async () => (await this.getAudienceInfo(audienceId))?.blockImageUrl,
+    );
   }
 
   /** Get the floor plan image for the audience. Returns null if missing. */
   async getAudienceFloorplan(audienceId: number): Promise<Buffer | null> {
-    const info = await this.getAudienceInfo(audienceId);
-    if (!info?.floorplanUrl) return null;
-    const buf = await this.authGetBuffer(`${BASE}${info.floorplanUrl}`);
-    return buf.length > 0 ? buf : null;
+    return this.getCachedAudienceImage(
+      `floor:${audienceId}`,
+      async () => (await this.getAudienceInfo(audienceId))?.floorplanUrl,
+    );
   }
 
   async searchTeacher(opts: {

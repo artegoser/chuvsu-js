@@ -163,6 +163,7 @@ export interface CacheConfig {
   teacherInfo?: number;
   teacherPhotos?: number;
   audienceInfo?: number;
+  audienceImages?: number;
 }
 
 export interface TtClientOptions {
