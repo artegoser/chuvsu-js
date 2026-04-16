@@ -6,24 +6,25 @@ import type {
 } from "./types.js";
 import { Period, EducationType } from "../common/types.js";
 import {
+  collectTransfers,
+  filterSlots,
+  getAdjacentSemester,
   getCurrentPeriod,
-  isSessionPeriod,
-  getWeekdayName,
   getMonday,
   getSemesterStart,
   getSemesterWeeks,
   getWeekNumber,
-  getAdjacentSemester,
-  filterSlots,
+  getWeekdayName,
+  isHoliday,
+  isSameDay,
+  isSessionPeriod,
+  RUSSIAN_HOLIDAYS,
   slotsToLessons,
   sortLessons,
-  isHoliday,
-  collectTransfers,
   suppressTransferredLessons,
-  RUSSIAN_HOLIDAYS,
   type Holiday,
   type HolidayTransfer,
-} from "./utils.js";
+} from "./utils/index.js";
 
 export class Schedule {
   readonly groupId: number;
@@ -114,16 +115,6 @@ export class Schedule {
     return date;
   }
 
-  // --- Session helpers (date-based) ---
-
-  private static isSameDay(a: Date, b: Date): boolean {
-    return (
-      a.getFullYear() === b.getFullYear() &&
-      a.getMonth() === b.getMonth() &&
-      a.getDate() === b.getDate()
-    );
-  }
-
   // --- Public query methods ---
 
   forDay(
@@ -159,7 +150,7 @@ export class Schedule {
     // 1. Check all periods for date-based (session) entries matching this date
     for (const [, d] of this.scheduleMap) {
       for (const day of d) {
-        if (day.date && Schedule.isSameDay(day.date, date)) {
+        if (day.date && isSameDay(day.date, date)) {
           lessons.push(...slotsToLessons(day.slots, date, { isTeacherSchedule: this.isTeacherSchedule }));
         }
       }

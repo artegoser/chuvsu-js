@@ -13,7 +13,7 @@ import {
   parseFullSchedule,
   parseTeacherFullSchedule,
   parseTeacherInfo,
-} from "./parse.js";
+} from "./parse/index.js";
 import { Schedule } from "./schedule.js";
 import type {
   Audience,

@@ -76,8 +76,13 @@ export interface ScheduleEntry {
   type: string;
   weeks: WeekRange;
   teacher: Teacher;
-  /** For teacher schedules: group names (e.g. "КТ-42-25 (1 подгруппа)"). */
-  groups?: string;
+  /**
+   * Group names for this lesson (e.g. `["КТ-42-25 (АихС)", "КТ-41-25"]`).
+   * Parenthesized annotations that are part of the group name are preserved;
+   * service markers like "(N подгруппа)" are stripped and moved to {@link ScheduleEntry.subgroup}.
+   * Empty array if no groups are listed.
+   */
+  groups: string[];
   subgroup?: number;
   weekParity?: "even" | "odd";
   /** Date-specific substitutions (замена на). */
@@ -123,8 +128,8 @@ export interface Lesson {
   type: string;
   room: string;
   teacher: Teacher;
-  /** For teacher schedules: group names. */
-  groups?: string;
+  /** Group names for this lesson. See {@link ScheduleEntry.groups}. */
+  groups: string[];
   weeks: WeekRange;
   subgroup?: number;
   weekParity?: "even" | "odd";
