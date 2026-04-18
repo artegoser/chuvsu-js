@@ -22,10 +22,11 @@ export function parseGroupsString(raw: string | undefined | null): string[] {
 
   const out: string[] = [];
 
-  // A new group starts from its code; trailing qualifiers like "ин" belong to
-  // the current group until the next code begins.
+  // A new group starts from a code-like token. Optional qualifiers like "ин"
+  // may be attached either directly ("М-30-25ин") or as a separate tail
+  // ("УП-51-23 ин"), so they stay with the current group until the next code.
   const startsGroup = (token: string): boolean =>
-    /^[A-ZА-ЯЁ]{1,}-\d{1,2}-\d{2,4}[A-ZА-ЯЁa-zа-яё]*$/u.test(token);
+    /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u.test(token);
 
   let current = "";
   for (const token of cleaned.split(/\s+/)) {
