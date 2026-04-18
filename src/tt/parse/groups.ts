@@ -21,8 +21,23 @@ export function parseGroupsString(raw: string | undefined | null): string[] {
   if (!cleaned) return [];
 
   const out: string[] = [];
-  for (const m of cleaned.matchAll(/(\S+)(?:\s+\(([^)]+)\))?/g)) {
-    out.push(m[2] ? `${m[1]} (${m[2]})` : m[1]);
+
+  // A new group starts from its code; trailing qualifiers like "ин" belong to
+  // the current group until the next code begins.
+  const startsGroup = (token: string): boolean =>
+    /^[A-ZА-ЯЁ]{1,}-\d{1,2}-\d{2,4}[A-ZА-ЯЁa-zа-яё]*$/u.test(token);
+
+  let current = "";
+  for (const token of cleaned.split(/\s+/)) {
+    if (startsGroup(token)) {
+      if (current) out.push(current);
+      current = token;
+      continue;
+    }
+
+    current = current ? `${current} ${token}` : token;
   }
+
+  if (current) out.push(current);
   return out;
 }
