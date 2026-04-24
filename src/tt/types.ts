@@ -164,6 +164,8 @@ export interface CacheConfig {
   schedule?: number;
   faculties?: number;
   groups?: number;
+  audiences?: number;
+  audienceNames?: number;
   teachers?: number;
   teacherInfo?: number;
   teacherPhotos?: number;

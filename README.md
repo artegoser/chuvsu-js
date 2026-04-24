@@ -61,7 +61,7 @@ schedule.currentLesson();
 ```ts
 import { LkClient } from "chuvsu-js";
 
-const lk = new LkClient();
+const lk = new LkClient({ cache: 60_000 });
 await lk.login({ email: "student@mail.ru", password: "password" });
 
 const data = await lk.getPersonalData();
@@ -141,7 +141,7 @@ const data = tt.exportCache();
 tt.importCache(data);
 ```
 
-Категории кеша: `schedule`, `faculties`, `groups`.
+Категории кеша: `schedule`, `faculties`, `groups`, `audiences`, `audienceNames`, `teachers`, `teacherInfo`, `teacherPhotos`, `audienceInfo`, `audienceImages`.
 
 ### Schedule
 
@@ -224,10 +224,13 @@ getWeekNumber({ period: Period.SpringSemester });
 Клиент для личного кабинета (`lk.chuvsu.ru`).
 
 ```ts
+const lk = new LkClient({ cache?: number | LkCacheConfig });
 await lk.login({ email, password });
 const data = await lk.getPersonalData();
 const groupId = await lk.getGroupId();
 ```
+
+`cache` работает так же, как в `TtClient`: число задаёт единый TTL в мс, объект — TTL по категориям (`personalData`, `photo`, `groupId`).
 
 **PersonalData** содержит: `lastName`, `firstName`, `patronymic`, `sex`, `birthday`, `recordBookNumber`, `faculty`, `specialty`, `profile`, `group`, `course`, `email`, `phone`.
 

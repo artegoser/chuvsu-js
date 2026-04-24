@@ -54,4 +54,4 @@ export type {
   TtClientOptions,
 } from "./tt/types.js";
 
-export type { PersonalData } from "./lk/types.js";
+export type { LkCacheConfig, LkClientOptions, PersonalData } from "./lk/types.js";

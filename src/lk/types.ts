@@ -13,3 +13,13 @@ export interface PersonalData {
   email: string;
   phone: string;
 }
+
+export interface LkCacheConfig {
+  personalData?: number;
+  photo?: number;
+  groupId?: number;
+}
+
+export interface LkClientOptions {
+  cache?: number | LkCacheConfig;
+}

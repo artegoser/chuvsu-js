@@ -36,6 +36,21 @@ const ALL_PERIODS = [
   Period.SummerSession,
 ] as const;
 
+function makeUniformCacheConfig(ttl: number): CacheConfig {
+  return {
+    schedule: ttl,
+    faculties: ttl,
+    groups: ttl,
+    audiences: ttl,
+    audienceNames: ttl,
+    teachers: ttl,
+    teacherInfo: ttl,
+    teacherPhotos: ttl,
+    audienceInfo: ttl,
+    audienceImages: ttl,
+  };
+}
+
 export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
@@ -51,11 +66,9 @@ export class TtClient {
     if (opts?.cache == null) {
       this.cache = null;
     } else if (typeof opts.cache === "number") {
-      this.cache = new Cache({
-        schedule: opts.cache,
-        faculties: opts.cache,
-        groups: opts.cache,
-      });
+      this.cache = new Cache(
+        makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+      );
     } else {
       this.cache = new Cache(opts.cache as Record<string, number | undefined>);
     }
@@ -228,13 +241,19 @@ export class TtClient {
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
+    const cacheKey = `search:${opts.name}:${this.pertt}`;
+    const cached = this.cache?.get("groups", cacheKey);
+    if (cached) return cached as Group[];
+
     const { body } = await this.authPost(`${BASE}/`, {
       grname: opts.name,
       findgr: "найти",
       hfac: "0",
       pertt: this.pertt,
     });
-    return parseGroupButtons(body);
+    const data = parseGroupButtons(body);
+    this.cache?.set("groups", cacheKey, data);
+    return data;
   }
 
   /**
@@ -242,13 +261,19 @@ export class TtClient {
    * least 3 characters in the query.
    */
   async searchAudience(opts: { name: string }): Promise<Audience[]> {
+    const cacheKey = `search:${opts.name}:${this.pertt}`;
+    const cached = this.cache?.get("audiences", cacheKey);
+    if (cached) return cached as Audience[];
+
     const { body } = await this.authPost(`${BASE}/`, {
       audname: opts.name,
       findaud: "найти",
       hfac: "0",
       pertt: this.pertt,
     });
-    return parseAudienceButtons(body);
+    const data = parseAudienceButtons(body);
+    this.cache?.set("audiences", cacheKey, data);
+    return data;
   }
 
   /**
@@ -260,13 +285,19 @@ export class TtClient {
    * the full list of (id, name) pairs.
    */
   async getAudiences(): Promise<Audience[]> {
+    const cacheKey = `all:${this.pertt}`;
+    const cached = this.cache?.get("audiences", cacheKey);
+    if (cached) return cached as Audience[];
+
     const { body } = await this.authPost(`${BASE}/`, {
       audname: "%%%",
       findaud: "найти",
       hfac: "0",
       pertt: this.pertt,
     });
-    return parseAudienceButtons(body);
+    const data = parseAudienceButtons(body);
+    this.cache?.set("audiences", cacheKey, data);
+    return data;
   }
 
   /**
@@ -281,10 +312,23 @@ export class TtClient {
 
   /** Fetch the audience's display name from its schedule page. */
   async getAudienceName(audienceId: number): Promise<string | null> {
+    const cacheKey = String(audienceId);
+    const cached = this.cache?.get("audienceNames", cacheKey);
+    if (cached !== null && cached !== undefined) return cached as string | null;
+
+    const cachedInfo = this.cache?.get("audienceInfo", cacheKey);
+    if (cachedInfo) {
+      return (cachedInfo as AudienceInfo).name ?? null;
+    }
+
     const { body } = await this.authGet(
       `${BASE}/index/audtt/aud/${audienceId}`,
     );
-    return parseAudienceName(body);
+    const name = parseAudienceName(body);
+    const info = parseAudienceInfo(body);
+    this.cache?.set("audienceNames", cacheKey, name);
+    if (info) this.cache?.set("audienceInfo", cacheKey, info);
+    return name;
   }
 
   /**
@@ -407,13 +451,19 @@ export class TtClient {
   async searchTeacher(opts: {
     name: string;
   }): Promise<{ id: number; name: string }[]> {
+    const cacheKey = `search:${opts.name}:${this.pertt}`;
+    const cached = this.cache?.get("teachers", cacheKey);
+    if (cached) return cached as { id: number; name: string }[];
+
     const { body } = await this.authPost(`${BASE}/`, {
       techname: opts.name,
       findtech: "найти",
       hfac: "0",
       pertt: this.pertt,
     });
-    return parseTeacherButtons(body);
+    const data = parseTeacherButtons(body);
+    this.cache?.set("teachers", cacheKey, data);
+    return data;
   }
 
   // --- Teacher schedule ---

@@ -1,15 +1,37 @@
 import { HttpClient, type HttpResponse } from "../common/http.js";
+import { Cache } from "../common/cache.js";
 import { AuthError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
-import type { PersonalData } from "./types.js";
+import type { LkCacheConfig, LkClientOptions, PersonalData } from "./types.js";
 
 const BASE = "https://lk.chuvsu.ru";
 const LOGIN_URL = `${BASE}/info/login.php`;
 const STUDENT_BASE = `${BASE}/student`;
 
+function makeUniformCacheConfig(ttl: number): LkCacheConfig {
+  return {
+    personalData: ttl,
+    photo: ttl,
+    groupId: ttl,
+  };
+}
+
 export class LkClient {
   private http = new HttpClient();
   private credentials: { email: string; password: string } | null = null;
+  private cache: Cache | null;
+
+  constructor(opts?: LkClientOptions) {
+    if (opts?.cache == null) {
+      this.cache = null;
+    } else if (typeof opts.cache === "number") {
+      this.cache = new Cache(
+        makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+      );
+    } else {
+      this.cache = new Cache(opts.cache as Record<string, number | undefined>);
+    }
+  }
 
   async login(opts: { email: string; password: string }): Promise<void> {
     const res = await this.http.post(
@@ -37,9 +59,12 @@ export class LkClient {
   }
 
   async getPersonalData(): Promise<PersonalData> {
+    const cached = this.cache?.get("personalData", "self");
+    if (cached) return cached as PersonalData;
+
     const { body } = await this.authGet(`${STUDENT_BASE}/personal_data.php`);
     const vals = extractScriptValues(body, "form_personal_data");
-    return {
+    const data = {
       lastName: vals.fam ?? "",
       firstName: vals.nam ?? "",
       patronymic: vals.oth ?? "",
@@ -54,15 +79,29 @@ export class LkClient {
       email: vals.email ?? "",
       phone: vals.phone ?? "",
     };
+    this.cache?.set("personalData", "self", data);
+    return data;
   }
 
   async getPhoto(): Promise<Buffer> {
-    return this.http.getBuffer(`${STUDENT_BASE}/face.php`);
+    const cached = this.cache?.get("photo", "self");
+    if (cached !== null && cached !== undefined) {
+      return Buffer.from(cached as string, "base64");
+    }
+
+    const photo = await this.http.getBuffer(`${STUDENT_BASE}/face.php`);
+    this.cache?.set("photo", "self", photo.toString("base64"));
+    return photo;
   }
 
   async getGroupId(): Promise<number | null> {
+    const cached = this.cache?.get("groupId", "self");
+    if (cached !== null && cached !== undefined) return cached as number | null;
+
     const { body } = await this.authGet(`${STUDENT_BASE}/tt.php`);
     const match = body.match(/tt\.chuvsu\.ru\/index\/grouptt\/gr\/(\d+)/);
-    return match ? parseInt(match[1]) : null;
+    const groupId = match ? parseInt(match[1]) : null;
+    this.cache?.set("groupId", "self", groupId);
+    return groupId;
   }
 }
