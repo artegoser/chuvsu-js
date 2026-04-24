@@ -1,5 +1,5 @@
 import { HttpClient, type HttpResponse } from "../common/http.js";
-import { Cache } from "../common/cache.js";
+import { HybridCache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
 import { EducationType, AuthError, Period } from "../common/types.js";
 import {
@@ -54,7 +54,8 @@ function makeUniformCacheConfig(ttl: number): CacheConfig {
 export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
-  private cache: Cache | null;
+  private cache: HybridCache | null;
+  private blobAdapter = undefined as TtClientOptions["blobAdapter"];
   private loginMode:
     | { type: "credentials"; email: string; password: string }
     | { type: "guest" }
@@ -62,15 +63,20 @@ export class TtClient {
 
   constructor(opts?: TtClientOptions) {
     this.educationType = opts?.educationType ?? EducationType.HigherEducation;
+    this.blobAdapter = opts?.blobAdapter;
 
     if (opts?.cache == null) {
       this.cache = null;
     } else if (typeof opts.cache === "number") {
-      this.cache = new Cache(
+      this.cache = new HybridCache(
         makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+        opts.cacheAdapter,
       );
     } else {
-      this.cache = new Cache(opts.cache as Record<string, number | undefined>);
+      this.cache = new HybridCache(
+        opts.cache as Record<string, number | undefined>,
+        opts.cacheAdapter,
+      );
     }
   }
 
@@ -80,8 +86,8 @@ export class TtClient {
 
   // --- Cache ---
 
-  clearCache(category?: keyof CacheConfig): void {
-    this.cache?.clear(category);
+  async clearCache(category?: keyof CacheConfig): Promise<void> {
+    await this.cache?.clear(category);
   }
 
   exportCache(): Record<string, CacheEntry> {
@@ -170,13 +176,13 @@ export class TtClient {
     period: Period,
   ): Promise<FullScheduleDay[]> {
     const cacheKey = `${groupId}:${period}`;
-    const cached = this.cache?.get("schedule", cacheKey);
+    const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
     const url = `${BASE}/index/grouptt/gr/${groupId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
     const days = parseFullSchedule(body, this.educationType);
-    this.cache?.set("schedule", cacheKey, days);
+    await this.cache?.set("schedule", cacheKey, days);
     return days;
   }
 
@@ -217,18 +223,18 @@ export class TtClient {
   // --- Search / Discovery ---
 
   async getFaculties(): Promise<Faculty[]> {
-    const cached = this.cache?.get("faculties", "all");
+    const cached = await this.cache?.get("faculties", "all");
     if (cached) return cached as Faculty[];
 
     const { body } = await this.authGet(`${BASE}/`);
     const data = parseFacultyButtons(body);
-    this.cache?.set("faculties", "all", data);
+    await this.cache?.set("faculties", "all", data);
     return data;
   }
 
   async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
     const cacheKey = String(opts.facultyId);
-    const cached = this.cache?.get("groups", cacheKey);
+    const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
     const { body } = await this.authPost(`${BASE}/`, {
@@ -236,13 +242,13 @@ export class TtClient {
       pertt: this.pertt,
     });
     const data = parseGroupButtons(body);
-    this.cache?.set("groups", cacheKey, data);
+    await this.cache?.set("groups", cacheKey, data);
     return data;
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
-    const cached = this.cache?.get("groups", cacheKey);
+    const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
     const { body } = await this.authPost(`${BASE}/`, {
@@ -252,7 +258,7 @@ export class TtClient {
       pertt: this.pertt,
     });
     const data = parseGroupButtons(body);
-    this.cache?.set("groups", cacheKey, data);
+    await this.cache?.set("groups", cacheKey, data);
     return data;
   }
 
@@ -262,7 +268,7 @@ export class TtClient {
    */
   async searchAudience(opts: { name: string }): Promise<Audience[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
-    const cached = this.cache?.get("audiences", cacheKey);
+    const cached = await this.cache?.get("audiences", cacheKey);
     if (cached) return cached as Audience[];
 
     const { body } = await this.authPost(`${BASE}/`, {
@@ -272,7 +278,7 @@ export class TtClient {
       pertt: this.pertt,
     });
     const data = parseAudienceButtons(body);
-    this.cache?.set("audiences", cacheKey, data);
+    await this.cache?.set("audiences", cacheKey, data);
     return data;
   }
 
@@ -286,7 +292,7 @@ export class TtClient {
    */
   async getAudiences(): Promise<Audience[]> {
     const cacheKey = `all:${this.pertt}`;
-    const cached = this.cache?.get("audiences", cacheKey);
+    const cached = await this.cache?.get("audiences", cacheKey);
     if (cached) return cached as Audience[];
 
     const { body } = await this.authPost(`${BASE}/`, {
@@ -296,7 +302,7 @@ export class TtClient {
       pertt: this.pertt,
     });
     const data = parseAudienceButtons(body);
-    this.cache?.set("audiences", cacheKey, data);
+    await this.cache?.set("audiences", cacheKey, data);
     return data;
   }
 
@@ -313,10 +319,10 @@ export class TtClient {
   /** Fetch the audience's display name from its schedule page. */
   async getAudienceName(audienceId: number): Promise<string | null> {
     const cacheKey = String(audienceId);
-    const cached = this.cache?.get("audienceNames", cacheKey);
+    const cached = await this.cache?.get("audienceNames", cacheKey);
     if (cached !== null && cached !== undefined) return cached as string | null;
 
-    const cachedInfo = this.cache?.get("audienceInfo", cacheKey);
+    const cachedInfo = await this.cache?.get("audienceInfo", cacheKey);
     if (cachedInfo) {
       return (cachedInfo as AudienceInfo).name ?? null;
     }
@@ -326,8 +332,8 @@ export class TtClient {
     );
     const name = parseAudienceName(body);
     const info = parseAudienceInfo(body);
-    this.cache?.set("audienceNames", cacheKey, name);
-    if (info) this.cache?.set("audienceInfo", cacheKey, info);
+    await this.cache?.set("audienceNames", cacheKey, name);
+    if (info) await this.cache?.set("audienceInfo", cacheKey, info);
     return name;
   }
 
@@ -336,14 +342,14 @@ export class TtClient {
    * image URLs for the audience photo, building photo and floor plan).
    */
   async getAudienceInfo(audienceId: number): Promise<AudienceInfo | null> {
-    const cached = this.cache?.get("audienceInfo", String(audienceId));
+    const cached = await this.cache?.get("audienceInfo", String(audienceId));
     if (cached) return cached as AudienceInfo;
 
     const { body } = await this.authGet(
       `${BASE}/index/audtt/aud/${audienceId}`,
     );
     const info = parseAudienceInfo(body);
-    if (info) this.cache?.set("audienceInfo", String(audienceId), info);
+    if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
     return info;
   }
 
@@ -352,18 +358,18 @@ export class TtClient {
     period: Period,
   ): Promise<FullScheduleDay[]> {
     const cacheKey = `audience:${audienceId}:${period}`;
-    const cached = this.cache?.get("schedule", cacheKey);
+    const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
     const url = `${BASE}/index/audtt/aud/${audienceId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
     const days = parseAudienceFullSchedule(body);
-    this.cache?.set("schedule", cacheKey, days);
+    await this.cache?.set("schedule", cacheKey, days);
 
     // Cache audience info from the same page to avoid an extra request.
-    if (!this.cache?.get("audienceInfo", String(audienceId))) {
+    if (!(await this.cache?.get("audienceInfo", String(audienceId)))) {
       const info = parseAudienceInfo(body);
-      if (info) this.cache?.set("audienceInfo", String(audienceId), info);
+      if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
     }
 
     return days;
@@ -400,27 +406,51 @@ export class TtClient {
     cacheKey: string,
     fetchUrl: () => Promise<string | undefined>,
   ): Promise<Buffer | null> {
-    const cached = this.cache?.get("audienceImages", cacheKey);
+    const cached =
+      this.cache?.getLocal("audienceImages", cacheKey) ??
+      await this.cache?.get("audienceImages", cacheKey);
     if (cached !== null && cached !== undefined) {
-      const entry = cached as { data: string | null };
-      return entry.data ? Buffer.from(entry.data, "base64") : null;
+      const entry = cached as { data?: string | null; blobKey?: string };
+      if (entry.data !== undefined) {
+        return entry.data ? Buffer.from(entry.data, "base64") : null;
+      }
+      if (entry.blobKey && this.blobAdapter) {
+        const buf = await this.blobAdapter.get(entry.blobKey);
+        if (buf) {
+          this.cache?.setLocal("audienceImages", cacheKey, {
+            data: buf.toString("base64"),
+          });
+          return buf;
+        }
+      }
     }
 
     const url = await fetchUrl();
     if (!url) {
-      this.cache?.set("audienceImages", cacheKey, { data: null });
+      await this.cache?.set("audienceImages", cacheKey, { data: null });
       return null;
     }
 
     const buf = await this.authGetBuffer(`${BASE}${url}`);
     if (buf.length === 0) {
-      this.cache?.set("audienceImages", cacheKey, { data: null });
+      await this.cache?.set("audienceImages", cacheKey, { data: null });
       return null;
     }
 
-    this.cache?.set("audienceImages", cacheKey, {
-      data: buf.toString("base64"),
-    });
+    if (this.blobAdapter) {
+      const blobKey = `tt/audience-images/${cacheKey}`;
+      this.cache?.setLocal("audienceImages", cacheKey, {
+        data: buf.toString("base64"),
+      });
+      await this.blobAdapter.put(blobKey, buf, {
+        ttl: this.cache?.ttl("audienceImages"),
+      });
+      await this.cache?.setExternal("audienceImages", cacheKey, { blobKey });
+    } else {
+      await this.cache?.set("audienceImages", cacheKey, {
+        data: buf.toString("base64"),
+      });
+    }
     return buf;
   }
 
@@ -452,7 +482,7 @@ export class TtClient {
     name: string;
   }): Promise<{ id: number; name: string }[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
-    const cached = this.cache?.get("teachers", cacheKey);
+    const cached = await this.cache?.get("teachers", cacheKey);
     if (cached) return cached as { id: number; name: string }[];
 
     const { body } = await this.authPost(`${BASE}/`, {
@@ -462,19 +492,19 @@ export class TtClient {
       pertt: this.pertt,
     });
     const data = parseTeacherButtons(body);
-    this.cache?.set("teachers", cacheKey, data);
+    await this.cache?.set("teachers", cacheKey, data);
     return data;
   }
 
   // --- Teacher schedule ---
 
   async getTeachers(): Promise<{ id: number; name: string }[]> {
-    const cached = this.cache?.get("teachers", "all");
+    const cached = await this.cache?.get("teachers", "all");
     if (cached) return cached as { id: number; name: string }[];
 
     const { body } = await this.authGet(`${BASE}/index/tech`);
     const data = parseTeacherButtons(body);
-    this.cache?.set("teachers", "all", data);
+    await this.cache?.set("teachers", "all", data);
     return data;
   }
 
@@ -483,18 +513,18 @@ export class TtClient {
     period: Period,
   ): Promise<FullScheduleDay[]> {
     const cacheKey = `teacher:${teacherId}:${period}`;
-    const cached = this.cache?.get("schedule", cacheKey);
+    const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
     const days = parseTeacherFullSchedule(body, this.educationType);
-    this.cache?.set("schedule", cacheKey, days);
+    await this.cache?.set("schedule", cacheKey, days);
 
     // Cache teacher info from the same page to avoid extra requests
-    if (!this.cache?.get("teacherInfo", String(teacherId))) {
+    if (!(await this.cache?.get("teacherInfo", String(teacherId)))) {
       const info = parseTeacherInfo(body);
-      if (info) this.cache?.set("teacherInfo", String(teacherId), info);
+      if (info) await this.cache?.set("teacherInfo", String(teacherId), info);
     }
 
     return days;
@@ -528,13 +558,13 @@ export class TtClient {
   }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
-    const cached = this.cache?.get("teacherInfo", String(teacherId));
+    const cached = await this.cache?.get("teacherInfo", String(teacherId));
     if (cached) return cached as TeacherInfo;
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authGet(url);
     const info = parseTeacherInfo(body);
-    if (info) this.cache?.set("teacherInfo", String(teacherId), info);
+    if (info) await this.cache?.set("teacherInfo", String(teacherId), info);
     return info;
   }
 
@@ -545,23 +575,47 @@ export class TtClient {
    */
   async getTeacherPhoto(teacherId: number): Promise<Buffer | null> {
     const photoCacheKey = String(teacherId);
-    const cachedPhoto = this.cache?.get("teacherPhotos", photoCacheKey);
+    const cachedPhoto =
+      this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
+      await this.cache?.get("teacherPhotos", photoCacheKey);
     if (cachedPhoto !== null && cachedPhoto !== undefined) {
-      const entry = cachedPhoto as { data: string | null };
-      return entry.data ? Buffer.from(entry.data, "base64") : null;
+      const entry = cachedPhoto as { data?: string | null; blobKey?: string };
+      if (entry.data !== undefined) {
+        return entry.data ? Buffer.from(entry.data, "base64") : null;
+      }
+      if (entry.blobKey && this.blobAdapter) {
+        const buf = await this.blobAdapter.get(entry.blobKey);
+        if (buf) {
+          this.cache?.setLocal("teacherPhotos", photoCacheKey, {
+            data: buf.toString("base64"),
+          });
+          return buf;
+        }
+      }
     }
 
     // Get teacher info (may already be cached from schedule fetch)
     const info = await this.getTeacherInfo(teacherId);
     if (!info?.photoUrl) {
-      this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
+      await this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
       return null;
     }
 
     const photoBuffer = await this.authGetBuffer(`${BASE}${info.photoUrl}`);
-    this.cache?.set("teacherPhotos", photoCacheKey, {
-      data: photoBuffer.toString("base64"),
-    });
+    if (this.blobAdapter) {
+      const blobKey = `tt/teacher-photos/${teacherId}`;
+      this.cache?.setLocal("teacherPhotos", photoCacheKey, {
+        data: photoBuffer.toString("base64"),
+      });
+      await this.blobAdapter.put(blobKey, photoBuffer, {
+        ttl: this.cache?.ttl("teacherPhotos"),
+      });
+      await this.cache?.setExternal("teacherPhotos", photoCacheKey, { blobKey });
+    } else {
+      await this.cache?.set("teacherPhotos", photoCacheKey, {
+        data: photoBuffer.toString("base64"),
+      });
+    }
     return photoBuffer;
   }
 
@@ -572,23 +626,47 @@ export class TtClient {
    */
   async getTeacherPhotoLazy(teacherId: number): Promise<Buffer | null> {
     const photoCacheKey = String(teacherId);
-    const cachedPhoto = this.cache?.get("teacherPhotos", photoCacheKey);
+    const cachedPhoto =
+      this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
+      await this.cache?.get("teacherPhotos", photoCacheKey);
     if (cachedPhoto !== null && cachedPhoto !== undefined) {
-      const entry = cachedPhoto as { data: string | null };
-      return entry.data ? Buffer.from(entry.data, "base64") : null;
+      const entry = cachedPhoto as { data?: string | null; blobKey?: string };
+      if (entry.data !== undefined) {
+        return entry.data ? Buffer.from(entry.data, "base64") : null;
+      }
+      if (entry.blobKey && this.blobAdapter) {
+        const buf = await this.blobAdapter.get(entry.blobKey);
+        if (buf) {
+          this.cache?.setLocal("teacherPhotos", photoCacheKey, {
+            data: buf.toString("base64"),
+          });
+          return buf;
+        }
+      }
     }
 
     const url = `${BASE}/index/photo/tech/${teacherId}/id/${teacherId}`;
     const photoBuffer = await this.authGetBuffer(url);
 
     if (photoBuffer.length === 0) {
-      this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
+      await this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
       return null;
     }
 
-    this.cache?.set("teacherPhotos", photoCacheKey, {
-      data: photoBuffer.toString("base64"),
-    });
+    if (this.blobAdapter) {
+      const blobKey = `tt/teacher-photos/${teacherId}`;
+      this.cache?.setLocal("teacherPhotos", photoCacheKey, {
+        data: photoBuffer.toString("base64"),
+      });
+      await this.blobAdapter.put(blobKey, photoBuffer, {
+        ttl: this.cache?.ttl("teacherPhotos"),
+      });
+      await this.cache?.setExternal("teacherPhotos", photoCacheKey, { blobKey });
+    } else {
+      await this.cache?.set("teacherPhotos", photoCacheKey, {
+        data: photoBuffer.toString("base64"),
+      });
+    }
     return photoBuffer;
   }
 }

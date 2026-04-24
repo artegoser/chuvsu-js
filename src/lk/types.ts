@@ -1,3 +1,5 @@
+import type { BlobAdapter, CacheAdapter } from "../common/cache.js";
+
 export interface PersonalData {
   lastName: string;
   firstName: string;
@@ -22,4 +24,6 @@ export interface LkCacheConfig {
 
 export interface LkClientOptions {
   cache?: number | LkCacheConfig;
+  cacheAdapter?: CacheAdapter;
+  blobAdapter?: BlobAdapter;
 }

@@ -32,7 +32,12 @@ export {
 } from "./common/types.js";
 export type { Teacher, Time, WeekRange } from "./common/types.js";
 
-export type { CacheEntry } from "./common/cache.js";
+export type {
+  BlobAdapter,
+  BlobPutOptions,
+  CacheAdapter,
+  CacheEntry,
+} from "./common/cache.js";
 
 export type {
   Audience,

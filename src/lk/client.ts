@@ -1,5 +1,5 @@
 import { HttpClient, type HttpResponse } from "../common/http.js";
-import { Cache } from "../common/cache.js";
+import { HybridCache } from "../common/cache.js";
 import { AuthError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
 import type { LkCacheConfig, LkClientOptions, PersonalData } from "./types.js";
@@ -19,17 +19,23 @@ function makeUniformCacheConfig(ttl: number): LkCacheConfig {
 export class LkClient {
   private http = new HttpClient();
   private credentials: { email: string; password: string } | null = null;
-  private cache: Cache | null;
+  private cache: HybridCache | null;
+  private blobAdapter = undefined as LkClientOptions["blobAdapter"];
 
   constructor(opts?: LkClientOptions) {
+    this.blobAdapter = opts?.blobAdapter;
     if (opts?.cache == null) {
       this.cache = null;
     } else if (typeof opts.cache === "number") {
-      this.cache = new Cache(
+      this.cache = new HybridCache(
         makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+        opts.cacheAdapter,
       );
     } else {
-      this.cache = new Cache(opts.cache as Record<string, number | undefined>);
+      this.cache = new HybridCache(
+        opts.cache as Record<string, number | undefined>,
+        opts.cacheAdapter,
+      );
     }
   }
 
@@ -59,7 +65,7 @@ export class LkClient {
   }
 
   async getPersonalData(): Promise<PersonalData> {
-    const cached = this.cache?.get("personalData", "self");
+    const cached = await this.cache?.get("personalData", "self");
     if (cached) return cached as PersonalData;
 
     const { body } = await this.authGet(`${STUDENT_BASE}/personal_data.php`);
@@ -79,29 +85,51 @@ export class LkClient {
       email: vals.email ?? "",
       phone: vals.phone ?? "",
     };
-    this.cache?.set("personalData", "self", data);
+    await this.cache?.set("personalData", "self", data);
     return data;
   }
 
   async getPhoto(): Promise<Buffer> {
-    const cached = this.cache?.get("photo", "self");
+    const cached =
+      this.cache?.getLocal("photo", "self") ??
+      await this.cache?.get("photo", "self");
     if (cached !== null && cached !== undefined) {
-      return Buffer.from(cached as string, "base64");
+      const entry = cached as { data?: string | null; blobKey?: string } | string;
+      if (typeof entry === "string") return Buffer.from(entry, "base64");
+      if (entry.data !== undefined) {
+        return entry.data ? Buffer.from(entry.data, "base64") : Buffer.alloc(0);
+      }
+      if (entry.blobKey && this.blobAdapter) {
+        const photo = await this.blobAdapter.get(entry.blobKey);
+        if (photo) {
+          this.cache?.setLocal("photo", "self", { data: photo.toString("base64") });
+          return photo;
+        }
+      }
     }
 
     const photo = await this.http.getBuffer(`${STUDENT_BASE}/face.php`);
-    this.cache?.set("photo", "self", photo.toString("base64"));
+    if (this.blobAdapter) {
+      const blobKey = "lk/photo/self";
+      this.cache?.setLocal("photo", "self", { data: photo.toString("base64") });
+      await this.blobAdapter.put(blobKey, photo, {
+        ttl: this.cache?.ttl("photo"),
+      });
+      await this.cache?.setExternal("photo", "self", { blobKey });
+    } else {
+      await this.cache?.set("photo", "self", photo.toString("base64"));
+    }
     return photo;
   }
 
   async getGroupId(): Promise<number | null> {
-    const cached = this.cache?.get("groupId", "self");
+    const cached = await this.cache?.get("groupId", "self");
     if (cached !== null && cached !== undefined) return cached as number | null;
 
     const { body } = await this.authGet(`${STUDENT_BASE}/tt.php`);
     const match = body.match(/tt\.chuvsu\.ru\/index\/grouptt\/gr\/(\d+)/);
     const groupId = match ? parseInt(match[1]) : null;
-    this.cache?.set("groupId", "self", groupId);
+    await this.cache?.set("groupId", "self", groupId);
     return groupId;
   }
 }

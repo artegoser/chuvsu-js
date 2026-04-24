@@ -87,6 +87,8 @@ new TtClient(options?: TtClientOptions)
 | --------------- | ----------------------- | ----------------- | -------------------------------------------------------------- |
 | `educationType` | `EducationType`         | `HigherEducation` | Тип образования: высшее (1) или СПО (2)                        |
 | `cache`         | `number \| CacheConfig` | —                 | TTL кеша в мс. Число задаёт единый TTL, объект — по категориям |
+| `cacheAdapter`  | `CacheAdapter`          | —                 | Внешний L2-кеш для JSON-данных (например Redis/БД)             |
+| `blobAdapter`   | `BlobAdapter`           | —                 | Хранилище бинарных данных, например S3/R2/MinIO                |
 
 #### Авторизация
 
@@ -142,6 +144,12 @@ tt.importCache(data);
 ```
 
 Категории кеша: `schedule`, `faculties`, `groups`, `audiences`, `audienceNames`, `teachers`, `teacherInfo`, `teacherPhotos`, `audienceInfo`, `audienceImages`.
+
+Если передать `cacheAdapter`, библиотека использует двухуровневый кеш:
+- L1: in-memory кеш внутри процесса
+- L2: внешний адаптер (`cacheAdapter`)
+
+Если передать `blobAdapter`, фото преподавателей, аудиторий, корпусов и планов этажей будут храниться во внешнем blob/object storage, а во внешнем JSON-кеше сохранятся только метаданные с ключом blob-объекта.
 
 ### Schedule
 
@@ -231,6 +239,7 @@ const groupId = await lk.getGroupId();
 ```
 
 `cache` работает так же, как в `TtClient`: число задаёт единый TTL в мс, объект — TTL по категориям (`personalData`, `photo`, `groupId`).
+Также поддерживаются `cacheAdapter` и `blobAdapter`.
 
 **PersonalData** содержит: `lastName`, `firstName`, `patronymic`, `sex`, `birthday`, `recordBookNumber`, `faculty`, `specialty`, `profile`, `group`, `course`, `email`, `phone`.
 

@@ -43,10 +43,58 @@ class FakeHttpClient {
   }
 }
 
+class FakeCacheAdapter {
+  constructor() {
+    this.store = new Map();
+    this.setCalls = [];
+  }
+
+  key(category, key) {
+    return `${category}:${key}`;
+  }
+
+  async get(category, key) {
+    return this.store.get(this.key(category, key)) ?? null;
+  }
+
+  async set(category, key, data, ttl) {
+    this.setCalls.push({ category, key, ttl, data });
+    this.store.set(this.key(category, key), data);
+  }
+
+  async clear(category) {
+    if (!category) {
+      this.store.clear();
+      return;
+    }
+    for (const key of [...this.store.keys()]) {
+      if (key.startsWith(`${category}:`)) this.store.delete(key);
+    }
+  }
+}
+
+class FakeBlobAdapter {
+  constructor() {
+    this.store = new Map();
+    this.putCalls = [];
+  }
+
+  async get(key) {
+    return this.store.get(key) ?? null;
+  }
+
+  async put(key, data, opts) {
+    this.putCalls.push({ key, opts });
+    this.store.set(key, Buffer.from(data));
+  }
+}
+
 const TT_BASE = "https://tt.chuvsu.ru";
 const LK_BASE = "https://lk.chuvsu.ru/student";
 
 test("TtClient caches discovery/search requests and image fetches when cache is a number", async () => {
+  const cacheAdapter = new FakeCacheAdapter();
+  const blobAdapter = new FakeBlobAdapter();
   const postKey = (url, data) => `${url}|${JSON.stringify(data)}`;
   const fakeHttp = new FakeHttpClient({
     get: {
@@ -124,7 +172,11 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
     },
   });
 
-  const tt = new TtClient({ cache: 10_000 });
+  const tt = new TtClient({
+    cache: 10_000,
+    cacheAdapter,
+    blobAdapter,
+  });
   tt.http = fakeHttp;
 
   await tt.getTeachers();
@@ -219,9 +271,28 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
   assert.ok(cache["audienceImages:aud:852"]);
   assert.ok(cache["audienceImages:block:852"]);
   assert.ok(cache["audienceImages:floor:852"]);
+
+  assert.deepEqual(cacheAdapter.store.get("teacherPhotos:10"), {
+    blobKey: "tt/teacher-photos/10",
+  });
+  assert.deepEqual(cacheAdapter.store.get("audienceImages:aud:852"), {
+    blobKey: "tt/audience-images/aud:852",
+  });
+  assert.deepEqual(cacheAdapter.store.get("audienceImages:block:852"), {
+    blobKey: "tt/audience-images/block:852",
+  });
+  assert.deepEqual(cacheAdapter.store.get("audienceImages:floor:852"), {
+    blobKey: "tt/audience-images/floor:852",
+  });
+  assert.equal(blobAdapter.store.get("tt/teacher-photos/10")?.toString(), "teacher-photo");
+  assert.equal(blobAdapter.store.get("tt/audience-images/aud:852")?.toString(), "audience-photo");
+  assert.equal(blobAdapter.store.get("tt/audience-images/block:852")?.toString(), "block-photo");
+  assert.equal(blobAdapter.store.get("tt/audience-images/floor:852")?.toString(), "floor-photo");
 });
 
 test("LkClient caches personal data, photo and group id", async () => {
+  const cacheAdapter = new FakeCacheAdapter();
+  const blobAdapter = new FakeBlobAdapter();
   const fakeHttp = new FakeHttpClient({
     get: {
       [`${LK_BASE}/personal_data.php`]: {
@@ -246,7 +317,11 @@ test("LkClient caches personal data, photo and group id", async () => {
     },
   });
 
-  const lk = new LkClient({ cache: 10_000 });
+  const lk = new LkClient({
+    cache: 10_000,
+    cacheAdapter,
+    blobAdapter,
+  });
   lk.http = fakeHttp;
 
   const data1 = await lk.getPersonalData();
@@ -266,4 +341,8 @@ test("LkClient caches personal data, photo and group id", async () => {
   assert.equal(fakeHttp.count("get", `${LK_BASE}/personal_data.php`), 1);
   assert.equal(fakeHttp.count("get", `${LK_BASE}/tt.php`), 1);
   assert.equal(fakeHttp.count("getBuffer", `${LK_BASE}/face.php`), 1);
+  assert.deepEqual(cacheAdapter.store.get("photo:self"), {
+    blobKey: "lk/photo/self",
+  });
+  assert.equal(blobAdapter.store.get("lk/photo/self")?.toString(), "lk-photo");
 });

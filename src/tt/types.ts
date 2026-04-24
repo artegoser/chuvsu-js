@@ -1,3 +1,4 @@
+import type { BlobAdapter, CacheAdapter } from "../common/cache.js";
 import type {
   Time,
   WeekRange,
@@ -176,4 +177,6 @@ export interface CacheConfig {
 export interface TtClientOptions {
   educationType?: EducationType;
   cache?: number | CacheConfig;
+  cacheAdapter?: CacheAdapter;
+  blobAdapter?: BlobAdapter;
 }
