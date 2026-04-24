@@ -6,6 +6,12 @@ import type {
   TransferInfo,
 } from "../types.js";
 import { parseGroupsString } from "./groups.js";
+import {
+  LESSON_TYPE_PATTERN,
+  LESSON_TYPE_RE,
+  LESSON_TYPE_RE_I,
+  SUBGROUP_RE,
+} from "./patterns.js";
 
 export function parseDate(dd: string, mm: string, yyyy: string): Date {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
@@ -31,7 +37,7 @@ export function parseTransferDiv(
   if (!subject) return null;
 
   const roomMatch = divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
-  const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
+  const typeMatch = divText.match(LESSON_TYPE_RE);
   const parts = divHtml
     .split(/<br\s*\/?>/i)
     .map((part) => part.replace(/<[^>]*>/g, "").trim())
@@ -52,7 +58,7 @@ export function parseTransferDiv(
     const isLessonMeta =
       cleaned.includes(subject) ||
       (roomMatch?.[1] != null && cleaned.includes(roomMatch[1])) ||
-      /\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/i.test(cleaned);
+      LESSON_TYPE_RE_I.test(cleaned);
 
     if (!isLessonMeta && !teacherPart) {
       teacherPart = cleaned;
@@ -60,7 +66,7 @@ export function parseTransferDiv(
   }
 
   const transfer: TransferInfo = { targetDate, fromDate, fromSlot, subject };
-  const subgroupMatch = divText.match(/(\d+)\s*подгруппа/);
+  const subgroupMatch = divText.match(SUBGROUP_RE);
 
   return {
     transfer,
@@ -134,11 +140,13 @@ export function parseSubstituteForDiv(div: Element): {
   if (!subject) return null;
 
   const roomMatch = divHtml.match(/(?:<br\s*\/?>)\s*([А-Яа-яA-Za-z]-\d+)/);
-  const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
+  const typeMatch = divText.match(LESSON_TYPE_RE);
   const groupsMatch = divHtml.match(
-    /\((?:лк|пр|лб|зач|экз|зчО|кр|конс)\)\s*(?:<br\s*\/?>)\s*([^<]+?)(?:\s*<i|$)/,
+    new RegExp(
+      `\\((?:${LESSON_TYPE_PATTERN})\\)\\s*(?:<br\\s*\\/?>)\\s*([^<]+?)(?:\\s*<i|$)`,
+    ),
   );
-  const subgroupMatch = divText.match(/(\d+)\s*подгруппа/);
+  const subgroupMatch = divText.match(SUBGROUP_RE);
 
   return {
     entry: {

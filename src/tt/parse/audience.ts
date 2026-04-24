@@ -18,6 +18,14 @@ import {
   parseSubstitutionDiv,
   parseTransferDiv,
 } from "./overlays.js";
+import {
+  LESSON_TYPE_GLOBAL_RE,
+  LESSON_TYPE_RE,
+  SUBGROUP_ANNOTATION_RE,
+  SUBGROUP_RE,
+  WEEKS_GLOBAL_RE,
+  WEEKS_RE,
+} from "./patterns.js";
 
 export function parseAudienceInfo(html: string): AudienceInfo | null {
   const doc = parseHtml(html);
@@ -133,9 +141,9 @@ function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  const weeksMatch = cleanText.match(/\(([^)]*нед\.?[^)]*)\)/);
-  const subgroupMatch = cleanText.match(/(\d+)\s*подгруппа/);
+  const typeMatch = cleanText.match(LESSON_TYPE_RE);
+  const weeksMatch = cleanText.match(WEEKS_RE);
+  const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
   // Audience entries layout:
@@ -152,9 +160,9 @@ function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
   const textLines: string[] = [];
   for (const p of parts) {
     const cleaned = p
-      .replace(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/g, "")
-      .replace(/\([^)]*нед\.?[^)]*\)/g, "")
-      .replace(/\(\d+\s*подгруппа\)/g, "")
+      .replace(LESSON_TYPE_GLOBAL_RE, "")
+      .replace(WEEKS_GLOBAL_RE, "")
+      .replace(SUBGROUP_ANNOTATION_RE, "")
       .trim();
     if (cleaned) textLines.push(cleaned);
   }

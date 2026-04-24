@@ -1,3 +1,5 @@
+import { SUBGROUP_ANNOTATION_RE_I } from "./patterns.js";
+
 /**
  * Split a raw "groups" string from the schedule HTML into individual group names.
  *
@@ -16,7 +18,7 @@ export function parseGroupsString(raw: string | undefined | null): string[] {
   if (!raw) return [];
 
   const cleaned = raw
-    .replace(/\s*\(\s*\d+\s*подгруппа\s*\)\s*/gi, " ")
+    .replace(SUBGROUP_ANNOTATION_RE_I, " ")
     .trim();
   if (!cleaned) return [];
 

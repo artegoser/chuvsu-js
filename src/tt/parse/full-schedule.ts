@@ -18,6 +18,12 @@ import {
   parseSubstitutionDiv,
   parseTransferDiv,
 } from "./overlays.js";
+import {
+  FLEXIBLE_LESSON_TYPE_RE_I,
+  LESSON_TYPE_RE,
+  SUBGROUP_RE,
+  WEEKS_RE,
+} from "./patterns.js";
 
 export function parseFullSchedule(
   html: string,
@@ -136,15 +142,15 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  const weeksMatch = cleanText.match(/\(([^)]*нед\.?[^)]*)\)/);
+  const typeMatch = cleanText.match(LESSON_TYPE_RE);
+  const weeksMatch = cleanText.match(WEEKS_RE);
   const roomMatch = cleanHtml.match(
     /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
   );
   const teacherMatch = cleanHtml.match(
     /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<div|<i|$)/,
   );
-  const subgroupMatch = cleanText.match(/(\d+)\s*подгруппа/);
+  const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
   return {
@@ -234,9 +240,7 @@ function parseSessionEntry(
   const room = roomMatch ? roomMatch[1].trim() : "";
 
   // Type: parenthesized text after </span>, case-insensitive
-  const typeMatch = plainText.match(
-    /\((лк|пр|лб|зач|экз|зчО|кр|конс\.?|Экз)\)/i,
-  );
+  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
 
   // Time: after <br>, format HH:MM - HH:MM

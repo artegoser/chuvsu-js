@@ -21,6 +21,13 @@ import {
   parseSubstitutionDiv,
   parseTransferDiv,
 } from "./overlays.js";
+import {
+  FLEXIBLE_LESSON_TYPE_PATTERN,
+  FLEXIBLE_LESSON_TYPE_RE_I,
+  LESSON_TYPE_RE,
+  SUBGROUP_RE,
+  WEEKS_RE,
+} from "./patterns.js";
 
 export function parseTeacherFullSchedule(
   html: string,
@@ -84,15 +91,15 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  const weeksMatch = cleanText.match(/\(([^)]*нед\.?[^)]*)\)/);
+  const typeMatch = cleanText.match(LESSON_TYPE_RE);
+  const weeksMatch = cleanText.match(WEEKS_RE);
   const roomMatch = cleanHtml.match(
     /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
   );
   const groupsMatch = cleanHtml.match(
     /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<div|<i|$)/,
   );
-  const subgroupMatch = cleanText.match(/(\d+)\s*подгруппа/);
+  const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
   return {
@@ -175,14 +182,15 @@ function parseTeacherSessionEntry(
   const roomMatch = fullHtml.match(/^([^<]*?)\s*<span/);
   const room = roomMatch ? roomMatch[1].trim() : "";
 
-  const typeMatch = plainText.match(
-    /\((лк|пр|лб|зач|экз|зчО|кр|конс\.?|Экз)\)/i,
-  );
+  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
 
   // Groups: text between </span> type and <br>time
   const groupsMatch = fullHtml.match(
-    /\((?:лк|пр|лб|зач|экз|зчО|кр|конс\.?|Экз)\)\s*([^<]+?)\s*<br/i,
+    new RegExp(
+      `\\((?:${FLEXIBLE_LESSON_TYPE_PATTERN})\\)\\s*([^<]+?)\\s*<br`,
+      "i",
+    ),
   );
 
   const timeMatch = fullHtml.match(
