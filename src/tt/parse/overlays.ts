@@ -32,14 +32,30 @@ export function parseTransferDiv(
 
   const roomMatch = divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
   const typeMatch = divText.match(/\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/);
-  // Teacher: last text line that isn't a subgroup marker
-  const parts = divHtml.split(/<br\s*\/?>/);
+  const parts = divHtml
+    .split(/<br\s*\/?>/i)
+    .map((part) => part.replace(/<[^>]*>/g, "").trim())
+    .filter((part) => part.length > 0);
+
   let teacherPart = "";
-  for (let i = parts.length - 1; i >= 0; i--) {
-    const clean = parts[i].replace(/<[^>]*>/g, "").trim();
-    if (clean && !/подгруппа/.test(clean)) {
-      teacherPart = clean;
-      break;
+  let groupsPart = "";
+  for (const part of parts.slice(1)) {
+    const cleaned = part.trim();
+    if (!cleaned) continue;
+
+    const groups = parseGroupsString(cleaned);
+    if (groups.length > 0) {
+      groupsPart = cleaned;
+      continue;
+    }
+
+    const isLessonMeta =
+      cleaned.includes(subject) ||
+      (roomMatch?.[1] != null && cleaned.includes(roomMatch[1])) ||
+      /\((лк|пр|лб|зач|экз|зчО|кр|конс)\)/i.test(cleaned);
+
+    if (!isLessonMeta && !teacherPart) {
+      teacherPart = cleaned;
     }
   }
 
@@ -54,7 +70,7 @@ export function parseTransferDiv(
       type: typeMatch?.[1] ?? "",
       weeks: { from: 0, to: 0 },
       teacher: parseTeacher(teacherPart),
-      groups: [],
+      groups: parseGroupsString(groupsPart),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       transfer,
     },
