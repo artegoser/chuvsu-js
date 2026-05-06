@@ -175,6 +175,9 @@ function parseTeacherSessionEntry(
   const plainText = text(td);
   if (!plainText) return null;
 
+  const possibleChanges =
+    (td.getAttribute("class") ?? "").includes("want") || undefined;
+
   const subjectEl = td.querySelector('span[style*="color: blue"]');
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
@@ -184,6 +187,7 @@ function parseTeacherSessionEntry(
 
   const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
+  const subgroupMatch = plainText.match(SUBGROUP_RE);
 
   // Groups: text between </span> type and <br>time
   const groupsMatch = fullHtml.match(
@@ -206,6 +210,8 @@ function parseTeacherSessionEntry(
       weeks: { from: 0, to: 0 },
       teacher: { name: "" },
       groups: parseGroupsString(groupsMatch?.[1]),
+      subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      possibleChanges,
     },
     timeStart: parseTime(timeMatch[1]),
     timeEnd: parseTime(timeMatch[2]),

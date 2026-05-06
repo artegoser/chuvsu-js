@@ -13,6 +13,8 @@ import {
   SUBGROUP_RE,
 } from "./patterns.js";
 
+const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
+
 export function parseDate(dd: string, mm: string, yyyy: string): Date {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
 }
@@ -49,8 +51,7 @@ export function parseTransferDiv(
     const cleaned = part.trim();
     if (!cleaned) continue;
 
-    const groups = parseGroupsString(cleaned);
-    if (groups.length > 0) {
+    if (GROUP_CODE_RE.test(cleaned)) {
       groupsPart = cleaned;
       continue;
     }

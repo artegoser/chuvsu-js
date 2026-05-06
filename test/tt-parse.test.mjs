@@ -11,6 +11,7 @@ import {
   parseTeacherFullSchedule,
   parseTeacherInfo,
 } from "../dist/tt/parse/index.js";
+import { Schedule } from "../dist/tt/schedule.js";
 
 function semesterPage(entryHtml) {
   return `<!doctype html><html><body>
@@ -218,6 +219,88 @@ test("parseFullSchedule parses session entries with flexible lesson types", () =
   assert.equal(day.weekday, "Суббота");
   assert.equal(day.slots[0].entries[0].room, "Б-201");
   assert.equal(day.slots[0].entries[0].type, "конс");
+});
+
+test("parseFullSchedule parses summer session types, teachers and subgroups", () => {
+  const html = sessionPage([
+    `<tr><td class="want">Е-115 <span style="color: blue;">Элективные дисциплины (модули) по физической культуре и спорту</span> (зач)<br>Дигуева О. Г.<br><i>1 подгруппа</i><br>09:50 - 11:10</td></tr>`,
+    `<tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (КП)<br>Мытникова Е. А.<br>09:50 - 11:10</td></tr>`,
+    `<tr><td class="want">Г-216 <span style="color: blue;">Основы проектной деятельности</span> (ЗачО)<br>Игреев Р. А.<br>16:40 - 18:00</td></tr>`,
+  ].join(""));
+  const entries = parseFullSchedule(html).flatMap((day) =>
+    day.slots.flatMap((slot) => slot.entries),
+  );
+
+  assert.equal(entries[0].type, "зач");
+  assert.equal(entries[0].subgroup, 1);
+  assert.deepEqual(entries[0].teacher, { name: "Дигуева О. Г." });
+  assert.equal(entries[0].possibleChanges, true);
+
+  assert.equal(entries[1].type, "кп");
+  assert.deepEqual(entries[1].teacher, { name: "Мытникова Е. А." });
+
+  assert.equal(entries[2].type, "зачо");
+  assert.deepEqual(entries[2].teacher, { name: "Игреев Р. А." });
+});
+
+test("Schedule applies spring substitutions and suppresses transferred source lessons", () => {
+  const html = `<!doctype html><html><body>
+    <table id="groupstt"><tbody>
+      <tr style=" background: lightgray; " class="trfd"><td>Вторник</td><td></td></tr>
+      <tr>
+        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
+        <td class="trdata"><div class="tdd"><table width="100%">
+          <tr><td class="want"><div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+            <span style="color: red;"><b>26.05.2026 перенос c 02.04.2026 (3 пара): </b></span><br>
+            И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб)<br>
+            Мытникова Е. А.<br><i>2 подгруппа</i>
+          </div></td></tr>
+        </table></div></td>
+      </tr>
+      <tr style=" background: lightgray; " class="trfd"><td>Четверг</td><td></td></tr>
+      <tr>
+        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
+        <td class="trdata"><div class="tdd"><table width="100%">
+          <tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 17 нед.) <br>
+            Мытникова Е. А.<br><i>1 подгруппа</i>
+            <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+              <span style="color: red;"><b>28.05.2026  замена на: </b></span><br>
+              Преподаватель: <span class="blue">Мытников А. Н.</span>
+            </div>
+          </td></tr>
+        </table></div></td>
+      </tr>
+      <tr>
+        <td class="trf trdata"><div class="trfd">3 пара<br>(11:40 - 13:00)</div></td>
+        <td class="trdata"><div class="tdd"><table width="100%">
+          <tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 17 нед.) <br>
+            Мытникова Е. А.<br><i>2 подгруппа</i>
+          </td></tr>
+        </table></div></td>
+      </tr>
+    </tbody></table>
+  </body></html>`;
+  const springDays = parseFullSchedule(html);
+  const schedule = new Schedule(
+    8919,
+    new Map([[3, springDays]]),
+    3,
+  );
+
+  const substituted = schedule.forDate(new Date(2026, 4, 28), {
+    subgroup: 1,
+  });
+  assert.equal(substituted.length, 1);
+  assert.deepEqual(substituted[0].teacher, { name: "Мытников А. Н." });
+  assert.deepEqual(substituted[0].originalTeacher, { name: "Мытникова Е. А." });
+
+  const sourceDate = schedule.forDate(new Date(2026, 3, 2), { subgroup: 2 });
+  assert.equal(sourceDate.length, 0);
+
+  const targetDate = schedule.forDate(new Date(2026, 4, 26), { subgroup: 2 });
+  assert.equal(targetDate.length, 1);
+  assert.deepEqual(targetDate[0].teacher, { name: "Мытникова Е. А." });
+  assert.equal(targetDate[0].transfer?.fromSlot, 3);
 });
 
 test("parseAudienceFullSchedule parses audience semester entries", () => {

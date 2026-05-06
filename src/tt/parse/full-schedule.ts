@@ -231,6 +231,9 @@ function parseSessionEntry(
   const plainText = text(td);
   if (!plainText) return null;
 
+  const possibleChanges =
+    (td.getAttribute("class") ?? "").includes("want") || undefined;
+
   const subjectEl = td.querySelector('span[style*="color: blue"]');
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
@@ -242,6 +245,20 @@ function parseSessionEntry(
   // Type: parenthesized text after </span>, case-insensitive
   const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
+
+  const subgroupMatch = plainText.match(SUBGROUP_RE);
+  const parts = fullHtml
+    .split(/<br\s*\/?>/i)
+    .map((part) => part.replace(/<[^>]*>/g, "").trim())
+    .filter((part) => part.length > 0);
+
+  const teacherPart =
+    parts.find(
+      (part) =>
+        !part.includes(subject) &&
+        !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
+        !SUBGROUP_RE.test(part),
+    ) ?? "";
 
   // Time: after <br>, format HH:MM - HH:MM
   const timeMatch = fullHtml.match(
@@ -255,8 +272,10 @@ function parseSessionEntry(
       subject,
       type,
       weeks: { from: 0, to: 0 },
-      teacher: { name: "" },
+      teacher: parseTeacher(teacherPart),
       groups: [],
+      subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      possibleChanges,
     },
     timeStart: parseTime(timeMatch[1]),
     timeEnd: parseTime(timeMatch[2]),
