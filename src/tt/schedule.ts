@@ -115,6 +115,16 @@ export class Schedule {
     return date;
   }
 
+  private isInCurrentAcademicYear(date: Date): boolean {
+    const now = new Date();
+    const startYear = now.getMonth() >= 8
+      ? now.getFullYear()
+      : now.getFullYear() - 1;
+    const start = new Date(startYear, 8, 1);
+    const end = new Date(startYear + 1, 7, 31, 23, 59, 59, 999);
+    return date >= start && date <= end;
+  }
+
   // --- Public query methods ---
 
   forDay(
@@ -130,7 +140,12 @@ export class Schedule {
       const dayName = getWeekdayName(weekday);
       for (const d of days) {
         if (d.weekday.toLowerCase() === dayName.toLowerCase() && d.date) {
-          lessons.push(...slotsToLessons(d.slots, d.date, { isTeacherSchedule: this.isTeacherSchedule }));
+          const slots = filterSlots(d.slots, { subgroup: opts?.subgroup });
+          lessons.push(
+            ...slotsToLessons(slots, d.date, {
+              isTeacherSchedule: this.isTeacherSchedule,
+            }),
+          );
         }
       }
       return lessons.sort(sortLessons);
@@ -142,6 +157,7 @@ export class Schedule {
   }
 
   forDate(date: Date, opts?: { subgroup?: number }): Lesson[] {
+    if (!this.isInCurrentAcademicYear(date)) return [];
     if (isHoliday(date, this.holidays, this.holidayTransfers)) return [];
 
     const period = getCurrentPeriod({ date });
@@ -151,7 +167,12 @@ export class Schedule {
     for (const [, d] of this.scheduleMap) {
       for (const day of d) {
         if (day.date && isSameDay(day.date, date)) {
-          lessons.push(...slotsToLessons(day.slots, date, { isTeacherSchedule: this.isTeacherSchedule }));
+          const slots = filterSlots(day.slots, { subgroup: opts?.subgroup });
+          lessons.push(
+            ...slotsToLessons(slots, date, {
+              isTeacherSchedule: this.isTeacherSchedule,
+            }),
+          );
         }
       }
     }

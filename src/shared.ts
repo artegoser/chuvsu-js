@@ -4,9 +4,10 @@
 
 export { Schedule } from "./tt/schedule.js";
 
-export { parseGroupsString } from "./tt/parse/index.js";
+export { parseGroupsString, parseWebinars } from "./tt/parse/index.js";
 
 export {
+  attachWebinarsToLessons,
   getAdjacentSemester,
   getCompensatingWorkDays,
   getCurrentPeriod,
@@ -20,6 +21,7 @@ export {
   getWeekdayName,
   isHoliday,
   isSessionPeriod,
+  matchWebinarToLesson,
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils/index.js";
 export type { Holiday, HolidayTransfer } from "./tt/utils/index.js";
@@ -57,6 +59,7 @@ export type {
   TeacherInfo,
   TransferInfo,
   TtClientOptions,
+  Webinar,
 } from "./tt/types.js";
 
 export type { LkCacheConfig, LkClientOptions, PersonalData } from "./lk/types.js";

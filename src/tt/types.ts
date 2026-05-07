@@ -47,6 +47,8 @@ export interface Substitution {
   date: Date;
   /** New room, if changed. */
   room?: string;
+  /** Whether the substitution moves the lesson online. */
+  isDistance?: boolean;
   /** New teacher, if changed. */
   teacher?: Teacher;
 }
@@ -86,6 +88,8 @@ export interface ScheduleEntry {
   groups: string[];
   subgroup?: number;
   weekParity?: "even" | "odd";
+  /** True when the lesson is explicitly marked as дистанционно / ДОТ. */
+  isDistance?: boolean;
   /** Date-specific substitutions (замена на). */
   substitutions?: Substitution[];
   /** If this entry is a transferred lesson (перенос). */
@@ -134,6 +138,10 @@ export interface Lesson {
   weeks: WeekRange;
   subgroup?: number;
   weekParity?: "even" | "odd";
+  /** True when the lesson is explicitly marked as дистанционно / ДОТ. */
+  isDistance?: boolean;
+  /** Matched webinar metadata, if attached by `attachWebinarsToLessons`. */
+  webinar?: Webinar;
   /** If a substitution was applied, the original room. */
   originalRoom?: string;
   /** If a substitution was applied, the original teacher. */
@@ -161,6 +169,28 @@ export interface SemesterWeek {
   end: Date;
 }
 
+export interface Webinar {
+  /** Internal tt.chuvsu.ru webinar id used by `/webinar/getjoin`. */
+  id: string;
+  /** Webinar table type argument (`idwt`) used by `/webinar/getjoin`. */
+  idType: number;
+  /** True for "Вебинары по расписанию"; false for external webinars. */
+  scheduled: boolean;
+  date?: Date;
+  slotNumber?: number;
+  timeStart: Time;
+  timeEnd: Time;
+  subject: string;
+  type: string;
+  teacher: Teacher;
+  groups: string[];
+  subgroup?: number;
+  /** Free-form title/topic from the second table column. */
+  title: string;
+  /** Raw first-column text as rendered by tt.chuvsu.ru. */
+  raw: string;
+}
+
 export interface CacheConfig {
   schedule?: number;
   faculties?: number;
@@ -172,6 +202,7 @@ export interface CacheConfig {
   teacherPhotos?: number;
   audienceInfo?: number;
   audienceImages?: number;
+  webinars?: number;
 }
 
 export interface TtClientOptions {

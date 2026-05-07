@@ -136,12 +136,12 @@ export function getEffectiveHolidays(
   const nonJanuaryOnWeekend = holidays
     .filter((h) => !isJanuaryHoliday(h))
     .map((h) => new Date(year, h.month - 1, h.day))
-    .filter((d) => d.getDay() === 0 || d.getDay() === 6)
+    .filter((d) => d.getDay() === 0 || (!sixDayWeek && d.getDay() === 6))
     .sort((a, b) => a.getTime() - b.getTime());
 
   for (const holiday of nonJanuaryOnWeekend) {
     let candidate = new Date(holiday);
-    if (candidate.getDay() === 6) {
+    if (!sixDayWeek && candidate.getDay() === 6) {
       candidate.setDate(candidate.getDate() + 2);
     } else {
       candidate.setDate(candidate.getDate() + 1);
@@ -149,7 +149,7 @@ export function getEffectiveHolidays(
 
     while (
       candidate.getDay() === 0 ||
-      candidate.getDay() === 6 ||
+      (!sixDayWeek && candidate.getDay() === 6) ||
       isOriginalHoliday(candidate) ||
       effectiveDays.some((ed) => isSameDay(ed, candidate))
     ) {
@@ -206,7 +206,7 @@ export function getHolidayTransfers(
   const nonJanuaryOnWeekend = holidays
     .filter((h) => !isJanuaryHoliday(h))
     .map((h) => new Date(year, h.month - 1, h.day))
-    .filter((d) => d.getDay() === 0 || d.getDay() === 6)
+    .filter((d) => d.getDay() === 0 || (!sixDayWeek && d.getDay() === 6))
     .sort((a, b) => a.getTime() - b.getTime());
 
   const isOriginalHoliday = (d: Date) =>
@@ -214,14 +214,14 @@ export function getHolidayTransfers(
 
   for (const holiday of nonJanuaryOnWeekend) {
     let candidate = new Date(holiday);
-    if (candidate.getDay() === 6) {
+    if (!sixDayWeek && candidate.getDay() === 6) {
       candidate.setDate(candidate.getDate() + 2);
     } else {
       candidate.setDate(candidate.getDate() + 1);
     }
     while (
       candidate.getDay() === 0 ||
-      candidate.getDay() === 6 ||
+      (!sixDayWeek && candidate.getDay() === 6) ||
       isOriginalHoliday(candidate) ||
       effectiveDays.some((ed) => isSameDay(ed, candidate))
     ) {

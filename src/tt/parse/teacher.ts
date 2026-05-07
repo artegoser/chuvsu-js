@@ -29,6 +29,8 @@ import {
   WEEKS_RE,
 } from "./patterns.js";
 
+const DISTANCE_RE = /дистанционно|ДОТ/i;
+
 export function parseTeacherFullSchedule(
   html: string,
   educationType?: EducationType,
@@ -111,6 +113,7 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
     groups: parseGroupsString(groupsMatch?.[1]),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
+    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -211,6 +214,7 @@ function parseTeacherSessionEntry(
       teacher: { name: "" },
       groups: parseGroupsString(groupsMatch?.[1]),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room),
       possibleChanges,
     },
     timeStart: parseTime(timeMatch[1]),

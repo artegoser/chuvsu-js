@@ -14,6 +14,7 @@ import {
 } from "./patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
+const DISTANCE_RE = /дистанционно|ДОТ/i;
 
 export function parseDate(dd: string, mm: string, yyyy: string): Date {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
@@ -79,6 +80,7 @@ export function parseTransferDiv(
       teacher: parseTeacher(teacherPart),
       groups: parseGroupsString(groupsPart),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
       transfer,
     },
   };
@@ -106,7 +108,7 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
   );
   if (teacherMatch) teacher = parseTeacher(teacherMatch[1].trim());
 
-  return { date, room, teacher };
+  return { date, room, teacher, isDistance: DISTANCE_RE.test(room ?? divText) };
 }
 
 export function parseSubstituteForDiv(div: Element): {
@@ -158,6 +160,7 @@ export function parseSubstituteForDiv(div: Element): {
       teacher: { name: "" },
       groups: parseGroupsString(groupsMatch?.[1]),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
       substituteFor: { date, originalTeacher },
     },
   };

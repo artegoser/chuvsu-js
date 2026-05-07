@@ -10,8 +10,13 @@ import {
   parseTeacherButtons,
   parseTeacherFullSchedule,
   parseTeacherInfo,
+  parseWebinars,
 } from "../dist/tt/parse/index.js";
 import { Schedule } from "../dist/tt/schedule.js";
+import {
+  attachWebinarsToLessons,
+  isHoliday,
+} from "../dist/tt/utils/index.js";
 
 function semesterPage(entryHtml) {
   return `<!doctype html><html><body>
@@ -241,6 +246,124 @@ test("parseFullSchedule parses summer session types, teachers and subgroups", ()
 
   assert.equal(entries[2].type, "зачо");
   assert.deepEqual(entries[2].teacher, { name: "Игреев Р. А." });
+});
+
+test("Schedule filters session entries by subgroup", () => {
+  const html = sessionPage([
+    `<tr><td>Е-115 <span style="color: blue;">Физкультура</span> (зач)<br>Дигуева О. Г.<br><i>1 подгруппа</i><br>09:50 - 11:10</td></tr>`,
+    `<tr><td>Е-115 <span style="color: blue;">Физкультура</span> (зач)<br>Миронская И. В.<br><i>2 подгруппа</i><br>09:50 - 11:10</td></tr>`,
+  ].join(""));
+  const days = parseFullSchedule(html);
+  const schedule = new Schedule(8919, new Map([[2, days]]), 2);
+
+  const lessons = schedule.forDate(new Date(2026, 3, 25), { subgroup: 1 });
+  assert.equal(lessons.length, 1);
+  assert.equal(lessons[0].subgroup, 1);
+  assert.deepEqual(lessons[0].teacher, { name: "Дигуева О. Г." });
+});
+
+test("Schedule does not reuse semester lessons outside current academic year", () => {
+  const html = `<!doctype html><html><body>
+    <table id="groupstt"><tbody>
+      <tr style=" background: lightgray; " class="trfd"><td>Среда</td><td></td></tr>
+      <tr>
+        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
+        <td class="trdata"><div class="tdd"><table width="100%">
+          <tr><td>Г-301 <span style="color: blue;">Правоведение</span> (лк) (1 - 16 нед.) <br>Верещак С. Б.</td></tr>
+        </table></div></td>
+      </tr>
+    </tbody></table>
+  </body></html>`;
+  const schedule = new Schedule(
+    8919,
+    new Map([[3, parseFullSchedule(html)]]),
+    3,
+  );
+
+  assert.equal(schedule.forDate(new Date(2025, 4, 7)).length, 0);
+  assert.equal(schedule.forDate(new Date(2026, 4, 6)).length, 1);
+});
+
+test("isHoliday uses six-day week by default for Saturday holiday transfers", () => {
+  assert.equal(isHoliday(new Date(2026, 4, 11)), false);
+  assert.equal(isHoliday(new Date(2026, 4, 11), undefined, [], false), true);
+});
+
+test("parseFullSchedule marks distance substitutions", () => {
+  const html = `<!doctype html><html><body>
+    <table id="groupstt"><tbody>
+      <tr style=" background: lightgray; " class="trfd"><td width="120">Четверг</td><td></td></tr>
+      <tr>
+        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
+        <td class="trdata"><div class="tdd"><table width="100%"><tr><td>
+    И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 16 нед.) <br>
+    Мытникова Е. А.<br><i>1 подгруппа</i>
+    <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+      <span style="color: red;"><b>07.05.2026  замена на: </b></span><br>
+      Аудитория: <span class="blue">Дистанционно (ДОТ)</span>
+    </div>
+        </td></tr></table></div></td>
+      </tr>
+    </tbody></table>
+  </body></html>`;
+  const days = parseFullSchedule(html);
+  const schedule = new Schedule(8919, new Map([[3, days]]), 3);
+
+  const lessons = schedule.forDate(new Date(2026, 4, 7), { subgroup: 1 });
+  assert.equal(lessons.length, 1);
+  assert.equal(lessons[0].room, "Дистанционно (ДОТ)");
+  assert.equal(lessons[0].isDistance, true);
+});
+
+test("parseWebinars parses scheduled rows and attaches them to lessons", () => {
+  const html = `<!doctype html><html><body>
+    <select name="seldate"><option value="2026-05-07" selected="selected">7 Май</option></select>
+    <table id="webstt"><tbody>
+      <tr>
+        <td class="trf trdata"><div id="trd2026-05-07t1" class="trfd">1 пара<br>08:20 - 09:40</div></td>
+        <td class="trdata"><div class="tdd"><table>
+          <tr>
+            <td>Правоведение(лк) зав.каф.  к.ю.н. Верещак С. Б. ФМ-10-24 ФМ-11-24</td>
+            <td>Лекция</td>
+            <td><button id="meet122123" onclick="jointo('122123', 1);" type="button"></button></td>
+          </tr>
+        </table></div></td>
+      </tr>
+    </tbody></table>
+    <table id="websttext"><tbody></tbody></table>
+  </body></html>`;
+  const webinars = parseWebinars(html);
+
+  assert.equal(webinars.length, 1);
+  assert.equal(webinars[0].id, "122123");
+  assert.equal(webinars[0].slotNumber, 1);
+  assert.equal(webinars[0].subject, "Правоведение");
+  assert.equal(webinars[0].type, "лк");
+  assert.deepEqual(webinars[0].teacher, {
+    position: "зав.каф.",
+    degree: "к.ю.н.",
+    name: "Верещак С. Б.",
+  });
+  assert.deepEqual(webinars[0].groups, ["ФМ-10-24", "ФМ-11-24"]);
+
+  const lessons = attachWebinarsToLessons(
+    [
+      {
+        number: 1,
+        start: { date: new Date(2026, 4, 7, 8, 20), hours: 8, minutes: 20 },
+        end: { date: new Date(2026, 4, 7, 9, 40), hours: 9, minutes: 40 },
+        subject: "Правоведение",
+        type: "лк",
+        room: "Дистанционно (ДОТ)",
+        teacher: { name: "Верещак С. Б." },
+        groups: [],
+        weeks: { from: 0, to: 0 },
+        isDistance: true,
+      },
+    ],
+    webinars,
+  );
+  assert.equal(lessons[0].webinar?.id, "122123");
 });
 
 test("Schedule applies spring substitutions and suppresses transferred source lessons", () => {

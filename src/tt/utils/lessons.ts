@@ -4,6 +4,7 @@ import type {
   Lesson,
   LessonTime,
   ScheduleEntry,
+  Webinar,
 } from "../types.js";
 import { isSameDay } from "./date.js";
 
@@ -74,6 +75,10 @@ function makeLessonTime(
   return { date: d, hours: time.hours, minutes: time.minutes };
 }
 
+function isDistanceRoom(room: string | undefined): boolean {
+  return /дистанционно|ДОТ/i.test(room ?? "");
+}
+
 export function slotsToLessons(
   slots: FullScheduleSlot[],
   date: Date,
@@ -84,6 +89,7 @@ export function slotsToLessons(
     for (const entry of slot.entries) {
       let room = entry.room;
       let teacher = entry.teacher;
+      let isDistance = entry.isDistance || isDistanceRoom(room);
       let originalRoom: string | undefined;
       let originalTeacher: typeof teacher | undefined;
 
@@ -94,6 +100,7 @@ export function slotsToLessons(
           if (sub.room) {
             originalRoom = room;
             room = sub.room;
+            isDistance = sub.isDistance || isDistanceRoom(room);
           }
           if (sub.teacher) {
             // On teacher schedules, a teacher substitution means another teacher
@@ -117,6 +124,7 @@ export function slotsToLessons(
         weeks: entry.weeks,
         subgroup: entry.subgroup,
         weekParity: entry.weekParity,
+        isDistance,
         originalRoom,
         originalTeacher,
         transfer: entry.transfer,
@@ -126,6 +134,61 @@ export function slotsToLessons(
     }
   }
   return lessons;
+}
+
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/ё/g, "е")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function sameTime(lesson: Lesson, webinar: Webinar): boolean {
+  return (
+    lesson.start.hours === webinar.timeStart.hours &&
+    lesson.start.minutes === webinar.timeStart.minutes &&
+    lesson.end.hours === webinar.timeEnd.hours &&
+    lesson.end.minutes === webinar.timeEnd.minutes
+  );
+}
+
+export function matchWebinarToLesson(
+  lesson: Lesson,
+  webinars: Webinar[],
+): Webinar | undefined {
+  return webinars.find((webinar) => {
+    if (!webinar.scheduled) return false;
+    if (webinar.date && !isSameDay(webinar.date, lesson.start.date)) return false;
+    if (webinar.slotNumber != null && webinar.slotNumber !== lesson.number) {
+      return false;
+    }
+    if (!sameTime(lesson, webinar)) return false;
+    if (normalizeText(webinar.subject) !== normalizeText(lesson.subject)) {
+      return false;
+    }
+    if (webinar.type && lesson.type && webinar.type !== lesson.type) {
+      return false;
+    }
+    if (
+      webinar.subgroup != null &&
+      lesson.subgroup != null &&
+      webinar.subgroup !== lesson.subgroup
+    ) {
+      return false;
+    }
+    return true;
+  });
+}
+
+export function attachWebinarsToLessons(
+  lessons: Lesson[],
+  webinars: Webinar[],
+): Lesson[] {
+  return lessons.map((lesson) => {
+    const webinar = matchWebinarToLesson(lesson, webinars);
+    return webinar ? { ...lesson, webinar } : lesson;
+  });
 }
 
 /** All transfer entries from the given schedule days. */

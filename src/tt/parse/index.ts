@@ -16,3 +16,4 @@ export {
   parseTeacherFullSchedule,
   parseTeacherInfo,
 } from "./teacher.js";
+export { parseWebinars } from "./webinars.js";

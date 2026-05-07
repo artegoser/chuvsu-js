@@ -27,6 +27,8 @@ import {
   WEEKS_RE,
 } from "./patterns.js";
 
+const DISTANCE_RE = /дистанционно|ДОТ/i;
+
 export function parseAudienceInfo(html: string): AudienceInfo | null {
   const doc = parseHtml(html);
 
@@ -179,6 +181,7 @@ function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
     groups: parseGroupsString(groupsLine),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
+    isDistance: DISTANCE_RE.test(cleanText),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
