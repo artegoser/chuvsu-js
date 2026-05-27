@@ -484,6 +484,27 @@ test("parseAudienceFullSchedule parses possible changes and odd week parity", ()
   assert.equal(entry.possibleChanges, true);
 });
 
+test("parseAudienceFullSchedule parses transfer with original room marker", () => {
+  const html = semesterPage(
+    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+      <span style="color: red;"><b>27.05.2026 перенос с 20.05.2026 (7 пара) вместо: </b></span>
+      <span style="color: blue;">Г-305</span><br>
+      Г-316 <span style="color: blue;">Основы проектной деятельности</span> (пр)<br>
+      Игреев Р. А.<br>
+      КТ-41-24 КТ-41-24ин
+    </div>`,
+  );
+  const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
+
+  assert.equal(entry.room, "Г-316");
+  assert.equal(entry.subject, "Основы проектной деятельности");
+  assert.equal(entry.type, "пр");
+  assert.deepEqual(entry.teacher, { name: "Игреев Р. А." });
+  assert.deepEqual(entry.groups, ["КТ-41-24", "КТ-41-24ин"]);
+  assert.ok(entry.transfer);
+  assert.equal(entry.transfer.fromSlot, 7);
+});
+
 test("parseAudienceInfo parses metadata and image links from audience pages", () => {
   const html = `<!doctype html><html><body>
     <div id="path" class="sbtext">

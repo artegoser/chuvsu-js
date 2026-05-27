@@ -15,6 +15,8 @@ import {
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
 const DISTANCE_RE = /дистанционно|ДОТ/i;
+const BLUE_SPAN_RE =
+  /<span\b(?=[^>]*(?:style=["'][^"']*color:\s*blue|class=["'][^"']*\bblue\b))[^>]*>([^<]+)<\/span>/i;
 
 export function parseDate(dd: string, mm: string, yyyy: string): Date {
   return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
@@ -27,7 +29,7 @@ export function parseTransferDiv(
   const divHtml = div.innerHTML ?? "";
 
   const m = divText.match(
-    /(\d{2})\.(\d{2})\.(\d{4})\s*перенос\s*c\s*(\d{2})\.(\d{2})\.(\d{4})\s*\((\d+)\s*пара\)/,
+    /(\d{2})\.(\d{2})\.(\d{4})\s*перенос\s*[cс]\s*(\d{2})\.(\d{2})\.(\d{4})\s*\((\d+)\s*пара\)/iu,
   );
   if (!m) return null;
 
@@ -35,14 +37,21 @@ export function parseTransferDiv(
   const fromDate = parseDate(m[4], m[5], m[6]);
   const fromSlot = parseInt(m[7]);
 
+  const lineHtmls = divHtml.split(/<br\s*\/?>/i);
+  const lessonLineHtml =
+    lineHtmls.find((line) => {
+      const lineText = line.replace(/<[^>]*>/g, "").trim();
+      return BLUE_SPAN_RE.test(line) && LESSON_TYPE_RE_I.test(lineText);
+    }) ?? "";
+  const subjectMatch = lessonLineHtml.match(BLUE_SPAN_RE);
   const subjectEl = div.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  const subject = subjectMatch?.[1]?.trim() ?? (subjectEl ? text(subjectEl) : "");
   if (!subject) return null;
 
-  const roomMatch = divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
+  const roomMatch = lessonLineHtml.match(/([А-Яа-яA-Za-z]-\d+)/) ??
+    divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
   const typeMatch = divText.match(LESSON_TYPE_RE);
-  const parts = divHtml
-    .split(/<br\s*\/?>/i)
+  const parts = lineHtmls
     .map((part) => part.replace(/<[^>]*>/g, "").trim())
     .filter((part) => part.length > 0);
 
