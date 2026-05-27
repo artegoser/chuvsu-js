@@ -194,11 +194,12 @@ function parseSessionSchedule(
     const brMatch = cellHtml.match(/<br\s*\/?>\s*(.+)/i);
     const weekday = brMatch ? brMatch[1].trim() : "";
 
-    // Data cell is the next td.trdata sibling in the same row
-    const row = dateCell.parentElement;
-    if (!row) continue;
-    const dataCell = row.querySelector("td.trdata:not(.trfd)");
-    if (!dataCell) continue;
+    // Live session tables repeat the date cell after the data cell. Only the
+    // leading date cell has the schedule data as its next sibling.
+    const dataCell = dateCell.nextElementSibling;
+    if (!dataCell?.matches("td.trdata:not(.trfd)")) {
+      continue;
+    }
 
     const slots: FullScheduleSlot[] = [];
 

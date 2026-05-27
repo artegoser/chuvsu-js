@@ -39,6 +39,7 @@ function sessionPage(entryRowsHtml) {
       <tr>
         <td id="trd20260425" class="trfd">25.04.2026<br>Суббота</td>
         <td class="trdata"><table>${entryRowsHtml}</table></td>
+        <td id="trd20260425" class="trfd">25.04.2026<br>Суббота</td>
       </tr>
     </tbody></table>
   </body></html>`;
@@ -180,14 +181,16 @@ test("parseTeacherFullSchedule parses substitute-for overlays", () => {
 test("parseTeacherFullSchedule parses session entries with flexible lesson types", () => {
   const html = sessionPage([
     teacherSessionRow(
-      `И-208 <span style="color: blue;">Базы данных</span> (Экз) КТ-41-24 КТ-41-24ин<br>11:40 - 13:00`,
+      `И-208 <span style="color: blue;">Базы данных</span> (Экз)<br>КТ-41-24 КТ-41-24ин<br>11:40 - 13:00`,
     ),
     teacherSessionRow(
-      `Б-201 <span style="color: blue;">Консультация</span> (конс.) КТ-41-24<br>13:30 - 14:50`,
+      `Б-201 <span style="color: blue;">Консультация</span> (конс.)<br>КТ-41-24<br>13:30 - 14:50`,
     ),
   ].join(""));
-  const day = parseTeacherFullSchedule(html)[0];
+  const days = parseTeacherFullSchedule(html);
+  const day = days[0];
 
+  assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
   assert.equal(day.slots.length, 2);
   assert.equal(day.slots[0].entries[0].type, "экз");
@@ -237,8 +240,10 @@ test("parseFullSchedule parses session entries with flexible lesson types", () =
   const html = sessionPage(
     `<tr><td>Б-201 <span style="color: blue;">Консультация</span> (конс.)<br>10:00 - 11:30</td></tr>`,
   );
-  const day = parseFullSchedule(html)[0];
+  const days = parseFullSchedule(html);
+  const day = days[0];
 
+  assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
   assert.equal(day.slots[0].entries[0].room, "Б-201");
   assert.equal(day.slots[0].entries[0].type, "конс");
@@ -254,6 +259,7 @@ test("parseFullSchedule parses summer session types, teachers and subgroups", ()
     day.slots.flatMap((slot) => slot.entries),
   );
 
+  assert.equal(entries.length, 3);
   assert.equal(entries[0].type, "зач");
   assert.equal(entries[0].subgroup, 1);
   assert.deepEqual(entries[0].teacher, { name: "Дигуева О. Г." });

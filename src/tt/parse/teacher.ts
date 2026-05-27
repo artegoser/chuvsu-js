@@ -22,7 +22,6 @@ import {
   parseTransferDiv,
 } from "./overlays.js";
 import {
-  FLEXIBLE_LESSON_TYPE_PATTERN,
   FLEXIBLE_LESSON_TYPE_RE_I,
   LESSON_TYPE_RE,
   SUBGROUP_RE,
@@ -139,10 +138,10 @@ function parseTeacherSessionSchedule(
     const brMatch = cellHtml.match(/<br\s*\/?>\s*(.+)/i);
     const weekday = brMatch ? brMatch[1].trim() : "";
 
-    const row = dateCell.parentElement;
-    if (!row) continue;
-    const dataCell = row.querySelector("td.trdata:not(.trfd)");
-    if (!dataCell) continue;
+    const dataCell = dateCell.nextElementSibling;
+    if (!dataCell?.matches("td.trdata:not(.trfd)")) {
+      continue;
+    }
 
     const slots: FullScheduleSlot[] = [];
 
@@ -192,18 +191,21 @@ function parseTeacherSessionEntry(
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
   const subgroupMatch = plainText.match(SUBGROUP_RE);
 
-  // Groups: text between </span> type and <br>time
-  const groupsMatch = fullHtml.match(
-    new RegExp(
-      `\\((?:${FLEXIBLE_LESSON_TYPE_PATTERN})\\)\\s*([^<]+?)\\s*<br`,
-      "i",
-    ),
-  );
-
   const timeMatch = fullHtml.match(
     /<br\s*\/?>\s*(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})/,
   );
   if (!timeMatch) return null;
+
+  const parts = fullHtml
+    .split(/<br\s*\/?>/i)
+    .map((part) => part.replace(/<[^>]*>/g, "").trim())
+    .filter((part) => part.length > 0);
+  const groupsPart =
+    parts.find(
+      (part) =>
+        !part.includes(subject) &&
+        !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part),
+    ) ?? "";
 
   return {
     entry: {
@@ -212,7 +214,7 @@ function parseTeacherSessionEntry(
       type,
       weeks: { from: 0, to: 0 },
       teacher: { name: "" },
-      groups: parseGroupsString(groupsMatch?.[1]),
+      groups: parseGroupsString(groupsPart),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room),
       possibleChanges,
