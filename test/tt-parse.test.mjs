@@ -119,6 +119,24 @@ test("parseTeacherFullSchedule keeps transfer overlays parsed correctly", () => 
   assert.equal(entry.transfer.fromSlot, 2);
 });
 
+test("parseFullSchedule does not treat transfer room line as group", () => {
+  const html = semesterPage(
+    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+      <span style="color: red;"><b>27.05.2026 перенос c 20.05.2026 (7 пара): </b></span><br>
+      Г-316 <span style="color: blue;">Основы проектной деятельности</span> (пр)<br>
+      Игреев Р. А.
+    </div>`,
+  );
+  const entry = pickOnlyEntry(parseFullSchedule(html));
+
+  assert.equal(entry.room, "Г-316");
+  assert.equal(entry.subject, "Основы проектной деятельности");
+  assert.equal(entry.type, "пр");
+  assert.deepEqual(entry.teacher, { name: "Игреев Р. А." });
+  assert.deepEqual(entry.groups, []);
+  assert.ok(entry.transfer);
+});
+
 test("parseTeacherFullSchedule parses semester substitutions", () => {
   const html = teacherSemesterEntry(`КТ-31-24 (2 подгруппа)
     <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">

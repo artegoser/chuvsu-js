@@ -52,15 +52,17 @@ export function parseTransferDiv(
     const cleaned = part.trim();
     if (!cleaned) continue;
 
-    if (GROUP_CODE_RE.test(cleaned)) {
-      groupsPart = cleaned;
-      continue;
-    }
-
     const isLessonMeta =
       cleaned.includes(subject) ||
       (roomMatch?.[1] != null && cleaned.includes(roomMatch[1])) ||
       LESSON_TYPE_RE_I.test(cleaned);
+
+    if (isLessonMeta) continue;
+
+    if (GROUP_CODE_RE.test(cleaned)) {
+      groupsPart = cleaned;
+      continue;
+    }
 
     if (!isLessonMeta && !teacherPart) {
       teacherPart = cleaned;
