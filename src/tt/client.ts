@@ -3,6 +3,7 @@ import { HybridCache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
 import { EducationType, AuthError, Period } from "../common/types.js";
 import {
+  parseAcademicYearFromPage,
   parseAudienceButtons,
   parseAudienceFullSchedule,
   parseAudienceInfo,
@@ -13,9 +14,15 @@ import {
   parseFullSchedule,
   parseTeacherFullSchedule,
   parseTeacherInfo,
+  parsePeriodFromPage,
   parseWebinars,
 } from "./parse/index.js";
 import { Schedule } from "./schedule.js";
+import {
+  getAcademicYearKey,
+  getAcademicYearStartYear,
+  getCurrentPeriod,
+} from "./utils/index.js";
 import type {
   Audience,
   AudienceInfo,
@@ -30,6 +37,7 @@ import type {
 
 const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
+const TIMETABLE_CONTEXT_TTL_MS = 15 * 60 * 1000;
 
 const ALL_PERIODS = [
   Period.FallSemester,
@@ -61,12 +69,6 @@ function formatDate(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-function getAcademicYearKey(date: Date = new Date()): string {
-  const year = date.getFullYear();
-  const start = date.getMonth() >= 8 ? year : year - 1;
-  return `${start}-${start + 1}`;
-}
-
 export class TtClient {
   private http = new HttpClient();
   private educationType: EducationType;
@@ -75,6 +77,9 @@ export class TtClient {
   private loginMode:
     | { type: "credentials"; email: string; password: string }
     | { type: "guest" }
+    | null = null;
+  private timetableContext:
+    | { academicYearStartYear: number; period: Period; resolvedAt: number }
     | null = null;
 
   constructor(opts?: TtClientOptions) {
@@ -133,6 +138,7 @@ export class TtClient {
       throw new AuthError("TT login failed");
     }
     this.loginMode = { type: "credentials", ...opts };
+    this.timetableContext = null;
   }
 
   async loginAsGuest(): Promise<void> {
@@ -145,6 +151,7 @@ export class TtClient {
       throw new AuthError("TT guest login failed");
     }
     this.loginMode = { type: "guest" };
+    this.timetableContext = null;
   }
 
   private isSessionExpired(body: string): boolean {
@@ -185,13 +192,46 @@ export class TtClient {
     return res;
   }
 
+  /**
+   * Resolve the academic year and active period from tt.chuvsu.ru itself.
+   * The site can roll over to the next year before September, so the server
+   * page is authoritative and the calendar helpers are only a fallback.
+   */
+  private async getTimetableContext(
+    pageUrl: string,
+  ): Promise<{ academicYearStartYear: number; period: Period }> {
+    if (
+      this.timetableContext &&
+      Date.now() - this.timetableContext.resolvedAt < TIMETABLE_CONTEXT_TTL_MS
+    ) {
+      return this.timetableContext;
+    }
+
+    const { body } = await this.authGet(pageUrl);
+    const parsedYear = parseAcademicYearFromPage(body);
+    const parsedPeriod = parsePeriodFromPage(body);
+    const context = {
+      academicYearStartYear: parsedYear ?? getAcademicYearStartYear(),
+      period: parsedPeriod ?? getCurrentPeriod(),
+      resolvedAt: Date.now(),
+    };
+
+    // Cache only an authoritative server context. A fallback should not stop a
+    // later schedule page from supplying the real year/period.
+    if (parsedYear != null && parsedPeriod != null) {
+      this.timetableContext = context;
+    }
+    return context;
+  }
+
   // --- Schedule ---
 
   private async fetchSchedule(
     groupId: number,
     period: Period,
+    academicYearStartYear: number,
   ): Promise<FullScheduleDay[]> {
-    const cacheKey = `${groupId}:${period}:${getAcademicYearKey()}`;
+    const cacheKey = `${groupId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
@@ -208,10 +248,17 @@ export class TtClient {
    */
   async getSchedule(groupId: number): Promise<Schedule> {
     const schedules = new Map<number, FullScheduleDay[]>();
+    const context = await this.getTimetableContext(
+      `${BASE}/index/grouptt/gr/${groupId}`,
+    );
 
     const results = await Promise.all(
       ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchSchedule(groupId, period);
+        const days = await this.fetchSchedule(
+          groupId,
+          period,
+          context.academicYearStartYear,
+        );
         return { period, days };
       }),
     );
@@ -220,7 +267,16 @@ export class TtClient {
       schedules.set(period, days);
     }
 
-    return new Schedule(groupId, schedules, undefined, this.educationType);
+    return new Schedule(
+      groupId,
+      schedules,
+      context.period,
+      this.educationType,
+      undefined,
+      undefined,
+      undefined,
+      context.academicYearStartYear,
+    );
   }
 
   /**
@@ -230,10 +286,26 @@ export class TtClient {
     groupId: number;
     period: Period;
   }): Promise<Schedule> {
-    const days = await this.fetchSchedule(opts.groupId, opts.period);
+    const context = await this.getTimetableContext(
+      `${BASE}/index/grouptt/gr/${opts.groupId}`,
+    );
+    const days = await this.fetchSchedule(
+      opts.groupId,
+      opts.period,
+      context.academicYearStartYear,
+    );
     const schedules = new Map<number, FullScheduleDay[]>();
     schedules.set(opts.period, days);
-    return new Schedule(opts.groupId, schedules, opts.period, this.educationType);
+    return new Schedule(
+      opts.groupId,
+      schedules,
+      opts.period,
+      this.educationType,
+      undefined,
+      undefined,
+      undefined,
+      context.academicYearStartYear,
+    );
   }
 
   async getWebinars(opts?: {
@@ -297,7 +369,7 @@ export class TtClient {
   }
 
   async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
-    const cacheKey = String(opts.facultyId);
+    const cacheKey = `${opts.facultyId}:${getAcademicYearKey()}`;
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
@@ -311,7 +383,7 @@ export class TtClient {
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
-    const cacheKey = `search:${opts.name}:${this.pertt}`;
+    const cacheKey = `search:${opts.name}:${this.pertt}:${getAcademicYearKey()}`;
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
@@ -420,8 +492,9 @@ export class TtClient {
   private async fetchAudienceSchedule(
     audienceId: number,
     period: Period,
+    academicYearStartYear: number,
   ): Promise<FullScheduleDay[]> {
-    const cacheKey = `audience:${audienceId}:${period}`;
+    const cacheKey = `audience:${audienceId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
@@ -441,10 +514,17 @@ export class TtClient {
 
   async getAudienceSchedule(audienceId: number): Promise<Schedule> {
     const schedules = new Map<number, FullScheduleDay[]>();
+    const context = await this.getTimetableContext(
+      `${BASE}/index/audtt/aud/${audienceId}`,
+    );
 
     const results = await Promise.all(
       ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchAudienceSchedule(audienceId, period);
+        const days = await this.fetchAudienceSchedule(
+          audienceId,
+          period,
+          context.academicYearStartYear,
+        );
         return { period, days };
       }),
     );
@@ -453,17 +533,42 @@ export class TtClient {
       schedules.set(period, days);
     }
 
-    return new Schedule(audienceId, schedules, undefined, this.educationType);
+    return new Schedule(
+      audienceId,
+      schedules,
+      context.period,
+      this.educationType,
+      undefined,
+      undefined,
+      undefined,
+      context.academicYearStartYear,
+    );
   }
 
   async getAudienceScheduleForPeriod(opts: {
     audienceId: number;
     period: Period;
   }): Promise<Schedule> {
-    const days = await this.fetchAudienceSchedule(opts.audienceId, opts.period);
+    const context = await this.getTimetableContext(
+      `${BASE}/index/audtt/aud/${opts.audienceId}`,
+    );
+    const days = await this.fetchAudienceSchedule(
+      opts.audienceId,
+      opts.period,
+      context.academicYearStartYear,
+    );
     const schedules = new Map<number, FullScheduleDay[]>();
     schedules.set(opts.period, days);
-    return new Schedule(opts.audienceId, schedules, opts.period, this.educationType);
+    return new Schedule(
+      opts.audienceId,
+      schedules,
+      opts.period,
+      this.educationType,
+      undefined,
+      undefined,
+      undefined,
+      context.academicYearStartYear,
+    );
   }
 
   private async getCachedAudienceImage(
@@ -575,8 +680,9 @@ export class TtClient {
   private async fetchTeacherSchedule(
     teacherId: number,
     period: Period,
+    academicYearStartYear: number,
   ): Promise<FullScheduleDay[]> {
-    const cacheKey = `teacher:${teacherId}:${period}`;
+    const cacheKey = `teacher:${teacherId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
@@ -596,10 +702,17 @@ export class TtClient {
 
   async getTeacherSchedule(teacherId: number): Promise<Schedule> {
     const schedules = new Map<number, FullScheduleDay[]>();
+    const context = await this.getTimetableContext(
+      `${BASE}/index/techtt/tech/${teacherId}`,
+    );
 
     const results = await Promise.all(
       ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchTeacherSchedule(teacherId, period);
+        const days = await this.fetchTeacherSchedule(
+          teacherId,
+          period,
+          context.academicYearStartYear,
+        );
         return { period, days };
       }),
     );
@@ -608,17 +721,42 @@ export class TtClient {
       schedules.set(period, days);
     }
 
-    return new Schedule(teacherId, schedules, undefined, this.educationType, undefined, undefined, true);
+    return new Schedule(
+      teacherId,
+      schedules,
+      context.period,
+      this.educationType,
+      undefined,
+      undefined,
+      true,
+      context.academicYearStartYear,
+    );
   }
 
   async getTeacherScheduleForPeriod(opts: {
     teacherId: number;
     period: Period;
   }): Promise<Schedule> {
-    const days = await this.fetchTeacherSchedule(opts.teacherId, opts.period);
+    const context = await this.getTimetableContext(
+      `${BASE}/index/techtt/tech/${opts.teacherId}`,
+    );
+    const days = await this.fetchTeacherSchedule(
+      opts.teacherId,
+      opts.period,
+      context.academicYearStartYear,
+    );
     const schedules = new Map<number, FullScheduleDay[]>();
     schedules.set(opts.period, days);
-    return new Schedule(opts.teacherId, schedules, opts.period, this.educationType, undefined, undefined, true);
+    return new Schedule(
+      opts.teacherId,
+      schedules,
+      opts.period,
+      this.educationType,
+      undefined,
+      undefined,
+      true,
+      context.academicYearStartYear,
+    );
   }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {

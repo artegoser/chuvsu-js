@@ -278,7 +278,7 @@ test("Schedule filters session entries by subgroup", () => {
     `<tr><td>Е-115 <span style="color: blue;">Физкультура</span> (зач)<br>Миронская И. В.<br><i>2 подгруппа</i><br>09:50 - 11:10</td></tr>`,
   ].join(""));
   const days = parseFullSchedule(html);
-  const schedule = new Schedule(8919, new Map([[2, days]]), 2);
+  const schedule = new Schedule(8919, new Map([[2, days]]), 2, undefined, undefined, undefined, undefined, 2025);
 
   const lessons = schedule.forDate(new Date(2026, 3, 25), { subgroup: 1 });
   assert.equal(lessons.length, 1);
@@ -286,7 +286,7 @@ test("Schedule filters session entries by subgroup", () => {
   assert.deepEqual(lessons[0].teacher, { name: "Дигуева О. Г." });
 });
 
-test("Schedule does not reuse semester lessons outside current academic year", () => {
+test("Schedule does not reuse semester lessons outside its academic year", () => {
   const html = `<!doctype html><html><body>
     <table id="groupstt"><tbody>
       <tr style=" background: lightgray; " class="trfd"><td>Среда</td><td></td></tr>
@@ -302,6 +302,11 @@ test("Schedule does not reuse semester lessons outside current academic year", (
     8919,
     new Map([[3, parseFullSchedule(html)]]),
     3,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    2025,
   );
 
   assert.equal(schedule.forDate(new Date(2025, 4, 7)).length, 0);
@@ -331,7 +336,7 @@ test("parseFullSchedule marks distance substitutions", () => {
     </tbody></table>
   </body></html>`;
   const days = parseFullSchedule(html);
-  const schedule = new Schedule(8919, new Map([[3, days]]), 3);
+  const schedule = new Schedule(8919, new Map([[3, days]]), 3, undefined, undefined, undefined, undefined, 2025);
 
   const lessons = schedule.forDate(new Date(2026, 4, 7), { subgroup: 1 });
   assert.equal(lessons.length, 1);
@@ -432,6 +437,11 @@ test("Schedule applies spring substitutions and suppresses transferred source le
     8919,
     new Map([[3, springDays]]),
     3,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    2025,
   );
 
   const substituted = schedule.forDate(new Date(2026, 4, 28), {

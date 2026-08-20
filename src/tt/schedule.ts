@@ -8,6 +8,7 @@ import { Period, EducationType } from "../common/types.js";
 import {
   collectTransfers,
   filterSlots,
+  getAcademicYearStartYear,
   getAdjacentSemester,
   getCurrentPeriod,
   getMonday,
@@ -36,6 +37,8 @@ export class Schedule {
   readonly holidays: Holiday[];
   /** Government decree day-off transfers (Постановление Правительства). */
   readonly holidayTransfers: HolidayTransfer[];
+  /** Academic year represented by this schedule (e.g. 2026 for 2026/2027). */
+  readonly academicYearStartYear: number;
   private _period?: Period;
 
   constructor(
@@ -46,6 +49,7 @@ export class Schedule {
     holidays?: Holiday[] | null,
     holidayTransfers?: HolidayTransfer[],
     isTeacherSchedule?: boolean,
+    academicYearStartYear?: number,
   ) {
     this.groupId = groupId;
     this.scheduleMap = scheduleMap;
@@ -54,6 +58,8 @@ export class Schedule {
     this._period = period;
     this.holidays = holidays ?? RUSSIAN_HOLIDAYS;
     this.holidayTransfers = holidayTransfers ?? [];
+    this.academicYearStartYear =
+      academicYearStartYear ?? getAcademicYearStartYear();
   }
 
   /** Current (or fixed) period for this schedule. */
@@ -74,6 +80,15 @@ export class Schedule {
   /** Get days for a specific period. */
   getDays(period: Period): FullScheduleDay[] {
     return this.scheduleMap.get(period) ?? [];
+  }
+
+  private getSemesterYear(period: Period): number {
+    const semester = isSessionPeriod(period)
+      ? getAdjacentSemester(period)
+      : period;
+    return semester === Period.FallSemester
+      ? this.academicYearStartYear
+      : this.academicYearStartYear + 1;
   }
 
   // --- Semester helpers (weekday-based) ---
@@ -97,7 +112,9 @@ export class Schedule {
     week?: number,
   ): Date {
     if (week != null) {
-      const startMonday = getMonday(getSemesterStart({ period }));
+      const startMonday = getMonday(
+        getSemesterStart({ period, year: this.getSemesterYear(period) }),
+      );
       const date = new Date(startMonday);
       date.setDate(
         startMonday.getDate() +
@@ -116,12 +133,12 @@ export class Schedule {
   }
 
   private isInCurrentAcademicYear(date: Date): boolean {
-    const now = new Date();
-    const startYear = now.getMonth() >= 8
-      ? now.getFullYear()
-      : now.getFullYear() - 1;
-    const start = new Date(startYear, 8, 1);
-    const end = new Date(startYear + 1, 7, 31, 23, 59, 59, 999);
+    const startYear = this.academicYearStartYear;
+    // The timetable site rolls over in August. Semester week numbering still
+    // starts from September, so August dates are valid but naturally yield no
+    // semester lessons until week 1 begins.
+    const start = new Date(startYear, 7, 1);
+    const end = new Date(startYear + 1, 6, 31, 23, 59, 59, 999);
     return date >= start && date <= end;
   }
 
@@ -184,7 +201,11 @@ export class Schedule {
 
     const semesterDays = this.getDays(semesterPeriod);
     if (semesterDays.length > 0) {
-      const week = getWeekNumber({ period: semesterPeriod, date });
+      const week = getWeekNumber({
+        period: semesterPeriod,
+        year: this.getSemesterYear(semesterPeriod),
+        date,
+      });
       if (week >= 0 && week <= 17) {
         const weekday = date.getDay();
         const slots = this.getSlotsForWeekday(weekday, semesterDays, {
@@ -215,6 +236,7 @@ export class Schedule {
     if (week != null && !isSessionPeriod(period)) {
       const semesterWeeks = getSemesterWeeks({
         period,
+        year: this.getSemesterYear(period),
         weekCount: week,
       });
       const weekData = semesterWeeks.find((w) => w.week === week);
@@ -264,14 +286,34 @@ export class Schedule {
   }
 
   getWeekNumber(date?: Date): number {
-    return getWeekNumber({ period: this.period, date });
+    const period = isSessionPeriod(this.period)
+      ? getAdjacentSemester(this.period)
+      : this.period;
+    return getWeekNumber({
+      period,
+      year: this.getSemesterYear(period),
+      date,
+    });
   }
 
   getSemesterWeeks(weekCount?: number): SemesterWeek[] {
-    return getSemesterWeeks({ period: this.period, weekCount });
+    const period = isSessionPeriod(this.period)
+      ? getAdjacentSemester(this.period)
+      : this.period;
+    return getSemesterWeeks({
+      period,
+      year: this.getSemesterYear(period),
+      weekCount,
+    });
   }
 
   getSemesterStart(): Date {
-    return getSemesterStart({ period: this.period });
+    const period = isSessionPeriod(this.period)
+      ? getAdjacentSemester(this.period)
+      : this.period;
+    return getSemesterStart({
+      period,
+      year: this.getSemesterYear(period),
+    });
   }
 }

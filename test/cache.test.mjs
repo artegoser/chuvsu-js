@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import { LkClient } from "../dist/lk/client.js";
 import { TtClient } from "../dist/tt/client.js";
+import { getAcademicYearKey } from "../dist/tt/utils/index.js";
 
 class FakeHttpClient {
   constructor({ get = {}, post = {}, buffers = {} } = {}) {
@@ -261,7 +262,7 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
   const cache = tt.exportCache();
   assert.ok(cache["teachers:all"]);
   assert.ok(cache["teachers:search:Иванов:1"]);
-  assert.ok(cache["groups:search:КТ-41-24:1"]);
+  assert.ok(cache[`groups:search:КТ-41-24:1:${getAcademicYearKey()}`]);
   assert.ok(cache["audiences:search:Е-1:1"]);
   assert.ok(cache["audiences:all:1"]);
   assert.ok(cache["audienceNames:852"]);
@@ -345,4 +346,41 @@ test("LkClient caches personal data, photo and group id", async () => {
     blobKey: "lk/photo/self",
   });
   assert.equal(blobAdapter.store.get("lk/photo/self")?.toString(), "lk-photo");
+});
+
+test("TtClient uses the timetable page academic year and active period for schedule cache", async () => {
+  const cacheAdapter = new FakeCacheAdapter();
+  const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
+  const fakeHttp = new FakeHttpClient({
+    get: {
+      [groupUrl]: {
+        status: 200,
+        body: `
+          <span style="color: blue;">2026/2027 учебный год</span>
+          <input type="radio" name="pertype" value="1" checked="checked">
+          <input type="radio" name="pertype" value="4">
+          <input type="hidden" id="htype" value="1">
+        `,
+      },
+    },
+  });
+
+  const tt = new TtClient({ cache: 10_000, cacheAdapter });
+  tt.http = fakeHttp;
+
+  const schedule = await tt.getSchedule(8919);
+
+  assert.equal(schedule.period, 1);
+  assert.equal(schedule.academicYearStartYear, 2026);
+  for (const period of [1, 2, 3, 4]) {
+    assert.ok(tt.exportCache()[`schedule:8919:${period}:2026-2027`]);
+    assert.equal(
+      fakeHttp.count(
+        "post",
+        `${groupUrl}|${JSON.stringify({ htype: String(period) })}`,
+      ),
+      1,
+    );
+  }
+  assert.equal(fakeHttp.count("get", groupUrl), 1);
 });

@@ -1,5 +1,6 @@
 export { parseGroupsString } from "./groups.js";
 export {
+  parseAcademicYearFromPage,
   parseAudienceButtons,
   parseAudienceName,
   parseFacultyButtons,

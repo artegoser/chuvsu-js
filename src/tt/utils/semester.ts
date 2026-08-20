@@ -1,14 +1,7 @@
 import { Period } from "../../common/types.js";
 import type { SemesterWeek } from "../types.js";
 import { getMonday } from "./date.js";
-
-function getAcademicYearStartYear(date: Date): number {
-  const year = date.getFullYear();
-  const month = date.getMonth();
-
-  // Academic year starts in September.
-  return month >= 8 ? year : year - 1;
-}
+import { getAcademicYearStartYear } from "./academic-year.js";
 
 function resolveSemesterYear(opts: {
   period: Period;

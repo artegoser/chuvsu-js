@@ -8,6 +8,8 @@ export { parseGroupsString, parseWebinars } from "./tt/parse/index.js";
 
 export {
   attachWebinarsToLessons,
+  getAcademicYearKey,
+  getAcademicYearStartYear,
   getAdjacentSemester,
   getCompensatingWorkDays,
   getCurrentPeriod,
