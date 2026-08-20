@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 
 import { LkClient } from "../dist/lk/client.js";
 import { TtClient } from "../dist/tt/client.js";
-import { getAcademicYearKey } from "../dist/tt/utils/index.js";
 
 class FakeHttpClient {
   constructor({ get = {}, post = {}, buffers = {} } = {}) {
@@ -262,7 +261,7 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
   const cache = tt.exportCache();
   assert.ok(cache["teachers:all"]);
   assert.ok(cache["teachers:search:Иванов:1"]);
-  assert.ok(cache[`groups:search:КТ-41-24:1:${getAcademicYearKey()}`]);
+  assert.ok(cache["groups:search:КТ-41-24:1"]);
   assert.ok(cache["audiences:search:Е-1:1"]);
   assert.ok(cache["audiences:all:1"]);
   assert.ok(cache["audienceNames:852"]);
@@ -383,4 +382,26 @@ test("TtClient uses the timetable page academic year and active period for sched
     );
   }
   assert.equal(fakeHttp.count("get", groupUrl), 1);
+});
+
+test("TtClient does not guess academic year when timetable page lacks context", async () => {
+  const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
+  const fakeHttp = new FakeHttpClient({
+    get: {
+      [groupUrl]: {
+        status: 200,
+        body: `<html><body><div>Расписание занятий</div></body></html>`,
+      },
+    },
+  });
+
+  const tt = new TtClient();
+  tt.http = fakeHttp;
+
+  await assert.rejects(
+    () => tt.getSchedule(8919),
+    (error) =>
+      error?.name === "ParseError" &&
+      error?.message === "TT page does not expose the current academic year",
+  );
 });

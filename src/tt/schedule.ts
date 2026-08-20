@@ -8,7 +8,6 @@ import { Period, EducationType } from "../common/types.js";
 import {
   collectTransfers,
   filterSlots,
-  getAcademicYearStartYear,
   getAdjacentSemester,
   getCurrentPeriod,
   getMonday,
@@ -58,8 +57,13 @@ export class Schedule {
     this._period = period;
     this.holidays = holidays ?? RUSSIAN_HOLIDAYS;
     this.holidayTransfers = holidayTransfers ?? [];
-    this.academicYearStartYear =
-      academicYearStartYear ?? getAcademicYearStartYear();
+    if (academicYearStartYear != null) {
+      this.academicYearStartYear = academicYearStartYear;
+    } else {
+      const now = new Date();
+      this.academicYearStartYear =
+        now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1;
+    }
   }
 
   /** Current (or fixed) period for this schedule. */
@@ -134,11 +138,8 @@ export class Schedule {
 
   private isInCurrentAcademicYear(date: Date): boolean {
     const startYear = this.academicYearStartYear;
-    // The timetable site rolls over in August. Semester week numbering still
-    // starts from September, so August dates are valid but naturally yield no
-    // semester lessons until week 1 begins.
-    const start = new Date(startYear, 7, 1);
-    const end = new Date(startYear + 1, 6, 31, 23, 59, 59, 999);
+    const start = new Date(startYear, 8, 1);
+    const end = new Date(startYear + 1, 7, 31, 23, 59, 59, 999);
     return date >= start && date <= end;
   }
 

@@ -1,4 +1,3 @@
-export { getAcademicYearKey, getAcademicYearStartYear } from "./academic-year.js";
 export { getMonday, getWeekdayName, isSameDay } from "./date.js";
 export {
   getAdjacentSemester,

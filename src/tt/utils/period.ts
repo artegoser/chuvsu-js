@@ -9,10 +9,9 @@ export function getCurrentPeriod(opts?: { date?: Date }): Period {
   if (month === 0 || (month === 11 && day >= 25)) return Period.WinterSession;
   // Feb-May -> Spring semester (весенний семестр)
   if (month >= 1 && month <= 4) return Period.SpringSemester;
-  // Jun-Jul -> Summer session (летняя сессия)
-  if (month >= 5 && month <= 6) return Period.SummerSession;
-  // Aug - Dec 24 -> Fall semester (осенний семестр).
-  // tt.chuvsu.ru switches to the next academic year during August.
+  // Jun-Aug -> Summer session (летняя сессия)
+  if (month >= 5 && month <= 7) return Period.SummerSession;
+  // Sep - Dec 24 -> Fall semester (осенний семестр)
   return Period.FallSemester;
 }
 

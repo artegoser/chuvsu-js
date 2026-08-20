@@ -1,7 +1,7 @@
 import { HttpClient, type HttpResponse } from "../common/http.js";
 import { HybridCache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
-import { EducationType, AuthError, Period } from "../common/types.js";
+import { EducationType, AuthError, ParseError, Period } from "../common/types.js";
 import {
   parseAcademicYearFromPage,
   parseAudienceButtons,
@@ -18,11 +18,6 @@ import {
   parseWebinars,
 } from "./parse/index.js";
 import { Schedule } from "./schedule.js";
-import {
-  getAcademicYearKey,
-  getAcademicYearStartYear,
-  getCurrentPeriod,
-} from "./utils/index.js";
 import type {
   Audience,
   AudienceInfo,
@@ -192,11 +187,7 @@ export class TtClient {
     return res;
   }
 
-  /**
-   * Resolve the academic year and active period from tt.chuvsu.ru itself.
-   * The site can roll over to the next year before September, so the server
-   * page is authoritative and the calendar helpers are only a fallback.
-   */
+  /** Resolve the academic year and active period from tt.chuvsu.ru itself. */
   private async getTimetableContext(
     pageUrl: string,
   ): Promise<{ academicYearStartYear: number; period: Period }> {
@@ -208,19 +199,22 @@ export class TtClient {
     }
 
     const { body } = await this.authGet(pageUrl);
-    const parsedYear = parseAcademicYearFromPage(body);
-    const parsedPeriod = parsePeriodFromPage(body);
+    const academicYearStartYear = parseAcademicYearFromPage(body);
+    if (academicYearStartYear == null) {
+      throw new ParseError("TT page does not expose the current academic year");
+    }
+
+    const period = parsePeriodFromPage(body);
+    if (period == null) {
+      throw new ParseError("TT page does not expose the active timetable period");
+    }
+
     const context = {
-      academicYearStartYear: parsedYear ?? getAcademicYearStartYear(),
-      period: parsedPeriod ?? getCurrentPeriod(),
+      academicYearStartYear,
+      period,
       resolvedAt: Date.now(),
     };
-
-    // Cache only an authoritative server context. A fallback should not stop a
-    // later schedule page from supplying the real year/period.
-    if (parsedYear != null && parsedPeriod != null) {
-      this.timetableContext = context;
-    }
+    this.timetableContext = context;
     return context;
   }
 
@@ -369,7 +363,7 @@ export class TtClient {
   }
 
   async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
-    const cacheKey = `${opts.facultyId}:${getAcademicYearKey()}`;
+    const cacheKey = String(opts.facultyId);
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
@@ -383,7 +377,7 @@ export class TtClient {
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
-    const cacheKey = `search:${opts.name}:${this.pertt}:${getAcademicYearKey()}`;
+    const cacheKey = `search:${opts.name}:${this.pertt}`;
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) return cached as Group[];
 
