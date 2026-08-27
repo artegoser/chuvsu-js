@@ -54,7 +54,7 @@ export function getSemesterStart(opts: {
 
 /**
  * All weeks in a semester with their start/end dates.
- * Week 0 starts from the semester start date.
+ * Week 1 is the calendar week containing the semester start date.
  */
 export function getSemesterWeeks(opts: {
   period: Period;
@@ -67,9 +67,9 @@ export function getSemesterWeeks(opts: {
   const startMonday = getMonday(semesterStart);
 
   const weeks: SemesterWeek[] = [];
-  for (let i = 0; i <= weekCount; i++) {
+  for (let i = 1; i <= weekCount; i++) {
     const start = new Date(startMonday);
-    start.setDate(startMonday.getDate() + i * 7);
+    start.setDate(startMonday.getDate() + (i - 1) * 7);
 
     const end = new Date(start);
     end.setDate(start.getDate() + 6);
@@ -92,5 +92,5 @@ export function getWeekNumber(opts: {
   const startMonday = getMonday(semesterStart);
   const targetMonday = getMonday(date);
   const diff = targetMonday.getTime() - startMonday.getTime();
-  return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+  return Math.floor(diff / (7 * 24 * 60 * 60 * 1000)) + 1;
 }

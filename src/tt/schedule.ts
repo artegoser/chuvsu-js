@@ -207,7 +207,7 @@ export class Schedule {
         year: this.getSemesterYear(semesterPeriod),
         date,
       });
-      if (week >= 0 && week <= 17) {
+      if (week >= 1 && week <= 17) {
         const weekday = date.getDay();
         const slots = this.getSlotsForWeekday(weekday, semesterDays, {
           subgroup: opts?.subgroup,
