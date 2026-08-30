@@ -1,6 +1,8 @@
 // Runtime-safe core for Node.js, browsers, Deno, and workers.
 
 export * from "./tt/domain/index.js";
+export { attachWebinars, findWebinar } from "./tt/webinars.js";
+export type { LessonWithWebinar } from "./tt/webinars.js";
 
 export {
   getAdjacentSemester,

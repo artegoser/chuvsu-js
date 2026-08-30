@@ -282,7 +282,15 @@ function aggregateRelations(claims: ObservationClaim[]): {
     teachers.push(...(claim.observation.teachers ?? []));
     rooms.push(...(claim.observation.rooms ?? []));
     const implicit = ownerEntity(claim.source.owner);
-    if (implicit.kind === "group") groups.push(implicit.value);
+    if (
+      implicit.kind === "group" &&
+      !claim.observation.groups?.some(
+        (value) =>
+          entityKey(value.group) === entityKey(implicit.value.group),
+      )
+    ) {
+      groups.push(implicit.value);
+    }
     if (implicit.kind === "teacher") teachers.push(implicit.value.teacher);
     if (implicit.kind === "room") rooms.push(implicit.value.room);
   }

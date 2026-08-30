@@ -40,12 +40,18 @@ function teacherRef(value: Teacher): TeacherRef | null {
   return { ...value };
 }
 
-function groupsFor(entry: ParsedScheduleEntry): GroupAttendance[] | undefined {
-  if (entry.groups.length === 0) return undefined;
-  return entry.groups.map((name) => ({
+function groupsFor(
+  entry: ParsedScheduleEntry,
+  owner: ScheduleOwner,
+): GroupAttendance[] | undefined {
+  const groups = entry.groups.map((name) => ({
     group: { name },
     subgroup: entry.subgroup,
   }));
+  if (owner.type === "group") {
+    groups.unshift({ group: owner.group, subgroup: entry.subgroup });
+  }
+  return groups.length === 0 ? undefined : groups;
 }
 
 function teachersFor(entry: ParsedScheduleEntry): TeacherRef[] | undefined {
@@ -77,6 +83,7 @@ function observationBase(
   key: string,
   entry: ParsedScheduleEntry,
   slot: ParsedScheduleDay["slots"][number],
+  owner: ScheduleOwner,
 ) {
   return {
     key,
@@ -87,7 +94,7 @@ function observationBase(
       start: slot.timeStart,
       end: slot.timeEnd,
     },
-    groups: groupsFor(entry),
+    groups: groupsFor(entry, owner),
     teachers: teachersFor(entry),
     rooms: roomsFor(entry),
     isDistance: entry.isDistance,
@@ -101,10 +108,11 @@ function occurrenceFrom(
   entry: ParsedScheduleEntry,
   slot: ParsedScheduleDay["slots"][number],
   date: Date,
+  owner: ScheduleOwner,
 ): OccurrenceObservation {
   return {
     kind: "occurrence",
-    ...observationBase(key, entry, slot),
+    ...observationBase(key, entry, slot, owner),
     date: new Date(date),
     transfer: entry.transfer
       ? {
@@ -121,10 +129,11 @@ function seriesFrom(
   entry: ParsedScheduleEntry,
   slot: ParsedScheduleDay["slots"][number],
   weekday: number,
+  owner: ScheduleOwner,
 ): SeriesObservation {
   return {
     kind: "series",
-    ...observationBase(key, entry, slot),
+    ...observationBase(key, entry, slot, owner),
     recurrence: {
       weekday,
       weeks: entry.weeks,
@@ -150,8 +159,8 @@ export function createScheduleSourceSnapshot(
           entry.transfer?.targetDate ?? entry.substituteFor?.date ?? day.date;
         observations.push(
           directDate
-            ? occurrenceFrom(key, entry, slot, directDate)
-            : seriesFrom(key, entry, slot, weekday),
+            ? occurrenceFrom(key, entry, slot, directDate, options.owner)
+            : seriesFrom(key, entry, slot, weekday, options.owner),
         );
       }
     }

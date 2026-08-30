@@ -1,47 +1,46 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { Schedule } from "../dist/tt/schedule.js";
+import { AcademicPeriod } from "../dist/common/types.js";
 import {
   getSemesterWeeks,
   getWeekNumber,
 } from "../dist/tt/utils/index.js";
+import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 
-const FALL_SEMESTER = 1;
+const FALL_SEMESTER = AcademicPeriod.FallSemester;
 
 function firstWeekSchedule() {
-  return new Schedule(
-    1,
-    new Map([
-      [
-        FALL_SEMESTER,
-        [
+  return scheduleFromParsedDays(
+    [
+      {
+        weekday: "Вторник",
+        slots: [
           {
-            weekday: "Вторник",
-            slots: [
+            number: 1,
+            timeStart: { hours: 8, minutes: 20 },
+            timeEnd: { hours: 9, minutes: 40 },
+            entries: [
               {
-                number: 1,
-                timeStart: { hours: 8, minutes: 20 },
-                timeEnd: { hours: 9, minutes: 40 },
-                entries: [
-                  {
-                    subject: "First-week lesson",
-                    type: "лк",
-                    weeks: { from: 1, to: 1 },
-                  },
-                ],
+                subject: "First-week lesson",
+                type: "лк",
+                teacher: { name: "" },
+                room: "",
+                groups: [],
+                weeks: { from: 1, to: 1 },
+                isDistance: false,
+                possibleChanges: false,
               },
             ],
           },
         ],
-      ],
-    ]),
-    FALL_SEMESTER,
-    undefined,
-    [],
-    [],
-    false,
-    2026,
+      },
+    ],
+    {
+      owner: { type: "group", group: { id: 1, name: "TEST-1" } },
+      period: FALL_SEMESTER,
+      academicYearStartYear: 2026,
+    },
   );
 }
 
@@ -66,12 +65,12 @@ test("fall week 1 contains September 1 when it starts midweek", () => {
 test("Schedule returns week-1 lessons during first September week", () => {
   const schedule = firstWeekSchedule();
 
-  const septemberFirst = schedule.forDate(new Date(2026, 8, 1));
+  const septemberFirst = schedule.on(new Date(2026, 8, 1));
   assert.equal(septemberFirst.length, 1);
   assert.equal(septemberFirst[0].subject, "First-week lesson");
 
-  const week = schedule.forWeek(1);
+  const week = schedule.week(1);
   assert.equal(week.length, 1);
-  assert.equal(week[0].start.date.getMonth(), 8);
-  assert.equal(week[0].start.date.getDate(), 1);
+  assert.equal(week[0].date.getMonth(), 8);
+  assert.equal(week[0].date.getDate(), 1);
 });
