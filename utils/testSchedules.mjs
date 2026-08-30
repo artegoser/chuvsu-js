@@ -31,14 +31,13 @@ function getCredentials() {
   return { email, password };
 }
 
-function datesFromSeptemberFirst(year) {
-  const dates = [];
-  const date = new Date(year, 8, 1);
-  do {
-    dates.push(new Date(date));
-    date.setDate(date.getDate() + 1);
-  } while (date.getDay() !== 1);
-  return dates;
+function datesFromWeek(week) {
+  return Array.from({ length: 7 }, (_, offset) => {
+    const date = new Date(week.start);
+    date.setDate(date.getDate() + offset);
+    date.setHours(0, 0, 0, 0);
+    return date;
+  });
 }
 
 async function mapConcurrent(items, concurrency, fn) {
@@ -93,29 +92,38 @@ async function loadGroups(tt) {
   return groupLists.flat();
 }
 
-function validateFirstWeek(schedule, group) {
-  const year = schedule.academicYearStartYear;
-  const septemberFirst = new Date(year, 8, 1);
-  assert.equal(schedule.getWeekNumber(septemberFirst), 1);
-
-  const [firstWeek] = schedule.getSemesterWeeks(1);
-  assert.equal(firstWeek.week, 1);
-  assert.ok(firstWeek.start <= septemberFirst && septemberFirst <= firstWeek.end);
+function validateAllWeeks(schedule, group) {
+  const weeks = schedule.getSemesterWeeks();
+  assert.equal(weeks.length, 17, `${group.name} [${group.id}]: expected 17 weeks`);
 
   let expectedLessons = 0;
   let actualLessons = 0;
-  for (const date of datesFromSeptemberFirst(year)) {
-    expectedLessons += schedule.forDay(date.getDay(), { week: 1 }).length;
-    actualLessons += schedule.forDate(date).length;
+  let weeksWithLessons = 0;
+  for (const week of weeks) {
+    const dates = datesFromWeek(week);
+    const expectedWeekLessons = dates.reduce(
+      (total, date) =>
+        total + schedule.forDay(date.getDay(), { week: week.week }).length,
+      0,
+    );
+    const actualWeekLessons = dates.reduce(
+      (total, date) => total + schedule.forDate(date).length,
+      0,
+    );
+
+    expectedLessons += expectedWeekLessons;
+    actualLessons += actualWeekLessons;
+    if (expectedWeekLessons > 0) {
+      weeksWithLessons++;
+      assert.ok(
+        actualWeekLessons > 0,
+        `${group.name} [${group.id}]: week ${week.week} has ` +
+          `${expectedWeekLessons} scheduled lessons but no dated lessons`,
+      );
+    }
   }
 
-  assert.ok(
-    expectedLessons === 0 || actualLessons > 0,
-    `${group.name} [${group.id}]: ${expectedLessons} week-1 lessons exist, ` +
-      "but none appear on first September dates",
-  );
-
-  return { expectedLessons, actualLessons };
+  return { expectedLessons, actualLessons, weeksWithLessons, totalWeeks: weeks.length };
 }
 
 function validateEntryShape(schedule, group) {
@@ -176,7 +184,7 @@ for (const group of groups) {
 }
 assert.ok(contextResolved, "No sampled group page exposes academic context");
 
-let groupsWithFirstWeekLessons = 0;
+let groupsWithScheduledWeeks = 0;
 let parsedEntries = 0;
 const failures = [];
 await mapConcurrent(groups, CONCURRENCY, async (group, index) => {
@@ -185,12 +193,13 @@ await mapConcurrent(groups, CONCURRENCY, async (group, index) => {
       groupId: group.id,
       period: FALL_SEMESTER,
     });
-    const result = validateFirstWeek(schedule, group);
+    const result = validateAllWeeks(schedule, group);
     parsedEntries += validateEntryShape(schedule, group);
-    if (result.expectedLessons > 0) groupsWithFirstWeekLessons++;
+    if (result.weeksWithLessons > 0) groupsWithScheduledWeeks++;
     console.log(
       `[${index + 1}/${groups.length}] ${group.name}: ` +
-        `${result.actualLessons}/${result.expectedLessons} first-week lessons visible`,
+        `${result.actualLessons}/${result.expectedLessons} lessons across ` +
+        `${result.weeksWithLessons}/${result.totalWeeks} scheduled weeks`,
     );
   } catch (error) {
     failures.push(error);
@@ -204,10 +213,10 @@ assert.equal(
   `${failures.length} group schedule validation(s) failed`,
 );
 assert.ok(
-  groupsWithFirstWeekLessons > 0,
-  "Sample has no groups with first-week lessons; increase --limit or use --all",
+  groupsWithScheduledWeeks > 0,
+  "Sample has no groups with semester lessons; increase --limit or use --all",
 );
 console.log(
   `OK: ${groups.length} groups, ${parsedEntries} parsed entries, ` +
-    `${groupsWithFirstWeekLessons} with week-1 lessons`,
+    `${groupsWithScheduledWeeks} with scheduled semester weeks`,
 );

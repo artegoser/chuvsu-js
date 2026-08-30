@@ -89,19 +89,9 @@ async function loadGroups(http) {
   return [...new Map(lists.flat().map((group) => [group.id, group])).values()];
 }
 
-function extractScheduleTable(body) {
-  const doc = parseHtml(body);
-  const table =
-    doc.querySelector("#groupstt") ??
-    doc.querySelector('td[id^="trd2"]')?.closest("table");
-  return table?.outerHTML ?? "";
-}
-
-function countRawEntries(tableHtml) {
-  if (!tableHtml) return 0;
-
+function countRawEntries(body) {
   // This is deliberately raw DOM inspection, never the schedule parser.
-  const doc = parseHtml(tableHtml);
+  const doc = parseHtml(body);
   return [...doc.querySelectorAll("td")].filter((cell) => {
     const subject = cell.querySelector('span[style*="color: blue"]');
     const subjectText = subject?.textContent?.trim() ?? "";
@@ -117,25 +107,53 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function fetchScheduleTable(http, group, period) {
+function isSchedulePage(body) {
+  const doc = parseHtml(body);
+  return Boolean(
+    doc.querySelector("#groupstt, td[id^=\"trd2\"]") ||
+      body.includes("Расписание занятий"),
+  );
+}
+
+function pageGroupName(body) {
+  const doc = parseHtml(body);
+  return doc
+    .querySelector('span.htext span[style*="color: blue"]')
+    ?.textContent?.trim();
+}
+
+async function fetchSchedulePage(http, group, period) {
   const file = `group-${group.id}-period-${period}.html`;
   for (let attempt = 0; attempt < 3; attempt++) {
     const response = await http.post(
       `${BASE}/index/grouptt/gr/${group.id}`,
       { htype: String(period) },
     );
-    const tableHtml = extractScheduleTable(response.body);
-    if (tableHtml) return tableHtml;
 
     if (response.body.includes('name="wname"')) {
       await login(http);
+      continue;
     } else if (response.status >= 500 || response.status === 429) {
       await wait(500 * (attempt + 1));
-    } else if (response.body.includes("Расписание занятий")) {
-      return "";
+      continue;
     }
+
+    if (isSchedulePage(response.body)) {
+      assert.equal(
+        pageGroupName(response.body),
+        group.name,
+        `${file}: response belongs to another group`,
+      );
+      return response.body;
+    }
+
+    if (response.status >= 400) {
+      throw new Error(`${file}: schedule request returned HTTP ${response.status}`);
+    }
+
+    await wait(250 * (attempt + 1));
   }
-  throw new Error(`${file}: schedule table not found after retries`);
+  throw new Error(`${file}: schedule page not found after retries`);
 }
 
 function seededRandom(seed) {
@@ -239,13 +257,13 @@ const fetched = [];
 await mapConcurrent(jobs, concurrency, async ({ group, period }) => {
   const file = `group-${group.id}-period-${period}.html`;
   try {
-    const tableHtml = await fetchScheduleTable(http, group, period);
+    const pageHtml = await fetchSchedulePage(http, group, period);
     fetched.push({
       file,
       group,
       period,
-      tableHtml,
-      entryCount: countRawEntries(tableHtml),
+      pageHtml,
+      entryCount: countRawEntries(pageHtml),
     });
   } catch (error) {
     failures.push({ file, message: error?.message ?? String(error) });
@@ -273,15 +291,21 @@ if (!requestedGroup && !process.argv.includes("--all")) {
   );
 }
 
-await clearGeneratedFixtures(outputDir);
 const selectedGroupIds = new Set(selectedGroups.map((group) => group.id));
+await clearGeneratedFixtures(outputDir);
 let saved = 0;
 for (const item of fetched) {
-  if (!selectedGroupIds.has(item.group.id) || !item.tableHtml) continue;
+  if (!selectedGroupIds.has(item.group.id)) continue;
 
-  await writeFile(join(outputDir, item.file), item.tableHtml, "utf8");
+  await writeFile(join(outputDir, item.file), item.pageHtml, "utf8");
   saved++;
 }
+
+assert.equal(
+  saved,
+  selectedGroups.length * periods.length,
+  "Not every selected group/period response was saved",
+);
 
 console.log(
   JSON.stringify({

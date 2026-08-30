@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 import {
   parseAudienceFullSchedule,
@@ -18,7 +19,13 @@ import {
   isHoliday,
 } from "../dist/tt/utils/index.js";
 
-function semesterPage(entryHtml) {
+const FIXTURE_DIR = new URL("./fixtures/tt/parser/", import.meta.url);
+
+async function loadFixture(name) {
+  return readFile(new URL(name, FIXTURE_DIR), "utf8");
+}
+
+function semesterPage(entryHtml, entryClass = "") {
   return `<!doctype html><html><body>
     <table id="groupstt"><tbody>
       <tr style=" background: lightgray; " class="trfd">
@@ -26,7 +33,7 @@ function semesterPage(entryHtml) {
       </tr>
       <tr>
         <td class="trf trdata"><div class="trfd">4 пара<br>(13:30 - 14:50)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%"><tr><td>${entryHtml}</td></tr></table></div></td>
+        <td class="trdata"><div class="tdd"><table width="100%"><tr><td${entryClass ? ` class="${entryClass}"` : ""}>${entryHtml}</td></tr></table></div></td>
         <td class="trf trdata"><div class="trfd">4 пара<br>(13:40 - 15:10)</div></td>
       </tr>
     </tbody></table>
@@ -45,14 +52,12 @@ function sessionPage(entryRowsHtml) {
   </body></html>`;
 }
 
-function teacherSemesterEntry(html) {
-  return semesterPage(
-    `Г-402 <span style="color: blue;">Базы данных</span> (лб) (1 - 16 нед.) <br>${html}`,
-  );
+async function loadSemesterFixture(name, entryClass = "") {
+  return semesterPage(await loadFixture(name), entryClass);
 }
 
-function teacherSessionRow(html) {
-  return `<tr><td>${html}</td></tr>`;
+async function loadSessionFixture(name) {
+  return sessionPage(await loadFixture(name));
 }
 
 function pickOnlyEntry(days) {
@@ -87,8 +92,8 @@ test("parseGroupsString covers plain groups, qualifiers and subgroup stripping",
   assert.deepEqual(parseGroupsString(""), []);
 });
 
-test("parseTeacherFullSchedule parses a regular semester entry", () => {
-  const html = teacherSemesterEntry("КТ-41-24 КТ-41-24ин (2 подгруппа)");
+test("parseTeacherFullSchedule parses a regular semester entry", async () => {
+  const html = await loadSemesterFixture("teacher-semester-basic.html");
   const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
 
   assert.equal(entry.room, "Г-402");
@@ -99,14 +104,8 @@ test("parseTeacherFullSchedule parses a regular semester entry", () => {
   assert.equal(entry.subgroup, 2);
 });
 
-test("parseTeacherFullSchedule keeps transfer overlays parsed correctly", () => {
-  const html = semesterPage(
-    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>25.04.2026 перенос c 23.05.2026 (2 пара): </b></span><br>
-      И-208 <span style="color: blue;">Базы данных</span> (лб)<br>
-      КТ-41-24 КТ-41-24ин (1 подгруппа)
-    </div>`,
-  );
+test("parseTeacherFullSchedule keeps transfer overlays parsed correctly", async () => {
+  const html = await loadSemesterFixture("teacher-transfer.html");
   const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
 
   assert.equal(entry.room, "И-208");
@@ -120,14 +119,8 @@ test("parseTeacherFullSchedule keeps transfer overlays parsed correctly", () => 
   assert.equal(entry.transfer.fromSlot, 2);
 });
 
-test("parseFullSchedule does not treat transfer room line as group", () => {
-  const html = semesterPage(
-    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>27.05.2026 перенос c 20.05.2026 (7 пара): </b></span><br>
-      Г-316 <span style="color: blue;">Основы проектной деятельности</span> (пр)<br>
-      Игреев Р. А.
-    </div>`,
-  );
+test("parseFullSchedule does not treat transfer room line as group", async () => {
+  const html = await loadSemesterFixture("group-transfer.html");
   const entry = pickOnlyEntry(parseFullSchedule(html));
 
   assert.equal(entry.room, "Г-316");
@@ -138,13 +131,8 @@ test("parseFullSchedule does not treat transfer room line as group", () => {
   assert.ok(entry.transfer);
 });
 
-test("parseTeacherFullSchedule parses semester substitutions", () => {
-  const html = teacherSemesterEntry(`КТ-31-24 (2 подгруппа)
-    <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>28.04.2026 замена на: </b></span><br>
-      Аудитория: <span class="blue">Б-116</span><br>
-      Преподаватель: <span class="blue">доц. Иванов И.И.</span>
-    </div>`);
+test("parseTeacherFullSchedule parses semester substitutions", async () => {
+  const html = await loadSemesterFixture("teacher-substitution.html");
   const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
 
   assert.equal(entry.substitutions?.length, 1);
@@ -155,15 +143,8 @@ test("parseTeacherFullSchedule parses semester substitutions", () => {
   });
 });
 
-test("parseTeacherFullSchedule parses substitute-for overlays", () => {
-  const html = semesterPage(
-    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>25.04.2026 замена вместо: </b></span>
-      <span style="color: blue;">доц. Петров П.П.</span><br>
-      И-208 <span style="color: blue;">Базы данных</span> (лб)<br>
-      КТ-41-24 КТ-41-24ин (1 подгруппа)
-    </div>`,
-  );
+test("parseTeacherFullSchedule parses substitute-for overlays", async () => {
+  const html = await loadSemesterFixture("teacher-substitute-for.html");
   const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
 
   assert.equal(entry.room, "И-208");
@@ -178,15 +159,8 @@ test("parseTeacherFullSchedule parses substitute-for overlays", () => {
   assertDateParts(entry.substituteFor.date, 2026, 3, 25);
 });
 
-test("parseTeacherFullSchedule parses session entries with flexible lesson types", () => {
-  const html = sessionPage([
-    teacherSessionRow(
-      `И-208 <span style="color: blue;">Базы данных</span> (Экз)<br>КТ-41-24 КТ-41-24ин<br>11:40 - 13:00`,
-    ),
-    teacherSessionRow(
-      `Б-201 <span style="color: blue;">Консультация</span> (конс.)<br>КТ-41-24<br>13:30 - 14:50`,
-    ),
-  ].join(""));
+test("parseTeacherFullSchedule parses session entries with flexible lesson types", async () => {
+  const html = await loadSessionFixture("teacher-session.html");
   const days = parseTeacherFullSchedule(html);
   const day = days[0];
 
@@ -199,10 +173,8 @@ test("parseTeacherFullSchedule parses session entries with flexible lesson types
   assert.deepEqual(day.slots[1].entries[0].groups, ["КТ-41-24"]);
 });
 
-test("parseFullSchedule parses a regular semester group entry", () => {
-  const html = semesterPage(
-    `Г-402 <span style="color: blue;">Базы данных</span> (лб) (1 - 16 нед.) <br>доц. Иванов И.И.`,
-  );
+test("parseFullSchedule parses a regular semester group entry", async () => {
+  const html = await loadSemesterFixture("group-semester-basic.html");
   const entry = pickOnlyEntry(parseFullSchedule(html));
 
   assert.equal(entry.room, "Г-402");
@@ -215,12 +187,8 @@ test("parseFullSchedule parses a regular semester group entry", () => {
   });
 });
 
-test("parseFullSchedule parses subgroup, degree and week parity from group entries", () => {
-  const html = semesterPage(
-    `<sup>**</sup>Г-402 <span style="color: blue;">Базы данных</span> (лб) (6 - 8 нед.) <br>
-    доц. к.т.н. Димитриев А. П.<br>
-    <i>2 подгруппа</i>`,
-  );
+test("parseFullSchedule parses subgroup, degree and week parity from group entries", async () => {
+  const html = await loadSemesterFixture("group-semester-subgroup.html");
   const entry = pickOnlyEntry(parseFullSchedule(html));
 
   assert.equal(entry.room, "Г-402");
@@ -236,11 +204,8 @@ test("parseFullSchedule parses subgroup, degree and week parity from group entri
   assert.equal(entry.weekParity, "even");
 });
 
-test("parseFullSchedule parses live remote room and teacher markup", () => {
-  const html = semesterPage(
-    `<sup>**</sup>Дистанционно <span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
-    доц.  к.х.н. Решетников А. В.<span style="color: blue;"> (ДОТ)</span>`,
-  );
+test("parseFullSchedule parses live remote room and teacher markup", async () => {
+  const html = await loadSemesterFixture("group-remote.html");
   const entry = pickOnlyEntry(parseFullSchedule(html));
 
   assert.equal(entry.room, "Дистанционно (ДОТ)");
@@ -253,11 +218,8 @@ test("parseFullSchedule parses live remote room and teacher markup", () => {
   assert.equal(entry.weekParity, "even");
 });
 
-test("parseFullSchedule maps a trailing remote marker to a virtual room", () => {
-  const html = semesterPage(
-    `<span style="color: blue;">История России</span> (лк) (1 - 16 нед.) <br>
-    доц. к.и.н. Ласточкин В. Б.<span style="color: blue;"> (ДОТ)</span>`,
-  );
+test("parseFullSchedule maps a trailing remote marker to a virtual room", async () => {
+  const html = await loadSemesterFixture("group-remote-trailing.html");
   const entry = pickOnlyEntry(parseFullSchedule(html));
 
   assert.equal(entry.room, "Дистанционно (ДОТ)");
@@ -265,43 +227,25 @@ test("parseFullSchedule maps a trailing remote marker to a virtual room", () => 
   assert.equal(entry.isDistance, true);
 });
 
-test("parseFullSchedule supports individual and group lesson types", () => {
+test("parseFullSchedule supports individual and group lesson types", async () => {
   const individual = pickOnlyEntry(
-    parseFullSchedule(
-      semesterPage(
-        `III-103 <span style="color: blue;">Изучение хоровых партий</span> (из) (1 - 11 нед.) <br>
-        Степанова К. М.`,
-      ),
-    ),
+    parseFullSchedule(await loadSemesterFixture("group-type-iz.html")),
   );
   const group = pickOnlyEntry(
-    parseFullSchedule(
-      semesterPage(
-        `III-109 <span style="color: blue;">Хоровой класс</span> (гз) (1 - 11 нед.) <br>
-        Ихонькина Г. В.`,
-      ),
-    ),
+    parseFullSchedule(await loadSemesterFixture("group-type-gz.html")),
   );
 
   assert.equal(individual.type, "из");
   assert.equal(group.type, "гз");
 
   const uppercase = pickOnlyEntry(
-    parseFullSchedule(
-      semesterPage(
-        `I-212 <span style="color: blue;">Гражданское право</span> (КРП) (1 - 16 нед.) <br>
-        Матвеева Н. С.`,
-      ),
-    ),
+    parseFullSchedule(await loadSemesterFixture("group-type-krp.html")),
   );
   assert.equal(uppercase.type, "КРП");
 });
 
-test("parseTeacherFullSchedule parses live remote room and group markup", () => {
-  const html = semesterPage(
-    `Дистанционно <span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
-    КТ-41-24 (2 подгруппа)<span style="color: blue;"> (ДОТ)</span>`,
-  );
+test("parseTeacherFullSchedule parses live remote room and group markup", async () => {
+  const html = await loadSemesterFixture("teacher-remote.html");
   const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
 
   assert.equal(entry.room, "Дистанционно (ДОТ)");
@@ -310,12 +254,8 @@ test("parseTeacherFullSchedule parses live remote room and group markup", () => 
   assert.equal(entry.isDistance, true);
 });
 
-test("parseAudienceFullSchedule strips remote marker from teacher and groups", () => {
-  const html = semesterPage(
-    `<span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
-    доц.  к.х.н. Решетников А. В.<br>
-    КТ-41-24 КТ-41-24ин (1 подгруппа)<span style="color: blue;"> (ДОТ)</span>`,
-  );
+test("parseAudienceFullSchedule strips remote marker from teacher and groups", async () => {
+  const html = await loadSemesterFixture("audience-remote.html");
   const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
 
   assert.deepEqual(entry.teacher, {
@@ -328,10 +268,8 @@ test("parseAudienceFullSchedule strips remote marker from teacher and groups", (
   assert.equal(entry.isDistance, true);
 });
 
-test("parseFullSchedule parses session entries with flexible lesson types", () => {
-  const html = sessionPage(
-    `<tr><td>Б-201 <span style="color: blue;">Консультация</span> (конс.)<br>10:00 - 11:30</td></tr>`,
-  );
+test("parseFullSchedule parses session entries with flexible lesson types", async () => {
+  const html = await loadSessionFixture("group-session-consultation.html");
   const days = parseFullSchedule(html);
   const day = days[0];
 
@@ -341,12 +279,8 @@ test("parseFullSchedule parses session entries with flexible lesson types", () =
   assert.equal(day.slots[0].entries[0].type, "конс");
 });
 
-test("parseFullSchedule parses summer session types, teachers and subgroups", () => {
-  const html = sessionPage([
-    `<tr><td class="want">Е-115 <span style="color: blue;">Элективные дисциплины (модули) по физической культуре и спорту</span> (зач)<br>Дигуева О. Г.<br><i>1 подгруппа</i><br>09:50 - 11:10</td></tr>`,
-    `<tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (КП)<br>Мытникова Е. А.<br>09:50 - 11:10</td></tr>`,
-    `<tr><td class="want">Г-216 <span style="color: blue;">Основы проектной деятельности</span> (ЗачО)<br>Игреев Р. А.<br>16:40 - 18:00</td></tr>`,
-  ].join(""));
+test("parseFullSchedule parses summer session types, teachers and subgroups", async () => {
+  const html = await loadSessionFixture("group-session-summer.html");
   const entries = parseFullSchedule(html).flatMap((day) =>
     day.slots.flatMap((slot) => slot.entries),
   );
@@ -364,11 +298,8 @@ test("parseFullSchedule parses summer session types, teachers and subgroups", ()
   assert.deepEqual(entries[2].teacher, { name: "Игреев Р. А." });
 });
 
-test("Schedule filters session entries by subgroup", () => {
-  const html = sessionPage([
-    `<tr><td>Е-115 <span style="color: blue;">Физкультура</span> (зач)<br>Дигуева О. Г.<br><i>1 подгруппа</i><br>09:50 - 11:10</td></tr>`,
-    `<tr><td>Е-115 <span style="color: blue;">Физкультура</span> (зач)<br>Миронская И. В.<br><i>2 подгруппа</i><br>09:50 - 11:10</td></tr>`,
-  ].join(""));
+test("Schedule filters session entries by subgroup", async () => {
+  const html = await loadSessionFixture("session-subgroups.html");
   const days = parseFullSchedule(html);
   const schedule = new Schedule(8919, new Map([[2, days]]), 2, undefined, undefined, undefined, undefined, 2025);
 
@@ -378,18 +309,8 @@ test("Schedule filters session entries by subgroup", () => {
   assert.deepEqual(lessons[0].teacher, { name: "Дигуева О. Г." });
 });
 
-test("Schedule does not reuse semester lessons outside its academic year", () => {
-  const html = `<!doctype html><html><body>
-    <table id="groupstt"><tbody>
-      <tr style=" background: lightgray; " class="trfd"><td>Среда</td><td></td></tr>
-      <tr>
-        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%">
-          <tr><td>Г-301 <span style="color: blue;">Правоведение</span> (лк) (1 - 16 нед.) <br>Верещак С. Б.</td></tr>
-        </table></div></td>
-      </tr>
-    </tbody></table>
-  </body></html>`;
+test("Schedule does not reuse semester lessons outside its academic year", async () => {
+  const html = await loadFixture("schedule-outside-year.html");
   const schedule = new Schedule(
     8919,
     new Map([[3, parseFullSchedule(html)]]),
@@ -410,23 +331,8 @@ test("isHoliday uses six-day week by default for Saturday holiday transfers", ()
   assert.equal(isHoliday(new Date(2026, 4, 11), undefined, [], false), true);
 });
 
-test("parseFullSchedule marks distance substitutions", () => {
-  const html = `<!doctype html><html><body>
-    <table id="groupstt"><tbody>
-      <tr style=" background: lightgray; " class="trfd"><td width="120">Четверг</td><td></td></tr>
-      <tr>
-        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%"><tr><td>
-    И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 16 нед.) <br>
-    Мытникова Е. А.<br><i>1 подгруппа</i>
-    <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>07.05.2026  замена на: </b></span><br>
-      Аудитория: <span class="blue">Дистанционно (ДОТ)</span>
-    </div>
-        </td></tr></table></div></td>
-      </tr>
-    </tbody></table>
-  </body></html>`;
+test("parseFullSchedule marks distance substitutions", async () => {
+  const html = await loadFixture("group-distance-substitution.html");
   const days = parseFullSchedule(html);
   const schedule = new Schedule(8919, new Map([[3, days]]), 3, undefined, undefined, undefined, undefined, 2025);
 
@@ -436,23 +342,8 @@ test("parseFullSchedule marks distance substitutions", () => {
   assert.equal(lessons[0].isDistance, true);
 });
 
-test("parseWebinars parses scheduled rows and attaches them to lessons", () => {
-  const html = `<!doctype html><html><body>
-    <select name="seldate"><option value="2026-05-07" selected="selected">7 Май</option></select>
-    <table id="webstt"><tbody>
-      <tr>
-        <td class="trf trdata"><div id="trd2026-05-07t1" class="trfd">1 пара<br>08:20 - 09:40</div></td>
-        <td class="trdata"><div class="tdd"><table>
-          <tr>
-            <td>Правоведение(лк) зав.каф.  к.ю.н. Верещак С. Б. ФМ-10-24 ФМ-11-24</td>
-            <td>Лекция</td>
-            <td><button id="meet122123" onclick="jointo('122123', 1);" type="button"></button></td>
-          </tr>
-        </table></div></td>
-      </tr>
-    </tbody></table>
-    <table id="websttext"><tbody></tbody></table>
-  </body></html>`;
+test("parseWebinars parses scheduled rows and attaches them to lessons", async () => {
+  const html = await loadFixture("webinars.html");
   const webinars = parseWebinars(html);
 
   assert.equal(webinars.length, 1);
@@ -487,43 +378,8 @@ test("parseWebinars parses scheduled rows and attaches them to lessons", () => {
   assert.equal(lessons[0].webinar?.id, "122123");
 });
 
-test("Schedule applies spring substitutions and suppresses transferred source lessons", () => {
-  const html = `<!doctype html><html><body>
-    <table id="groupstt"><tbody>
-      <tr style=" background: lightgray; " class="trfd"><td>Вторник</td><td></td></tr>
-      <tr>
-        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%">
-          <tr><td class="want"><div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-            <span style="color: red;"><b>26.05.2026 перенос c 02.04.2026 (3 пара): </b></span><br>
-            И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб)<br>
-            Мытникова Е. А.<br><i>2 подгруппа</i>
-          </div></td></tr>
-        </table></div></td>
-      </tr>
-      <tr style=" background: lightgray; " class="trfd"><td>Четверг</td><td></td></tr>
-      <tr>
-        <td class="trf trdata"><div class="trfd">1 пара<br>(08:20 - 09:40)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%">
-          <tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 17 нед.) <br>
-            Мытникова Е. А.<br><i>1 подгруппа</i>
-            <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-              <span style="color: red;"><b>28.05.2026  замена на: </b></span><br>
-              Преподаватель: <span class="blue">Мытников А. Н.</span>
-            </div>
-          </td></tr>
-        </table></div></td>
-      </tr>
-      <tr>
-        <td class="trf trdata"><div class="trfd">3 пара<br>(11:40 - 13:00)</div></td>
-        <td class="trdata"><div class="tdd"><table width="100%">
-          <tr><td class="want">И-212 <span style="color: blue;">Объектно-ориентированное программирование</span> (лб) (1 - 17 нед.) <br>
-            Мытникова Е. А.<br><i>2 подгруппа</i>
-          </td></tr>
-        </table></div></td>
-      </tr>
-    </tbody></table>
-  </body></html>`;
+test("Schedule applies spring substitutions and suppresses transferred source lessons", async () => {
+  const html = await loadFixture("spring-substitutions.html");
   const springDays = parseFullSchedule(html);
   const schedule = new Schedule(
     8919,
@@ -552,12 +408,8 @@ test("Schedule applies spring substitutions and suppresses transferred source le
   assert.equal(targetDate[0].transfer?.fromSlot, 3);
 });
 
-test("parseAudienceFullSchedule parses audience semester entries", () => {
-  const html = semesterPage(
-    `<span style="color: blue;">Базы данных</span> (лб) (1 - 16 нед.) <br>
-    доц. Иванов И.И.<br>
-    КТ-41-24 КТ-41-24ин (2 подгруппа)`,
-  );
+test("parseAudienceFullSchedule parses audience semester entries", async () => {
+  const html = await loadSemesterFixture("audience-semester.html");
   const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
 
   assert.equal(entry.subject, "Базы данных");
@@ -570,12 +422,8 @@ test("parseAudienceFullSchedule parses audience semester entries", () => {
   assert.equal(entry.subgroup, 2);
 });
 
-test("parseAudienceFullSchedule parses possible changes and odd week parity", () => {
-  const html = semesterPage(
-    `<sup>*</sup><span style="color: blue;">Элективные дисциплины (модули) по физической культуре и спорту</span> (пр) (17 нед.) <br>
-    Миронская И. В.<br>
-    М-42-25ин М-42-25 (2 подгруппа)`,
-  ).replace("<td>", '<td class="want">');
+test("parseAudienceFullSchedule parses possible changes and odd week parity", async () => {
+  const html = await loadSemesterFixture("audience-possible.html", "want");
   const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
 
   assert.equal(entry.type, "пр");
@@ -586,16 +434,8 @@ test("parseAudienceFullSchedule parses possible changes and odd week parity", ()
   assert.equal(entry.possibleChanges, true);
 });
 
-test("parseAudienceFullSchedule parses transfer with original room marker", () => {
-  const html = semesterPage(
-    `<div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
-      <span style="color: red;"><b>27.05.2026 перенос с 20.05.2026 (7 пара) вместо: </b></span>
-      <span style="color: blue;">Г-305</span><br>
-      Г-316 <span style="color: blue;">Основы проектной деятельности</span> (пр)<br>
-      Игреев Р. А.<br>
-      КТ-41-24 КТ-41-24ин
-    </div>`,
-  );
+test("parseAudienceFullSchedule parses transfer with original room marker", async () => {
+  const html = await loadSemesterFixture("audience-transfer.html");
   const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
 
   assert.equal(entry.room, "Г-316");
@@ -607,21 +447,8 @@ test("parseAudienceFullSchedule parses transfer with original room marker", () =
   assert.equal(entry.transfer.fromSlot, 7);
 });
 
-test("parseAudienceInfo parses metadata and image links from audience pages", () => {
-  const html = `<!doctype html><html><body>
-    <div id="path" class="sbtext">
-      <a href="/">Расписание занятий</a> &nbsp;&nbsp;/&nbsp;&nbsp;
-      <a href="/index/findaud">Аудитории</a> &nbsp;&nbsp;/&nbsp;&nbsp; Е-115
-    </div>
-    <span class="htext"><nobr>Аудитория <span style="color: blue;">Е-115</span></nobr></span>
-    <span class="htextb"> (Корпус Е; 1 этаж - Спортивный зал)</span>
-    <img id="audsrc" src="/index/audimage/aud/852/aid/852">
-    <img id="blocksrc" src="/index/blockimage/aud/852/bid/6">
-    <img id="floorsrc" src="/index/floorplan/aud/852/fid/37">
-    <map name="flooraud">
-      <area shape="rect" alt="Е-115" coords="430,92,496,295">
-    </map>
-  </body></html>`;
+test("parseAudienceInfo parses metadata and image links from audience pages", async () => {
+  const html = await loadFixture("audience-info.html");
   const info = parseAudienceInfo(html);
 
   assert.deepEqual(info, {
@@ -641,36 +468,14 @@ test("parseAudienceInfo parses metadata and image links from audience pages", ()
   });
 });
 
-test("parseAudienceName reads the current audience from breadcrumbs", () => {
-  const html = `<!doctype html><html><body>
-    <div id="path" class="sbtext">
-      <a href="/">Расписание занятий</a> &nbsp;&nbsp;/&nbsp;&nbsp;
-      <a href="/index/findaud">Аудитории</a> &nbsp;&nbsp;/&nbsp;&nbsp; Е-115
-    </div>
-  </body></html>`;
+test("parseAudienceName reads the current audience from breadcrumbs", async () => {
+  const html = await loadFixture("audience-name.html");
 
   assert.equal(parseAudienceName(html), "Е-115");
 });
 
-test("parseTeacherButtons parses teacher list buttons", () => {
-  const html = `<!doctype html><html><body>
-    <button
-      name="tech113"
-      id="tech113"
-      type="button"
-      value="Александров Андрей Харитонович"
-      class="techbut nicebut let0"
-      onClick='$("#idstaff").val(113);$("#tt").submit();'
-    >Александров Андрей Харитонович</button>
-    <button
-      name="tech793"
-      id="tech793"
-      type="button"
-      value="Алексеева Наталья Робертовна"
-      class="techbut nicebut let0"
-      onClick='$("#idstaff").val(793);$("#tt").submit();'
-    >Алексеева Наталья Робертовна</button>
-  </body></html>`;
+test("parseTeacherButtons parses teacher list buttons", async () => {
+  const html = await loadFixture("teacher-buttons.html");
 
   assert.deepEqual(parseTeacherButtons(html), [
     { id: 113, name: "Александров Андрей Харитонович" },
@@ -678,12 +483,8 @@ test("parseTeacherButtons parses teacher list buttons", () => {
   ]);
 });
 
-test("parseTeacherInfo parses teacher pages without degree", () => {
-  const html = `<!doctype html><html><body>
-    <span class="htextb">Давыдова Наталия Анатольевна</span>
-    <span class="htext">Кафедра Техносферной безопасности, метрологии и технологии материалов<br></span>
-    <img id="photosrc" src="/index/photo/tech/2125/id/2125" alt="Фото">
-  </body></html>`;
+test("parseTeacherInfo parses teacher pages without degree", async () => {
+  const html = await loadFixture("teacher-info.html");
   const info = parseTeacherInfo(html);
 
   assert.deepEqual(info, {
