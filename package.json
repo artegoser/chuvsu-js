@@ -24,7 +24,8 @@
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "pnpm clean && tsc",
     "test": "pnpm build && node --test",
-    "test:live:schedules": "pnpm build && node --env-file=.env examples/testSchedules.mjs",
+    "test:live:schedules": "pnpm build && node --env-file=.env utils/testSchedules.mjs",
+    "fixtures:collect": "pnpm build && node --env-file=.env utils/collectScheduleFixtures.mjs",
     "prepublishOnly": "pnpm build"
   },
   "keywords": [

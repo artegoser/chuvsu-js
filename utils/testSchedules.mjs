@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { TtClient } from "../dist/index.js";
 
 const FALL_SEMESTER = 1;
+const REQUIRED_GROUP = "КТ-41-24";
 const DEFAULT_LIMIT = 50;
+const DEFAULT_SEED = 20260830;
 const CONCURRENCY = 5;
 
 function getOption(name) {
@@ -56,6 +58,24 @@ async function mapConcurrent(items, concurrency, fn) {
   return results;
 }
 
+function seededRandom(seed) {
+  let state = seed >>> 0;
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 0x100000000;
+  };
+}
+
+function shuffle(items, seed) {
+  const random = seededRandom(seed);
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index--) {
+    const other = Math.floor(random() * (index + 1));
+    [copy[index], copy[other]] = [copy[other], copy[index]];
+  }
+  return copy;
+}
+
 async function loadGroups(tt) {
   const requestedGroup = getOption("group");
   if (requestedGroup) {
@@ -98,20 +118,49 @@ function validateFirstWeek(schedule, group) {
   return { expectedLessons, actualLessons };
 }
 
+function validateEntryShape(schedule, group) {
+  const entries = schedule.getDays(FALL_SEMESTER).flatMap((day) =>
+    day.slots.flatMap((slot) => slot.entries),
+  );
+  for (const entry of entries) {
+    assert.ok(entry.subject, `${group.name} [${group.id}]: subject missing`);
+    assert.ok(entry.type, `${group.name} [${group.id}]: lesson type missing`);
+    if (entry.isDistance) {
+      assert.equal(entry.room, "Дистанционно (ДОТ)");
+      assert.ok(!entry.teacher.name.includes("ДОТ"));
+    }
+  }
+  return entries.length;
+}
+
 const tt = new TtClient({ cache: 15 * 60 * 1000 });
 await tt.login(getCredentials());
 
 const allGroups = await loadGroups(tt);
 const requestedLimit = Number(getOption("limit") ?? DEFAULT_LIMIT);
-assert.ok(Number.isInteger(requestedLimit) && requestedLimit > 0, "--limit must be a positive integer");
-const groups = process.argv.includes("--all")
-  ? allGroups
-  : allGroups.slice(0, requestedLimit);
+assert.ok(
+  Number.isInteger(requestedLimit) && requestedLimit > 0,
+  "--limit must be a positive integer",
+);
+const seed = Number(getOption("seed") ?? DEFAULT_SEED);
+assert.ok(Number.isInteger(seed), "--seed must be an integer");
+let groups;
+if (process.argv.includes("--all") || getOption("group")) {
+  groups = allGroups;
+} else {
+  const required = allGroups.find((group) => group.name === REQUIRED_GROUP);
+  assert.ok(required, `Required group not found: ${REQUIRED_GROUP}`);
+  groups = [
+    required,
+    ...shuffle(
+      allGroups.filter((group) => group.id !== required.id),
+      seed,
+    ),
+  ].slice(0, Math.min(requestedLimit, allGroups.length));
+}
 
 console.log(`Testing ${groups.length}/${allGroups.length} groups...`);
 
-// Resolve server academic context before parallel requests. Some group pages
-// contain no year metadata, but can still be fetched after context is known.
 let contextResolved = false;
 for (const group of groups) {
   try {
@@ -128,6 +177,7 @@ for (const group of groups) {
 assert.ok(contextResolved, "No sampled group page exposes academic context");
 
 let groupsWithFirstWeekLessons = 0;
+let parsedEntries = 0;
 const failures = [];
 await mapConcurrent(groups, CONCURRENCY, async (group, index) => {
   try {
@@ -136,6 +186,7 @@ await mapConcurrent(groups, CONCURRENCY, async (group, index) => {
       period: FALL_SEMESTER,
     });
     const result = validateFirstWeek(schedule, group);
+    parsedEntries += validateEntryShape(schedule, group);
     if (result.expectedLessons > 0) groupsWithFirstWeekLessons++;
     console.log(
       `[${index + 1}/${groups.length}] ${group.name}: ` +
@@ -156,4 +207,7 @@ assert.ok(
   groupsWithFirstWeekLessons > 0,
   "Sample has no groups with first-week lessons; increase --limit or use --all",
 );
-console.log(`OK: ${groups.length} groups, ${groupsWithFirstWeekLessons} with week-1 lessons`);
+console.log(
+  `OK: ${groups.length} groups, ${parsedEntries} parsed entries, ` +
+    `${groupsWithFirstWeekLessons} with week-1 lessons`,
+);
