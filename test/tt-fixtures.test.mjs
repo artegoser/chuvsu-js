@@ -7,7 +7,7 @@ const FIXTURE_DIR = new URL("./fixtures/tt/group-schedules/", import.meta.url);
 const EXPECTED_DIR = new URL("./fixtures/tt/expected/", import.meta.url);
 const REQUIRED_GROUP_ID = 8919;
 const REQUIRED_PERIODS = [1];
-const REQUIRED_GROUP_COUNT = 50;
+const REQUIRED_GROUP_COUNT = 34;
 
 async function loadCorpus() {
   const fixtureFiles = (await readdir(FIXTURE_DIR))
@@ -178,6 +178,7 @@ test("group fixtures match manually checked expectations by slot and entry index
   for (const fixture of fixtures) {
     const { expected } = fixture;
     assertExpectedShape(expected, fixture);
+    assert.ok(expected.days.length > 0, `${fixture.file}: empty schedule fixture included`);
     coverage[expected.layout]++;
 
     const parsedDays = parseFullSchedule(fixture.html);
