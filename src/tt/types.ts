@@ -115,6 +115,13 @@ export interface FullScheduleDay {
   slots: FullScheduleSlot[];
 }
 
+/** Raw entry emitted by HTML parsers before canonical ingestion. */
+export type ParsedScheduleEntry = ScheduleEntry;
+/** Raw slot emitted by HTML parsers before canonical ingestion. */
+export type ParsedScheduleSlot = FullScheduleSlot;
+/** Raw day emitted by HTML parsers before canonical ingestion. */
+export type ParsedScheduleDay = FullScheduleDay;
+
 export interface LessonTimeSlot {
   number: number;
   start: Time;
