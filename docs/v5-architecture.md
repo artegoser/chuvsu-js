@@ -129,6 +129,22 @@ Three independent layers:
 and an optional compare-and-set persistence adapter. Concurrent writers retry
 against repository revision instead of silently overwriting identities.
 
+### Entity directory
+
+Canonical storage includes a persistent entity directory for groups, teachers,
+and rooms. Search/list responses and requested page owners seed it. Schedule
+ingestion and reads resolve incomplete visible names against already-known
+entities:
+
+- exact normalized names for groups and rooms;
+- normalized surname plus initials for teachers;
+- an ID is attached only when the lookup is unique.
+
+Schedule fetching never performs hidden entity lookups. This prevents one
+schedule from causing an N+1 cascade. Callers can explicitly choose cache-only
+resolution, one targeted search, or a deliberate directory preload. Ambiguous
+teacher initials remain unresolved instead of receiving a guessed ID.
+
 ## Query behavior
 
 `Schedule` is a lightweight view over `TimetableRepository` and one owner. Its
@@ -162,6 +178,10 @@ getRoomSchedule(roomId, options?)
 Search methods use plural resource names and direct query values where useful:
 `searchGroups`, `searchTeachers`, and `searchRooms`. Explicit resource helpers
 remain discoverable and all return typed entity references.
+
+Directory helpers expose `resolveGroup`, `resolveTeacher`, and `resolveRoom`
+with cache-only defaults, plus explicit preload methods for applications that
+need fully resolved entity IDs before rendering schedules.
 
 ## Verification order
 
