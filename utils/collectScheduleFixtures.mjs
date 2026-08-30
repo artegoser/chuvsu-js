@@ -289,7 +289,11 @@ for (let offset = 0; offset < candidateGroups.length; offset += batchSize) {
     break;
   }
 }
-assert.equal(failures.length, 0, `${failures.length} fixture fetch(es) failed`);
+assert.equal(
+  failures.length,
+  0,
+  `${failures.length} fixture fetch(es) failed\n${JSON.stringify(failures, null, 2)}`,
+);
 
 const populatedGroupIds = new Set(
   fetched.filter((item) => item.entryCount > 0).map((item) => item.group.id),
