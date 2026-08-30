@@ -27,6 +27,12 @@ import {
   SUBGROUP_RE,
   WEEKS_RE,
 } from "./patterns.js";
+import {
+  containsGroupCode,
+  linesAfterSubject,
+  parseEntryRoom,
+  stripDistanceMarker,
+} from "./entry-parts.js";
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
@@ -94,25 +100,23 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
 
   const typeMatch = cleanText.match(LESSON_TYPE_RE);
   const weeksMatch = cleanText.match(WEEKS_RE);
-  const roomMatch = cleanHtml.match(
-    /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
-  );
-  const groupsMatch = cleanHtml.match(
-    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<div|<i|$)/,
-  );
+  const room = parseEntryRoom(cleanHtml, subject);
+  const groupsLine = linesAfterSubject(cleanHtml, subject).find(
+    (line) => containsGroupCode(stripDistanceMarker(line)),
+  ) ?? "";
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
   return {
-    room: roomMatch?.[1] ?? "",
+    room,
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: { name: "" },
-    groups: parseGroupsString(groupsMatch?.[1]),
+    groups: parseGroupsString(stripDistanceMarker(groupsLine)),
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
+    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -184,8 +188,7 @@ function parseTeacherSessionEntry(
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  const roomMatch = fullHtml.match(/^([^<]*?)\s*<span/);
-  const room = roomMatch ? roomMatch[1].trim() : "";
+  const room = parseEntryRoom(fullHtml, subject);
 
   const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
@@ -196,15 +199,13 @@ function parseTeacherSessionEntry(
   );
   if (!timeMatch) return null;
 
-  const parts = fullHtml
-    .split(/<br\s*\/?>/i)
-    .map((part) => part.replace(/<[^>]*>/g, "").trim())
-    .filter((part) => part.length > 0);
+  const parts = linesAfterSubject(fullHtml, subject);
   const groupsPart =
     parts.find(
       (part) =>
-        !part.includes(subject) &&
-        !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part),
+        stripDistanceMarker(part).length > 0 &&
+        !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
+        containsGroupCode(stripDistanceMarker(part)),
     ) ?? "";
 
   return {
@@ -214,7 +215,7 @@ function parseTeacherSessionEntry(
       type,
       weeks: { from: 0, to: 0 },
       teacher: { name: "" },
-      groups: parseGroupsString(groupsPart),
+      groups: parseGroupsString(stripDistanceMarker(groupsPart)),
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room),
       possibleChanges,

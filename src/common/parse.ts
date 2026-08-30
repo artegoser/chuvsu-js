@@ -32,7 +32,7 @@ export function parseWeekParity(html: string): "even" | "odd" | undefined {
 }
 
 export function parseTeacher(s: string): Teacher {
-  const trimmed = s.trim();
+  const trimmed = s.replace(/\s*\(\s*ДОТ\s*\)\s*$/iu, "").trim();
   if (!trimmed) return { name: "" };
 
   const posMatch = trimmed.match(

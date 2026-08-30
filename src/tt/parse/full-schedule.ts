@@ -24,6 +24,12 @@ import {
   SUBGROUP_RE,
   WEEKS_RE,
 } from "./patterns.js";
+import {
+  containsGroupCode,
+  linesAfterSubject,
+  parseEntryRoom,
+  stripDistanceMarker,
+} from "./entry-parts.js";
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
@@ -146,25 +152,24 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
 
   const typeMatch = cleanText.match(LESSON_TYPE_RE);
   const weeksMatch = cleanText.match(WEEKS_RE);
-  const roomMatch = cleanHtml.match(
-    /(?:<sup>[^<]*<\/sup>)?([А-Яа-яA-Za-z]-\d+)/,
-  );
-  const teacherMatch = cleanHtml.match(
-    /<br\s*\/?>\s*([^<]+?)(?:<br|<\/td|<div|<i|$)/,
-  );
+  const room = parseEntryRoom(cleanHtml, subject);
+  const teacherLine = linesAfterSubject(cleanHtml, subject).find((line) => {
+    const candidate = stripDistanceMarker(line);
+    return candidate.length > 0 && !SUBGROUP_RE.test(candidate);
+  }) ?? "";
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
   return {
-    room: roomMatch?.[1] ?? "",
+    room,
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
-    teacher: parseTeacher(teacherMatch?.[1] ?? ""),
+    teacher: parseTeacher(teacherLine),
     groups: [],
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
+    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -242,26 +247,22 @@ function parseSessionEntry(
   const subject = subjectEl ? text(subjectEl) : "";
   if (!subject) return null;
 
-  // Room: text before the first <span
-  const roomMatch = fullHtml.match(/^([^<]*?)\s*<span/);
-  const room = roomMatch ? roomMatch[1].trim() : "";
+  const room = parseEntryRoom(fullHtml, subject);
 
   // Type: parenthesized text after </span>, case-insensitive
   const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
 
   const subgroupMatch = plainText.match(SUBGROUP_RE);
-  const parts = fullHtml
-    .split(/<br\s*\/?>/i)
-    .map((part) => part.replace(/<[^>]*>/g, "").trim())
-    .filter((part) => part.length > 0);
+  const parts = linesAfterSubject(fullHtml, subject);
 
   const teacherPart =
     parts.find(
       (part) =>
-        !part.includes(subject) &&
+        stripDistanceMarker(part).length > 0 &&
         !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
-        !SUBGROUP_RE.test(part),
+        !SUBGROUP_RE.test(part) &&
+        !containsGroupCode(stripDistanceMarker(part)),
     ) ?? "";
 
   // Time: after <br>, format HH:MM - HH:MM

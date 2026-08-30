@@ -236,6 +236,54 @@ test("parseFullSchedule parses subgroup, degree and week parity from group entri
   assert.equal(entry.weekParity, "even");
 });
 
+test("parseFullSchedule parses live remote room and teacher markup", () => {
+  const html = semesterPage(
+    `<sup>**</sup>Дистанционно <span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
+    доц.  к.х.н. Решетников А. В.<span style="color: blue;"> (ДОТ)</span>`,
+  );
+  const entry = pickOnlyEntry(parseFullSchedule(html));
+
+  assert.equal(entry.room, "Дистанционно (ДОТ)");
+  assert.deepEqual(entry.teacher, {
+    position: "доц.",
+    degree: "к.х.н.",
+    name: "Решетников А. В.",
+  });
+  assert.equal(entry.isDistance, true);
+  assert.equal(entry.weekParity, "even");
+});
+
+test("parseTeacherFullSchedule parses live remote room and group markup", () => {
+  const html = semesterPage(
+    `Дистанционно <span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
+    КТ-41-24 (2 подгруппа)<span style="color: blue;"> (ДОТ)</span>`,
+  );
+  const entry = pickOnlyEntry(parseTeacherFullSchedule(html));
+
+  assert.equal(entry.room, "Дистанционно (ДОТ)");
+  assert.deepEqual(entry.groups, ["КТ-41-24"]);
+  assert.equal(entry.subgroup, 2);
+  assert.equal(entry.isDistance, true);
+});
+
+test("parseAudienceFullSchedule strips remote marker from teacher and groups", () => {
+  const html = semesterPage(
+    `<span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>
+    доц.  к.х.н. Решетников А. В.<br>
+    КТ-41-24 КТ-41-24ин (1 подгруппа)<span style="color: blue;"> (ДОТ)</span>`,
+  );
+  const entry = pickOnlyEntry(parseAudienceFullSchedule(html));
+
+  assert.deepEqual(entry.teacher, {
+    position: "доц.",
+    degree: "к.х.н.",
+    name: "Решетников А. В.",
+  });
+  assert.deepEqual(entry.groups, ["КТ-41-24", "КТ-41-24ин"]);
+  assert.equal(entry.subgroup, 1);
+  assert.equal(entry.isDistance, true);
+});
+
 test("parseFullSchedule parses session entries with flexible lesson types", () => {
   const html = sessionPage(
     `<tr><td>Б-201 <span style="color: blue;">Консультация</span> (конс.)<br>10:00 - 11:30</td></tr>`,

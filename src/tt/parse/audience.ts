@@ -26,6 +26,7 @@ import {
   WEEKS_GLOBAL_RE,
   WEEKS_RE,
 } from "./patterns.js";
+import { linesAfterSubject, stripDistanceMarker } from "./entry-parts.js";
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
@@ -148,29 +149,21 @@ function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 
-  // Audience entries layout:
-  //   <span blue>SUBJ</span> (TYPE) (WEEKS) <br>TEACHER<br>GROUPS
-  // Teacher is the first line after </span>...<br>, groups is the next line.
-  const afterSubject = cleanHtml.split(/<\/span>/i).slice(1).join("</span>");
-  const parts = afterSubject
-    .split(/<br\s*\/?>/i)
-    .map((p) => p.replace(/<[^>]*>/g, "").trim())
-    .filter((p) => p.length > 0);
-
-  // parts[0] = " (лк) (1 - 16 нед.) " — trailing metadata; drop tokens that
-  // look like (type)/(weeks)/(N подгруппа). First real text line = teacher.
-  const textLines: string[] = [];
-  for (const p of parts) {
-    const cleaned = p
-      .replace(LESSON_TYPE_GLOBAL_RE, "")
-      .replace(WEEKS_GLOBAL_RE, "")
-      .replace(SUBGROUP_ANNOTATION_RE, "")
-      .trim();
-    if (cleaned) textLines.push(cleaned);
-  }
-
-  const teacherLine = textLines[0] ?? "";
-  const groupsLine = textLines.slice(1).join(" ").trim();
+  // Audience entries: subject line, then teacher line, then group line(s).
+  const parts = linesAfterSubject(cleanHtml, subject);
+  const teacherLine = stripDistanceMarker(parts[0] ?? "");
+  const groupsLine = parts
+    .slice(1)
+    .map(stripDistanceMarker)
+    .map((line) =>
+      line
+        .replace(LESSON_TYPE_GLOBAL_RE, "")
+        .replace(WEEKS_GLOBAL_RE, "")
+        .replace(SUBGROUP_ANNOTATION_RE, "")
+        .trim(),
+    )
+    .filter(Boolean)
+    .join(" ");
 
   return {
     room: "",
