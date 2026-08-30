@@ -360,6 +360,7 @@ async function loadPairs() {
 const pairs = await loadPairs();
 let slotCount = 0;
 let entryCount = 0;
+let selfStudyDayCount = 0;
 
 for (const { file, html: sourceHtml, expected } of pairs) {
   const doc = parseHtml(sourceHtml);
@@ -377,6 +378,7 @@ for (const { file, html: sourceHtml, expected } of pairs) {
       Boolean(expectedDay.isSelfStudyDay),
       `${file}: self-study marker ${dayIndex}`,
     );
+    if (sourceDay.isSelfStudyDay) selfStudyDayCount++;
     assert.equal(sourceDay.slots.length, expectedDay.slots.length, `${file}: slot count ${dayIndex}`);
 
     for (const [slotIndex, expectedSlot] of expectedDay.slots.entries()) {
@@ -399,4 +401,9 @@ for (const { file, html: sourceHtml, expected } of pairs) {
   }
 }
 
-console.log(JSON.stringify({ files: pairs.length, slots: slotCount, entries: entryCount }));
+console.log(JSON.stringify({
+  files: pairs.length,
+  slots: slotCount,
+  entries: entryCount,
+  selfStudyDays: selfStudyDayCount,
+}));
