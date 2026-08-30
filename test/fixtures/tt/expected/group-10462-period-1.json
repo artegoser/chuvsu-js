@@ -1,0 +1,969 @@
+{
+  "schemaVersion": 1,
+  "file": "group-10462-period-1.html",
+  "groupId": 10462,
+  "period": 1,
+  "groupName": "О-49-26",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педагогика",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 9
+              },
+              "room": "I-414",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педагогика",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 9
+              },
+              "room": "I-414",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "лб",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "лб",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников Е. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников Е. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Башкова И. Б.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Башкова И. Б.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Башкова И. Б.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Башкова И. Б.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педагогика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "2-04",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Педагогика",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 4
+              },
+              "room": "2-04",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педагогика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "2-04",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Педагогика",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 4
+              },
+              "room": "2-04",
+              "teacher": {
+                "name": "Чемерилова И. А.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Основы проектной и научной деятельности",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Андреева Н. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников А. В."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Опалинская И. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников А. В."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Опалинская И. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников А. В."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Винокур Т. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экстренная и неотложная медицинская помощь",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Орешников А. В."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Терапия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 4
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Винокур Т. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": []
+    }
+  ]
+}

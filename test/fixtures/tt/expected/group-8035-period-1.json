@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "file": "group-8035-period-1.html",
+  "groupId": 8035,
+  "period": 1,
+  "groupName": "М-22-23",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Факультетская педиатрия, эндокринология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Бушуева Э. В.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Клиническая иммунология, аллергология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Луткова Т. С.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Травматология, ортопедия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Сюндюков А. Р.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Леонтьев Е. А.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Леонтьев Е. А.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Факультетская терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Тимофеева Н. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Факультетская хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Арсютов О. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Неврология, нейрохирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Нестерин К. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Эпидемиология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Акимова В. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": []
+    }
+  ]
+}

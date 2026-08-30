@@ -1,0 +1,882 @@
+{
+  "schemaVersion": 1,
+  "file": "group-10443-period-1.html",
+  "groupId": 10443,
+  "period": 1,
+  "groupName": "М-03-26АН",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Биология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Скворцова Н. В.",
+                "position": "зав.каф.",
+                "degree": "к.б.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Физическая культура и спорт",
+              "type": "пр",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Общий уход за больными",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Общий уход за больными",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Медицинская физика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Т-224",
+              "teacher": {
+                "name": "Чучкалов С. И."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "История и культура Чувашии",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-330",
+              "teacher": {
+                "name": "Семенова Т. В.",
+                "position": "доц.",
+                "degree": "к.и.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "История России",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-521",
+              "teacher": {
+                "name": "Широкова М. А.",
+                "position": "доц.",
+                "degree": "к.и.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "П-206",
+              "teacher": {
+                "name": "Драндрова Е. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Физическая культура и спорт",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 17
+              },
+              "room": "П-206",
+              "teacher": {
+                "name": "Пьянзина Н. Н.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "История России",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 17
+              },
+              "room": "2-06",
+              "teacher": {
+                "name": "Широкова М. А.",
+                "position": "доц.",
+                "degree": "к.и.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы российской государственности",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "2-06",
+              "teacher": {
+                "name": "Федорова Е. Л.",
+                "position": "доц.",
+                "degree": "к.ю.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Латинский язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-312",
+              "teacher": {
+                "name": "Зайцева Е. Л.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Иностранный язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-412",
+              "teacher": {
+                "name": "Симулина И. А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Иностранный язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-525",
+              "teacher": {
+                "name": "Петухова М. Е.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "История и культура Чувашии",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "2-07",
+              "teacher": {
+                "name": "Семенова Т. В.",
+                "position": "доц.",
+                "degree": "к.и.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Иностранный язык",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "2-01",
+              "teacher": {
+                "name": "Анисимова И. Н.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Латинский язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-503",
+              "teacher": {
+                "name": "Зайцева Е. Л.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "История медицины",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Денисова Е. А.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

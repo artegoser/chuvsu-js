@@ -1,0 +1,1241 @@
+{
+  "schemaVersion": 1,
+  "file": "group-9698-period-1.html",
+  "groupId": 9698,
+  "period": 1,
+  "groupName": "М-43-25АН",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы военной подготовки",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 13
+              },
+              "room": "Г-Актовый зал",
+              "teacher": {
+                "name": "Маркова И. В.",
+                "position": "доц."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микробиология, вирусология",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "М-303",
+              "teacher": {
+                "name": "Налимова Н. В.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Гистология, эмбриология, цитология",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Исса Е. Г."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Гистология, эмбриология, цитология",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "М-317",
+              "teacher": {
+                "name": "Исса Е. Г."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Биохимия",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "М-419",
+              "teacher": {
+                "name": "Макарова Е. С."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Биохимия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-419",
+              "teacher": {
+                "name": "Макарова Е. С."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Иностранный язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Анисимова И. Н.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микробиология, вирусология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-410",
+              "teacher": {
+                "name": "Налимова Н. В.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Биохимия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Викторович Н. Н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Безопасность жизнедеятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Г-316",
+              "teacher": {
+                "name": "Николаев Е. Л.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Безопасность жизнедеятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 0,
+                "to": 0
+              },
+              "room": "Т-121",
+              "teacher": {
+                "name": "Николаев Е. Л.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": {
+                "targetDate": "2026-09-01",
+                "fromDate": "2026-09-01",
+                "fromSlot": 3,
+                "subject": "Безопасность жизнедеятельности"
+              },
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "М-412",
+              "teacher": {
+                "name": "Никитина Л. И.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 3
+              },
+              "room": "М-412",
+              "teacher": {
+                "name": "Григорян Г. К."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 4,
+                "to": 5
+              },
+              "room": "М-412",
+              "teacher": {
+                "name": "Гасеми С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 6,
+                "to": 7
+              },
+              "room": "М-412",
+              "teacher": {
+                "name": "Альхасан А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 8,
+                "to": 8
+              },
+              "room": "М-412",
+              "teacher": {
+                "name": "Никитина Л. И.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экономика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Ефремов Н. А.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Экономика",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "С-100",
+              "teacher": {
+                "name": "Ефремов Н. А.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Экономика",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Ефремов Н. А.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Экономика",
+              "type": "лк",
+              "weeks": {
+                "from": 4,
+                "to": 17
+              },
+              "room": "С-100",
+              "teacher": {
+                "name": "Ефремов Н. А.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Иностранный язык",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "I-138",
+              "teacher": {
+                "name": "Анисимова И. Н.",
+                "position": "доц.",
+                "degree": "к.ф.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Иммунология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Кудряшов С. И.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Иммунология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Кудряшов С. И.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Нормальная физиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-208",
+              "teacher": {
+                "name": "Мохаммад М. М."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Нормальная физиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-208",
+              "teacher": {
+                "name": "Мохаммад М. М."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Л-317",
+              "teacher": {
+                "name": "Альхасан А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Л-317",
+              "teacher": {
+                "name": "Гасеми С."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Л-317",
+              "teacher": {
+                "name": "Альхасан А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтическая стоматология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Л-317",
+              "teacher": {
+                "name": "Гасеми С."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Гистология, эмбриология, цитология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Исса Е. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Иммунология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-100",
+              "teacher": {
+                "name": "Борисова Л. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Безопасность жизнедеятельности",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Г-304",
+              "teacher": {
+                "name": "Николаев Е. Л.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Гистология, эмбриология, цитология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-319",
+              "teacher": {
+                "name": "Ханниш И. -."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микробиология, вирусология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-303",
+              "teacher": {
+                "name": "Налимова Н. В.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Гистология, эмбриология, цитология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-319",
+              "teacher": {
+                "name": "Ханниш И. -."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Нормальная физиология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Борцова О. П.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": []
+    }
+  ]
+}

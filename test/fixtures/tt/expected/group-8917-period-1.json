@@ -1,0 +1,1428 @@
+{
+  "schemaVersion": 1,
+  "file": "group-8917-period-1.html",
+  "groupId": 8917,
+  "period": 1,
+  "groupName": "М-17-24АН",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Общая хирургия",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Общая хирургия",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Общая хирургия",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 3,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "С-305",
+              "teacher": {
+                "name": "Мишин А. О."
+              },
+              "groups": [],
+              "subgroup": 3,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "С-305",
+              "teacher": {
+                "name": "Мишин А. О."
+              },
+              "groups": [],
+              "subgroup": 3,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Медицинская генетика",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "С-304",
+              "teacher": {
+                "name": "Дмитриева О. Ф.",
+                "position": "доц.",
+                "degree": "к.с.-х.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "П-102",
+              "teacher": {
+                "name": "Тихонов Б. В."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Патологическая анатомия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "П-110",
+              "teacher": {
+                "name": "Альпидовская О. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "П-102",
+              "teacher": {
+                "name": "Тихонов Б. В."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Патологическая анатомия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "П-110",
+              "teacher": {
+                "name": "Альпидовская О. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 3,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Медицина катастроф",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": 3,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патофизиология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "М-410",
+              "teacher": {
+                "name": "Яковлева Л. М.",
+                "position": "проф.",
+                "degree": "д.б.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "П-206",
+              "teacher": {
+                "name": "Петрова А. С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицина катастроф",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 16
+              },
+              "room": "База кафедры",
+              "teacher": {
+                "name": "Лушин А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "П-206",
+              "teacher": {
+                "name": "Елдырёва М. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "П-206",
+              "teacher": {
+                "name": "Елдырёва М. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Общая хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-300",
+              "teacher": {
+                "name": "Прохоров Г. П.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Фармакология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "М-410",
+              "teacher": {
+                "name": "Павлова С. И.",
+                "position": "зав.каф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Фармакология",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "М-410",
+              "teacher": {
+                "name": "Павлова С. И.",
+                "position": "зав.каф.",
+                "degree": "д.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Фармакология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-413",
+              "teacher": {
+                "name": "Ибрагимова А. А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Фармакология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-406",
+              "teacher": {
+                "name": "Ермакова А. А."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Фармакология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-413",
+              "teacher": {
+                "name": "Ибрагимова А. А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Фармакология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-406",
+              "teacher": {
+                "name": "Ермакова А. А."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Елдырёва М. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патофизиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-212",
+              "teacher": {
+                "name": "Никифорова А. В."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицинская генетика",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-304",
+              "teacher": {
+                "name": "Дмитриева О. Ф.",
+                "position": "доц.",
+                "degree": "к.с.-х.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патофизиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-212",
+              "teacher": {
+                "name": "Никифорова А. В."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патофизиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-214",
+              "teacher": {
+                "name": "Яковлева Л. М.",
+                "position": "проф.",
+                "degree": "д.б.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патофизиология",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-214",
+              "teacher": {
+                "name": "Яковлева Л. М.",
+                "position": "проф.",
+                "degree": "д.б.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицинская генетика",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "С-304",
+              "teacher": {
+                "name": "Дмитриева О. Ф.",
+                "position": "доц.",
+                "degree": "к.с.-х.н."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Топографическая анатомия и оперативная хирургия",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Елдырёва М. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Медицинская генетика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "М-416",
+              "teacher": {
+                "name": "Дмитриева О. Ф.",
+                "position": "доц.",
+                "degree": "к.с.-х.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "М-410",
+              "teacher": {
+                "name": "Гладышева С. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": []
+    }
+  ]
+}

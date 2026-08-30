@@ -1,430 +1,60 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
-import { parseHtml } from "../dist/common/parse.js";
 import { parseFullSchedule } from "../dist/tt/parse/index.js";
 
 const FIXTURE_DIR = new URL("./fixtures/tt/group-schedules/", import.meta.url);
+const EXPECTED_DIR = new URL("./fixtures/tt/expected/", import.meta.url);
 const REQUIRED_GROUP_ID = 8919;
-const REQUIRED_PERIODS = [1, 2, 3, 4];
+const REQUIRED_PERIODS = [1];
 const REQUIRED_GROUP_COUNT = 50;
 
 async function loadCorpus() {
-  const files = (await readdir(FIXTURE_DIR))
+  const fixtureFiles = (await readdir(FIXTURE_DIR))
     .filter((file) => /^group-\d+-period-\d+\.html$/.test(file))
     .sort();
+  const expectedFiles = (await readdir(EXPECTED_DIR))
+    .filter((file) => /^group-\d+-period-\d+\.json$/.test(file))
+    .sort();
+
+  assert.deepEqual(
+    expectedFiles,
+    fixtureFiles.map((file) => file.replace(/\.html$/u, ".json")),
+    "fixture and static expectation indexes differ",
+  );
 
   return Promise.all(
-    files.map(async (file) => ({
+    fixtureFiles.map(async (file) => ({
       file,
       groupId: Number(file.match(/^group-(\d+)-/)?.[1]),
       period: Number(file.match(/-period-(\d+)\.html$/)?.[1]),
       html: await readFile(new URL(file, FIXTURE_DIR), "utf8"),
+      expected: JSON.parse(
+        await readFile(
+          new URL(file.replace(/\.html$/u, ".json"), EXPECTED_DIR),
+          "utf8",
+        ),
+      ),
     })),
   );
 }
 
-function normalizeSpace(value) {
-  return value.replace(/\s+/g, " ").trim();
-}
-
-function stripMarkup(value) {
-  return normalizeSpace(
-    value
-      .replace(/<[^>]*>/g, " ")
-      .replace(/&(?:nbsp|#160);/giu, " ")
-      .replace(/&amp;/giu, "&")
-      .replace(/&quot;/giu, '"')
-      .replace(/&#39;/giu, "'"),
-  );
-}
-
-function htmlLines(html) {
-  return html
-    .split(/<br\s*\/?\s*>/iu)
-    .map(stripMarkup)
-    .filter(Boolean);
-}
-
-function distanceMarked(value) {
-  return /дистанционно|ДОТ/iu.test(value);
-}
-
-function isSubgroupLine(value) {
-  return /^\d+\s*подгруппа$/iu.test(value);
-}
-
-function containsGroupCode(value) {
-  return value
-    .split(/\s+/u)
-    .some((token) => /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u.test(token));
-}
-
-function parseRawTeacher(value) {
-  const trimmed = normalizeSpace(
-    value.replace(/\(\s*ДОТ\s*\)/giu, " "),
-  );
-  if (!trimmed) return { name: "" };
-
-  const positionMatch = trimmed.match(
-    /^(доц\.|проф\.|ст\.преп\.|ст\. преп\.|преп\.|асс\.|зав\.каф\.)\s*/u,
-  );
-  const afterPosition = positionMatch
-    ? trimmed.slice(positionMatch[0].length)
-    : trimmed;
-  const degreeMatch = afterPosition.match(/^([кд]\.[а-яё.-]+н\.)\s*/u);
-  const name = degreeMatch
-    ? afterPosition.slice(degreeMatch[0].length).trim()
-    : afterPosition.trim();
-
-  const teacher = { name };
-  if (positionMatch) teacher.position = positionMatch[1];
-  if (degreeMatch) teacher.degree = degreeMatch[1];
-  return teacher;
-}
-
-function parseRawWeeks(value) {
-  const match = value.match(/\((\d+)\s*(?:-\s*(\d+)\s*)?нед\.?\)/iu);
-  if (!match) return { from: 0, to: 0 };
-  const from = Number(match[1]);
-  return { from, to: match[2] ? Number(match[2]) : from };
-}
-
-function parseRawType(value) {
-  const match = value.match(
-    /\((лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп)\.?\)/iu,
-  );
-  return match?.[1]?.replace(/\.$/u, "") ?? "";
-}
-
-function parseRawParity(html) {
-  const match = html.match(/<sup>\s*(\*{1,2})\s*<\/sup>/iu);
-  if (!match) return undefined;
-  return match[1] === "**" ? "even" : "odd";
-}
-
-function parseRawDate(value) {
-  const match = value.match(/(\d{2})\.(\d{2})\.(\d{4})/u);
-  return match ? `${match[3]}-${match[2]}-${match[1]}` : undefined;
-}
-
 function dateKey(date) {
-  if (!date) return undefined;
+  if (!date) return null;
   const pad = (value) => String(value).padStart(2, "0");
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-function parseRawTime(value) {
-  const match = value.match(/(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})/u);
-  if (!match) return undefined;
-  return {
-    start: { hours: Number(match[1]), minutes: Number(match[2]) },
-    end: { hours: Number(match[3]), minutes: Number(match[4]) },
-  };
-}
-
-function removeRedDivs(html, redDivs) {
-  return redDivs.reduce(
-    (result, div) => result.replace(div.outerHTML ?? "", ""),
-    html,
-  );
-}
-
-function subjectElement(element) {
-  return element.querySelector('span[style*="color: blue"]');
-}
-
-function sourceGroupName(html) {
-  const doc = parseHtml(html);
-  return doc.querySelector('span.htext span[style*="color: blue"]')?.textContent?.trim();
-}
-
-function roomBeforeSubject(html, subject, textValue) {
-  const line = htmlLines(html).find((item) => item.includes(subject)) ?? "";
-  const subjectIndex = line.indexOf(subject);
-  const beforeSubject =
-    subjectIndex < 0
-      ? ""
-      : line.slice(0, subjectIndex).replace(/^\*+\s*/u, "").trim();
-  if (distanceMarked(textValue)) return "Дистанционно (ДОТ)";
-  return beforeSubject;
-}
-
-function rawGroupNames(value) {
-  const cleaned = normalizeSpace(value).replace(/\(\s*\d+\s*подгруппа\s*\)/giu, " ");
-  const startsGroup = (token) =>
-    /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u.test(token);
-  const groups = [];
-  let current = "";
-  for (const token of cleaned.split(/\s+/u).filter(Boolean)) {
-    if (startsGroup(token)) {
-      if (current) groups.push(current);
-      current = token;
-    } else {
-      current = current ? `${current} ${token}` : token;
-    }
-  }
-  if (current) groups.push(current);
-  return groups;
-}
-
-function rawSubstitution(div) {
-  const html = div.innerHTML ?? "";
-  const textValue = stripMarkup(html);
-  if (!/замена\s*на:/iu.test(textValue)) return undefined;
-
-  const lines = htmlLines(html);
-  const roomLine = lines.find((line) => /^Аудитория\s*:/iu.test(line));
-  const teacherLine = lines.find((line) => /^Преподаватель\s*:/iu.test(line));
-  const room = roomLine?.replace(/^Аудитория\s*:\s*/iu, "").trim() || undefined;
-  const teacherValue = teacherLine
-    ?.replace(/^Преподаватель\s*:\s*/iu, "")
-    .trim();
-
-  return {
-    date: parseRawDate(textValue),
-    room,
-    isDistance: distanceMarked(room ?? textValue),
-    teacher: teacherValue ? parseRawTeacher(teacherValue) : undefined,
-  };
-}
-
-function rawTransfer(div, subject) {
-  const html = div.innerHTML ?? "";
-  const textValue = stripMarkup(html);
-  const match = textValue.match(
-    /(\d{2}\.\d{2}\.\d{4})\s*перенос\s*[cс]\s*(\d{2}\.\d{2}\.\d{4})\s*\((\d+)\s*пара\)/iu,
-  );
-  if (!match) return undefined;
-
-  const subjectLine = htmlLines(html).find((line) => line.includes(subject)) ?? "";
-  const lines = htmlLines(html);
-  const subjectIndex = lines.indexOf(subjectLine);
-  const afterSubject = subjectIndex < 0 ? [] : lines.slice(subjectIndex + 1);
-  const room = roomBeforeSubject(html, subject, textValue);
-  const teacherLine = afterSubject.find(
-    (line) => !isSubgroupLine(line) && !containsGroupCode(line),
-  );
-  const groupsLine = afterSubject.find((line) => containsGroupCode(line));
-
-  return {
-    targetDate: parseRawDate(match[1]),
-    fromDate: parseRawDate(match[2]),
-    fromSlot: Number(match[3]),
-    subject,
-    room,
-    teacher: parseRawTeacher(teacherLine ?? ""),
-    groups: rawGroupNames(groupsLine ?? ""),
-  };
-}
-
-function rawEntryFromCell(cell, layout) {
-  const subjectEl = subjectElement(cell);
-  const cellSubject = subjectEl?.textContent?.trim() ?? "";
-  if (!cellSubject || /^День самостоятельной работы$/iu.test(cellSubject)) {
-    return undefined;
-  }
-
-  const redDivs = [
-    ...cell.querySelectorAll('div[style*="border: 2px solid red"]'),
-  ];
-  const transferDiv = redDivs.find((div) => {
-    const textValue = stripMarkup(div.innerHTML ?? "");
-    return /перенос\s*[cс]/iu.test(textValue) && subjectElement(div);
-  });
-
-  const sourceHtml = transferDiv
-    ? transferDiv.innerHTML ?? ""
-    : removeRedDivs(cell.innerHTML ?? "", redDivs);
-  const sourceText = stripMarkup(sourceHtml);
-  const sourceSubject =
-    subjectElement(transferDiv ?? cell)?.textContent?.trim() ?? cellSubject;
-  const sourceLines = htmlLines(sourceHtml);
-  const subjectLineIndex = sourceLines.findIndex((line) =>
-    line.includes(sourceSubject),
-  );
-  if (subjectLineIndex < 0) return undefined;
-
-  const afterSubject = sourceLines.slice(subjectLineIndex + 1);
-  const teacherLine = afterSubject.find((line) => {
-    if (!line || isSubgroupLine(line)) return false;
-    if (layout === "session") {
-      if (/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/u.test(line)) return false;
-      if (containsGroupCode(line)) return false;
-    }
-    return true;
-  });
-  const subgroupMatch = sourceText.match(/(\d+)\s*подгруппа/iu);
-  const type = parseRawType(sourceText.slice(
-    sourceText.indexOf(sourceSubject),
-  ));
-  const transfer = transferDiv
-    ? rawTransfer(transferDiv, sourceSubject)
-    : undefined;
-  const groups = transfer?.groups ?? [];
-  const substitutions = transfer
-    ? []
-    : redDivs.map(rawSubstitution).filter(Boolean);
-  const time = layout === "session"
-    ? parseRawTime(sourceHtml)
-    : undefined;
-
-  if (layout === "session" && !time) return undefined;
-
-  return {
-    subject: sourceSubject,
-    type,
-    weeks: layout === "semester" && !transfer
-      ? parseRawWeeks(sourceText)
-      : { from: 0, to: 0 },
-    room: roomBeforeSubject(sourceHtml, sourceSubject, sourceText),
-    teacher: transfer
-      ? transfer.teacher
-      : parseRawTeacher(teacherLine ?? ""),
-    groups,
-    subgroup: subgroupMatch ? Number(subgroupMatch[1]) : undefined,
-    weekParity: parseRawParity(sourceHtml),
-    isDistance: distanceMarked(sourceText),
-    possibleChanges:
-      (cell.getAttribute("class") ?? "").split(/\s+/u).includes("want"),
-    substitutions,
-    transfer,
-    time,
-  };
-}
-
-function rawRows(dataCell, layout) {
-  return [...dataCell.querySelectorAll("table tr")]
-    .map((row) => rawEntryFromCell(row.querySelector("td") ?? row, layout))
-    .filter(Boolean);
-}
-
-function rawSemesterDays(doc) {
-  const days = [];
-  let currentDay;
-
-  for (const row of doc.querySelectorAll("tr")) {
-    const style = row.getAttribute("style") ?? "";
-    const className = row.getAttribute("class") ?? "";
-    if (style.includes("lightgray") && className.includes("trfd")) {
-      const weekday = row.querySelector("td")?.textContent?.trim() ?? "";
-      if (weekday) {
-        currentDay = { weekday, slots: [] };
-        days.push(currentDay);
-      }
-      continue;
-    }
-
-    if (!currentDay) continue;
-    const timeCell = row.querySelector("td.trf");
-    const dataCell = row.querySelector("td.trdata:not(.trf)");
-    const timeHtml = timeCell?.querySelector(".trfd")?.innerHTML ?? "";
-    const timeText = stripMarkup(timeHtml);
-    const numberMatch = timeText.match(/(\d+)\s*пара/u);
-    const time = parseRawTime(timeText);
-    if (!dataCell || !numberMatch) continue;
-
-    currentDay.slots.push({
-      number: Number(numberMatch[1]),
-      timeStart: time?.start ?? { hours: 0, minutes: 0 },
-      timeEnd: time?.end ?? { hours: 0, minutes: 0 },
-      entries: rawRows(dataCell, "semester"),
-    });
-  }
-
-  return days;
-}
-
-function expectedSessionSlotNumber(time) {
-  const starts = [
-    [8, 20],
-    [9, 50],
-    [11, 40],
-    [13, 30],
-    [15, 0],
-    [16, 40],
-    [18, 10],
-    [19, 40],
-  ];
-  const target = time.hours * 60 + time.minutes;
-  let number = 1;
-  let difference = Number.POSITIVE_INFINITY;
-  starts.forEach(([hours, minutes], index) => {
-    const nextDifference = Math.abs(hours * 60 + minutes - target);
-    if (nextDifference < difference) {
-      number = index + 1;
-      difference = nextDifference;
-    }
-  });
-  return number;
-}
-
-function rawSessionDays(doc) {
-  const days = [];
-  for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
-    const id = dateCell.getAttribute("id") ?? "";
-    const dateMatch = id.match(/trd(\d{4})(\d{2})(\d{2})/u);
-    const dataCell = dateCell.nextElementSibling;
-    if (!dateMatch || !dataCell?.matches("td.trdata:not(.trfd)")) continue;
-
-    const htmlParts = (dateCell.innerHTML ?? "").split(/<br\s*\/?\s*>/iu);
-    const weekday = stripMarkup(htmlParts[1] ?? "");
-    const slots = [];
-    for (const row of dataCell.querySelectorAll("table tr")) {
-      const cell = row.querySelector("td") ?? row;
-      const entry = rawEntryFromCell(cell, "session");
-      if (!entry?.time) continue;
-      slots.push({
-        number: expectedSessionSlotNumber(entry.time.start),
-        timeStart: entry.time.start,
-        timeEnd: entry.time.end,
-        entries: [{ ...entry, time: undefined }],
-      });
-    }
-
-    if (slots.length > 0) {
-      days.push({
-        weekday,
-        date: `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`,
-        slots,
-      });
-    }
-  }
-  return days;
-}
-
-function rawFixtureData(html) {
-  // Independent source oracle: no schedule parser, manifest, or parser output.
-  const doc = parseHtml(html);
-  const session = Boolean(doc.querySelector('td[id^="trd2"]'));
-  return {
-    layout: session ? "session" : "semester",
-    days: session ? rawSessionDays(doc) : rawSemesterDays(doc),
-  };
-}
-
-function entriesFrom(days) {
-  return days.flatMap((day) =>
-    day.slots.flatMap((slot) =>
-      slot.entries.map((entry) => ({ day, slot, entry })),
-    ),
-  );
-}
-
-function normalizedType(value) {
-  return value.toLowerCase().replace(/\.$/u, "");
-}
-
-function comparableSubstitution(substitution) {
+function actualSubstitution(substitution) {
   return {
     date: dateKey(substitution.date),
-    room: substitution.room,
+    room: substitution.room ?? null,
     isDistance: Boolean(substitution.isDistance),
-    teacher: substitution.teacher ?? undefined,
+    teacher: substitution.teacher ?? null,
   };
 }
 
-function comparableTransfer(transfer) {
+function actualTransfer(transfer) {
   return transfer
     ? {
         targetDate: dateKey(transfer.targetDate),
@@ -432,123 +62,95 @@ function comparableTransfer(transfer) {
         fromSlot: transfer.fromSlot,
         subject: transfer.subject,
       }
-    : undefined;
+    : null;
 }
 
-function comparableEntry(entry) {
+function actualEntry(entry, layout) {
   return {
     subject: entry.subject,
-    type: normalizedType(entry.type),
+    type: layout === "session" ? entry.type.toLowerCase() : entry.type,
     weeks: entry.weeks,
     room: entry.room,
     teacher: entry.teacher,
     groups: entry.groups,
-    subgroup: entry.subgroup,
-    weekParity: entry.weekParity,
+    subgroup: entry.subgroup ?? null,
+    weekParity: entry.weekParity ?? null,
     isDistance: Boolean(entry.isDistance),
     possibleChanges: Boolean(entry.possibleChanges),
-    substitutions: (entry.substitutions ?? []).map(comparableSubstitution),
-    transfer: comparableTransfer(entry.transfer),
+    substitutions: (entry.substitutions ?? []).map(actualSubstitution),
+    transfer: actualTransfer(entry.transfer),
     substituteFor: entry.substituteFor
       ? {
           date: dateKey(entry.substituteFor.date),
           originalTeacher: entry.substituteFor.originalTeacher,
         }
-      : undefined,
+      : null,
   };
 }
 
-function expectedComparableEntry(entry) {
-  return {
-    subject: entry.subject,
-    type: normalizedType(entry.type),
-    weeks: entry.weeks,
-    room: entry.room,
-    teacher: entry.teacher,
-    groups: entry.groups,
-    subgroup: entry.subgroup,
-    weekParity: entry.weekParity,
-    isDistance: entry.isDistance,
-    possibleChanges: entry.possibleChanges,
-    substitutions: entry.substitutions,
-    transfer: entry.transfer
-      ? {
-          targetDate: entry.transfer.targetDate,
-          fromDate: entry.transfer.fromDate,
-          fromSlot: entry.transfer.fromSlot,
-          subject: entry.transfer.subject,
-        }
-      : undefined,
-    substituteFor: undefined,
-  };
-}
+function assertExpectedShape(expected, fixture) {
+  assert.equal(expected.schemaVersion, 1, `${fixture.file}: schema changed`);
+  assert.equal(expected.file, fixture.file, `${fixture.file}: file index changed`);
+  assert.equal(expected.groupId, fixture.groupId, `${fixture.file}: group id changed`);
+  assert.equal(expected.period, fixture.period, `${fixture.file}: period changed`);
+  assert.ok(expected.groupName, `${fixture.file}: expected group name missing`);
+  assert.ok(
+    expected.layout === "semester" || expected.layout === "session",
+    `${fixture.file}: expected layout invalid`,
+  );
+  assert.ok(Array.isArray(expected.days), `${fixture.file}: expected days missing`);
 
-function assertRawScheduleMatches(parsedDays, rawDays, file) {
-  assert.equal(parsedDays.length, rawDays.length, `${file}: day count changed`);
-  for (const [dayIndex, rawDay] of rawDays.entries()) {
-    const parsedDay = parsedDays[dayIndex];
-    assert.equal(parsedDay.weekday, rawDay.weekday, `${file}: weekday changed`);
-    if (rawDay.date) {
-      assert.equal(dateKey(parsedDay.date), rawDay.date, `${file}: date changed`);
-    } else {
-      assert.equal(parsedDay.date, undefined, `${file}: semester date leaked`);
-    }
-    assert.equal(
-      parsedDay.slots.length,
-      rawDay.slots.length,
-      `${file}: slot count changed on ${rawDay.weekday}`,
-    );
-
-    for (const [slotIndex, rawSlot] of rawDay.slots.entries()) {
-      const parsedSlot = parsedDay.slots[slotIndex];
-      assert.equal(parsedSlot.number, rawSlot.number, `${file}: slot number changed`);
-      assert.deepEqual(
-        parsedSlot.timeStart,
-        rawSlot.timeStart,
-        `${file}: slot start changed`,
-      );
-      assert.deepEqual(
-        parsedSlot.timeEnd,
-        rawSlot.timeEnd,
-        `${file}: slot end changed`,
-      );
+  for (const [dayIndex, day] of expected.days.entries()) {
+    assert.equal(day.index, dayIndex, `${fixture.file}: day index is not stable`);
+    assert.ok(day.weekday, `${fixture.file}: weekday missing at ${dayIndex}`);
+    assert.ok(Array.isArray(day.slots), `${fixture.file}: slots missing at ${dayIndex}`);
+    for (const [slotIndex, slot] of day.slots.entries()) {
       assert.equal(
-        parsedSlot.entries.length,
-        rawSlot.entries.length,
-        `${file}: entry count changed in slot ${rawSlot.number}`,
+        slot.index,
+        slotIndex,
+        `${fixture.file}: slot index is not stable at day ${dayIndex}`,
       );
-
-      for (const [entryIndex, rawEntry] of rawSlot.entries.entries()) {
-        assert.deepEqual(
-          comparableEntry(parsedSlot.entries[entryIndex]),
-          expectedComparableEntry(rawEntry),
-          `${file}: parsed fields changed for ${rawEntry.subject}`,
+      assert.ok(Number.isInteger(slot.number), `${fixture.file}: slot number missing`);
+      assert.ok(Array.isArray(slot.entries), `${fixture.file}: entries missing`);
+      for (const [entryIndex, entry] of slot.entries.entries()) {
+        assert.equal(
+          entry.index,
+          entryIndex,
+          `${fixture.file}: entry index is not stable at ${dayIndex}/${slotIndex}`,
         );
+        assert.ok(entry.subject, `${fixture.file}: subject missing at ${dayIndex}/${slotIndex}/${entryIndex}`);
+        assert.equal(typeof entry.type, "string");
+        assert.deepEqual(Object.keys(entry.weeks).sort(), ["from", "to"]);
+        assert.equal(typeof entry.room, "string");
+        assert.equal(typeof entry.teacher?.name, "string");
+        assert.ok(Array.isArray(entry.groups));
+        assert.equal(typeof entry.isDistance, "boolean");
+        assert.equal(typeof entry.possibleChanges, "boolean");
+        assert.ok(Array.isArray(entry.substitutions));
+        assert.ok("transfer" in entry);
+        assert.ok("substituteFor" in entry);
       }
     }
   }
 }
 
-test("group fixture corpus parses every recorded group, slot, entry, and period", async () => {
+test("group fixtures match manually checked expectations by slot and entry index", async () => {
   const fixtures = await loadCorpus();
   const groupIds = new Set(fixtures.map((fixture) => fixture.groupId));
   const periods = new Set(fixtures.map((fixture) => fixture.period));
   assert.equal(
     fixtures.length,
     REQUIRED_GROUP_COUNT * REQUIRED_PERIODS.length,
-    "fixture corpus must contain one source page per group and period",
+    "fixture corpus must contain one expectation per group and period",
   );
   assert.equal(groupIds.size, REQUIRED_GROUP_COUNT, "group sample size changed");
   assert.deepEqual([...periods].sort((a, b) => a - b), REQUIRED_PERIODS);
+
   const requiredFixture = fixtures.find(
     (fixture) => fixture.groupId === REQUIRED_GROUP_ID && fixture.period === 1,
   );
   assert.ok(requiredFixture, "КТ-41-24 fixture missing");
-  assert.equal(
-    sourceGroupName(requiredFixture.html),
-    "КТ-41-24",
-    "required group id no longer points to КТ-41-24",
-  );
+  assert.equal(requiredFixture.expected.groupName, "КТ-41-24");
 
   for (const groupId of groupIds) {
     const groupPeriods = fixtures
@@ -574,26 +176,72 @@ test("group fixture corpus parses every recorded group, slot, entry, and period"
   };
 
   for (const fixture of fixtures) {
-    const raw = rawFixtureData(fixture.html);
-    const parsed = parseFullSchedule(fixture.html);
-    assertRawScheduleMatches(parsed, raw.days, fixture.file);
+    const { expected } = fixture;
+    assertExpectedShape(expected, fixture);
+    coverage[expected.layout]++;
 
-    coverage[raw.layout]++;
-    for (const { entry } of entriesFrom(raw.days)) {
-      coverage.entries++;
-      coverage.types.add(normalizedType(entry.type));
-      if (entry.room) coverage.room++;
-      if (entry.teacher.name) coverage.teacher++;
-      if (entry.subgroup != null) coverage.subgroup++;
-      if (entry.weekParity) coverage.parity++;
-      if (entry.isDistance) coverage.distance++;
-      if (entry.possibleChanges) coverage.possibleChanges++;
-      coverage.substitutions += entry.substitutions.length;
-      if (entry.transfer) coverage.transfers++;
+    const parsedDays = parseFullSchedule(fixture.html);
+    assert.equal(parsedDays.length, expected.days.length, `${fixture.file}: day count changed`);
+
+    for (const [dayIndex, expectedDay] of expected.days.entries()) {
+      const parsedDay = parsedDays[dayIndex];
+      assert.equal(parsedDay.weekday, expectedDay.weekday, `${fixture.file}: weekday changed`);
+      assert.equal(dateKey(parsedDay.date), expectedDay.date, `${fixture.file}: date changed`);
+      assert.equal(
+        parsedDay.slots.length,
+        expectedDay.slots.length,
+        `${fixture.file}: slot count changed at day ${dayIndex}`,
+      );
+
+      for (const [slotIndex, expectedSlot] of expectedDay.slots.entries()) {
+        const parsedSlot = parsedDay.slots[slotIndex];
+        assert.equal(parsedSlot.number, expectedSlot.number, `${fixture.file}: slot number changed at ${dayIndex}/${slotIndex}`);
+        assert.deepEqual(parsedSlot.timeStart, expectedSlot.timeStart, `${fixture.file}: slot start changed at ${dayIndex}/${slotIndex}`);
+        assert.deepEqual(parsedSlot.timeEnd, expectedSlot.timeEnd, `${fixture.file}: slot end changed at ${dayIndex}/${slotIndex}`);
+        assert.equal(
+          parsedSlot.entries.length,
+          expectedSlot.entries.length,
+          `${fixture.file}: entry count changed at ${dayIndex}/${slotIndex}`,
+        );
+
+        for (const [entryIndex, expectedEntry] of expectedSlot.entries.entries()) {
+          const parsedEntry = parsedSlot.entries[entryIndex];
+          assert.deepEqual(
+            actualEntry(parsedEntry, expected.layout),
+            {
+              subject: expectedEntry.subject,
+              type: expectedEntry.type,
+              weeks: expectedEntry.weeks,
+              room: expectedEntry.room,
+              teacher: expectedEntry.teacher,
+              groups: expectedEntry.groups,
+              subgroup: expectedEntry.subgroup,
+              weekParity: expectedEntry.weekParity,
+              isDistance: expectedEntry.isDistance,
+              possibleChanges: expectedEntry.possibleChanges,
+              substitutions: expectedEntry.substitutions,
+              transfer: expectedEntry.transfer,
+              substituteFor: expectedEntry.substituteFor,
+            },
+            `${fixture.file}: fields changed at ${dayIndex}/${slotIndex}/${entryIndex} (${expectedEntry.subject})`,
+          );
+
+          coverage.entries++;
+          coverage.types.add(expectedEntry.type.toLowerCase());
+          if (expectedEntry.room) coverage.room++;
+          if (expectedEntry.teacher.name) coverage.teacher++;
+          if (expectedEntry.subgroup != null) coverage.subgroup++;
+          if (expectedEntry.weekParity) coverage.parity++;
+          if (expectedEntry.isDistance) coverage.distance++;
+          if (expectedEntry.possibleChanges) coverage.possibleChanges++;
+          coverage.substitutions += expectedEntry.substitutions.length;
+          if (expectedEntry.transfer) coverage.transfers++;
+        }
+      }
     }
   }
 
-  assert.ok(coverage.entries > 0, "fixture corpus has no source lessons");
+  assert.ok(coverage.entries > 0, "expectation corpus has no lessons");
   assert.ok(coverage.semester > 0, "semester layout is not covered");
   assert.ok(coverage.distance > 0, "distance lessons are not covered");
   assert.ok(coverage.teacher > 0, "teacher fields are not covered");

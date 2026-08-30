@@ -1,0 +1,1460 @@
+{
+  "schemaVersion": 1,
+  "file": "group-9719-period-1.html",
+  "groupId": 9719,
+  "period": 1,
+  "groupName": "ОЗС-22-25 (ТГВ 3 года)",
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
+              "type": "лб",
+              "weeks": {
+                "from": 13,
+                "to": 16
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Солин С. В."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "slots": []
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": []
+        },
+        {
+          "index": 7,
+          "number": 8,
+          "timeStart": {
+            "hours": 19,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 21,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Механика грунтов",
+              "type": "лб",
+              "weeks": {
+                "from": 16,
+                "to": 16
+              },
+              "room": "Н-305",
+              "teacher": {
+                "name": "Викторова С. С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Сопротивление материалов",
+              "type": "лб",
+              "weeks": {
+                "from": 14,
+                "to": 15
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 7
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Сопротивление материалов",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 8
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Михайлов Б. В.",
+                "position": "доц.",
+                "degree": "к.т.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Теплогенерирующие установки",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Федоров Н. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Вентиляция",
+              "type": "лк",
+              "weeks": {
+                "from": 13,
+                "to": 14
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "number": 8,
+          "timeStart": {
+            "hours": 19,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 21,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Вентиляция",
+              "type": "лк",
+              "weeks": {
+                "from": 13,
+                "to": 14
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Основы строительных конструкций",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 7
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Иванова Н. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Технологические процессы в строительстве",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 8
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Федосеева И. П."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Механика грунтов",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": "Викторова С. С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+              "type": "лб",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Петрова М. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 5
+              },
+              "room": "Н-303",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Теплогенерирующие установки",
+              "type": "пр",
+              "weeks": {
+                "from": 10,
+                "to": 10
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Федоров Н. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 11,
+                "to": 11
+              },
+              "room": "Н-403",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 6,
+              "subject": "Механика грунтов",
+              "type": "лб",
+              "weeks": {
+                "from": 14,
+                "to": 14
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Викторова С. С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+              "type": "лб",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Петрова М. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 5,
+                "to": 5
+              },
+              "room": "Н-303",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Теплогенерирующие установки",
+              "type": "пр",
+              "weeks": {
+                "from": 10,
+                "to": 10
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Федоров Н. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 11,
+                "to": 11
+              },
+              "room": "Н-403",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Технологические процессы в строительстве",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 8
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Федосеева И. П."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 6,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "лб",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 7,
+              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+              "type": "лб",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Петрова М. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 8,
+              "subject": "Вентиляция",
+              "type": "пр",
+              "weeks": {
+                "from": 13,
+                "to": 14
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 9,
+              "subject": "Вентиляция",
+              "type": "лб",
+              "weeks": {
+                "from": 15,
+                "to": 16
+              },
+              "room": "Г-014",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Сопротивление материалов",
+              "type": "пр",
+              "weeks": {
+                "from": 11,
+                "to": 11
+              },
+              "room": "Н-403",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "лб",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Вентиляция",
+              "type": "пр",
+              "weeks": {
+                "from": 13,
+                "to": 14
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Вентиляция",
+              "type": "лб",
+              "weeks": {
+                "from": 15,
+                "to": 16
+              },
+              "room": "Г-014",
+              "teacher": {
+                "name": "Русинова Н. Г."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 6,
+              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+              "type": "лб",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Петрова М. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 7,
+              "subject": "Теплогенерирующие установки",
+              "type": "лб",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Федоров Н. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Мозгова А. С.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Теплогенерирующие установки",
+              "type": "лб",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Федоров Н. А."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Сопротивление материалов",
+              "type": "лб",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Сопротивление материалов",
+              "type": "лб",
+              "weeks": {
+                "from": 7,
+                "to": 7
+              },
+              "room": "Н-214",
+              "teacher": {
+                "name": "Алексеева О. А."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
+              "type": "лб",
+              "weeks": {
+                "from": 13,
+                "to": 16
+              },
+              "room": "Н-314",
+              "teacher": {
+                "name": "Солин С. В."
+              },
+              "groups": [],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы строительных конструкций",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 7
+              },
+              "room": "Н-306",
+              "teacher": {
+                "name": "Иванова Н. В."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Механика грунтов",
+              "type": "лб",
+              "weeks": {
+                "from": 12,
+                "to": 13
+              },
+              "room": "Н-203",
+              "teacher": {
+                "name": "Викторова С. С."
+              },
+              "groups": [],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

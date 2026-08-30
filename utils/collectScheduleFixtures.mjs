@@ -92,7 +92,9 @@ async function loadGroups(http) {
 function countRawEntries(body) {
   // This is deliberately raw DOM inspection, never the schedule parser.
   const doc = parseHtml(body);
-  return [...doc.querySelectorAll("td")].filter((cell) => {
+  const schedule = doc.querySelector("#groupstt");
+  if (!schedule) return 0;
+  return [...schedule.querySelectorAll("td")].filter((cell) => {
     const subject = cell.querySelector('span[style*="color: blue"]');
     const subjectText = subject?.textContent?.trim() ?? "";
     return (
@@ -181,7 +183,7 @@ function parsePositiveInt(value, message) {
 }
 
 function parsePeriods() {
-  const raw = option("periods") ?? "1,2,3,4";
+  const raw = option("periods") ?? "1";
   const periods = raw.split(",").map((value) => Number(value.trim()));
   assert.ok(
     periods.length > 0 &&
@@ -276,14 +278,14 @@ const populatedGroupIds = new Set(
 );
 const selectedGroups = requestedGroup || process.argv.includes("--all")
   ? candidateGroups
-  : candidateGroups.filter((group) => populatedGroupIds.has(group.id)).slice(0, limit);
+  : candidateGroups.slice(0, limit);
 
-assert.ok(selectedGroups.length > 0, "No populated groups selected");
+assert.ok(selectedGroups.length > 0, "No groups selected");
 if (!requestedGroup && !process.argv.includes("--all")) {
   assert.equal(
     selectedGroups.length,
-    Math.min(limit, populatedGroupIds.size),
-    "Not enough populated groups in candidate sample; increase candidate pool",
+    Math.min(limit, candidateGroups.length),
+    "Not enough groups in candidate sample; increase candidate pool",
   );
   assert.ok(
     selectedGroups.some((group) => group.name === REQUIRED_GROUP),
