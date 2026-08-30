@@ -126,11 +126,19 @@ function pageGroupName(body) {
 
 async function fetchSchedulePage(http, group, period) {
   const file = `group-${group.id}-period-${period}.html`;
+  let lastError;
   for (let attempt = 0; attempt < 3; attempt++) {
-    const response = await http.post(
-      `${BASE}/index/grouptt/gr/${group.id}`,
-      { htype: String(period) },
-    );
+    let response;
+    try {
+      response = await http.post(
+        `${BASE}/index/grouptt/gr/${group.id}`,
+        { htype: String(period) },
+      );
+    } catch (error) {
+      lastError = error;
+      await wait(500 * (attempt + 1));
+      continue;
+    }
 
     if (response.body.includes('name="wname"')) {
       await login(http);
@@ -155,7 +163,7 @@ async function fetchSchedulePage(http, group, period) {
 
     await wait(250 * (attempt + 1));
   }
-  throw new Error(`${file}: schedule page not found after retries`);
+  throw lastError ?? new Error(`${file}: schedule page not found after retries`);
 }
 
 function seededRandom(seed) {
