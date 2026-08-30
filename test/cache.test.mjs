@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { LkClient } from "../dist/lk/client.js";
-import { TtClient } from "../dist/tt/client.js";
+import { StudentPortalClient } from "../dist/lk/client.js";
+import { TimetableClient } from "../dist/tt/client.js";
 
 class FakeHttpClient {
   constructor({ get = {}, post = {}, buffers = {} } = {}) {
@@ -92,7 +92,7 @@ class FakeBlobAdapter {
 const TT_BASE = "https://tt.chuvsu.ru";
 const LK_BASE = "https://lk.chuvsu.ru/student";
 
-test("TtClient caches discovery/search requests and image fetches when cache is a number", async () => {
+test("TimetableClient caches discovery/search requests and image fetches when cache is a number", async () => {
   const cacheAdapter = new FakeCacheAdapter();
   const blobAdapter = new FakeBlobAdapter();
   const postKey = (url, data) => `${url}|${JSON.stringify(data)}`;
@@ -172,7 +172,7 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
     },
   });
 
-  const tt = new TtClient({
+  const tt = new TimetableClient({
     cache: 10_000,
     cacheAdapter,
     blobAdapter,
@@ -181,26 +181,26 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
 
   await tt.getTeachers();
   await tt.getTeachers();
-  await tt.searchTeacher({ name: "Иванов" });
-  await tt.searchTeacher({ name: "Иванов" });
-  await tt.searchAudience({ name: "Е-1" });
-  await tt.searchAudience({ name: "Е-1" });
-  await tt.getAudiences();
-  await tt.getAudiences();
-  await tt.searchGroup({ name: "КТ-41-24" });
-  await tt.searchGroup({ name: "КТ-41-24" });
-  await tt.getAudienceName(852);
-  await tt.getAudienceName(852);
+  await tt.searchTeachers("Иванов");
+  await tt.searchTeachers("Иванов");
+  await tt.searchRooms("Е-1");
+  await tt.searchRooms("Е-1");
+  await tt.getRooms();
+  await tt.getRooms();
+  await tt.searchGroups("КТ-41-24");
+  await tt.searchGroups("КТ-41-24");
+  await tt.getRoomName(852);
+  await tt.getRoomName(852);
   await tt.getTeacherInfo(10);
   await tt.getTeacherInfo(10);
   await tt.getTeacherPhoto(10);
   await tt.getTeacherPhoto(10);
-  await tt.getAudienceImage(852);
-  await tt.getAudienceImage(852);
-  await tt.getAudienceBlockImage(852);
-  await tt.getAudienceBlockImage(852);
-  await tt.getAudienceFloorplan(852);
-  await tt.getAudienceFloorplan(852);
+  await tt.getRoomImage(852);
+  await tt.getRoomImage(852);
+  await tt.getRoomBuildingImage(852);
+  await tt.getRoomBuildingImage(852);
+  await tt.getRoomFloorPlan(852);
+  await tt.getRoomFloorPlan(852);
 
   assert.equal(fakeHttp.count("get", `${TT_BASE}/index/tech`), 1);
   assert.equal(
@@ -262,35 +262,35 @@ test("TtClient caches discovery/search requests and image fetches when cache is 
   assert.ok(cache["teachers:all"]);
   assert.ok(cache["teachers:search:Иванов:1"]);
   assert.ok(cache["groups:search:КТ-41-24:1"]);
-  assert.ok(cache["audiences:search:Е-1:1"]);
-  assert.ok(cache["audiences:all:1"]);
-  assert.ok(cache["audienceNames:852"]);
+  assert.ok(cache["rooms:search:Е-1:1"]);
+  assert.ok(cache["rooms:all:1"]);
+  assert.ok(cache["roomNames:852"]);
   assert.ok(cache["teacherInfo:10"]);
   assert.ok(cache["teacherPhotos:10"]);
-  assert.ok(cache["audienceInfo:852"]);
-  assert.ok(cache["audienceImages:aud:852"]);
-  assert.ok(cache["audienceImages:block:852"]);
-  assert.ok(cache["audienceImages:floor:852"]);
+  assert.ok(cache["roomInfo:852"]);
+  assert.ok(cache["roomImages:room:852"]);
+  assert.ok(cache["roomImages:block:852"]);
+  assert.ok(cache["roomImages:floor:852"]);
 
   assert.deepEqual(cacheAdapter.store.get("teacherPhotos:10"), {
     blobKey: "tt/teacher-photos/10",
   });
-  assert.deepEqual(cacheAdapter.store.get("audienceImages:aud:852"), {
-    blobKey: "tt/audience-images/aud:852",
+  assert.deepEqual(cacheAdapter.store.get("roomImages:room:852"), {
+    blobKey: "tt/room-images/room:852",
   });
-  assert.deepEqual(cacheAdapter.store.get("audienceImages:block:852"), {
-    blobKey: "tt/audience-images/block:852",
+  assert.deepEqual(cacheAdapter.store.get("roomImages:block:852"), {
+    blobKey: "tt/room-images/block:852",
   });
-  assert.deepEqual(cacheAdapter.store.get("audienceImages:floor:852"), {
-    blobKey: "tt/audience-images/floor:852",
+  assert.deepEqual(cacheAdapter.store.get("roomImages:floor:852"), {
+    blobKey: "tt/room-images/floor:852",
   });
   assert.equal(blobAdapter.store.get("tt/teacher-photos/10")?.toString(), "teacher-photo");
-  assert.equal(blobAdapter.store.get("tt/audience-images/aud:852")?.toString(), "audience-photo");
-  assert.equal(blobAdapter.store.get("tt/audience-images/block:852")?.toString(), "block-photo");
-  assert.equal(blobAdapter.store.get("tt/audience-images/floor:852")?.toString(), "floor-photo");
+  assert.equal(blobAdapter.store.get("tt/room-images/room:852")?.toString(), "audience-photo");
+  assert.equal(blobAdapter.store.get("tt/room-images/block:852")?.toString(), "block-photo");
+  assert.equal(blobAdapter.store.get("tt/room-images/floor:852")?.toString(), "floor-photo");
 });
 
-test("LkClient caches personal data, photo and group id", async () => {
+test("StudentPortalClient caches profile, photo and timetable group id", async () => {
   const cacheAdapter = new FakeCacheAdapter();
   const blobAdapter = new FakeBlobAdapter();
   const fakeHttp = new FakeHttpClient({
@@ -317,19 +317,19 @@ test("LkClient caches personal data, photo and group id", async () => {
     },
   });
 
-  const lk = new LkClient({
+  const lk = new StudentPortalClient({
     cache: 10_000,
     cacheAdapter,
     blobAdapter,
   });
   lk.http = fakeHttp;
 
-  const data1 = await lk.getPersonalData();
-  const data2 = await lk.getPersonalData();
-  const photo1 = await lk.getPhoto();
-  const photo2 = await lk.getPhoto();
-  const groupId1 = await lk.getGroupId();
-  const groupId2 = await lk.getGroupId();
+  const data1 = await lk.getProfile();
+  const data2 = await lk.getProfile();
+  const photo1 = await lk.getProfilePhoto();
+  const photo2 = await lk.getProfilePhoto();
+  const groupId1 = await lk.getTimetableGroupId();
+  const groupId2 = await lk.getTimetableGroupId();
 
   assert.equal(data1.lastName, "Егоров");
   assert.equal(data2.group, "КТ-41-24");
@@ -341,13 +341,13 @@ test("LkClient caches personal data, photo and group id", async () => {
   assert.equal(fakeHttp.count("get", `${LK_BASE}/personal_data.php`), 1);
   assert.equal(fakeHttp.count("get", `${LK_BASE}/tt.php`), 1);
   assert.equal(fakeHttp.count("getBuffer", `${LK_BASE}/face.php`), 1);
-  assert.deepEqual(cacheAdapter.store.get("photo:self"), {
+  assert.deepEqual(cacheAdapter.store.get("profilePhoto:self"), {
     blobKey: "lk/photo/self",
   });
   assert.equal(blobAdapter.store.get("lk/photo/self")?.toString(), "lk-photo");
 });
 
-test("TtClient uses the timetable page academic year and active period for schedule cache", async () => {
+test("TimetableClient uses timetable context for canonical group schedule cache", async () => {
   const cacheAdapter = new FakeCacheAdapter();
   const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
   const fakeHttp = new FakeHttpClient({
@@ -364,15 +364,15 @@ test("TtClient uses the timetable page academic year and active period for sched
     },
   });
 
-  const tt = new TtClient({ cache: 10_000, cacheAdapter });
+  const tt = new TimetableClient({ cache: 10_000, cacheAdapter });
   tt.http = fakeHttp;
 
-  const schedule = await tt.getSchedule(8919);
+  const schedule = await tt.getGroupSchedule(8919);
 
   assert.equal(schedule.period, 1);
   assert.equal(schedule.academicYearStartYear, 2026);
   for (const period of [1, 2, 3, 4]) {
-    assert.ok(tt.exportCache()[`schedule:8919:${period}:2026-2027`]);
+    assert.ok(tt.exportCache()[`schedule:group:8919:${period}:2026-2027`]);
     assert.equal(
       fakeHttp.count(
         "post",
@@ -384,7 +384,7 @@ test("TtClient uses the timetable page academic year and active period for sched
   assert.equal(fakeHttp.count("get", groupUrl), 1);
 });
 
-test("TtClient does not guess academic year when timetable page lacks context", async () => {
+test("TimetableClient does not guess academic year when timetable page lacks context", async () => {
   const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
   const fakeHttp = new FakeHttpClient({
     get: {
@@ -395,11 +395,11 @@ test("TtClient does not guess academic year when timetable page lacks context", 
     },
   });
 
-  const tt = new TtClient();
+  const tt = new TimetableClient();
   tt.http = fakeHttp;
 
   await assert.rejects(
-    () => tt.getSchedule(8919),
+    () => tt.getGroupSchedule(8919),
     (error) =>
       error?.name === "ParseError" &&
       error?.message === "TT page does not expose the current academic year",
