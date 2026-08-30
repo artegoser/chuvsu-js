@@ -253,6 +253,50 @@ test("parseFullSchedule parses live remote room and teacher markup", () => {
   assert.equal(entry.weekParity, "even");
 });
 
+test("parseFullSchedule maps a trailing remote marker to a virtual room", () => {
+  const html = semesterPage(
+    `<span style="color: blue;">История России</span> (лк) (1 - 16 нед.) <br>
+    доц. к.и.н. Ласточкин В. Б.<span style="color: blue;"> (ДОТ)</span>`,
+  );
+  const entry = pickOnlyEntry(parseFullSchedule(html));
+
+  assert.equal(entry.room, "Дистанционно (ДОТ)");
+  assert.equal(entry.teacher.name, "Ласточкин В. Б.");
+  assert.equal(entry.isDistance, true);
+});
+
+test("parseFullSchedule supports individual and group lesson types", () => {
+  const individual = pickOnlyEntry(
+    parseFullSchedule(
+      semesterPage(
+        `III-103 <span style="color: blue;">Изучение хоровых партий</span> (из) (1 - 11 нед.) <br>
+        Степанова К. М.`,
+      ),
+    ),
+  );
+  const group = pickOnlyEntry(
+    parseFullSchedule(
+      semesterPage(
+        `III-109 <span style="color: blue;">Хоровой класс</span> (гз) (1 - 11 нед.) <br>
+        Ихонькина Г. В.`,
+      ),
+    ),
+  );
+
+  assert.equal(individual.type, "из");
+  assert.equal(group.type, "гз");
+
+  const uppercase = pickOnlyEntry(
+    parseFullSchedule(
+      semesterPage(
+        `I-212 <span style="color: blue;">Гражданское право</span> (КРП) (1 - 16 нед.) <br>
+        Матвеева Н. С.`,
+      ),
+    ),
+  );
+  assert.equal(uppercase.type, "КРП");
+});
+
 test("parseTeacherFullSchedule parses live remote room and group markup", () => {
   const html = semesterPage(
     `Дистанционно <span style="color: blue;">Информационные справочно-правовые системы</span> (лк) (1 - 16 нед.) <br>

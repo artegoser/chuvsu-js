@@ -36,11 +36,12 @@ export function parseEntryRoom(html: string, subject: string): string {
     .slice(0, subjectIndex)
     .replace(/^\*+\s*/, "")
     .trim();
+  if (DISTANCE_RE.test(stripHtml(html))) {
+    return "Дистанционно (ДОТ)";
+  }
   if (!beforeSubject) return "";
 
-  return DISTANCE_RE.test(beforeSubject)
-    ? "Дистанционно (ДОТ)"
-    : beforeSubject;
+  return beforeSubject;
 }
 
 export function stripDistanceMarker(value: string): string {

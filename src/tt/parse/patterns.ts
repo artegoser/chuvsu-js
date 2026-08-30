@@ -1,8 +1,9 @@
-export const LESSON_TYPE_PATTERN = "лк|пр|лб|зачо|зач|экз|конс|кп";
+export const LESSON_TYPE_PATTERN =
+  "лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп";
 export const FLEXIBLE_LESSON_TYPE_PATTERN =
   `(?:${LESSON_TYPE_PATTERN})\\.?|Экз`;
 
-export const LESSON_TYPE_RE = new RegExp(`\\((${LESSON_TYPE_PATTERN})\\)`);
+export const LESSON_TYPE_RE = new RegExp(`\\((${LESSON_TYPE_PATTERN})\\)`, "i");
 export const LESSON_TYPE_RE_I = new RegExp(
   `\\((${LESSON_TYPE_PATTERN})\\)`,
   "i",
@@ -13,7 +14,7 @@ export const FLEXIBLE_LESSON_TYPE_RE_I = new RegExp(
 );
 export const LESSON_TYPE_GLOBAL_RE = new RegExp(
   `\\((${LESSON_TYPE_PATTERN})\\)`,
-  "g",
+  "gi",
 );
 
 export const WEEKS_RE = /\(([^)]*нед\.?[^)]*)\)/;
