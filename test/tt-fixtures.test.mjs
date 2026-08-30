@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
-import { parseFullSchedule } from "../dist/tt/parse/index.js";
+import {
+  parseAcademicYearFromPage,
+  parseGroupSchedule,
+} from "../dist/tt/parse/index.js";
+import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
+import { TimetableRepository } from "../dist/tt/domain/repository.js";
 
 const FIXTURE_DIR = new URL("./fixtures/tt/group-schedules/", import.meta.url);
 const EXPECTED_DIR = new URL("./fixtures/tt/expected/", import.meta.url);
@@ -146,7 +151,7 @@ function compareFixture(fixture) {
   assertExpectedShape(expected, fixture);
   assert.ok(expected.days.length > 0, `${fixture.file}: empty schedule fixture included`);
 
-  const parsedDays = parseFullSchedule(fixture.html);
+  const parsedDays = parseGroupSchedule(fixture.html);
   assert.equal(parsedDays.length, expected.days.length, `${fixture.file}: day count changed`);
 
   for (const [dayIndex, expectedDay] of expected.days.entries()) {
@@ -201,11 +206,85 @@ function compareFixture(fixture) {
   }
 }
 
+function assertCanonicalFixture(fixture) {
+  let seriesSequence = 0;
+  let lessonSequence = 0;
+  const repository = new TimetableRepository({
+    idGenerator: {
+      seriesId: () => `ser_fixture_${++seriesSequence}`,
+      lessonId: () => `les_fixture_${++lessonSequence}`,
+    },
+  });
+  const parsedDays = parseGroupSchedule(fixture.html);
+  const academicYearStartYear = parseAcademicYearFromPage(fixture.html);
+  assert.ok(academicYearStartYear != null, `${fixture.file}: academic year missing`);
+  const owner = {
+    type: "group",
+    group: { id: fixture.groupId, name: fixture.expected.groupName },
+  };
+  const snapshot = createScheduleSourceSnapshot({
+    sourceKey: `fixture:${fixture.file}`,
+    owner,
+    academicYearStartYear,
+    period: fixture.period,
+    observedAt: new Date("2026-08-30T00:00:00.000Z"),
+    days: parsedDays,
+  });
+  const result = repository.ingest(snapshot);
+  const series = repository.getSeries({ owner });
+  const occurrences = repository.getDirectOccurrences({ owner });
+  const canonical = new Map([
+    ...series.map((value) => [value.id, value]),
+    ...occurrences.map((value) => [value.id, value]),
+  ]);
+  const exported = repository.export();
+  const links = exported.links.filter(
+    (value) => value.sourceKey === snapshot.sourceKey,
+  );
+
+  assert.equal(
+    links.length,
+    snapshot.observations.length,
+    `${fixture.file}: every observation must have an identity`,
+  );
+  assert.equal(
+    new Set(links.map((value) => value.id)).size,
+    links.length,
+    `${fixture.file}: distinct source rows unexpectedly share an identity`,
+  );
+  assert.equal(result.created, snapshot.observations.length);
+
+  for (const observation of snapshot.observations) {
+    const link = links.find(
+      (value) => value.observationKey === observation.key,
+    );
+    assert.ok(link?.id, `${fixture.file}/${observation.key}: ID missing`);
+    assert.match(
+      link.id,
+      observation.kind === "series" ? /^ser_/ : /^les_/,
+      `${fixture.file}/${observation.key}: wrong ID kind`,
+    );
+    const value = canonical.get(link.id);
+    assert.ok(value, `${fixture.file}/${observation.key}: canonical value missing`);
+    assert.equal(value.subject, observation.subject);
+    assert.equal(value.type, observation.type);
+    assert.equal(value.slot.number, observation.slot.number);
+    assert.ok(
+      value.groups.some((group) => group.group.id === fixture.groupId),
+      `${fixture.file}/${observation.key}: implicit group ID missing`,
+    );
+  }
+}
+
 const fixtures = await loadCorpus();
 
 for (const fixture of fixtures) {
   test(`group fixture ${fixture.file} matches static JSON by index`, () => {
     compareFixture(fixture);
+  });
+
+  test(`group fixture ${fixture.file} has canonical v5 identities`, () => {
+    assertCanonicalFixture(fixture);
   });
 }
 
