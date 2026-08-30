@@ -251,28 +251,44 @@ if (requestedGroup) {
 
 assert.ok(candidateGroups.length > 0, "No groups selected");
 
-const jobs = candidateGroups.flatMap((group) =>
-  periods.map((period) => ({ group, period })),
-);
 await mkdir(outputDir, { recursive: true });
 
 const failures = [];
 const fetched = [];
-await mapConcurrent(jobs, concurrency, async ({ group, period }) => {
-  const file = `group-${group.id}-period-${period}.html`;
-  try {
-    const pageHtml = await fetchSchedulePage(http, group, period);
-    fetched.push({
-      file,
-      group,
-      period,
-      pageHtml,
-      entryCount: countRawEntries(pageHtml),
-    });
-  } catch (error) {
-    failures.push({ file, message: error?.message ?? String(error) });
+const jobs = [];
+const batchSize = Math.max(concurrency * 4, 25);
+for (let offset = 0; offset < candidateGroups.length; offset += batchSize) {
+  const batchJobs = candidateGroups.slice(offset, offset + batchSize).flatMap((group) =>
+    periods.map((period) => ({ group, period })),
+  );
+  jobs.push(...batchJobs);
+  await mapConcurrent(batchJobs, concurrency, async ({ group, period }) => {
+    const file = `group-${group.id}-period-${period}.html`;
+    try {
+      const pageHtml = await fetchSchedulePage(http, group, period);
+      fetched.push({
+        file,
+        group,
+        period,
+        pageHtml,
+        entryCount: countRawEntries(pageHtml),
+      });
+    } catch (error) {
+      failures.push({ file, message: error?.message ?? String(error) });
+    }
+  });
+
+  const populatedGroupCount = new Set(
+    fetched.filter((item) => item.entryCount > 0).map((item) => item.group.id),
+  ).size;
+  if (
+    !requestedGroup &&
+    !process.argv.includes("--all") &&
+    populatedGroupCount >= limit
+  ) {
+    break;
   }
-});
+}
 assert.equal(failures.length, 0, `${failures.length} fixture fetch(es) failed`);
 
 const populatedGroupIds = new Set(
