@@ -1,9 +1,15 @@
 import type { BlobAdapter, CacheAdapter } from "../common/cache.js";
 import type {
+  TimetableRepositoryAdapter,
+  TimetableRepositorySnapshot,
+} from "./domain/types.js";
+import type { TimetableRepository } from "./domain/repository.js";
+import type {
   Time,
   WeekRange,
   Teacher,
   EducationType,
+  Period,
 } from "../common/types.js";
 
 export interface Faculty {
@@ -214,9 +220,30 @@ export interface CacheConfig {
   webinars?: number;
 }
 
-export interface TtClientOptions {
+export interface TimetableClientOptions {
   educationType?: EducationType;
   cache?: number | CacheConfig;
   cacheAdapter?: CacheAdapter;
   blobAdapter?: BlobAdapter;
+  /** Existing canonical repository, useful for dependency injection/browser handoff. */
+  repository?: TimetableRepository;
+  /** Persistent canonical identity storage. Independent from the TTL cache. */
+  repositoryAdapter?: TimetableRepositoryAdapter;
 }
+
+/** @deprecated Use `TimetableClientOptions`. */
+export type TtClientOptions = TimetableClientOptions;
+
+export interface GetScheduleOptions {
+  periods?: readonly Period[];
+}
+
+export type EntityResolutionStrategy = "cache-only" | "search";
+
+export interface DirectoryPreloadOptions {
+  teachers?: boolean;
+  rooms?: boolean;
+  facultyIds?: number[];
+}
+
+export type { TimetableRepositorySnapshot };

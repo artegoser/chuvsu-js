@@ -17,7 +17,16 @@ import {
   parsePeriodFromPage,
   parseWebinars,
 } from "./parse/index.js";
-import { Schedule } from "./schedule.js";
+import { ScheduleView } from "./domain/schedule.js";
+import { TimetableRepository } from "./domain/repository.js";
+import { createScheduleSourceSnapshot } from "./observations.js";
+import type {
+  GroupRef,
+  RoomRef,
+  ScheduleOwner,
+  TeacherRef,
+  TimetableRepositorySnapshot,
+} from "./domain/types.js";
 import type {
   Audience,
   AudienceInfo,
@@ -25,8 +34,11 @@ import type {
   Group,
   FullScheduleDay,
   TeacherInfo,
-  TtClientOptions,
+  TimetableClientOptions,
   CacheConfig,
+  DirectoryPreloadOptions,
+  EntityResolutionStrategy,
+  GetScheduleOptions,
   Webinar,
 } from "./types.js";
 
@@ -64,11 +76,15 @@ function formatDate(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export class TtClient {
+export class TimetableClient {
   private http = new HttpClient();
   private educationType: EducationType;
   private cache: HybridCache | null;
-  private blobAdapter = undefined as TtClientOptions["blobAdapter"];
+  private blobAdapter = undefined as TimetableClientOptions["blobAdapter"];
+  private _repository: TimetableRepository;
+  private repositoryAdapter: TimetableClientOptions["repositoryAdapter"];
+  private repositoryReady: Promise<void> | null = null;
+  private repositoryMutation: Promise<void> = Promise.resolve();
   private loginMode:
     | { type: "credentials"; email: string; password: string }
     | { type: "guest" }
@@ -77,9 +93,11 @@ export class TtClient {
     | { academicYearStartYear: number; period: Period; resolvedAt: number }
     | null = null;
 
-  constructor(opts?: TtClientOptions) {
+  constructor(opts?: TimetableClientOptions) {
     this.educationType = opts?.educationType ?? EducationType.HigherEducation;
     this.blobAdapter = opts?.blobAdapter;
+    this._repository = opts?.repository ?? new TimetableRepository();
+    this.repositoryAdapter = opts?.repositoryAdapter;
 
     if (opts?.cache == null) {
       this.cache = null;
@@ -98,6 +116,79 @@ export class TtClient {
 
   private get pertt(): string {
     return String(this.educationType);
+  }
+
+  get repository(): TimetableRepository {
+    return this._repository;
+  }
+
+  private async ensureRepository(): Promise<void> {
+    if (!this.repositoryAdapter) return;
+    if (!this.repositoryReady) {
+      this.repositoryReady = (async () => {
+        const snapshot = await this.repositoryAdapter!.load();
+        if (snapshot && this._repository.revision === 0) {
+          this._repository = new TimetableRepository({ snapshot });
+        }
+      })();
+    }
+    await this.repositoryReady;
+  }
+
+  private async mutateRepository<T>(
+    mutate: (repository: TimetableRepository) => T,
+  ): Promise<T> {
+    const operation = this.repositoryMutation.then(() =>
+      this.performRepositoryMutation(mutate),
+    );
+    this.repositoryMutation = operation.then(
+      () => undefined,
+      () => undefined,
+    );
+    return operation;
+  }
+
+  private async performRepositoryMutation<T>(
+    mutate: (repository: TimetableRepository) => T,
+  ): Promise<T> {
+    await this.ensureRepository();
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const expectedRevision = this._repository.revision;
+      const result = mutate(this._repository);
+      if (!this.repositoryAdapter) return result;
+      if (
+        await this.repositoryAdapter.compareAndSet(
+          expectedRevision,
+          this._repository.export(),
+        )
+      ) {
+        return result;
+      }
+      const latest = await this.repositoryAdapter.load();
+      this._repository = new TimetableRepository({
+        snapshot: latest ?? undefined,
+      });
+    }
+    throw new Error("Timetable repository update conflict");
+  }
+
+  async exportRepository(): Promise<TimetableRepositorySnapshot> {
+    await this.ensureRepository();
+    return this._repository.export();
+  }
+
+  private async rememberGroups(values: GroupRef[]): Promise<void> {
+    await this.mutateRepository((repository) => repository.rememberGroups(values));
+  }
+
+  private async rememberTeachers(values: TeacherRef[]): Promise<void> {
+    await this.mutateRepository((repository) =>
+      repository.rememberTeachers(values),
+    );
+  }
+
+  private async rememberRooms(values: RoomRef[]): Promise<void> {
+    await this.mutateRepository((repository) => repository.rememberRooms(values));
   }
 
   // --- Cache ---
@@ -220,12 +311,12 @@ export class TtClient {
 
   // --- Schedule ---
 
-  private async fetchSchedule(
+  private async fetchGroupSchedule(
     groupId: number,
     period: Period,
     academicYearStartYear: number,
   ): Promise<FullScheduleDay[]> {
-    const cacheKey = `${groupId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
+    const cacheKey = `group:${groupId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
     if (cached) return cached as FullScheduleDay[];
 
@@ -236,70 +327,148 @@ export class TtClient {
     return days;
   }
 
-  /**
-   * Get schedule for all periods. The returned Schedule automatically
-   * routes queries to the correct period based on the date.
-   */
-  async getSchedule(groupId: number): Promise<Schedule> {
-    const schedules = new Map<number, FullScheduleDay[]>();
-    const context = await this.getTimetableContext(
-      `${BASE}/index/grouptt/gr/${groupId}`,
-    );
-
-    const results = await Promise.all(
-      ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchSchedule(
-          groupId,
-          period,
-          context.academicYearStartYear,
-        );
-        return { period, days };
-      }),
-    );
-
-    for (const { period, days } of results) {
-      schedules.set(period, days);
+  private ownerUrl(owner: ScheduleOwner): string {
+    if (owner.type === "group") {
+      if (owner.group.id == null) throw new Error("Group owner requires an ID");
+      return `${BASE}/index/grouptt/gr/${owner.group.id}`;
     }
+    if (owner.type === "teacher") {
+      if (owner.teacher.id == null) {
+        throw new Error("Teacher owner requires an ID");
+      }
+      return `${BASE}/index/techtt/tech/${owner.teacher.id}`;
+    }
+    if (owner.room.id == null) throw new Error("Room owner requires an ID");
+    return `${BASE}/index/audtt/aud/${owner.room.id}`;
+  }
 
-    return new Schedule(
-      groupId,
-      schedules,
-      context.period,
-      this.educationType,
-      undefined,
-      undefined,
-      undefined,
-      context.academicYearStartYear,
+  private sourceKey(
+    owner: ScheduleOwner,
+    period: Period,
+    academicYearStartYear: number,
+  ): string {
+    const entity =
+      owner.type === "group"
+        ? owner.group
+        : owner.type === "teacher"
+          ? owner.teacher
+          : owner.room;
+    return `${owner.type}:${entity.id}:${period}:${academicYearStartYear}`;
+  }
+
+  private resolveOwner(owner: ScheduleOwner): ScheduleOwner {
+    if (owner.type === "group") {
+      return {
+        type: "group",
+        group: this._repository.directory.resolveGroup(owner.group),
+      };
+    }
+    if (owner.type === "teacher") {
+      return {
+        type: "teacher",
+        teacher: this._repository.directory.resolveTeacher(owner.teacher),
+      };
+    }
+    return {
+      type: "room",
+      room: this._repository.directory.resolveRoom(owner.room),
+    };
+  }
+
+  private async fetchOwnerSchedule(
+    owner: ScheduleOwner,
+    period: Period,
+    academicYearStartYear: number,
+  ): Promise<FullScheduleDay[]> {
+    if (owner.type === "group") {
+      return this.fetchGroupSchedule(
+        owner.group.id!,
+        period,
+        academicYearStartYear,
+      );
+    }
+    if (owner.type === "teacher") {
+      return this.fetchTeacherSchedule(
+        owner.teacher.id!,
+        period,
+        academicYearStartYear,
+      );
+    }
+    return this.fetchAudienceSchedule(
+      owner.room.id!,
+      period,
+      academicYearStartYear,
     );
   }
 
-  /**
-   * Get schedule for a specific period only.
-   */
+  async getSchedule(
+    owner: ScheduleOwner | number | { groupId: number },
+    options?: GetScheduleOptions,
+  ): Promise<ScheduleView> {
+    if (typeof owner === "number") return this.getGroupSchedule(owner, options);
+    if ("groupId" in owner) {
+      return this.getGroupSchedule(owner.groupId, options);
+    }
+    await this.ensureRepository();
+    if (owner.type === "group") await this.rememberGroups([owner.group]);
+    if (owner.type === "teacher") await this.rememberTeachers([owner.teacher]);
+    if (owner.type === "room") await this.rememberRooms([owner.room]);
+    const resolvedOwner = this.resolveOwner(owner);
+    const context = await this.getTimetableContext(this.ownerUrl(resolvedOwner));
+    const periods = options?.periods ?? ALL_PERIODS;
+    const results = await Promise.all(
+      periods.map(async (period) => ({
+        period,
+        days: await this.fetchOwnerSchedule(
+          resolvedOwner,
+          period,
+          context.academicYearStartYear,
+        ),
+      })),
+    );
+
+    for (const result of results) {
+      const snapshot = createScheduleSourceSnapshot({
+        sourceKey: this.sourceKey(
+          resolvedOwner,
+          result.period,
+          context.academicYearStartYear,
+        ),
+        owner: resolvedOwner,
+        academicYearStartYear: context.academicYearStartYear,
+        period: result.period,
+        days: result.days,
+      });
+      await this.mutateRepository((repository) => repository.ingest(snapshot));
+    }
+
+    return new ScheduleView(
+      this._repository,
+      this.resolveOwner(resolvedOwner),
+      context.academicYearStartYear,
+      { period: periods.length === 1 ? periods[0] : context.period },
+    );
+  }
+
+  async getGroupSchedule(
+    groupId: number,
+    options?: GetScheduleOptions,
+  ): Promise<ScheduleView> {
+    await this.ensureRepository();
+    return this.getSchedule(
+      {
+        type: "group",
+        group: this._repository.directory.resolveGroup({ id: groupId, name: "" }),
+      },
+      options,
+    );
+  }
+
   async getScheduleForPeriod(opts: {
     groupId: number;
     period: Period;
-  }): Promise<Schedule> {
-    const context = await this.getTimetableContext(
-      `${BASE}/index/grouptt/gr/${opts.groupId}`,
-    );
-    const days = await this.fetchSchedule(
-      opts.groupId,
-      opts.period,
-      context.academicYearStartYear,
-    );
-    const schedules = new Map<number, FullScheduleDay[]>();
-    schedules.set(opts.period, days);
-    return new Schedule(
-      opts.groupId,
-      schedules,
-      opts.period,
-      this.educationType,
-      undefined,
-      undefined,
-      undefined,
-      context.academicYearStartYear,
-    );
+  }): Promise<ScheduleView> {
+    return this.getGroupSchedule(opts.groupId, { periods: [opts.period] });
   }
 
   async getWebinars(opts?: {
@@ -365,7 +534,11 @@ export class TtClient {
   async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
     const cacheKey = String(opts.facultyId);
     const cached = await this.cache?.get("groups", cacheKey);
-    if (cached) return cached as Group[];
+    if (cached) {
+      const data = cached as Group[];
+      await this.rememberGroups(data);
+      return data;
+    }
 
     const { body } = await this.authPost(`${BASE}/`, {
       hfac: String(opts.facultyId),
@@ -373,13 +546,18 @@ export class TtClient {
     });
     const data = parseGroupButtons(body);
     await this.cache?.set("groups", cacheKey, data);
+    await this.rememberGroups(data);
     return data;
   }
 
   async searchGroup(opts: { name: string }): Promise<Group[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
     const cached = await this.cache?.get("groups", cacheKey);
-    if (cached) return cached as Group[];
+    if (cached) {
+      const data = cached as Group[];
+      await this.rememberGroups(data);
+      return data;
+    }
 
     const { body } = await this.authPost(`${BASE}/`, {
       grname: opts.name,
@@ -389,7 +567,12 @@ export class TtClient {
     });
     const data = parseGroupButtons(body);
     await this.cache?.set("groups", cacheKey, data);
+    await this.rememberGroups(data);
     return data;
+  }
+
+  async searchGroups(name: string): Promise<GroupRef[]> {
+    return this.searchGroup({ name });
   }
 
   /**
@@ -399,7 +582,11 @@ export class TtClient {
   async searchAudience(opts: { name: string }): Promise<Audience[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
     const cached = await this.cache?.get("audiences", cacheKey);
-    if (cached) return cached as Audience[];
+    if (cached) {
+      const data = cached as Audience[];
+      await this.rememberRooms(data);
+      return data;
+    }
 
     const { body } = await this.authPost(`${BASE}/`, {
       audname: opts.name,
@@ -409,7 +596,12 @@ export class TtClient {
     });
     const data = parseAudienceButtons(body);
     await this.cache?.set("audiences", cacheKey, data);
+    await this.rememberRooms(data);
     return data;
+  }
+
+  async searchRooms(name: string): Promise<RoomRef[]> {
+    return this.searchAudience({ name });
   }
 
   /**
@@ -423,7 +615,11 @@ export class TtClient {
   async getAudiences(): Promise<Audience[]> {
     const cacheKey = `all:${this.pertt}`;
     const cached = await this.cache?.get("audiences", cacheKey);
-    if (cached) return cached as Audience[];
+    if (cached) {
+      const data = cached as Audience[];
+      await this.rememberRooms(data);
+      return data;
+    }
 
     const { body } = await this.authPost(`${BASE}/`, {
       audname: "%%%",
@@ -433,7 +629,64 @@ export class TtClient {
     });
     const data = parseAudienceButtons(body);
     await this.cache?.set("audiences", cacheKey, data);
+    await this.rememberRooms(data);
     return data;
+  }
+
+  async getRooms(): Promise<RoomRef[]> {
+    return this.getAudiences();
+  }
+
+  async resolveGroup(
+    value: string | GroupRef,
+    options?: { strategy?: EntityResolutionStrategy },
+  ): Promise<GroupRef> {
+    await this.ensureRepository();
+    const ref = typeof value === "string" ? { name: value } : value;
+    let resolved = this._repository.directory.resolveGroup(ref);
+    if (resolved.id == null && options?.strategy === "search") {
+      await this.searchGroups(ref.name);
+      resolved = this._repository.directory.resolveGroup(ref);
+    }
+    return resolved;
+  }
+
+  async resolveTeacher(
+    value: string | TeacherRef,
+    options?: { strategy?: EntityResolutionStrategy },
+  ): Promise<TeacherRef> {
+    await this.ensureRepository();
+    const ref = typeof value === "string" ? { name: value } : value;
+    let resolved = this._repository.directory.resolveTeacher(ref);
+    if (resolved.id == null && options?.strategy === "search") {
+      await this.searchTeachers(ref.name);
+      resolved = this._repository.directory.resolveTeacher(ref);
+    }
+    return resolved;
+  }
+
+  async resolveRoom(
+    value: string | RoomRef,
+    options?: { strategy?: EntityResolutionStrategy },
+  ): Promise<RoomRef> {
+    await this.ensureRepository();
+    const ref = typeof value === "string" ? { name: value } : value;
+    let resolved = this._repository.directory.resolveRoom(ref);
+    if (resolved.id == null && options?.strategy === "search") {
+      await this.searchRooms(ref.name.length >= 3 ? ref.name : "%%%");
+      resolved = this._repository.directory.resolveRoom(ref);
+    }
+    return resolved;
+  }
+
+  async preloadDirectory(options: DirectoryPreloadOptions): Promise<void> {
+    const requests: Promise<unknown>[] = [];
+    if (options.teachers) requests.push(this.getTeachers());
+    if (options.rooms) requests.push(this.getRooms());
+    for (const facultyId of options.facultyIds ?? []) {
+      requests.push(this.getGroupsForFaculty({ facultyId }));
+    }
+    await Promise.all(requests);
   }
 
   /**
@@ -450,11 +703,17 @@ export class TtClient {
   async getAudienceName(audienceId: number): Promise<string | null> {
     const cacheKey = String(audienceId);
     const cached = await this.cache?.get("audienceNames", cacheKey);
-    if (cached !== null && cached !== undefined) return cached as string | null;
+    if (cached !== null && cached !== undefined) {
+      const name = cached as string | null;
+      if (name) await this.rememberRooms([{ id: audienceId, name }]);
+      return name;
+    }
 
     const cachedInfo = await this.cache?.get("audienceInfo", cacheKey);
     if (cachedInfo) {
-      return (cachedInfo as AudienceInfo).name ?? null;
+      const name = (cachedInfo as AudienceInfo).name ?? null;
+      if (name) await this.rememberRooms([{ id: audienceId, name }]);
+      return name;
     }
 
     const { body } = await this.authGet(
@@ -464,6 +723,7 @@ export class TtClient {
     const info = parseAudienceInfo(body);
     await this.cache?.set("audienceNames", cacheKey, name);
     if (info) await this.cache?.set("audienceInfo", cacheKey, info);
+    if (name) await this.rememberRooms([{ id: audienceId, name }]);
     return name;
   }
 
@@ -473,13 +733,18 @@ export class TtClient {
    */
   async getAudienceInfo(audienceId: number): Promise<AudienceInfo | null> {
     const cached = await this.cache?.get("audienceInfo", String(audienceId));
-    if (cached) return cached as AudienceInfo;
+    if (cached) {
+      const info = cached as AudienceInfo;
+      await this.rememberRooms([{ id: audienceId, name: info.name }]);
+      return info;
+    }
 
     const { body } = await this.authGet(
       `${BASE}/index/audtt/aud/${audienceId}`,
     );
     const info = parseAudienceInfo(body);
     if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
+    if (info) await this.rememberRooms([{ id: audienceId, name: info.name }]);
     return info;
   }
 
@@ -501,68 +766,39 @@ export class TtClient {
     if (!(await this.cache?.get("audienceInfo", String(audienceId)))) {
       const info = parseAudienceInfo(body);
       if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
+      if (info) await this.rememberRooms([{ id: audienceId, name: info.name }]);
     }
 
     return days;
   }
 
-  async getAudienceSchedule(audienceId: number): Promise<Schedule> {
-    const schedules = new Map<number, FullScheduleDay[]>();
-    const context = await this.getTimetableContext(
-      `${BASE}/index/audtt/aud/${audienceId}`,
+  async getRoomSchedule(
+    roomId: number,
+    options?: GetScheduleOptions,
+  ): Promise<ScheduleView> {
+    await this.ensureRepository();
+    return this.getSchedule(
+      {
+        type: "room",
+        room: this._repository.directory.resolveRoom({ id: roomId, name: "" }),
+      },
+      options,
     );
+  }
 
-    const results = await Promise.all(
-      ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchAudienceSchedule(
-          audienceId,
-          period,
-          context.academicYearStartYear,
-        );
-        return { period, days };
-      }),
-    );
-
-    for (const { period, days } of results) {
-      schedules.set(period, days);
-    }
-
-    return new Schedule(
-      audienceId,
-      schedules,
-      context.period,
-      this.educationType,
-      undefined,
-      undefined,
-      undefined,
-      context.academicYearStartYear,
-    );
+  /** @deprecated Use `getRoomSchedule`. */
+  async getAudienceSchedule(
+    audienceId: number,
+    options?: GetScheduleOptions,
+  ): Promise<ScheduleView> {
+    return this.getRoomSchedule(audienceId, options);
   }
 
   async getAudienceScheduleForPeriod(opts: {
     audienceId: number;
     period: Period;
-  }): Promise<Schedule> {
-    const context = await this.getTimetableContext(
-      `${BASE}/index/audtt/aud/${opts.audienceId}`,
-    );
-    const days = await this.fetchAudienceSchedule(
-      opts.audienceId,
-      opts.period,
-      context.academicYearStartYear,
-    );
-    const schedules = new Map<number, FullScheduleDay[]>();
-    schedules.set(opts.period, days);
-    return new Schedule(
-      opts.audienceId,
-      schedules,
-      opts.period,
-      this.educationType,
-      undefined,
-      undefined,
-      undefined,
-      context.academicYearStartYear,
-    );
+  }): Promise<ScheduleView> {
+    return this.getRoomSchedule(opts.audienceId, { periods: [opts.period] });
   }
 
   private async getCachedAudienceImage(
@@ -646,7 +882,11 @@ export class TtClient {
   }): Promise<{ id: number; name: string }[]> {
     const cacheKey = `search:${opts.name}:${this.pertt}`;
     const cached = await this.cache?.get("teachers", cacheKey);
-    if (cached) return cached as { id: number; name: string }[];
+    if (cached) {
+      const data = cached as Array<{ id: number; name: string }>;
+      await this.rememberTeachers(data);
+      return data;
+    }
 
     const { body } = await this.authPost(`${BASE}/`, {
       techname: opts.name,
@@ -656,18 +896,28 @@ export class TtClient {
     });
     const data = parseTeacherButtons(body);
     await this.cache?.set("teachers", cacheKey, data);
+    await this.rememberTeachers(data);
     return data;
+  }
+
+  async searchTeachers(name: string): Promise<TeacherRef[]> {
+    return this.searchTeacher({ name });
   }
 
   // --- Teacher schedule ---
 
   async getTeachers(): Promise<{ id: number; name: string }[]> {
     const cached = await this.cache?.get("teachers", "all");
-    if (cached) return cached as { id: number; name: string }[];
+    if (cached) {
+      const data = cached as TeacherRef[];
+      await this.rememberTeachers(data);
+      return data as Array<{ id: number; name: string }>;
+    }
 
     const { body } = await this.authGet(`${BASE}/index/tech`);
     const data = parseTeacherButtons(body);
     await this.cache?.set("teachers", "all", data);
+    await this.rememberTeachers(data);
     return data;
   }
 
@@ -689,78 +939,63 @@ export class TtClient {
     if (!(await this.cache?.get("teacherInfo", String(teacherId)))) {
       const info = parseTeacherInfo(body);
       if (info) await this.cache?.set("teacherInfo", String(teacherId), info);
+      if (info) {
+        await this.rememberTeachers([
+          {
+            id: teacherId,
+            name: info.name,
+            degree: info.degree,
+          },
+        ]);
+      }
     }
 
     return days;
   }
 
-  async getTeacherSchedule(teacherId: number): Promise<Schedule> {
-    const schedules = new Map<number, FullScheduleDay[]>();
-    const context = await this.getTimetableContext(
-      `${BASE}/index/techtt/tech/${teacherId}`,
-    );
-
-    const results = await Promise.all(
-      ALL_PERIODS.map(async (period) => {
-        const days = await this.fetchTeacherSchedule(
-          teacherId,
-          period,
-          context.academicYearStartYear,
-        );
-        return { period, days };
-      }),
-    );
-
-    for (const { period, days } of results) {
-      schedules.set(period, days);
-    }
-
-    return new Schedule(
-      teacherId,
-      schedules,
-      context.period,
-      this.educationType,
-      undefined,
-      undefined,
-      true,
-      context.academicYearStartYear,
+  async getTeacherSchedule(
+    teacherId: number,
+    options?: GetScheduleOptions,
+  ): Promise<ScheduleView> {
+    await this.ensureRepository();
+    return this.getSchedule(
+      {
+        type: "teacher",
+        teacher: this._repository.directory.resolveTeacher({
+          id: teacherId,
+          name: "",
+        }),
+      },
+      options,
     );
   }
 
   async getTeacherScheduleForPeriod(opts: {
     teacherId: number;
     period: Period;
-  }): Promise<Schedule> {
-    const context = await this.getTimetableContext(
-      `${BASE}/index/techtt/tech/${opts.teacherId}`,
-    );
-    const days = await this.fetchTeacherSchedule(
-      opts.teacherId,
-      opts.period,
-      context.academicYearStartYear,
-    );
-    const schedules = new Map<number, FullScheduleDay[]>();
-    schedules.set(opts.period, days);
-    return new Schedule(
-      opts.teacherId,
-      schedules,
-      opts.period,
-      this.educationType,
-      undefined,
-      undefined,
-      true,
-      context.academicYearStartYear,
-    );
+  }): Promise<ScheduleView> {
+    return this.getTeacherSchedule(opts.teacherId, { periods: [opts.period] });
   }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
     const cached = await this.cache?.get("teacherInfo", String(teacherId));
-    if (cached) return cached as TeacherInfo;
+    if (cached) {
+      const info = cached as TeacherInfo;
+      await this.rememberTeachers([
+        { id: teacherId, name: info.name, degree: info.degree },
+      ]);
+      return info;
+    }
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authGet(url);
     const info = parseTeacherInfo(body);
     if (info) await this.cache?.set("teacherInfo", String(teacherId), info);
+    if (info) {
+      await this.rememberTeachers([
+        { id: teacherId, name: info.name, degree: info.degree },
+      ]);
+    }
     return info;
   }
 
@@ -866,3 +1101,6 @@ export class TtClient {
     return photoBuffer;
   }
 }
+
+/** @deprecated Use `TimetableClient`. */
+export { TimetableClient as TtClient };
