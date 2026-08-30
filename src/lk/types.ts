@@ -1,6 +1,6 @@
 import type { BlobAdapter, CacheAdapter } from "../common/cache.js";
 
-export interface PersonalData {
+export interface StudentProfile {
   lastName: string;
   firstName: string;
   patronymic: string;
@@ -16,14 +16,14 @@ export interface PersonalData {
   phone: string;
 }
 
-export interface LkCacheConfig {
-  personalData?: number;
-  photo?: number;
-  groupId?: number;
+export interface StudentPortalCacheConfig {
+  profile?: number;
+  profilePhoto?: number;
+  timetableGroupId?: number;
 }
 
-export interface LkClientOptions {
-  cache?: number | LkCacheConfig;
+export interface StudentPortalClientOptions {
+  cache?: number | StudentPortalCacheConfig;
   cacheAdapter?: CacheAdapter;
   blobAdapter?: BlobAdapter;
 }

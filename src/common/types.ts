@@ -1,11 +1,11 @@
-export const enum Period {
+export enum AcademicPeriod {
   FallSemester = 1,
   WinterSession = 2,
   SpringSemester = 3,
   SummerSession = 4,
 }
 
-export const enum EducationType {
+export enum EducationLevel {
   HigherEducation = 1,
   VocationalEducation = 2,
 }

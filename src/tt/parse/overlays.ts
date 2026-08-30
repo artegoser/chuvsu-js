@@ -1,7 +1,7 @@
 import { parseTeacher, text } from "../../common/parse.js";
 import type { Teacher } from "../../common/types.js";
 import type {
-  ScheduleEntry,
+  ParsedScheduleEntry,
   Substitution,
   TransferInfo,
 } from "../types.js";
@@ -24,7 +24,7 @@ export function parseDate(dd: string, mm: string, yyyy: string): Date {
 
 export function parseTransferDiv(
   div: Element,
-): { transfer: TransferInfo; entry: ScheduleEntry } | null {
+): { transfer: TransferInfo; entry: ParsedScheduleEntry } | null {
   const divText = text(div);
   const divHtml = div.innerHTML ?? "";
 
@@ -123,7 +123,7 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
 }
 
 export function parseSubstituteForDiv(div: Element): {
-  entry: ScheduleEntry;
+  entry: ParsedScheduleEntry;
 } | null {
   const divText = text(div);
   const divHtml = div.innerHTML ?? "";

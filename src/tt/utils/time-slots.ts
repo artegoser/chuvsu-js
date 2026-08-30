@@ -1,4 +1,4 @@
-import { EducationType } from "../../common/types.js";
+import { EducationLevel } from "../../common/types.js";
 import type { Time } from "../../common/types.js";
 import type { LessonTimeSlot } from "../types.js";
 
@@ -23,8 +23,8 @@ const SPO_TIME_SLOTS: LessonTimeSlot[] = [
   { number: 7, start: { hours: 18, minutes: 55 }, end: { hours: 20, minutes: 25 } },
 ];
 
-export function getTimeSlots(educationType: EducationType): LessonTimeSlot[] {
-  return educationType === EducationType.VocationalEducation
+export function getTimeSlots(educationLevel: EducationLevel): LessonTimeSlot[] {
+  return educationLevel === EducationLevel.VocationalEducation
     ? SPO_TIME_SLOTS
     : VO_TIME_SLOTS;
 }
@@ -35,9 +35,9 @@ function timeToMinutes(t: Time): number {
 
 export function getLessonNumber(
   time: Time,
-  educationType: EducationType,
+  educationLevel: EducationLevel,
 ): number {
-  const slots = getTimeSlots(educationType);
+  const slots = getTimeSlots(educationLevel);
   const target = timeToMinutes(time);
 
   let closest = slots[0];

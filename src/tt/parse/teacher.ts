@@ -5,11 +5,11 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
-import { EducationType } from "../../common/types.js";
+import { EducationLevel } from "../../common/types.js";
 import type {
-  FullScheduleDay,
-  FullScheduleSlot,
-  ScheduleEntry,
+  ParsedScheduleDay,
+  ParsedScheduleSlot,
+  ParsedScheduleEntry,
   Substitution,
   TeacherInfo,
 } from "../types.js";
@@ -36,12 +36,12 @@ import {
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
-export function parseTeacherFullSchedule(
+export function parseTeacherSchedule(
   html: string,
-  educationType?: EducationType,
-): FullScheduleDay[] {
+  educationLevel?: EducationLevel,
+): ParsedScheduleDay[] {
   const doc = parseHtml(html);
-  const edType = educationType ?? EducationType.HigherEducation;
+  const edType = educationLevel ?? EducationLevel.HigherEducation;
 
   if (doc.querySelector('td[id^="trd2"]')) {
     return parseTeacherSessionSchedule(doc, edType);
@@ -50,7 +50,7 @@ export function parseTeacherFullSchedule(
   return parseSemesterScheduleWith(doc, parseTeacherSemesterEntry);
 }
 
-function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
+function parseTeacherSemesterEntry(el: Element): ParsedScheduleEntry | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -124,9 +124,9 @@ function parseTeacherSemesterEntry(el: Element): ScheduleEntry | null {
 
 function parseTeacherSessionSchedule(
   doc: Document,
-  educationType: EducationType,
-): FullScheduleDay[] {
-  const days: FullScheduleDay[] = [];
+  educationLevel: EducationLevel,
+): ParsedScheduleDay[] {
+  const days: ParsedScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
     const id = dateCell.getAttribute("id") ?? "";
@@ -147,7 +147,7 @@ function parseTeacherSessionSchedule(
       continue;
     }
 
-    const slots: FullScheduleSlot[] = [];
+    const slots: ParsedScheduleSlot[] = [];
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
@@ -155,7 +155,7 @@ function parseTeacherSessionSchedule(
       if (!entry) continue;
 
       slots.push({
-        number: getLessonNumber(entry.timeStart, educationType),
+        number: getLessonNumber(entry.timeStart, educationLevel),
         timeStart: entry.timeStart,
         timeEnd: entry.timeEnd,
         entries: [entry.entry],
@@ -173,7 +173,7 @@ function parseTeacherSessionSchedule(
 function parseTeacherSessionEntry(
   td: Element,
 ): {
-  entry: ScheduleEntry;
+  entry: ParsedScheduleEntry;
   timeStart: { hours: number; minutes: number };
   timeEnd: { hours: number; minutes: number };
 } | null {

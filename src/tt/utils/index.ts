@@ -11,15 +11,6 @@ export {
 } from "./semester.js";
 export { getLessonNumber, getTimeSlots } from "./time-slots.js";
 export {
-  attachWebinarsToLessons,
-  collectTransfers,
-  filterSlots,
-  matchWebinarToLesson,
-  slotsToLessons,
-  sortLessons,
-  suppressTransferredLessons,
-} from "./lessons.js";
-export {
   getCompensatingWorkDays,
   getEffectiveHolidays,
   getHolidayTransfers,

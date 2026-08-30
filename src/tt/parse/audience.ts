@@ -6,9 +6,9 @@ import {
   text,
 } from "../../common/parse.js";
 import type {
-  AudienceInfo,
-  FullScheduleDay,
-  ScheduleEntry,
+  RoomInfo,
+  ParsedScheduleDay,
+  ParsedScheduleEntry,
   Substitution,
 } from "../types.js";
 import { parseSemesterScheduleWith } from "./full-schedule.js";
@@ -30,7 +30,7 @@ import { linesAfterSubject, stripDistanceMarker } from "./entry-parts.js";
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
-export function parseAudienceInfo(html: string): AudienceInfo | null {
+export function parseRoomInfo(html: string): RoomInfo | null {
   const doc = parseHtml(html);
 
   // Name: <span class="htext"><nobr>Аудитория <span style="color: blue;">NAME</span></nobr></span>
@@ -97,7 +97,7 @@ export function parseAudienceInfo(html: string): AudienceInfo | null {
   };
 }
 
-function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
+function parseRoomSemesterEntry(el: Element): ParsedScheduleEntry | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -180,7 +180,7 @@ function parseAudienceSemesterEntry(el: Element): ScheduleEntry | null {
   };
 }
 
-export function parseAudienceFullSchedule(html: string): FullScheduleDay[] {
+export function parseRoomSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
-  return parseSemesterScheduleWith(doc, parseAudienceSemesterEntry);
+  return parseSemesterScheduleWith(doc, parseRoomSemesterEntry);
 }

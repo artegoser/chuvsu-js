@@ -12,10 +12,10 @@ export {
   MemoryTimetableRepositoryAdapter,
   TimetableRepository,
 } from "./repository.js";
-export { ScheduleView } from "./schedule.js";
+export { Schedule } from "./schedule.js";
 export type {
   ScheduleQueryOptions,
-  ScheduleViewOptions,
+  ScheduleOptions,
   ScheduleWeekdayOptions,
 } from "./schedule.js";
 export type {

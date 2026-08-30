@@ -1,4 +1,4 @@
-import type { Period, Time, WeekRange } from "../../common/types.js";
+import type { AcademicPeriod, Time, WeekRange } from "../../common/types.js";
 
 export type LessonSeriesId = string;
 export type LessonId = string;
@@ -67,7 +67,7 @@ export interface LessonSourceRef {
 export interface LessonSeries {
   id: LessonSeriesId;
   academicYearStartYear: number;
-  period: Period;
+  period: AcademicPeriod;
   subject: string;
   type: string;
   slot: LessonSlot;
@@ -87,7 +87,7 @@ export interface LessonOccurrence {
   id: LessonId;
   seriesId?: LessonSeriesId;
   academicYearStartYear: number;
-  period: Period;
+  period: AcademicPeriod;
   academicWeek?: number;
   nominalDate: Date;
   date: Date;
@@ -142,7 +142,7 @@ export interface ScheduleSourceSnapshot {
   sourceKey: string;
   owner: ScheduleOwner;
   academicYearStartYear: number;
-  period: Period;
+  period: AcademicPeriod;
   observedAt: Date;
   observations: ScheduleObservation[];
 }

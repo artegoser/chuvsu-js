@@ -25,8 +25,8 @@ Status: accepted for v5 implementation.
 | `FullScheduleDay` | `ParsedScheduleDay` (parser boundary) | Makes raw/parser ownership explicit. |
 | `groupId` on every `Schedule` | `owner: ScheduleOwner` | A schedule can belong to a group, teacher, or room. |
 
-Deprecated v4 aliases may remain where they do not weaken the v5 model. New
-code and documentation use v5 names.
+v5 is intentionally breaking. Runtime aliases and legacy call shapes are not
+retained; migration guidance documents replacements instead.
 
 ## Package boundaries
 
@@ -155,9 +155,6 @@ queries are synchronous after client ingestion:
 - `today()` / `tomorrow()` / `thisWeek()`;
 - `current()`;
 - `series()` for recurring definitions.
-
-Compatibility aliases (`forDate`, `forWeek`, `currentLesson`) may delegate to
-the new names.
 
 Query resolution expands recurring series into occurrences, applies holiday
 rules, substitutions, transfers, and cancellations, then combines direct

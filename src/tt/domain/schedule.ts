@@ -1,4 +1,4 @@
-import { Period } from "../../common/types.js";
+import { AcademicPeriod } from "../../common/types.js";
 import {
   getAdjacentSemester,
   getCurrentPeriod,
@@ -30,8 +30,8 @@ export interface ScheduleWeekdayOptions extends ScheduleQueryOptions {
   week?: number;
 }
 
-export interface ScheduleViewOptions {
-  period?: Period;
+export interface ScheduleOptions {
+  period?: AcademicPeriod;
   holidays?: Holiday[] | null;
   holidayTransfers?: HolidayTransfer[];
 }
@@ -46,7 +46,7 @@ function dateAt(
 }
 
 function semesterCalendarYear(series: LessonSeries): number {
-  return series.period === Period.FallSemester
+  return series.period === AcademicPeriod.FallSemester
     ? series.academicYearStartYear
     : series.academicYearStartYear + 1;
 }
@@ -114,11 +114,11 @@ function sortOccurrences(
   );
 }
 
-export class ScheduleView {
+export class Schedule {
   readonly repository: TimetableRepository;
   readonly owner: ScheduleOwner;
   readonly academicYearStartYear: number;
-  readonly period: Period;
+  readonly period: AcademicPeriod;
   readonly holidays: Holiday[];
   readonly holidayTransfers: HolidayTransfer[];
 
@@ -126,7 +126,7 @@ export class ScheduleView {
     repository: TimetableRepository,
     owner: ScheduleOwner,
     academicYearStartYear: number,
-    options?: ScheduleViewOptions,
+    options?: ScheduleOptions,
   ) {
     this.repository = repository;
     this.owner = owner;
@@ -253,12 +253,12 @@ export class ScheduleView {
 
   week(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {
     const period =
-      this.period === Period.WinterSession ||
-      this.period === Period.SummerSession
+      this.period === AcademicPeriod.WinterSession ||
+      this.period === AcademicPeriod.SummerSession
         ? getAdjacentSemester(this.period)
         : this.period;
     const year =
-      period === Period.FallSemester
+      period === AcademicPeriod.FallSemester
         ? this.academicYearStartYear
         : this.academicYearStartYear + 1;
     let monday: Date;
@@ -321,35 +321,16 @@ export class ScheduleView {
     );
   }
 
-  forDate(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
-    return this.on(date, options);
-  }
-
-  forWeek(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {
-    return this.week(week, options);
-  }
-
-  forDay(
-    weekday: number,
-    options?: ScheduleWeekdayOptions,
-  ): LessonOccurrence[] {
-    return this.weekday(weekday, options);
-  }
-
-  currentLesson(options?: ScheduleQueryOptions): LessonOccurrence | null {
-    return this.current(options);
-  }
-
   getWeekNumber(date?: Date): number {
     const period =
-      this.period === Period.WinterSession ||
-      this.period === Period.SummerSession
+      this.period === AcademicPeriod.WinterSession ||
+      this.period === AcademicPeriod.SummerSession
         ? getAdjacentSemester(this.period)
         : this.period;
     return getWeekNumber({
       period,
       year:
-        period === Period.FallSemester
+        period === AcademicPeriod.FallSemester
           ? this.academicYearStartYear
           : this.academicYearStartYear + 1,
       date,
@@ -358,14 +339,14 @@ export class ScheduleView {
 
   getSemesterWeeks(weekCount?: number) {
     const period =
-      this.period === Period.WinterSession ||
-      this.period === Period.SummerSession
+      this.period === AcademicPeriod.WinterSession ||
+      this.period === AcademicPeriod.SummerSession
         ? getAdjacentSemester(this.period)
         : this.period;
     return getSemesterWeeks({
       period,
       year:
-        period === Period.FallSemester
+        period === AcademicPeriod.FallSemester
           ? this.academicYearStartYear
           : this.academicYearStartYear + 1,
       weekCount,
@@ -374,14 +355,14 @@ export class ScheduleView {
 
   getSemesterStart(): Date {
     const period =
-      this.period === Period.WinterSession ||
-      this.period === Period.SummerSession
+      this.period === AcademicPeriod.WinterSession ||
+      this.period === AcademicPeriod.SummerSession
         ? getAdjacentSemester(this.period)
         : this.period;
     return getSemesterStart({
       period,
       year:
-        period === Period.FallSemester
+        period === AcademicPeriod.FallSemester
           ? this.academicYearStartYear
           : this.academicYearStartYear + 1,
     });

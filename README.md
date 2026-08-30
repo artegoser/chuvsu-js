@@ -1,301 +1,251 @@
 # chuvsu-js
 
-Node.js библиотека для работы с порталами ЧувГУ:
+Typed clients and schedule model for ChuvSU services:
 
-- **tt.chuvsu.ru** — расписание занятий (факультеты, группы, преподаватели)
-- **lk.chuvsu.ru** — личный кабинет студента (персональные данные)
+- `tt.chuvsu.ru` — group, teacher, room, and webinar schedules;
+- `lk.chuvsu.ru` — student profile portal.
 
-> [!WARNING]
-> Пока не доработана, код и архитектура говно (написано Claude) и надо бы его 10 раз переписать.
-> Не надейтесь на правильный вывод расписания, возможны расхождения но я их фикшу оперативно,
-> как появляется больше информации.
+Version 5 uses one canonical timetable repository. The same lesson observed on
+group, teacher, and room pages receives one identity and accumulates the most
+complete known participants, teacher IDs, and room IDs.
 
-## Установка
+## Install
 
 ```bash
 npm install chuvsu-js
 ```
 
-## Быстрый старт
+Node.js 20+ and ESM are recommended.
 
-### Расписание (TtClient)
+## Timetable quick start
 
 ```ts
-import { TtClient } from "chuvsu-js";
+import { TimetableClient } from "chuvsu-js";
 
-const tt = new TtClient();
+const client = new TimetableClient({ cache: 15 * 60_000 });
+await client.loginAsGuest();
 
-// Войти гостем (без учётной записи)
-await tt.loginAsGuest();
+const [group] = await client.searchGroups("КТ-41-24");
+const schedule = await client.getGroupSchedule(group.id);
 
-// Найти группу по названию
-const groups = await tt.searchGroup({ name: "КТ-41-24" });
-console.log(groups); // [{ id: 8919, name: "КТ-41-24", specialty: "...", profile: "..." }]
-
-// Получить расписание группы
-const schedule = await tt.getSchedule({ groupId: groups[0].id });
-
-// Расписание на сегодня
-const today = schedule.today();
-for (const lesson of today) {
-  console.log(
-    `${lesson.start.hours}:${lesson.start.minutes} — ${lesson.subject} (${lesson.type})`,
-  );
+for (const lesson of schedule.today({ subgroup: 1 })) {
+  console.log(lesson.id, lesson.subject, lesson.teachers, lesson.rooms);
 }
-
-// С фильтром по подгруппе
-schedule.today({ subgroup: 1 });
-
-// На завтра
-schedule.tomorrow();
-
-// На текущую неделю
-schedule.thisWeek();
-
-// Текущая пара
-schedule.currentLesson();
 ```
 
-### Личный кабинет (LkClient)
+Every concrete result has `lesson.id`. Recurring semester definitions also have
+`seriesId`:
 
 ```ts
-import { LkClient } from "chuvsu-js";
-
-const lk = new LkClient({ cache: 60_000 });
-await lk.login({ email: "student@mail.ru", password: "password" });
-
-const data = await lk.getPersonalData();
-console.log(`${data.lastName} ${data.firstName}, группа ${data.group}`);
-
-// Получить ID группы для использования с TtClient
-const groupId = await lk.getGroupId();
+const definitions = schedule.series();
+const monday = schedule.weekday(1, { week: 4 });
+const date = schedule.on(new Date(2026, 8, 7));
+const week = schedule.week(4);
+const current = schedule.current();
 ```
 
-## API
+IDs do not contain date, time, or room. Room changes and transfers therefore do
+not inherently change lesson identity. Persist the canonical repository when
+IDs must survive process restarts.
 
-### TtClient
+## One API for every schedule owner
 
-Клиент для работы с расписанием (`tt.chuvsu.ru`).
-
-#### Конструктор
+Convenience methods:
 
 ```ts
-new TtClient(options?: TtClientOptions)
+await client.getGroupSchedule(groupId);
+await client.getTeacherSchedule(teacherId);
+await client.getRoomSchedule(roomId);
 ```
 
-| Опция           | Тип                     | По умолчанию      | Описание                                                       |
-| --------------- | ----------------------- | ----------------- | -------------------------------------------------------------- |
-| `educationType` | `EducationType`         | `HigherEducation` | Тип образования: высшее (1) или СПО (2)                        |
-| `cache`         | `number \| CacheConfig` | —                 | TTL кеша в мс. Число задаёт единый TTL, объект — по категориям |
-| `cacheAdapter`  | `CacheAdapter`          | —                 | Внешний L2-кеш для JSON-данных (например Redis/БД)             |
-| `blobAdapter`   | `BlobAdapter`           | —                 | Хранилище бинарных данных, например S3/R2/MinIO                |
-
-#### Авторизация
+Generic form:
 
 ```ts
-// С учётной записью
-await tt.login({ email: "...", password: "..." });
-
-// Гостевой вход
-await tt.loginAsGuest();
+await client.getSchedule({
+  type: "teacher",
+  teacher: { id: teacherId, name: "Иванов Иван Иванович" },
+});
 ```
 
-#### Получение расписания
+Limit fetched periods when all four are unnecessary:
 
 ```ts
-const schedule = await tt.getSchedule({ groupId, period? });
+import { AcademicPeriod } from "chuvsu-js";
+
+await client.getGroupSchedule(groupId, {
+  periods: [AcademicPeriod.FallSemester],
+});
 ```
 
-Возвращает объект `Schedule`, который позволяет получать расписание локально, без дополнительных запросов к серверу.
+## Cross-page enrichment
 
-#### Поиск
+Group pages often expose only abbreviated teacher names. Teacher pages expose
+group lists. Room pages expose both but omit their own room in each row. v5
+treats these as partial observations:
 
 ```ts
-// Список факультетов
-const faculties = await tt.getFaculties();
+const groupSchedule = await client.getGroupSchedule(groupId);
+const before = groupSchedule.on(date);
 
-// Группы факультета
-const groups = await tt.getGroupsForFaculty({ facultyId });
+await client.getTeacherSchedule(teacherId);
+await client.getRoomSchedule(roomId);
 
-// Поиск группы по названию
-const groups = await tt.searchGroup({ name: "ЗИ" });
-
-// Поиск преподавателя
-const teachers = await tt.searchTeacher({ name: "Иванов" });
+const after = groupSchedule.on(date);
+// Same lesson IDs; entity relations may now contain more groups and IDs.
 ```
 
-#### Период
+`Schedule` is a live view over the repository. Existing schedule objects see
+later enrichment through their next query.
+
+## Entity directory without hidden cascades
+
+Schedule requests never issue automatic teacher/group/room search requests.
+Normal search and list calls seed a persistent directory:
 
 ```ts
-// Текущий учебный период
-const period = tt.getCurrentPeriod();
+await client.getTeachers();
+await client.getRooms();
+await client.getFacultyGroups(facultyId);
+
+const teacher = await client.resolveTeacher("Иванов И. И.");
 ```
 
-#### Кеш
+Default resolution is cache-only. Explicit targeted resolution may perform one
+search:
 
 ```ts
-// Очистить весь кеш или по категории
-tt.clearCache();
-tt.clearCache("schedule");
-
-// Экспорт/импорт (для сохранения между запусками)
-const data = tt.exportCache();
-tt.importCache(data);
+const teacher = await client.resolveTeacher("Иванов И. И.", {
+  strategy: "search",
+});
 ```
 
-Категории кеша: `schedule`, `faculties`, `groups`, `audiences`, `audienceNames`, `teachers`, `teacherInfo`, `teacherPhotos`, `audienceInfo`, `audienceImages`.
-
-Если передать `cacheAdapter`, библиотека использует двухуровневый кеш:
-- L1: in-memory кеш внутри процесса
-- L2: внешний адаптер (`cacheAdapter`)
-
-Если передать `blobAdapter`, фото преподавателей, аудиторий, корпусов и планов этажей будут храниться во внешнем blob/object storage, а во внешнем JSON-кеше сохранятся только метаданные с ключом blob-объекта.
-
-### Schedule
-
-Объект расписания группы. Все методы синхронные — данные уже загружены.
-
-#### Свойства
+Bulk preload is also explicit:
 
 ```ts
-schedule.groupId; // ID группы
-schedule.period; // Учебный период
-schedule.days; // Сырые данные (FullScheduleDay[])
+await client.preloadDirectory({
+  teachers: true,
+  rooms: true,
+  facultyIds: [19],
+});
 ```
 
-#### Расписание по дате
+An abbreviated name receives an ID only when the directory match is unique.
+
+## Persistent canonical repository
+
+Transport cache and canonical identity storage are separate. Implement
+`TimetableRepositoryAdapter` for a DB, KV store, or durable file service:
 
 ```ts
-// На сегодня
-schedule.today({ subgroup?: number });
-
-// На завтра
-schedule.tomorrow({ subgroup?: number });
-
-// На конкретную дату
-schedule.forDate(date: Date, { subgroup?: number });
+const client = new TimetableClient({
+  cache: 15 * 60_000,
+  cacheAdapter,
+  repositoryAdapter,
+});
 ```
 
-#### Расписание по неделе
+The repository adapter uses compare-and-set revisions so concurrent writers do
+not silently replace established IDs.
+
+Snapshots are portable JSON values:
 
 ```ts
-// На текущую неделю
-schedule.thisWeek({ subgroup?: number });
-
-// На конкретную неделю
-schedule.forWeek(week?: number, { subgroup?: number });
+const snapshot = await client.exportRepository();
 ```
 
-#### Расписание по дню недели
-
-```ts
-// По дню недели (0 = воскресенье, 1 = понедельник, ...)
-schedule.forDay(weekday: number, { subgroup?: number, week?: number });
-```
-
-#### Текущая пара
-
-```ts
-const lesson = schedule.currentLesson({ subgroup?: number });
-```
-
-#### Утилиты семестра
-
-```ts
-// Номер текущей недели
-schedule.getWeekNumber(date?: Date);
-
-// Все недели семестра
-schedule.getSemesterWeeks(weekCount?: number);
-
-// Начало семестра
-schedule.getSemesterStart();
-```
-
-Утилиты также доступны как standalone функции:
+For single-process use:
 
 ```ts
 import {
-  getSemesterStart,
-  getSemesterWeeks,
-  getWeekNumber,
-  Period,
+  MemoryTimetableRepositoryAdapter,
+  TimetableClient,
 } from "chuvsu-js";
 
-getSemesterStart({ period: Period.FallSemester, year: 2025 });
-getSemesterWeeks({ period: Period.SpringSemester });
-getWeekNumber({ period: Period.SpringSemester });
+const repositoryAdapter = new MemoryTimetableRepositoryAdapter();
+const client = new TimetableClient({ repositoryAdapter });
 ```
 
-### LkClient
+## Browser/core entry point
 
-Клиент для личного кабинета (`lk.chuvsu.ru`).
+`chuvsu-js/browser` contains no `undici`, ChuvSU certificates, `Buffer`, or HTML
+parser. It can import a server-produced repository snapshot and query it
+locally:
 
 ```ts
-const lk = new LkClient({ cache?: number | LkCacheConfig });
-await lk.login({ email, password });
-const data = await lk.getPersonalData();
-const groupId = await lk.getGroupId();
+import { Schedule, TimetableRepository } from "chuvsu-js/browser";
+
+const repository = new TimetableRepository({ snapshot });
+const schedule = new Schedule(
+  repository,
+  { type: "group", group: { id: 8919, name: "КТ-41-24" } },
+  2026,
+);
+
+const lessons = schedule.on(new Date(2026, 8, 7));
 ```
 
-`cache` работает так же, как в `TtClient`: число задаёт единый TTL в мс, объект — TTL по категориям (`personalData`, `photo`, `groupId`).
-Также поддерживаются `cacheAdapter` и `blobAdapter`.
+Network clients remain Node-only because ChuvSU authentication, cookies,
+certificates, and browser CORS cannot be handled reliably by a pure browser
+bundle.
 
-**PersonalData** содержит: `lastName`, `firstName`, `patronymic`, `sex`, `birthday`, `recordBookNumber`, `faculty`, `specialty`, `profile`, `group`, `course`, `email`, `phone`.
-
-## Типы
-
-### Period
+Available entry points:
 
 ```ts
-enum Period {
-  FallSemester = 1, // Осенний семестр
-  WinterSession = 2, // Зимняя сессия
-  SpringSemester = 3, // Весенний семестр
-  SummerSession = 4, // Летняя сессия
-}
+import { TimetableClient } from "chuvsu-js";          // Node + core
+import { TimetableClient } from "chuvsu-js/node";     // explicit Node
+import { TimetableRepository } from "chuvsu-js/browser";
+import { parseGroupSchedule } from "chuvsu-js/parsers";
 ```
 
-### EducationType
+## Discovery and metadata
 
 ```ts
-enum EducationType {
-  HigherEducation = 1, // Высшее образование
-  VocationalEducation = 2, // СПО
-}
+const faculties = await client.getFaculties();
+const groups = await client.getFacultyGroups(facultyId);
+const groupsByName = await client.searchGroups("КТ-41");
+const teachers = await client.searchTeachers("Иванов");
+const rooms = await client.searchRooms("Г-40");
+
+const teacherInfo = await client.getTeacherInfo(teacherId);
+const teacherPhoto = await client.getTeacherPhoto(teacherId);
+const roomInfo = await client.getRoomInfo(roomId);
+const roomPhoto = await client.getRoomImage(roomId);
+const buildingPhoto = await client.getRoomBuildingImage(roomId);
+const floorPlan = await client.getRoomFloorPlan(roomId);
 ```
 
-### Lesson
+Teacher photos use their direct known URL and do not fetch a teacher page first.
+
+## Student portal
 
 ```ts
-interface Lesson {
-  number: number; // Номер пары
-  start: LessonTime; // Начало { date, hours, minutes }
-  end: LessonTime; // Конец { date, hours, minutes }
-  subject: string; // Предмет
-  type: string; // Тип (лекция, практика, лаб. работа)
-  room: string; // Аудитория
-  teacher: Teacher; // Преподаватель { name, position?, degree? }
-  weeks: WeekRange; // Диапазон недель { from, to }
-  subgroup?: number; // Подгруппа
-  weekParity?: "even" | "odd"; // Чётность недели
-}
+import { StudentPortalClient } from "chuvsu-js";
+
+const portal = new StudentPortalClient({ cache: 60_000 });
+await portal.login({ email: "student@example.com", password: "password" });
+
+const profile = await portal.getProfile();
+const photo = await portal.getProfilePhoto();
+const groupId = await portal.getTimetableGroupId();
 ```
 
-## Обработка ошибок
+## Cache and blobs
 
-```ts
-import { AuthError, ParseError } from "chuvsu-js";
+`cache` controls short-lived transport/metadata caching. It may be one TTL or a
+per-category object. `cacheAdapter` adds external L2 JSON storage.
 
-try {
-  await tt.login({ email: "...", password: "wrong" });
-} catch (e) {
-  if (e instanceof AuthError) {
-    console.error("Неверные данные для входа");
-  }
-}
+`blobAdapter` stores photos and floor plans externally. Binary methods return
+Node.js `Buffer` values and exist only on Node clients.
+
+Clearing transport cache does not clear canonical IDs. Canonical repository
+storage has its own adapter and lifecycle.
+
+## Development
+
+```bash
+pnpm build
+pnpm test
+pnpm fixtures:audit
 ```
 
-## Лицензия
-
-MIT
+Architecture details: [`docs/v5-architecture.md`](docs/v5-architecture.md).

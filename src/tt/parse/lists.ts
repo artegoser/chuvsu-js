@@ -1,28 +1,28 @@
 import { parseHtml, text } from "../../common/parse.js";
-import { Period } from "../../common/types.js";
-import type { Audience, Faculty, Group } from "../types.js";
+import { AcademicPeriod } from "../../common/types.js";
+import type { Faculty, Group, Room } from "../types.js";
 
-const PERIOD_LABELS: Record<string, Period> = {
-  "осенний семестр": 1 as Period,
-  "зимняя сессия": 2 as Period,
-  "весенний семестр": 3 as Period,
-  "летняя сессия": 4 as Period,
+const PERIOD_LABELS: Record<string, AcademicPeriod> = {
+  "осенний семестр": 1 as AcademicPeriod,
+  "зимняя сессия": 2 as AcademicPeriod,
+  "весенний семестр": 3 as AcademicPeriod,
+  "летняя сессия": 4 as AcademicPeriod,
 };
 
-export function parsePeriodFromPage(html: string): Period | null {
+export function parsePeriodFromPage(html: string): AcademicPeriod | null {
   const doc = parseHtml(html);
 
   // Schedule pages expose the active period as the checked radio button.
   const checked = doc.querySelector('input[name="pertype"][checked]');
   const checkedValue = Number(checked?.getAttribute("value"));
   if (checkedValue >= 1 && checkedValue <= 4) {
-    return checkedValue as Period;
+    return checkedValue as AcademicPeriod;
   }
 
   // Some pages keep the selected period only in the hidden form field.
   const hiddenValue = Number(doc.querySelector('#htype')?.getAttribute("value"));
   if (hiddenValue >= 1 && hiddenValue <= 4) {
-    return hiddenValue as Period;
+    return hiddenValue as AcademicPeriod;
   }
 
   // Legacy markup used an italic textual marker.
@@ -71,8 +71,8 @@ export function parseFacultyButtons(html: string): Faculty[] {
   return faculties;
 }
 
-export function parseAudienceButtons(html: string): Audience[] {
-  const results: Audience[] = [];
+export function parseRoomButtons(html: string): Room[] {
+  const results: Room[] = [];
   const seen = new Set<number>();
   const re = /<button[^>]*\bname="aud(\d+)"[^>]*\bvalue="([^"]*)"/g;
   for (const m of html.matchAll(re)) {
@@ -84,7 +84,7 @@ export function parseAudienceButtons(html: string): Audience[] {
   return results;
 }
 
-export function parseAudienceName(html: string): string | null {
+export function parseRoomName(html: string): string | null {
   const m = html.match(
     /id="path"[\s\S]*?findaud[^>]*>[^<]*<\/a>([\s\S]*?)<\/div>/,
   );

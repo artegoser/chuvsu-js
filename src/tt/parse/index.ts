@@ -1,20 +1,20 @@
 export { parseGroupsString } from "./groups.js";
 export {
   parseAcademicYearFromPage,
-  parseAudienceButtons,
-  parseAudienceName,
+  parseRoomButtons,
+  parseRoomName,
   parseFacultyButtons,
   parseGroupButtons,
   parsePeriodFromPage,
   parseTeacherButtons,
 } from "./lists.js";
-export { parseFullSchedule } from "./full-schedule.js";
+export { parseGroupSchedule } from "./full-schedule.js";
 export {
-  parseAudienceFullSchedule,
-  parseAudienceInfo,
+  parseRoomSchedule,
+  parseRoomInfo,
 } from "./audience.js";
 export {
-  parseTeacherFullSchedule,
+  parseTeacherSchedule,
   parseTeacherInfo,
 } from "./teacher.js";
 export { parseWebinars } from "./webinars.js";

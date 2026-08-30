@@ -1,4 +1,4 @@
-import type { Period } from "../../common/types.js";
+import type { AcademicPeriod } from "../../common/types.js";
 import { TimetableDirectory } from "./directory.js";
 import { RandomLessonIdGenerator } from "./ids.js";
 import {
@@ -421,7 +421,7 @@ export class TimetableRepository {
   getSeries(opts?: {
     owner?: ScheduleOwner;
     academicYearStartYear?: number;
-    periods?: readonly Period[];
+    periods?: readonly AcademicPeriod[];
   }): LessonSeries[] {
     const values: LessonSeries[] = [];
     for (const record of this.seriesRecords.values()) {
@@ -448,7 +448,7 @@ export class TimetableRepository {
   getDirectOccurrences(opts?: {
     owner?: ScheduleOwner;
     academicYearStartYear?: number;
-    periods?: readonly Period[];
+    periods?: readonly AcademicPeriod[];
   }): LessonOccurrence[] {
     const values: LessonOccurrence[] = [];
     for (const record of this.occurrenceRecords.values()) {

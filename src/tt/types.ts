@@ -8,8 +8,8 @@ import type {
   Time,
   WeekRange,
   Teacher,
-  EducationType,
-  Period,
+  EducationLevel,
+  AcademicPeriod,
 } from "../common/types.js";
 
 export interface Faculty {
@@ -24,12 +24,12 @@ export interface Group {
   profile?: string;
 }
 
-export interface Audience {
+export interface Room {
   id: number;
   name: string;
 }
 
-export interface AudienceInfo {
+export interface RoomInfo {
   name: string;
   /** Building letter/name, e.g. "Б". */
   building?: string;
@@ -79,7 +79,7 @@ export interface TransferInfo {
   subject: string;
 }
 
-export interface ScheduleEntry {
+export interface ParsedScheduleEntry {
   room: string;
   subject: string;
   type: string;
@@ -88,7 +88,7 @@ export interface ScheduleEntry {
   /**
    * Group names for this lesson (e.g. `["КТ-42-25 (АихС)", "КТ-41-25"]`).
    * Parenthesized annotations that are part of the group name are preserved;
-   * service markers like "(N подгруппа)" are stripped and moved to {@link ScheduleEntry.subgroup}.
+   * service markers like "(N подгруппа)" are stripped and moved to {@link ParsedScheduleEntry.subgroup}.
    * Empty array if no groups are listed.
    */
   groups: string[];
@@ -106,67 +106,25 @@ export interface ScheduleEntry {
   possibleChanges?: boolean;
 }
 
-export interface FullScheduleSlot {
+export interface ParsedScheduleSlot {
   number: number;
   timeStart: Time;
   timeEnd: Time;
-  entries: ScheduleEntry[];
+  entries: ParsedScheduleEntry[];
 }
 
-export interface FullScheduleDay {
+export interface ParsedScheduleDay {
   weekday: string;
   date?: Date;
   /** True when portal marks this weekday as a self-study day. */
   isSelfStudyDay?: boolean;
-  slots: FullScheduleSlot[];
+  slots: ParsedScheduleSlot[];
 }
-
-/** Raw entry emitted by HTML parsers before canonical ingestion. */
-export type ParsedScheduleEntry = ScheduleEntry;
-/** Raw slot emitted by HTML parsers before canonical ingestion. */
-export type ParsedScheduleSlot = FullScheduleSlot;
-/** Raw day emitted by HTML parsers before canonical ingestion. */
-export type ParsedScheduleDay = FullScheduleDay;
 
 export interface LessonTimeSlot {
   number: number;
   start: Time;
   end: Time;
-}
-
-export interface LessonTime {
-  date: Date;
-  hours: number;
-  minutes: number;
-}
-
-export interface Lesson {
-  number: number;
-  start: LessonTime;
-  end: LessonTime;
-  subject: string;
-  type: string;
-  room: string;
-  teacher: Teacher;
-  /** Group names for this lesson. See {@link ScheduleEntry.groups}. */
-  groups: string[];
-  weeks: WeekRange;
-  subgroup?: number;
-  weekParity?: "even" | "odd";
-  /** True when the lesson is explicitly marked as дистанционно / ДОТ. */
-  isDistance?: boolean;
-  /** Matched webinar metadata, if attached by `attachWebinarsToLessons`. */
-  webinar?: Webinar;
-  /** If a substitution was applied, the original room. */
-  originalRoom?: string;
-  /** If a substitution was applied, the original teacher. */
-  originalTeacher?: Teacher;
-  /** Transfer info if this lesson was moved from another date/slot. */
-  transfer?: TransferInfo;
-  /** If this lesson is a substitute (замена вместо), the original teacher. */
-  substituteFor?: SubstituteForInfo;
-  /** Whether this lesson is marked as potentially changing. */
-  possibleChanges?: boolean;
 }
 
 /** Teacher info from the schedule page header. */
@@ -210,18 +168,18 @@ export interface CacheConfig {
   schedule?: number;
   faculties?: number;
   groups?: number;
-  audiences?: number;
-  audienceNames?: number;
+  rooms?: number;
+  roomNames?: number;
   teachers?: number;
   teacherInfo?: number;
   teacherPhotos?: number;
-  audienceInfo?: number;
-  audienceImages?: number;
+  roomInfo?: number;
+  roomImages?: number;
   webinars?: number;
 }
 
 export interface TimetableClientOptions {
-  educationType?: EducationType;
+  educationLevel?: EducationLevel;
   cache?: number | CacheConfig;
   cacheAdapter?: CacheAdapter;
   blobAdapter?: BlobAdapter;
@@ -231,11 +189,9 @@ export interface TimetableClientOptions {
   repositoryAdapter?: TimetableRepositoryAdapter;
 }
 
-/** @deprecated Use `TimetableClientOptions`. */
-export type TtClientOptions = TimetableClientOptions;
 
 export interface GetScheduleOptions {
-  periods?: readonly Period[];
+  periods?: readonly AcademicPeriod[];
 }
 
 export type EntityResolutionStrategy = "cache-only" | "search";

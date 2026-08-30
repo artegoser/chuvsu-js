@@ -1,7 +1,7 @@
 import type { Teacher } from "../common/types.js";
 import type {
-  FullScheduleDay,
-  ScheduleEntry,
+  ParsedScheduleDay,
+  ParsedScheduleEntry,
   Substitution,
 } from "./types.js";
 import type {
@@ -32,7 +32,7 @@ export interface CreateScheduleSnapshotOptions {
   academicYearStartYear: number;
   period: ScheduleSourceSnapshot["period"];
   observedAt?: Date;
-  days: FullScheduleDay[];
+  days: ParsedScheduleDay[];
 }
 
 function teacherRef(value: Teacher): TeacherRef | null {
@@ -40,7 +40,7 @@ function teacherRef(value: Teacher): TeacherRef | null {
   return { ...value };
 }
 
-function groupsFor(entry: ScheduleEntry): GroupAttendance[] | undefined {
+function groupsFor(entry: ParsedScheduleEntry): GroupAttendance[] | undefined {
   if (entry.groups.length === 0) return undefined;
   return entry.groups.map((name) => ({
     group: { name },
@@ -48,12 +48,12 @@ function groupsFor(entry: ScheduleEntry): GroupAttendance[] | undefined {
   }));
 }
 
-function teachersFor(entry: ScheduleEntry): TeacherRef[] | undefined {
+function teachersFor(entry: ParsedScheduleEntry): TeacherRef[] | undefined {
   const teacher = teacherRef(entry.teacher);
   return teacher ? [teacher] : undefined;
 }
 
-function roomsFor(entry: ScheduleEntry): RoomRef[] | undefined {
+function roomsFor(entry: ParsedScheduleEntry): RoomRef[] | undefined {
   return entry.room ? [{ name: entry.room }] : undefined;
 }
 
@@ -75,8 +75,8 @@ function substitutionsFor(
 
 function observationBase(
   key: string,
-  entry: ScheduleEntry,
-  slot: FullScheduleDay["slots"][number],
+  entry: ParsedScheduleEntry,
+  slot: ParsedScheduleDay["slots"][number],
 ) {
   return {
     key,
@@ -98,8 +98,8 @@ function observationBase(
 
 function occurrenceFrom(
   key: string,
-  entry: ScheduleEntry,
-  slot: FullScheduleDay["slots"][number],
+  entry: ParsedScheduleEntry,
+  slot: ParsedScheduleDay["slots"][number],
   date: Date,
 ): OccurrenceObservation {
   return {
@@ -118,8 +118,8 @@ function occurrenceFrom(
 
 function seriesFrom(
   key: string,
-  entry: ScheduleEntry,
-  slot: FullScheduleDay["slots"][number],
+  entry: ParsedScheduleEntry,
+  slot: ParsedScheduleDay["slots"][number],
   weekday: number,
 ): SeriesObservation {
   return {

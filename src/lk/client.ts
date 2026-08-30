@@ -2,27 +2,31 @@ import { HttpClient, type HttpResponse } from "../common/http.js";
 import { HybridCache } from "../common/cache.js";
 import { AuthError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
-import type { LkCacheConfig, LkClientOptions, PersonalData } from "./types.js";
+import type {
+  StudentPortalCacheConfig,
+  StudentPortalClientOptions,
+  StudentProfile,
+} from "./types.js";
 
 const BASE = "https://lk.chuvsu.ru";
 const LOGIN_URL = `${BASE}/info/login.php`;
 const STUDENT_BASE = `${BASE}/student`;
 
-function makeUniformCacheConfig(ttl: number): LkCacheConfig {
+function makeUniformCacheConfig(ttl: number): StudentPortalCacheConfig {
   return {
-    personalData: ttl,
-    photo: ttl,
-    groupId: ttl,
+    profile: ttl,
+    profilePhoto: ttl,
+    timetableGroupId: ttl,
   };
 }
 
-export class LkClient {
+export class StudentPortalClient {
   private http = new HttpClient();
   private credentials: { email: string; password: string } | null = null;
   private cache: HybridCache | null;
-  private blobAdapter = undefined as LkClientOptions["blobAdapter"];
+  private blobAdapter = undefined as StudentPortalClientOptions["blobAdapter"];
 
-  constructor(opts?: LkClientOptions) {
+  constructor(opts?: StudentPortalClientOptions) {
     this.blobAdapter = opts?.blobAdapter;
     if (opts?.cache == null) {
       this.cache = null;
@@ -64,9 +68,9 @@ export class LkClient {
     return res;
   }
 
-  async getPersonalData(): Promise<PersonalData> {
-    const cached = await this.cache?.get("personalData", "self");
-    if (cached) return cached as PersonalData;
+  async getProfile(): Promise<StudentProfile> {
+    const cached = await this.cache?.get("profile", "self");
+    if (cached) return cached as StudentProfile;
 
     const { body } = await this.authGet(`${STUDENT_BASE}/personal_data.php`);
     const vals = extractScriptValues(body, "form_personal_data");
@@ -85,14 +89,14 @@ export class LkClient {
       email: vals.email ?? "",
       phone: vals.phone ?? "",
     };
-    await this.cache?.set("personalData", "self", data);
+    await this.cache?.set("profile", "self", data);
     return data;
   }
 
-  async getPhoto(): Promise<Buffer> {
+  async getProfilePhoto(): Promise<Buffer> {
     const cached =
-      this.cache?.getLocal("photo", "self") ??
-      await this.cache?.get("photo", "self");
+      this.cache?.getLocal("profilePhoto", "self") ??
+      await this.cache?.get("profilePhoto", "self");
     if (cached !== null && cached !== undefined) {
       const entry = cached as { data?: string | null; blobKey?: string } | string;
       if (typeof entry === "string") return Buffer.from(entry, "base64");
@@ -102,7 +106,7 @@ export class LkClient {
       if (entry.blobKey && this.blobAdapter) {
         const photo = await this.blobAdapter.get(entry.blobKey);
         if (photo) {
-          this.cache?.setLocal("photo", "self", { data: photo.toString("base64") });
+          this.cache?.setLocal("profilePhoto", "self", { data: photo.toString("base64") });
           return photo;
         }
       }
@@ -111,25 +115,25 @@ export class LkClient {
     const photo = await this.http.getBuffer(`${STUDENT_BASE}/face.php`);
     if (this.blobAdapter) {
       const blobKey = "lk/photo/self";
-      this.cache?.setLocal("photo", "self", { data: photo.toString("base64") });
+      this.cache?.setLocal("profilePhoto", "self", { data: photo.toString("base64") });
       await this.blobAdapter.put(blobKey, photo, {
-        ttl: this.cache?.ttl("photo"),
+        ttl: this.cache?.ttl("profilePhoto"),
       });
-      await this.cache?.setExternal("photo", "self", { blobKey });
+      await this.cache?.setExternal("profilePhoto", "self", { blobKey });
     } else {
-      await this.cache?.set("photo", "self", photo.toString("base64"));
+      await this.cache?.set("profilePhoto", "self", photo.toString("base64"));
     }
     return photo;
   }
 
-  async getGroupId(): Promise<number | null> {
-    const cached = await this.cache?.get("groupId", "self");
+  async getTimetableGroupId(): Promise<number | null> {
+    const cached = await this.cache?.get("timetableGroupId", "self");
     if (cached !== null && cached !== undefined) return cached as number | null;
 
     const { body } = await this.authGet(`${STUDENT_BASE}/tt.php`);
     const match = body.match(/tt\.chuvsu\.ru\/index\/grouptt\/gr\/(\d+)/);
     const groupId = match ? parseInt(match[1]) : null;
-    await this.cache?.set("groupId", "self", groupId);
+    await this.cache?.set("timetableGroupId", "self", groupId);
     return groupId;
   }
 }

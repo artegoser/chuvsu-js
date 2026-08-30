@@ -1,23 +1,28 @@
 import { HttpClient, type HttpResponse } from "../common/http.js";
 import { HybridCache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
-import { EducationType, AuthError, ParseError, Period } from "../common/types.js";
+import {
+  AcademicPeriod,
+  AuthError,
+  EducationLevel,
+  ParseError,
+} from "../common/types.js";
 import {
   parseAcademicYearFromPage,
-  parseAudienceButtons,
-  parseAudienceFullSchedule,
-  parseAudienceInfo,
-  parseAudienceName,
+  parseRoomButtons,
+  parseRoomSchedule,
+  parseRoomInfo,
+  parseRoomName,
   parseGroupButtons,
   parseFacultyButtons,
   parseTeacherButtons,
-  parseFullSchedule,
-  parseTeacherFullSchedule,
+  parseGroupSchedule,
+  parseTeacherSchedule,
   parseTeacherInfo,
   parsePeriodFromPage,
   parseWebinars,
 } from "./parse/index.js";
-import { ScheduleView } from "./domain/schedule.js";
+import { Schedule } from "./domain/schedule.js";
 import { TimetableRepository } from "./domain/repository.js";
 import { createScheduleSourceSnapshot } from "./observations.js";
 import type {
@@ -28,11 +33,11 @@ import type {
   TimetableRepositorySnapshot,
 } from "./domain/types.js";
 import type {
-  Audience,
-  AudienceInfo,
+  Room,
+  RoomInfo,
   Faculty,
   Group,
-  FullScheduleDay,
+  ParsedScheduleDay,
   TeacherInfo,
   TimetableClientOptions,
   CacheConfig,
@@ -47,10 +52,10 @@ const AUTH_URL = `${BASE}/auth`;
 const TIMETABLE_CONTEXT_TTL_MS = 15 * 60 * 1000;
 
 const ALL_PERIODS = [
-  Period.FallSemester,
-  Period.WinterSession,
-  Period.SpringSemester,
-  Period.SummerSession,
+  AcademicPeriod.FallSemester,
+  AcademicPeriod.WinterSession,
+  AcademicPeriod.SpringSemester,
+  AcademicPeriod.SummerSession,
 ] as const;
 
 function makeUniformCacheConfig(ttl: number): CacheConfig {
@@ -58,13 +63,13 @@ function makeUniformCacheConfig(ttl: number): CacheConfig {
     schedule: ttl,
     faculties: ttl,
     groups: ttl,
-    audiences: ttl,
-    audienceNames: ttl,
+    rooms: ttl,
+    roomNames: ttl,
     teachers: ttl,
     teacherInfo: ttl,
     teacherPhotos: ttl,
-    audienceInfo: ttl,
-    audienceImages: ttl,
+    roomInfo: ttl,
+    roomImages: ttl,
     webinars: ttl,
   };
 }
@@ -78,7 +83,7 @@ function formatDate(date: Date): string {
 
 export class TimetableClient {
   private http = new HttpClient();
-  private educationType: EducationType;
+  private educationLevel: EducationLevel;
   private cache: HybridCache | null;
   private blobAdapter = undefined as TimetableClientOptions["blobAdapter"];
   private _repository: TimetableRepository;
@@ -90,11 +95,11 @@ export class TimetableClient {
     | { type: "guest" }
     | null = null;
   private timetableContext:
-    | { academicYearStartYear: number; period: Period; resolvedAt: number }
+    | { academicYearStartYear: number; period: AcademicPeriod; resolvedAt: number }
     | null = null;
 
   constructor(opts?: TimetableClientOptions) {
-    this.educationType = opts?.educationType ?? EducationType.HigherEducation;
+    this.educationLevel = opts?.educationLevel ?? EducationLevel.HigherEducation;
     this.blobAdapter = opts?.blobAdapter;
     this._repository = opts?.repository ?? new TimetableRepository();
     this.repositoryAdapter = opts?.repositoryAdapter;
@@ -115,7 +120,7 @@ export class TimetableClient {
   }
 
   private get pertt(): string {
-    return String(this.educationType);
+    return String(this.educationLevel);
   }
 
   get repository(): TimetableRepository {
@@ -281,7 +286,7 @@ export class TimetableClient {
   /** Resolve the academic year and active period from tt.chuvsu.ru itself. */
   private async getTimetableContext(
     pageUrl: string,
-  ): Promise<{ academicYearStartYear: number; period: Period }> {
+  ): Promise<{ academicYearStartYear: number; period: AcademicPeriod }> {
     if (
       this.timetableContext &&
       Date.now() - this.timetableContext.resolvedAt < TIMETABLE_CONTEXT_TTL_MS
@@ -313,16 +318,16 @@ export class TimetableClient {
 
   private async fetchGroupSchedule(
     groupId: number,
-    period: Period,
+    period: AcademicPeriod,
     academicYearStartYear: number,
-  ): Promise<FullScheduleDay[]> {
+  ): Promise<ParsedScheduleDay[]> {
     const cacheKey = `group:${groupId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as FullScheduleDay[];
+    if (cached) return cached as ParsedScheduleDay[];
 
     const url = `${BASE}/index/grouptt/gr/${groupId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseFullSchedule(body, this.educationType);
+    const days = parseGroupSchedule(body, this.educationLevel);
     await this.cache?.set("schedule", cacheKey, days);
     return days;
   }
@@ -344,7 +349,7 @@ export class TimetableClient {
 
   private sourceKey(
     owner: ScheduleOwner,
-    period: Period,
+    period: AcademicPeriod,
     academicYearStartYear: number,
   ): string {
     const entity =
@@ -377,9 +382,9 @@ export class TimetableClient {
 
   private async fetchOwnerSchedule(
     owner: ScheduleOwner,
-    period: Period,
+    period: AcademicPeriod,
     academicYearStartYear: number,
-  ): Promise<FullScheduleDay[]> {
+  ): Promise<ParsedScheduleDay[]> {
     if (owner.type === "group") {
       return this.fetchGroupSchedule(
         owner.group.id!,
@@ -394,7 +399,7 @@ export class TimetableClient {
         academicYearStartYear,
       );
     }
-    return this.fetchAudienceSchedule(
+    return this.fetchRoomSchedule(
       owner.room.id!,
       period,
       academicYearStartYear,
@@ -402,13 +407,9 @@ export class TimetableClient {
   }
 
   async getSchedule(
-    owner: ScheduleOwner | number | { groupId: number },
+    owner: ScheduleOwner,
     options?: GetScheduleOptions,
-  ): Promise<ScheduleView> {
-    if (typeof owner === "number") return this.getGroupSchedule(owner, options);
-    if ("groupId" in owner) {
-      return this.getGroupSchedule(owner.groupId, options);
-    }
+  ): Promise<Schedule> {
     await this.ensureRepository();
     if (owner.type === "group") await this.rememberGroups([owner.group]);
     if (owner.type === "teacher") await this.rememberTeachers([owner.teacher]);
@@ -442,7 +443,7 @@ export class TimetableClient {
       await this.mutateRepository((repository) => repository.ingest(snapshot));
     }
 
-    return new ScheduleView(
+    return new Schedule(
       this._repository,
       this.resolveOwner(resolvedOwner),
       context.academicYearStartYear,
@@ -453,7 +454,7 @@ export class TimetableClient {
   async getGroupSchedule(
     groupId: number,
     options?: GetScheduleOptions,
-  ): Promise<ScheduleView> {
+  ): Promise<Schedule> {
     await this.ensureRepository();
     return this.getSchedule(
       {
@@ -462,13 +463,6 @@ export class TimetableClient {
       },
       options,
     );
-  }
-
-  async getScheduleForPeriod(opts: {
-    groupId: number;
-    period: Period;
-  }): Promise<ScheduleView> {
-    return this.getGroupSchedule(opts.groupId, { periods: [opts.period] });
   }
 
   async getWebinars(opts?: {
@@ -531,8 +525,8 @@ export class TimetableClient {
     return data;
   }
 
-  async getGroupsForFaculty(opts: { facultyId: number }): Promise<Group[]> {
-    const cacheKey = String(opts.facultyId);
+  async getFacultyGroups(facultyId: number): Promise<Group[]> {
+    const cacheKey = String(facultyId);
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) {
       const data = cached as Group[];
@@ -541,7 +535,7 @@ export class TimetableClient {
     }
 
     const { body } = await this.authPost(`${BASE}/`, {
-      hfac: String(opts.facultyId),
+      hfac: String(facultyId),
       pertt: this.pertt,
     });
     const data = parseGroupButtons(body);
@@ -550,8 +544,8 @@ export class TimetableClient {
     return data;
   }
 
-  async searchGroup(opts: { name: string }): Promise<Group[]> {
-    const cacheKey = `search:${opts.name}:${this.pertt}`;
+  async searchGroups(name: string): Promise<GroupRef[]> {
+    const cacheKey = `search:${name}:${this.pertt}`;
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) {
       const data = cached as Group[];
@@ -560,7 +554,7 @@ export class TimetableClient {
     }
 
     const { body } = await this.authPost(`${BASE}/`, {
-      grname: opts.name,
+      grname: name,
       findgr: "найти",
       hfac: "0",
       pertt: this.pertt,
@@ -571,37 +565,29 @@ export class TimetableClient {
     return data;
   }
 
-  async searchGroups(name: string): Promise<GroupRef[]> {
-    return this.searchGroup({ name });
-  }
-
   /**
    * Search audiences by name (substring match). The server requires at
    * least 3 characters in the query.
    */
-  async searchAudience(opts: { name: string }): Promise<Audience[]> {
-    const cacheKey = `search:${opts.name}:${this.pertt}`;
-    const cached = await this.cache?.get("audiences", cacheKey);
+  async searchRooms(name: string): Promise<Room[]> {
+    const cacheKey = `search:${name}:${this.pertt}`;
+    const cached = await this.cache?.get("rooms", cacheKey);
     if (cached) {
-      const data = cached as Audience[];
+      const data = cached as Room[];
       await this.rememberRooms(data);
       return data;
     }
 
     const { body } = await this.authPost(`${BASE}/`, {
-      audname: opts.name,
+      audname: name,
       findaud: "найти",
       hfac: "0",
       pertt: this.pertt,
     });
-    const data = parseAudienceButtons(body);
-    await this.cache?.set("audiences", cacheKey, data);
+    const data = parseRoomButtons(body);
+    await this.cache?.set("rooms", cacheKey, data);
     await this.rememberRooms(data);
     return data;
-  }
-
-  async searchRooms(name: string): Promise<RoomRef[]> {
-    return this.searchAudience({ name });
   }
 
   /**
@@ -612,11 +598,11 @@ export class TimetableClient {
    * 3-character wildcard `%%%` matches every audience at once and returns
    * the full list of (id, name) pairs.
    */
-  async getAudiences(): Promise<Audience[]> {
+  async getRooms(): Promise<Room[]> {
     const cacheKey = `all:${this.pertt}`;
-    const cached = await this.cache?.get("audiences", cacheKey);
+    const cached = await this.cache?.get("rooms", cacheKey);
     if (cached) {
-      const data = cached as Audience[];
+      const data = cached as Room[];
       await this.rememberRooms(data);
       return data;
     }
@@ -627,14 +613,10 @@ export class TimetableClient {
       hfac: "0",
       pertt: this.pertt,
     });
-    const data = parseAudienceButtons(body);
-    await this.cache?.set("audiences", cacheKey, data);
+    const data = parseRoomButtons(body);
+    await this.cache?.set("rooms", cacheKey, data);
     await this.rememberRooms(data);
     return data;
-  }
-
-  async getRooms(): Promise<RoomRef[]> {
-    return this.getAudiences();
   }
 
   async resolveGroup(
@@ -684,7 +666,7 @@ export class TimetableClient {
     if (options.teachers) requests.push(this.getTeachers());
     if (options.rooms) requests.push(this.getRooms());
     for (const facultyId of options.facultyIds ?? []) {
-      requests.push(this.getGroupsForFaculty({ facultyId }));
+      requests.push(this.getFacultyGroups(facultyId));
     }
     await Promise.all(requests);
   }
@@ -693,37 +675,37 @@ export class TimetableClient {
    * Resolve an audience id from its exact name by searching and
    * selecting the button whose `value` equals the given name.
    */
-  async findAudienceByName(opts: { name: string }): Promise<Audience | null> {
-    const q = opts.name.length >= 3 ? opts.name : "%%%";
-    const list = await this.searchAudience({ name: q });
-    return list.find((a) => a.name === opts.name) ?? null;
+  async findRoomByName(name: string): Promise<Room | null> {
+    const query = name.length >= 3 ? name : "%%%";
+    const list = await this.searchRooms(query);
+    return list.find((room) => room.name === name) ?? null;
   }
 
   /** Fetch the audience's display name from its schedule page. */
-  async getAudienceName(audienceId: number): Promise<string | null> {
-    const cacheKey = String(audienceId);
-    const cached = await this.cache?.get("audienceNames", cacheKey);
+  async getRoomName(roomId: number): Promise<string | null> {
+    const cacheKey = String(roomId);
+    const cached = await this.cache?.get("roomNames", cacheKey);
     if (cached !== null && cached !== undefined) {
       const name = cached as string | null;
-      if (name) await this.rememberRooms([{ id: audienceId, name }]);
+      if (name) await this.rememberRooms([{ id: roomId, name }]);
       return name;
     }
 
-    const cachedInfo = await this.cache?.get("audienceInfo", cacheKey);
+    const cachedInfo = await this.cache?.get("roomInfo", cacheKey);
     if (cachedInfo) {
-      const name = (cachedInfo as AudienceInfo).name ?? null;
-      if (name) await this.rememberRooms([{ id: audienceId, name }]);
+      const name = (cachedInfo as RoomInfo).name ?? null;
+      if (name) await this.rememberRooms([{ id: roomId, name }]);
       return name;
     }
 
     const { body } = await this.authGet(
-      `${BASE}/index/audtt/aud/${audienceId}`,
+      `${BASE}/index/audtt/aud/${roomId}`,
     );
-    const name = parseAudienceName(body);
-    const info = parseAudienceInfo(body);
-    await this.cache?.set("audienceNames", cacheKey, name);
-    if (info) await this.cache?.set("audienceInfo", cacheKey, info);
-    if (name) await this.rememberRooms([{ id: audienceId, name }]);
+    const name = parseRoomName(body);
+    const info = parseRoomInfo(body);
+    await this.cache?.set("roomNames", cacheKey, name);
+    if (info) await this.cache?.set("roomInfo", cacheKey, info);
+    if (name) await this.rememberRooms([{ id: roomId, name }]);
     return name;
   }
 
@@ -731,42 +713,42 @@ export class TimetableClient {
    * Fetch detailed info about an audience (building, floor, usage,
    * image URLs for the audience photo, building photo and floor plan).
    */
-  async getAudienceInfo(audienceId: number): Promise<AudienceInfo | null> {
-    const cached = await this.cache?.get("audienceInfo", String(audienceId));
+  async getRoomInfo(roomId: number): Promise<RoomInfo | null> {
+    const cached = await this.cache?.get("roomInfo", String(roomId));
     if (cached) {
-      const info = cached as AudienceInfo;
-      await this.rememberRooms([{ id: audienceId, name: info.name }]);
+      const info = cached as RoomInfo;
+      await this.rememberRooms([{ id: roomId, name: info.name }]);
       return info;
     }
 
     const { body } = await this.authGet(
-      `${BASE}/index/audtt/aud/${audienceId}`,
+      `${BASE}/index/audtt/aud/${roomId}`,
     );
-    const info = parseAudienceInfo(body);
-    if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
-    if (info) await this.rememberRooms([{ id: audienceId, name: info.name }]);
+    const info = parseRoomInfo(body);
+    if (info) await this.cache?.set("roomInfo", String(roomId), info);
+    if (info) await this.rememberRooms([{ id: roomId, name: info.name }]);
     return info;
   }
 
-  private async fetchAudienceSchedule(
-    audienceId: number,
-    period: Period,
+  private async fetchRoomSchedule(
+    roomId: number,
+    period: AcademicPeriod,
     academicYearStartYear: number,
-  ): Promise<FullScheduleDay[]> {
-    const cacheKey = `audience:${audienceId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
+  ): Promise<ParsedScheduleDay[]> {
+    const cacheKey = `room:${roomId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as FullScheduleDay[];
+    if (cached) return cached as ParsedScheduleDay[];
 
-    const url = `${BASE}/index/audtt/aud/${audienceId}`;
+    const url = `${BASE}/index/audtt/aud/${roomId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseAudienceFullSchedule(body);
+    const days = parseRoomSchedule(body);
     await this.cache?.set("schedule", cacheKey, days);
 
     // Cache audience info from the same page to avoid an extra request.
-    if (!(await this.cache?.get("audienceInfo", String(audienceId)))) {
-      const info = parseAudienceInfo(body);
-      if (info) await this.cache?.set("audienceInfo", String(audienceId), info);
-      if (info) await this.rememberRooms([{ id: audienceId, name: info.name }]);
+    if (!(await this.cache?.get("roomInfo", String(roomId)))) {
+      const info = parseRoomInfo(body);
+      if (info) await this.cache?.set("roomInfo", String(roomId), info);
+      if (info) await this.rememberRooms([{ id: roomId, name: info.name }]);
     }
 
     return days;
@@ -775,7 +757,7 @@ export class TimetableClient {
   async getRoomSchedule(
     roomId: number,
     options?: GetScheduleOptions,
-  ): Promise<ScheduleView> {
+  ): Promise<Schedule> {
     await this.ensureRepository();
     return this.getSchedule(
       {
@@ -786,28 +768,13 @@ export class TimetableClient {
     );
   }
 
-  /** @deprecated Use `getRoomSchedule`. */
-  async getAudienceSchedule(
-    audienceId: number,
-    options?: GetScheduleOptions,
-  ): Promise<ScheduleView> {
-    return this.getRoomSchedule(audienceId, options);
-  }
-
-  async getAudienceScheduleForPeriod(opts: {
-    audienceId: number;
-    period: Period;
-  }): Promise<ScheduleView> {
-    return this.getRoomSchedule(opts.audienceId, { periods: [opts.period] });
-  }
-
-  private async getCachedAudienceImage(
+  private async getCachedRoomImage(
     cacheKey: string,
     fetchUrl: () => Promise<string | undefined>,
   ): Promise<Buffer | null> {
     const cached =
-      this.cache?.getLocal("audienceImages", cacheKey) ??
-      await this.cache?.get("audienceImages", cacheKey);
+      this.cache?.getLocal("roomImages", cacheKey) ??
+      await this.cache?.get("roomImages", cacheKey);
     if (cached !== null && cached !== undefined) {
       const entry = cached as { data?: string | null; blobKey?: string };
       if (entry.data !== undefined) {
@@ -816,7 +783,7 @@ export class TimetableClient {
       if (entry.blobKey && this.blobAdapter) {
         const buf = await this.blobAdapter.get(entry.blobKey);
         if (buf) {
-          this.cache?.setLocal("audienceImages", cacheKey, {
+          this.cache?.setLocal("roomImages", cacheKey, {
             data: buf.toString("base64"),
           });
           return buf;
@@ -826,27 +793,27 @@ export class TimetableClient {
 
     const url = await fetchUrl();
     if (!url) {
-      await this.cache?.set("audienceImages", cacheKey, { data: null });
+      await this.cache?.set("roomImages", cacheKey, { data: null });
       return null;
     }
 
     const buf = await this.authGetBuffer(`${BASE}${url}`);
     if (buf.length === 0) {
-      await this.cache?.set("audienceImages", cacheKey, { data: null });
+      await this.cache?.set("roomImages", cacheKey, { data: null });
       return null;
     }
 
     if (this.blobAdapter) {
-      const blobKey = `tt/audience-images/${cacheKey}`;
-      this.cache?.setLocal("audienceImages", cacheKey, {
+      const blobKey = `tt/room-images/${cacheKey}`;
+      this.cache?.setLocal("roomImages", cacheKey, {
         data: buf.toString("base64"),
       });
       await this.blobAdapter.put(blobKey, buf, {
-        ttl: this.cache?.ttl("audienceImages"),
+        ttl: this.cache?.ttl("roomImages"),
       });
-      await this.cache?.setExternal("audienceImages", cacheKey, { blobKey });
+      await this.cache?.setExternal("roomImages", cacheKey, { blobKey });
     } else {
-      await this.cache?.set("audienceImages", cacheKey, {
+      await this.cache?.set("roomImages", cacheKey, {
         data: buf.toString("base64"),
       });
     }
@@ -854,33 +821,31 @@ export class TimetableClient {
   }
 
   /** Get the audience photo (audimage). Returns null if missing. */
-  async getAudienceImage(audienceId: number): Promise<Buffer | null> {
-    return this.getCachedAudienceImage(
-      `aud:${audienceId}`,
-      async () => (await this.getAudienceInfo(audienceId))?.audImageUrl,
+  async getRoomImage(roomId: number): Promise<Buffer | null> {
+    return this.getCachedRoomImage(
+      `room:${roomId}`,
+      async () => (await this.getRoomInfo(roomId))?.audImageUrl,
     );
   }
 
   /** Get the building exterior image (blockimage). Returns null if missing. */
-  async getAudienceBlockImage(audienceId: number): Promise<Buffer | null> {
-    return this.getCachedAudienceImage(
-      `block:${audienceId}`,
-      async () => (await this.getAudienceInfo(audienceId))?.blockImageUrl,
+  async getRoomBuildingImage(roomId: number): Promise<Buffer | null> {
+    return this.getCachedRoomImage(
+      `block:${roomId}`,
+      async () => (await this.getRoomInfo(roomId))?.blockImageUrl,
     );
   }
 
   /** Get the floor plan image for the audience. Returns null if missing. */
-  async getAudienceFloorplan(audienceId: number): Promise<Buffer | null> {
-    return this.getCachedAudienceImage(
-      `floor:${audienceId}`,
-      async () => (await this.getAudienceInfo(audienceId))?.floorplanUrl,
+  async getRoomFloorPlan(roomId: number): Promise<Buffer | null> {
+    return this.getCachedRoomImage(
+      `floor:${roomId}`,
+      async () => (await this.getRoomInfo(roomId))?.floorplanUrl,
     );
   }
 
-  async searchTeacher(opts: {
-    name: string;
-  }): Promise<{ id: number; name: string }[]> {
-    const cacheKey = `search:${opts.name}:${this.pertt}`;
+  async searchTeachers(name: string): Promise<TeacherRef[]> {
+    const cacheKey = `search:${name}:${this.pertt}`;
     const cached = await this.cache?.get("teachers", cacheKey);
     if (cached) {
       const data = cached as Array<{ id: number; name: string }>;
@@ -889,7 +854,7 @@ export class TimetableClient {
     }
 
     const { body } = await this.authPost(`${BASE}/`, {
-      techname: opts.name,
+      techname: name,
       findtech: "найти",
       hfac: "0",
       pertt: this.pertt,
@@ -898,10 +863,6 @@ export class TimetableClient {
     await this.cache?.set("teachers", cacheKey, data);
     await this.rememberTeachers(data);
     return data;
-  }
-
-  async searchTeachers(name: string): Promise<TeacherRef[]> {
-    return this.searchTeacher({ name });
   }
 
   // --- Teacher schedule ---
@@ -923,16 +884,16 @@ export class TimetableClient {
 
   private async fetchTeacherSchedule(
     teacherId: number,
-    period: Period,
+    period: AcademicPeriod,
     academicYearStartYear: number,
-  ): Promise<FullScheduleDay[]> {
+  ): Promise<ParsedScheduleDay[]> {
     const cacheKey = `teacher:${teacherId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as FullScheduleDay[];
+    if (cached) return cached as ParsedScheduleDay[];
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseTeacherFullSchedule(body, this.educationType);
+    const days = parseTeacherSchedule(body, this.educationLevel);
     await this.cache?.set("schedule", cacheKey, days);
 
     // Cache teacher info from the same page to avoid extra requests
@@ -956,7 +917,7 @@ export class TimetableClient {
   async getTeacherSchedule(
     teacherId: number,
     options?: GetScheduleOptions,
-  ): Promise<ScheduleView> {
+  ): Promise<Schedule> {
     await this.ensureRepository();
     return this.getSchedule(
       {
@@ -970,12 +931,6 @@ export class TimetableClient {
     );
   }
 
-  async getTeacherScheduleForPeriod(opts: {
-    teacherId: number;
-    period: Period;
-  }): Promise<ScheduleView> {
-    return this.getTeacherSchedule(opts.teacherId, { periods: [opts.period] });
-  }
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
     const cached = await this.cache?.get("teacherInfo", String(teacherId));
@@ -1000,62 +955,11 @@ export class TimetableClient {
   }
 
   /**
-   * Get the teacher's photo as a Buffer.
+   * Get teacher photo directly by known URL pattern.
+   * Does not fetch or parse teacher info first.
    * Returns null if the teacher has no photo.
-   * Uses cached teacher info when available to avoid extra requests.
    */
   async getTeacherPhoto(teacherId: number): Promise<Buffer | null> {
-    const photoCacheKey = String(teacherId);
-    const cachedPhoto =
-      this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
-      await this.cache?.get("teacherPhotos", photoCacheKey);
-    if (cachedPhoto !== null && cachedPhoto !== undefined) {
-      const entry = cachedPhoto as { data?: string | null; blobKey?: string };
-      if (entry.data !== undefined) {
-        return entry.data ? Buffer.from(entry.data, "base64") : null;
-      }
-      if (entry.blobKey && this.blobAdapter) {
-        const buf = await this.blobAdapter.get(entry.blobKey);
-        if (buf) {
-          this.cache?.setLocal("teacherPhotos", photoCacheKey, {
-            data: buf.toString("base64"),
-          });
-          return buf;
-        }
-      }
-    }
-
-    // Get teacher info (may already be cached from schedule fetch)
-    const info = await this.getTeacherInfo(teacherId);
-    if (!info?.photoUrl) {
-      await this.cache?.set("teacherPhotos", photoCacheKey, { data: null });
-      return null;
-    }
-
-    const photoBuffer = await this.authGetBuffer(`${BASE}${info.photoUrl}`);
-    if (this.blobAdapter) {
-      const blobKey = `tt/teacher-photos/${teacherId}`;
-      this.cache?.setLocal("teacherPhotos", photoCacheKey, {
-        data: photoBuffer.toString("base64"),
-      });
-      await this.blobAdapter.put(blobKey, photoBuffer, {
-        ttl: this.cache?.ttl("teacherPhotos"),
-      });
-      await this.cache?.setExternal("teacherPhotos", photoCacheKey, { blobKey });
-    } else {
-      await this.cache?.set("teacherPhotos", photoCacheKey, {
-        data: photoBuffer.toString("base64"),
-      });
-    }
-    return photoBuffer;
-  }
-
-  /**
-   * Get the teacher's photo without parsing the schedule page.
-   * Uses the known URL pattern directly — no extra page fetch needed.
-   * Returns null if the teacher has no photo.
-   */
-  async getTeacherPhotoLazy(teacherId: number): Promise<Buffer | null> {
     const photoCacheKey = String(teacherId);
     const cachedPhoto =
       this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
@@ -1101,6 +1005,3 @@ export class TimetableClient {
     return photoBuffer;
   }
 }
-
-/** @deprecated Use `TimetableClient`. */
-export { TimetableClient as TtClient };

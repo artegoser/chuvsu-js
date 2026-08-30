@@ -1,4 +1,4 @@
-import { Period } from "../../common/types.js";
+import { AcademicPeriod } from "../../common/types.js";
 import type { SemesterWeek } from "../types.js";
 import { getMonday } from "./date.js";
 
@@ -11,7 +11,7 @@ function getAcademicYearStartYear(date: Date): number {
 }
 
 function resolveSemesterYear(opts: {
-  period: Period;
+  period: AcademicPeriod;
   year?: number;
   date?: Date;
 }): number {
@@ -20,7 +20,7 @@ function resolveSemesterYear(opts: {
   const baseDate = opts.date ?? new Date();
   const academicYearStart = getAcademicYearStartYear(baseDate);
 
-  return opts.period === Period.FallSemester
+  return opts.period === AcademicPeriod.FallSemester
     ? academicYearStart
     : academicYearStart + 1;
 }
@@ -33,13 +33,13 @@ function resolveSemesterYear(opts: {
  * academic year instead of the calendar year.
  */
 export function getSemesterStart(opts: {
-  period: Period;
+  period: AcademicPeriod;
   year?: number;
   date?: Date;
 }): Date {
   const year = resolveSemesterYear(opts);
 
-  if (opts.period === Period.FallSemester) {
+  if (opts.period === AcademicPeriod.FallSemester) {
     return new Date(year, 8, 1); // September 1
   }
 
@@ -57,7 +57,7 @@ export function getSemesterStart(opts: {
  * Week 1 is the calendar week containing the semester start date.
  */
 export function getSemesterWeeks(opts: {
-  period: Period;
+  period: AcademicPeriod;
   year?: number;
   date?: Date;
   weekCount?: number;
@@ -83,7 +83,7 @@ export function getSemesterWeeks(opts: {
 
 /** Current week number within a semester. */
 export function getWeekNumber(opts: {
-  period: Period;
+  period: AcademicPeriod;
   year?: number;
   date?: Date;
 }): number {

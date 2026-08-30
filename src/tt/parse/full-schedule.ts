@@ -6,11 +6,11 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
-import { EducationType } from "../../common/types.js";
+import { EducationLevel } from "../../common/types.js";
 import type {
-  FullScheduleDay,
-  FullScheduleSlot,
-  ScheduleEntry,
+  ParsedScheduleDay,
+  ParsedScheduleSlot,
+  ParsedScheduleEntry,
   Substitution,
 } from "../types.js";
 import { getLessonNumber } from "../utils/index.js";
@@ -33,12 +33,12 @@ import {
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
-export function parseFullSchedule(
+export function parseGroupSchedule(
   html: string,
-  educationType?: EducationType,
-): FullScheduleDay[] {
+  educationLevel?: EducationLevel,
+): ParsedScheduleDay[] {
   const doc = parseHtml(html);
-  const edType = educationType ?? EducationType.HigherEducation;
+  const edType = educationLevel ?? EducationLevel.HigherEducation;
 
   // Session layout has date-based cells with ids like "trd20251224"
   if (doc.querySelector('td[id^="trd2"]')) {
@@ -52,12 +52,12 @@ export function parseFullSchedule(
 
 export function parseSemesterScheduleWith(
   doc: Document,
-  entryParser: (el: Element) => ScheduleEntry | null,
-): FullScheduleDay[] {
-  const days: FullScheduleDay[] = [];
+  entryParser: (el: Element) => ParsedScheduleEntry | null,
+): ParsedScheduleDay[] {
+  const days: ParsedScheduleDay[] = [];
 
   const rows = doc.querySelectorAll("tr");
-  let currentDay: FullScheduleDay | null = null;
+  let currentDay: ParsedScheduleDay | null = null;
 
   for (const row of rows) {
     const style = row.getAttribute("style") ?? "";
@@ -96,7 +96,7 @@ export function parseSemesterScheduleWith(
     const timeMatch = timeText.match(/\((\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})\)/);
     if (!numberMatch) continue;
 
-    const entries: ScheduleEntry[] = [];
+    const entries: ParsedScheduleEntry[] = [];
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const entry = entryParser(entryRow);
       if (entry) entries.push(entry);
@@ -113,11 +113,11 @@ export function parseSemesterScheduleWith(
   return days;
 }
 
-function parseSemesterSchedule(doc: Document): FullScheduleDay[] {
+function parseSemesterSchedule(doc: Document): ParsedScheduleDay[] {
   return parseSemesterScheduleWith(doc, parseSemesterEntry);
 }
 
-function parseSemesterEntry(el: Element): ScheduleEntry | null {
+function parseSemesterEntry(el: Element): ParsedScheduleEntry | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -189,9 +189,9 @@ function parseSemesterEntry(el: Element): ScheduleEntry | null {
 
 function parseSessionSchedule(
   doc: Document,
-  educationType: EducationType,
-): FullScheduleDay[] {
-  const days: FullScheduleDay[] = [];
+  educationLevel: EducationLevel,
+): ParsedScheduleDay[] {
+  const days: ParsedScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
     // Parse date from cell id: trd20251224 -> 2025-12-24
@@ -216,7 +216,7 @@ function parseSessionSchedule(
       continue;
     }
 
-    const slots: FullScheduleSlot[] = [];
+    const slots: ParsedScheduleSlot[] = [];
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
@@ -224,7 +224,7 @@ function parseSessionSchedule(
       if (!entry) continue;
 
       slots.push({
-        number: getLessonNumber(entry.timeStart, educationType),
+        number: getLessonNumber(entry.timeStart, educationLevel),
         timeStart: entry.timeStart,
         timeEnd: entry.timeEnd,
         entries: [entry.entry],
@@ -242,7 +242,7 @@ function parseSessionSchedule(
 function parseSessionEntry(
   td: Element,
 ): {
-  entry: ScheduleEntry;
+  entry: ParsedScheduleEntry;
   timeStart: { hours: number; minutes: number };
   timeEnd: { hours: number; minutes: number };
 } | null {
