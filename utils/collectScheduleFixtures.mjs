@@ -243,8 +243,9 @@ if (requestedGroup) {
     allGroups.filter((group) => group.id !== required.id),
     seed,
   );
-  const candidateLimit = Math.min(allGroups.length, Math.max(limit * 2, limit));
-  candidateGroups = [required, ...randomized].slice(0, candidateLimit);
+  // Probe complete randomized pool. Selection happens after raw schedule
+  // inspection, so empty groups never consume the requested sample size.
+  candidateGroups = [required, ...randomized];
 }
 
 assert.ok(candidateGroups.length > 0, "No groups selected");
@@ -278,14 +279,14 @@ const populatedGroupIds = new Set(
 );
 const selectedGroups = requestedGroup || process.argv.includes("--all")
   ? candidateGroups
-  : candidateGroups.slice(0, limit);
+  : candidateGroups.filter((group) => populatedGroupIds.has(group.id)).slice(0, limit);
 
 assert.ok(selectedGroups.length > 0, "No groups selected");
 if (!requestedGroup && !process.argv.includes("--all")) {
   assert.equal(
     selectedGroups.length,
-    Math.min(limit, candidateGroups.length),
-    "Not enough groups in candidate sample; increase candidate pool",
+    Math.min(limit, populatedGroupIds.size),
+    "Not enough populated groups; lower --limit or use --all",
   );
   assert.ok(
     selectedGroups.some((group) => group.name === REQUIRED_GROUP),
