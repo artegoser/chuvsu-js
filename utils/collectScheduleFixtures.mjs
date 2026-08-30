@@ -243,9 +243,10 @@ if (requestedGroup) {
     allGroups.filter((group) => group.id !== required.id),
     seed,
   );
-  // Probe complete randomized pool. Selection happens after raw schedule
+  // Probe bounded randomized pool. Selection happens after raw schedule
   // inspection, so empty groups never consume the requested sample size.
-  candidateGroups = [required, ...randomized];
+  const candidateLimit = Math.min(allGroups.length, Math.max(limit * 4, limit));
+  candidateGroups = [required, ...randomized].slice(0, candidateLimit);
 }
 
 assert.ok(candidateGroups.length > 0, "No groups selected");
