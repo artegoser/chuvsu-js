@@ -57,6 +57,14 @@ function sourceGroupName(doc) {
   return text(doc.querySelector('span.htext span[style*="color: blue"]'));
 }
 
+function isSelfStudyRow(row) {
+  return [...row.querySelectorAll('span[style*="color: blue"]')].some(
+    (span) =>
+      span.closest("tr") === row &&
+      /^День самостоятельной работы$/iu.test(text(span)),
+  );
+}
+
 function subjectCell(row) {
   const cell = row.querySelector("td") ?? row;
   const subject = cell.querySelector('span[style*="color: blue"]');
@@ -85,6 +93,10 @@ function sourceSemester(doc) {
     }
 
     if (!currentDay) continue;
+    if (isSelfStudyRow(row)) {
+      currentDay.isSelfStudyDay = true;
+      continue;
+    }
     const timeCell = row.querySelector("td.trf");
     const dataCell = row.querySelector("td.trdata:not(.trf)");
     const timeDiv = timeCell?.querySelector(".trfd");
@@ -360,6 +372,11 @@ for (const { file, html: sourceHtml, expected } of pairs) {
     const sourceDay = source.days[dayIndex];
     assert.equal(sourceDay.weekday, expectedDay.weekday, `${file}: weekday ${dayIndex}`);
     assert.equal(sourceDay.date ?? null, expectedDay.date, `${file}: date ${dayIndex}`);
+    assert.equal(
+      Boolean(sourceDay.isSelfStudyDay),
+      Boolean(expectedDay.isSelfStudyDay),
+      `${file}: self-study marker ${dayIndex}`,
+    );
     assert.equal(sourceDay.slots.length, expectedDay.slots.length, `${file}: slot count ${dayIndex}`);
 
     for (const [slotIndex, expectedSlot] of expectedDay.slots.entries()) {

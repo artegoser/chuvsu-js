@@ -110,6 +110,8 @@ export interface FullScheduleSlot {
 export interface FullScheduleDay {
   weekday: string;
   date?: Date;
+  /** True when portal marks this weekday as a self-study day. */
+  isSelfStudyDay?: boolean;
   slots: FullScheduleSlot[];
 }
 

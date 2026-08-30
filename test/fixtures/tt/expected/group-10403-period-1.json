@@ -78,6 +78,7 @@
       "index": 1,
       "weekday": "Вторник",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {
@@ -263,12 +264,14 @@
       "index": 4,
       "weekday": "Пятница",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {
       "index": 5,
       "weekday": "Суббота",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     }
   ]

@@ -10,18 +10,21 @@
       "index": 0,
       "weekday": "Понедельник",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {
       "index": 1,
       "weekday": "Вторник",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {
       "index": 2,
       "weekday": "Среда",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {

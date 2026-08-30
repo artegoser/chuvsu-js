@@ -1084,6 +1084,7 @@
       "index": 5,
       "weekday": "Суббота",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     }
   ]

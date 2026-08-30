@@ -74,6 +74,16 @@ export function parseSemesterScheduleWith(
 
     if (!currentDay) continue;
 
+    const selfStudyMarker = row.querySelector('span[style*="color: blue"]');
+    if (
+      selfStudyMarker &&
+      /^День самостоятельной работы$/i.test(text(selfStudyMarker)) &&
+      selfStudyMarker.closest("tr") === row
+    ) {
+      currentDay.isSelfStudyDay = true;
+      continue;
+    }
+
     const timeCell = row.querySelector("td.trf");
     const dataCell = row.querySelector("td.trdata:not(.trf)");
     if (!timeCell || !dataCell) continue;

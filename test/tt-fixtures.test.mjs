@@ -103,6 +103,13 @@ function assertExpectedShape(expected, fixture) {
   for (const [dayIndex, day] of expected.days.entries()) {
     assert.equal(day.index, dayIndex, `${fixture.file}: day index is not stable`);
     assert.ok(day.weekday, `${fixture.file}: weekday missing at ${dayIndex}`);
+    if ("isSelfStudyDay" in day) {
+      assert.equal(
+        typeof day.isSelfStudyDay,
+        "boolean",
+        `${fixture.file}: self-study marker invalid at ${dayIndex}`,
+      );
+    }
     assert.ok(Array.isArray(day.slots), `${fixture.file}: slots missing at ${dayIndex}`);
     for (const [slotIndex, slot] of day.slots.entries()) {
       assert.equal(
@@ -134,8 +141,75 @@ function assertExpectedShape(expected, fixture) {
   }
 }
 
-test("group fixtures match manually checked expectations by slot and entry index", async () => {
-  const fixtures = await loadCorpus();
+function compareFixture(fixture) {
+  const { expected } = fixture;
+  assertExpectedShape(expected, fixture);
+  assert.ok(expected.days.length > 0, `${fixture.file}: empty schedule fixture included`);
+
+  const parsedDays = parseFullSchedule(fixture.html);
+  assert.equal(parsedDays.length, expected.days.length, `${fixture.file}: day count changed`);
+
+  for (const [dayIndex, expectedDay] of expected.days.entries()) {
+    const parsedDay = parsedDays[dayIndex];
+    assert.equal(parsedDay.weekday, expectedDay.weekday, `${fixture.file}: weekday changed`);
+    assert.equal(dateKey(parsedDay.date), expectedDay.date, `${fixture.file}: date changed`);
+    assert.equal(
+      Boolean(parsedDay.isSelfStudyDay),
+      Boolean(expectedDay.isSelfStudyDay),
+      `${fixture.file}: self-study marker changed at day ${dayIndex}`,
+    );
+    assert.equal(
+      parsedDay.slots.length,
+      expectedDay.slots.length,
+      `${fixture.file}: slot count changed at day ${dayIndex}`,
+    );
+
+    for (const [slotIndex, expectedSlot] of expectedDay.slots.entries()) {
+      const parsedSlot = parsedDay.slots[slotIndex];
+      assert.equal(parsedSlot.number, expectedSlot.number, `${fixture.file}: slot number changed at ${dayIndex}/${slotIndex}`);
+      assert.deepEqual(parsedSlot.timeStart, expectedSlot.timeStart, `${fixture.file}: slot start changed at ${dayIndex}/${slotIndex}`);
+      assert.deepEqual(parsedSlot.timeEnd, expectedSlot.timeEnd, `${fixture.file}: slot end changed at ${dayIndex}/${slotIndex}`);
+      assert.equal(
+        parsedSlot.entries.length,
+        expectedSlot.entries.length,
+        `${fixture.file}: entry count changed at ${dayIndex}/${slotIndex}`,
+      );
+
+      for (const [entryIndex, expectedEntry] of expectedSlot.entries.entries()) {
+        const parsedEntry = parsedSlot.entries[entryIndex];
+        assert.deepEqual(
+          actualEntry(parsedEntry, expected.layout),
+          {
+            subject: expectedEntry.subject,
+            type: expectedEntry.type,
+            weeks: expectedEntry.weeks,
+            room: expectedEntry.room,
+            teacher: expectedEntry.teacher,
+            groups: expectedEntry.groups,
+            subgroup: expectedEntry.subgroup,
+            weekParity: expectedEntry.weekParity,
+            isDistance: expectedEntry.isDistance,
+            possibleChanges: expectedEntry.possibleChanges,
+            substitutions: expectedEntry.substitutions,
+            transfer: expectedEntry.transfer,
+            substituteFor: expectedEntry.substituteFor,
+          },
+          `${fixture.file}: fields changed at ${dayIndex}/${slotIndex}/${entryIndex} (${expectedEntry.subject})`,
+        );
+      }
+    }
+  }
+}
+
+const fixtures = await loadCorpus();
+
+for (const fixture of fixtures) {
+  test(`group fixture ${fixture.file} matches static JSON by index`, () => {
+    compareFixture(fixture);
+  });
+}
+
+test("group fixture index and feature coverage", () => {
   const groupIds = new Set(fixtures.map((fixture) => fixture.groupId));
   const periods = new Set(fixtures.map((fixture) => fixture.period));
   assert.equal(
@@ -172,6 +246,7 @@ test("group fixtures match manually checked expectations by slot and entry index
     possibleChanges: 0,
     substitutions: 0,
     transfers: 0,
+    selfStudyDays: 0,
     types: new Set(),
   };
 
@@ -180,53 +255,10 @@ test("group fixtures match manually checked expectations by slot and entry index
     assertExpectedShape(expected, fixture);
     assert.ok(expected.days.length > 0, `${fixture.file}: empty schedule fixture included`);
     coverage[expected.layout]++;
-
-    const parsedDays = parseFullSchedule(fixture.html);
-    assert.equal(parsedDays.length, expected.days.length, `${fixture.file}: day count changed`);
-
-    for (const [dayIndex, expectedDay] of expected.days.entries()) {
-      const parsedDay = parsedDays[dayIndex];
-      assert.equal(parsedDay.weekday, expectedDay.weekday, `${fixture.file}: weekday changed`);
-      assert.equal(dateKey(parsedDay.date), expectedDay.date, `${fixture.file}: date changed`);
-      assert.equal(
-        parsedDay.slots.length,
-        expectedDay.slots.length,
-        `${fixture.file}: slot count changed at day ${dayIndex}`,
-      );
-
-      for (const [slotIndex, expectedSlot] of expectedDay.slots.entries()) {
-        const parsedSlot = parsedDay.slots[slotIndex];
-        assert.equal(parsedSlot.number, expectedSlot.number, `${fixture.file}: slot number changed at ${dayIndex}/${slotIndex}`);
-        assert.deepEqual(parsedSlot.timeStart, expectedSlot.timeStart, `${fixture.file}: slot start changed at ${dayIndex}/${slotIndex}`);
-        assert.deepEqual(parsedSlot.timeEnd, expectedSlot.timeEnd, `${fixture.file}: slot end changed at ${dayIndex}/${slotIndex}`);
-        assert.equal(
-          parsedSlot.entries.length,
-          expectedSlot.entries.length,
-          `${fixture.file}: entry count changed at ${dayIndex}/${slotIndex}`,
-        );
-
-        for (const [entryIndex, expectedEntry] of expectedSlot.entries.entries()) {
-          const parsedEntry = parsedSlot.entries[entryIndex];
-          assert.deepEqual(
-            actualEntry(parsedEntry, expected.layout),
-            {
-              subject: expectedEntry.subject,
-              type: expectedEntry.type,
-              weeks: expectedEntry.weeks,
-              room: expectedEntry.room,
-              teacher: expectedEntry.teacher,
-              groups: expectedEntry.groups,
-              subgroup: expectedEntry.subgroup,
-              weekParity: expectedEntry.weekParity,
-              isDistance: expectedEntry.isDistance,
-              possibleChanges: expectedEntry.possibleChanges,
-              substitutions: expectedEntry.substitutions,
-              transfer: expectedEntry.transfer,
-              substituteFor: expectedEntry.substituteFor,
-            },
-            `${fixture.file}: fields changed at ${dayIndex}/${slotIndex}/${entryIndex} (${expectedEntry.subject})`,
-          );
-
+    for (const expectedDay of expected.days) {
+      if (expectedDay.isSelfStudyDay) coverage.selfStudyDays++;
+      for (const expectedSlot of expectedDay.slots) {
+        for (const expectedEntry of expectedSlot.entries) {
           coverage.entries++;
           coverage.types.add(expectedEntry.type.toLowerCase());
           if (expectedEntry.room) coverage.room++;
@@ -252,6 +284,7 @@ test("group fixtures match manually checked expectations by slot and entry index
   assert.ok(coverage.possibleChanges > 0, "possible-change entries are not covered");
   assert.ok(coverage.substitutions > 0, "substitution overlays are not covered");
   assert.ok(coverage.transfers > 0, "transfer overlays are not covered");
+  assert.ok(coverage.selfStudyDays > 0, "self-study days are not covered");
   for (const type of ["из", "гз", "крп"]) {
     assert.ok(coverage.types.has(type), `${type} lesson type is not covered`);
   }

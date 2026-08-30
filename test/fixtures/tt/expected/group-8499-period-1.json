@@ -10,6 +10,7 @@
       "index": 0,
       "weekday": "Понедельник",
       "date": null,
+      "isSelfStudyDay": true,
       "slots": []
     },
     {
