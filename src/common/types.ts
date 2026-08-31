@@ -15,6 +15,11 @@ export interface Time {
   minutes: number;
 }
 
+export interface TimeRange {
+  start: Time;
+  end: Time;
+}
+
 export interface WeekRange {
   from: number;
   to: number;

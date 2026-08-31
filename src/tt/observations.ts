@@ -1,7 +1,7 @@
 import type { Teacher } from "../common/types.js";
 import type {
   ParsedScheduleDay,
-  ParsedScheduleEntry,
+  ParsedLesson,
   Substitution,
 } from "./types.js";
 import type {
@@ -14,6 +14,7 @@ import type {
   ScheduleSourceSnapshot,
   SeriesObservation,
   TeacherRef,
+  RelationSet,
 } from "./domain/types.js";
 
 const WEEKDAY_INDEX = new Map<string, number>([
@@ -40,27 +41,64 @@ function teacherRef(value: Teacher): TeacherRef | null {
   return { ...value };
 }
 
+function relationSet<T>(
+  values: T[] | undefined,
+  explicitlyEmpty = false,
+): RelationSet<T> {
+  return {
+    values: values ?? [],
+    completeness: explicitlyEmpty ? "complete" : values?.length ? "partial" : "unknown",
+  };
+}
+
 function groupsFor(
-  entry: ParsedScheduleEntry,
+  entry: ParsedLesson,
   owner: ScheduleOwner,
-): GroupAttendance[] | undefined {
-  const groups = entry.groups.map((name) => ({
+): RelationSet<GroupAttendance> {
+  const visible = entry.groups?.map((name) => ({
     group: { name },
     subgroup: entry.subgroup,
-  }));
+  })) ?? [];
+  const groups = relationSet(
+    visible,
+    entry.groups === null || Array.isArray(entry.groups) && entry.groups.length === 0,
+  );
   if (owner.type === "group") {
-    groups.unshift({ group: owner.group, subgroup: entry.subgroup });
+    groups.values.unshift({ group: owner.group, subgroup: entry.subgroup });
+    if (groups.completeness === "unknown") groups.completeness = "partial";
   }
-  return groups.length === 0 ? undefined : groups;
+  return groups;
 }
 
-function teachersFor(entry: ParsedScheduleEntry): TeacherRef[] | undefined {
-  const teacher = teacherRef(entry.teacher);
-  return teacher ? [teacher] : undefined;
+function teachersFor(
+  entry: ParsedLesson,
+  owner: ScheduleOwner,
+): RelationSet<TeacherRef> {
+  const teacher = entry.teacher ? teacherRef(entry.teacher) : null;
+  const teachers = relationSet(
+    teacher ? [teacher] : undefined,
+    entry.teacher === null,
+  );
+  if (owner.type === "teacher") {
+    teachers.values.unshift(owner.teacher);
+    if (teachers.completeness === "unknown") teachers.completeness = "partial";
+  }
+  return teachers;
 }
 
-function roomsFor(entry: ParsedScheduleEntry): RoomRef[] | undefined {
-  return entry.room ? [{ name: entry.room }] : undefined;
+function roomsFor(
+  entry: ParsedLesson,
+  owner: ScheduleOwner,
+): RelationSet<RoomRef> {
+  const rooms = relationSet(
+    entry.room ? [{ name: entry.room }] : undefined,
+    entry.room === null,
+  );
+  if (owner.type === "room") {
+    rooms.values.unshift(owner.room);
+    if (rooms.completeness === "unknown") rooms.completeness = "partial";
+  }
+  return rooms;
 }
 
 function substitutionsFor(
@@ -81,22 +119,19 @@ function substitutionsFor(
 
 function observationBase(
   key: string,
-  entry: ParsedScheduleEntry,
-  slot: ParsedScheduleDay["slots"][number],
+  entry: ParsedLesson,
+  block: ParsedScheduleDay["blocks"][number],
   owner: ScheduleOwner,
 ) {
   return {
     key,
     subject: entry.subject,
     type: entry.type,
-    slot: {
-      number: slot.number,
-      start: slot.timeStart,
-      end: slot.timeEnd,
-    },
+    slotNumber: block.slotNumber,
+    time: block.time,
     groups: groupsFor(entry, owner),
-    teachers: teachersFor(entry),
-    rooms: roomsFor(entry),
+    teachers: teachersFor(entry, owner),
+    rooms: roomsFor(entry, owner),
     isDistance: entry.isDistance,
     possibleChanges: entry.possibleChanges,
     substitutions: substitutionsFor(entry.substitutions),
@@ -105,14 +140,14 @@ function observationBase(
 
 function occurrenceFrom(
   key: string,
-  entry: ParsedScheduleEntry,
-  slot: ParsedScheduleDay["slots"][number],
+  entry: ParsedLesson,
+  block: ParsedScheduleDay["blocks"][number],
   date: Date,
   owner: ScheduleOwner,
 ): OccurrenceObservation {
   return {
     kind: "occurrence",
-    ...observationBase(key, entry, slot, owner),
+    ...observationBase(key, entry, block, owner),
     date: new Date(date),
     transfer: entry.transfer
       ? {
@@ -126,14 +161,14 @@ function occurrenceFrom(
 
 function seriesFrom(
   key: string,
-  entry: ParsedScheduleEntry,
-  slot: ParsedScheduleDay["slots"][number],
+  entry: ParsedLesson,
+  block: ParsedScheduleDay["blocks"][number],
   weekday: number,
   owner: ScheduleOwner,
 ): SeriesObservation {
   return {
     kind: "series",
-    ...observationBase(key, entry, slot, owner),
+    ...observationBase(key, entry, block, owner),
     recurrence: {
       weekday,
       weeks: entry.weeks,
@@ -152,15 +187,15 @@ export function createScheduleSourceSnapshot(
       day.date?.getDay() ?? WEEKDAY_INDEX.get(day.weekday.toLowerCase());
     if (weekday == null) continue;
 
-    for (const [slotIndex, slot] of day.slots.entries()) {
-      for (const [entryIndex, entry] of slot.entries.entries()) {
-        const key = `day:${dayIndex}:slot:${slotIndex}:entry:${entryIndex}`;
+    for (const [blockIndex, block] of day.blocks.entries()) {
+      for (const [lessonIndex, entry] of block.lessons.entries()) {
+        const key = `day:${dayIndex}:block:${blockIndex}:lesson:${lessonIndex}`;
         const directDate =
           entry.transfer?.targetDate ?? entry.substituteFor?.date ?? day.date;
         observations.push(
           directDate
-            ? occurrenceFrom(key, entry, slot, directDate, options.owner)
-            : seriesFrom(key, entry, slot, weekday, options.owner),
+            ? occurrenceFrom(key, entry, block, directDate, options.owner)
+            : seriesFrom(key, entry, block, weekday, options.owner),
         );
       }
     }

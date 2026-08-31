@@ -10,10 +10,9 @@ export {
   getCurrentPeriod,
   getEffectiveHolidays,
   getHolidayTransfers,
-  getLessonNumber,
   getSemesterStart,
   getSemesterWeeks,
-  getTimeSlots,
+  getStandardScheduleBlocks,
   getWeekNumber,
   getWeekdayName,
   isHoliday,
@@ -28,7 +27,7 @@ export {
   ParseError,
   AcademicPeriod,
 } from "./common/types.js";
-export type { Teacher, Time, WeekRange } from "./common/types.js";
+export type { Teacher, Time, TimeRange, WeekRange } from "./common/types.js";
 
 export type { CacheAdapter, CacheEntry } from "./common/cache.js";
 
@@ -39,7 +38,7 @@ export type {
   Faculty,
   GetScheduleOptions,
   Group,
-  LessonTimeSlot,
+  StandardScheduleBlock,
   Room,
   RoomInfo,
   SemesterWeek,

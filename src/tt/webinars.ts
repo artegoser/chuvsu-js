@@ -25,18 +25,22 @@ export function findWebinar(
 ): Webinar | undefined {
   return webinars.find((webinar) => {
     if (!webinar.scheduled) return false;
-    if (webinar.date && !sameDay(webinar.date, lesson.date)) return false;
+    if (
+      webinar.scheduledDate &&
+      !sameDay(webinar.scheduledDate, lesson.scheduledDate)
+    ) return false;
     if (
       webinar.slotNumber != null &&
-      webinar.slotNumber !== lesson.slot.number
+      webinar.slotNumber !== lesson.slotNumber
     ) {
       return false;
     }
     if (
-      webinar.timeStart.hours !== lesson.slot.start.hours ||
-      webinar.timeStart.minutes !== lesson.slot.start.minutes ||
-      webinar.timeEnd.hours !== lesson.slot.end.hours ||
-      webinar.timeEnd.minutes !== lesson.slot.end.minutes
+      !lesson.time ||
+      webinar.time.start.hours !== lesson.time.start.hours ||
+      webinar.time.start.minutes !== lesson.time.start.minutes ||
+      webinar.time.end.hours !== lesson.time.end.hours ||
+      webinar.time.end.minutes !== lesson.time.end.minutes
     ) {
       return false;
     }

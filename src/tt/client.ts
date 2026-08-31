@@ -327,7 +327,7 @@ export class TimetableClient {
 
     const url = `${BASE}/index/grouptt/gr/${groupId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseGroupSchedule(body, this.educationLevel);
+    const days = parseGroupSchedule(body);
     await this.cache?.set("schedule", cacheKey, days);
     return days;
   }
@@ -893,7 +893,7 @@ export class TimetableClient {
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
-    const days = parseTeacherSchedule(body, this.educationLevel);
+    const days = parseTeacherSchedule(body);
     await this.cache?.set("schedule", cacheKey, days);
 
     // Cache teacher info from the same page to avoid extra requests

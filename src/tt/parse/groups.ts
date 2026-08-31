@@ -5,7 +5,7 @@ import { SUBGROUP_ANNOTATION_RE_I } from "./patterns.js";
  *
  * Preserves in-name annotations (e.g. "КТ-42-25 (АихС)") and strips service
  * markers like "(N подгруппа)" — the subgroup number is carried separately on
- * {@link import("../types.js").ParsedScheduleEntry.subgroup}.
+ * {@link import("../types.js").ParsedLesson.subgroup}.
  *
  * Examples:
  *   "КТ-42-25"                          -> ["КТ-42-25"]

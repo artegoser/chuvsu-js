@@ -5,7 +5,7 @@ import type {
 } from "./domain/types.js";
 import type { TimetableRepository } from "./domain/repository.js";
 import type {
-  Time,
+  TimeRange,
   WeekRange,
   Teacher,
   EducationLevel,
@@ -79,19 +79,21 @@ export interface TransferInfo {
   subject: string;
 }
 
-export interface ParsedScheduleEntry {
-  room: string;
+export interface ParsedLesson {
+  /** Missing means this source projection does not expose room information. */
+  room?: string | null;
   subject: string;
   type: string;
   weeks: WeekRange;
-  teacher: Teacher;
+  /** Missing means this source projection does not expose teacher information. */
+  teacher?: Teacher | null;
   /**
    * Group names for this lesson (e.g. `["КТ-42-25 (АихС)", "КТ-41-25"]`).
    * Parenthesized annotations that are part of the group name are preserved;
-   * service markers like "(N подгруппа)" are stripped and moved to {@link ParsedScheduleEntry.subgroup}.
+   * service markers like "(N подгруппа)" are stripped and moved to {@link ParsedLesson.subgroup}.
    * Empty array if no groups are listed.
    */
-  groups: string[];
+  groups?: string[] | null;
   subgroup?: number;
   weekParity?: "even" | "odd";
   /** True when the lesson is explicitly marked as дистанционно / ДОТ. */
@@ -106,11 +108,12 @@ export interface ParsedScheduleEntry {
   possibleChanges?: boolean;
 }
 
-export interface ParsedScheduleSlot {
-  number: number;
-  timeStart: Time;
-  timeEnd: Time;
-  entries: ParsedScheduleEntry[];
+export interface ParsedScheduleBlock {
+  /** Portal ordinal claim. It is independent from the time claim. */
+  slotNumber?: number;
+  /** Missing when the source does not expose a trustworthy time range. */
+  time?: TimeRange;
+  lessons: ParsedLesson[];
 }
 
 export interface ParsedScheduleDay {
@@ -118,13 +121,12 @@ export interface ParsedScheduleDay {
   date?: Date;
   /** True when portal marks this weekday as a self-study day. */
   isSelfStudyDay?: boolean;
-  slots: ParsedScheduleSlot[];
+  blocks: ParsedScheduleBlock[];
 }
 
-export interface LessonTimeSlot {
-  number: number;
-  start: Time;
-  end: Time;
+export interface StandardScheduleBlock {
+  slotNumber: number;
+  time: TimeRange;
 }
 
 /** Teacher info from the schedule page header. */
@@ -149,10 +151,9 @@ export interface Webinar {
   idType: number;
   /** True for "Вебинары по расписанию"; false for external webinars. */
   scheduled: boolean;
-  date?: Date;
+  scheduledDate?: Date;
   slotNumber?: number;
-  timeStart: Time;
-  timeEnd: Time;
+  time: TimeRange;
   subject: string;
   type: string;
   teacher: Teacher;

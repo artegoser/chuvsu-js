@@ -1,7 +1,7 @@
 import { parseTeacher, text } from "../../common/parse.js";
 import type { Teacher } from "../../common/types.js";
 import type {
-  ParsedScheduleEntry,
+  ParsedLesson,
   Substitution,
   TransferInfo,
 } from "../types.js";
@@ -24,7 +24,7 @@ export function parseDate(dd: string, mm: string, yyyy: string): Date {
 
 export function parseTransferDiv(
   div: Element,
-): { transfer: TransferInfo; entry: ParsedScheduleEntry } | null {
+): { transfer: TransferInfo; entry: ParsedLesson } | null {
   const divText = text(div);
   const divHtml = div.innerHTML ?? "";
 
@@ -80,16 +80,17 @@ export function parseTransferDiv(
 
   const transfer: TransferInfo = { targetDate, fromDate, fromSlot, subject };
   const subgroupMatch = divText.match(SUBGROUP_RE);
+  const groups = parseGroupsString(groupsPart);
 
   return {
     transfer,
     entry: {
-      room: roomMatch?.[1] ?? "",
+      room: roomMatch?.[1] || undefined,
       subject,
       type: typeMatch?.[1] ?? "",
       weeks: { from: 0, to: 0 },
-      teacher: parseTeacher(teacherPart),
-      groups: parseGroupsString(groupsPart),
+      teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
+      groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
       transfer,
@@ -123,7 +124,7 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
 }
 
 export function parseSubstituteForDiv(div: Element): {
-  entry: ParsedScheduleEntry;
+  entry: ParsedLesson;
 } | null {
   const divText = text(div);
   const divHtml = div.innerHTML ?? "";
@@ -161,15 +162,15 @@ export function parseSubstituteForDiv(div: Element): {
     ),
   );
   const subgroupMatch = divText.match(SUBGROUP_RE);
+  const groups = parseGroupsString(groupsMatch?.[1]);
 
   return {
     entry: {
-      room: roomMatch?.[1] ?? "",
+      room: roomMatch?.[1] || undefined,
       subject,
       type: typeMatch?.[1] ?? "",
       weeks: { from: 0, to: 0 },
-      teacher: { name: "" },
-      groups: parseGroupsString(groupsMatch?.[1]),
+      groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
       substituteFor: { date, originalTeacher },

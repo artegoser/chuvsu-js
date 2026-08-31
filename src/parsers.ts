@@ -17,6 +17,6 @@ export {
 export { createScheduleSourceSnapshot } from "./tt/observations.js";
 export type {
   ParsedScheduleDay,
-  ParsedScheduleEntry,
-  ParsedScheduleSlot,
+  ParsedLesson,
+  ParsedScheduleBlock,
 } from "./tt/types.js";

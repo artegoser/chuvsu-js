@@ -9,7 +9,7 @@ export {
   getSemesterWeeks,
   getWeekNumber,
 } from "./semester.js";
-export { getLessonNumber, getTimeSlots } from "./time-slots.js";
+export { getStandardScheduleBlocks } from "./time-slots.js";
 export {
   getCompensatingWorkDays,
   getEffectiveHolidays,

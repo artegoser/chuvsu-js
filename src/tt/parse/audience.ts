@@ -8,7 +8,7 @@ import {
 import type {
   RoomInfo,
   ParsedScheduleDay,
-  ParsedScheduleEntry,
+  ParsedLesson,
   Substitution,
 } from "../types.js";
 import { parseSemesterScheduleWith } from "./full-schedule.js";
@@ -97,7 +97,7 @@ export function parseRoomInfo(html: string): RoomInfo | null {
   };
 }
 
-function parseRoomSemesterEntry(el: Element): ParsedScheduleEntry | null {
+function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -164,14 +164,14 @@ function parseRoomSemesterEntry(el: Element): ParsedScheduleEntry | null {
     )
     .filter(Boolean)
     .join(" ");
+  const groups = parseGroupsString(groupsLine);
 
   return {
-    room: "",
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: parseTeacher(teacherLine),
-    groups: parseGroupsString(groupsLine),
+    groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
     isDistance: DISTANCE_RE.test(cleanText),

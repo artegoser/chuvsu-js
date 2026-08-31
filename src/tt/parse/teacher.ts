@@ -5,15 +5,13 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
-import { EducationLevel } from "../../common/types.js";
 import type {
   ParsedScheduleDay,
-  ParsedScheduleSlot,
-  ParsedScheduleEntry,
+  ParsedScheduleBlock,
+  ParsedLesson,
   Substitution,
   TeacherInfo,
 } from "../types.js";
-import { getLessonNumber } from "../utils/index.js";
 import { parseSemesterScheduleWith } from "./full-schedule.js";
 import { parseGroupsString } from "./groups.js";
 import {
@@ -36,21 +34,17 @@ import {
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
-export function parseTeacherSchedule(
-  html: string,
-  educationLevel?: EducationLevel,
-): ParsedScheduleDay[] {
+export function parseTeacherSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
-  const edType = educationLevel ?? EducationLevel.HigherEducation;
 
   if (doc.querySelector('td[id^="trd2"]')) {
-    return parseTeacherSessionSchedule(doc, edType);
+    return parseTeacherSessionSchedule(doc);
   }
 
   return parseSemesterScheduleWith(doc, parseTeacherSemesterEntry);
 }
 
-function parseTeacherSemesterEntry(el: Element): ParsedScheduleEntry | null {
+function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -106,26 +100,23 @@ function parseTeacherSemesterEntry(el: Element): ParsedScheduleEntry | null {
   ) ?? "";
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
+  const groups = parseGroupsString(stripDistanceMarker(groupsLine));
 
   return {
-    room,
+    room: room || undefined,
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
-    teacher: { name: "" },
-    groups: parseGroupsString(stripDistanceMarker(groupsLine)),
+    groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room),
+    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room ?? ""),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
 }
 
-function parseTeacherSessionSchedule(
-  doc: Document,
-  educationLevel: EducationLevel,
-): ParsedScheduleDay[] {
+function parseTeacherSessionSchedule(doc: Document): ParsedScheduleDay[] {
   const days: ParsedScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
@@ -147,23 +138,21 @@ function parseTeacherSessionSchedule(
       continue;
     }
 
-    const slots: ParsedScheduleSlot[] = [];
+    const blocks: ParsedScheduleBlock[] = [];
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
       const entry = parseTeacherSessionEntry(td);
       if (!entry) continue;
 
-      slots.push({
-        number: getLessonNumber(entry.timeStart, educationLevel),
-        timeStart: entry.timeStart,
-        timeEnd: entry.timeEnd,
-        entries: [entry.entry],
+      blocks.push({
+        time: entry.time,
+        lessons: [entry.lesson],
       });
     }
 
-    if (slots.length > 0) {
-      days.push({ weekday, date, slots });
+    if (blocks.length > 0) {
+      days.push({ weekday, date, blocks });
     }
   }
 
@@ -173,9 +162,8 @@ function parseTeacherSessionSchedule(
 function parseTeacherSessionEntry(
   td: Element,
 ): {
-  entry: ParsedScheduleEntry;
-  timeStart: { hours: number; minutes: number };
-  timeEnd: { hours: number; minutes: number };
+  lesson: ParsedLesson;
+  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
 } | null {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -207,21 +195,20 @@ function parseTeacherSessionEntry(
         !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
         containsGroupCode(stripDistanceMarker(part)),
     ) ?? "";
+  const groups = parseGroupsString(stripDistanceMarker(groupsPart));
 
   return {
-    entry: {
-      room,
+    lesson: {
+      room: room || undefined,
       subject,
       type,
       weeks: { from: 0, to: 0 },
-      teacher: { name: "" },
-      groups: parseGroupsString(stripDistanceMarker(groupsPart)),
+      groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room),
+      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),
       possibleChanges,
     },
-    timeStart: parseTime(timeMatch[1]),
-    timeEnd: parseTime(timeMatch[2]),
+    time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },
   };
 }
 

@@ -92,14 +92,14 @@ function occurrenceMatchesOwner(
 ): boolean {
   if (owner.type === "group") {
     const key = entityKey(owner.group);
-    return occurrence.groups.some((value) => entityKey(value.group) === key);
+    return occurrence.groups.values.some((value) => entityKey(value.group) === key);
   }
   if (owner.type === "teacher") {
     const key = entityKey(owner.teacher);
-    return occurrence.teachers.some((value) => entityKey(value) === key);
+    return occurrence.teachers.values.some((value) => entityKey(value) === key);
   }
   const key = entityKey(owner.room);
-  return occurrence.rooms.some((value) => entityKey(value) === key);
+  return occurrence.rooms.values.some((value) => entityKey(value) === key);
 }
 
 function sortOccurrences(
@@ -107,8 +107,10 @@ function sortOccurrences(
   right: LessonOccurrence,
 ): number {
   return (
-    left.date.getTime() - right.date.getTime() ||
-    left.slot.number - right.slot.number ||
+    (left.startsAt?.getTime() ?? left.scheduledDate.getTime()) -
+      (right.startsAt?.getTime() ?? right.scheduledDate.getTime()) ||
+    (left.slotNumber ?? Number.MAX_SAFE_INTEGER) -
+      (right.slotNumber ?? Number.MAX_SAFE_INTEGER) ||
     left.subject.localeCompare(right.subject) ||
     left.id.localeCompare(right.id)
   );
@@ -158,7 +160,7 @@ export class Schedule {
       .filter((value) => value.movedFrom)
       .map((value) => ({
         date: value.movedFrom!.date,
-        slot: value.movedFrom!.slot,
+        slotNumber: value.movedFrom!.slotNumber,
         subject: value.subject,
       }));
     const occurrences: LessonOccurrence[] = [];
@@ -170,7 +172,7 @@ export class Schedule {
         movedSources.some(
           (source) =>
             isSameDay(source.date, date) &&
-            source.slot === series.slot.number &&
+            source.slotNumber === series.slotNumber &&
             source.subject === series.subject,
         )
       ) {
@@ -187,11 +189,11 @@ export class Schedule {
       );
       if (substitution?.rooms) {
         originalRooms = rooms;
-        rooms = substitution.rooms;
+        rooms = { values: substitution.rooms, completeness: "complete" };
       }
       if (substitution?.teachers) {
         originalTeachers = teachers;
-        teachers = substitution.teachers;
+        teachers = { values: substitution.teachers, completeness: "complete" };
       }
       if (substitution?.isDistance != null) {
         isDistance = substitution.isDistance;
@@ -204,10 +206,13 @@ export class Schedule {
         period: series.period,
         academicWeek: week,
         nominalDate: new Date(date),
-        date: dateAt(date, series.slot.start),
+        scheduledDate: new Date(date),
+        startsAt: series.time ? dateAt(date, series.time.start) : undefined,
+        endsAt: series.time ? dateAt(date, series.time.end) : undefined,
         subject: series.subject,
         type: series.type,
-        slot: series.slot,
+        slotNumber: series.slotNumber,
+        time: series.time,
         groups: series.groups,
         teachers,
         rooms,
@@ -221,7 +226,7 @@ export class Schedule {
       if (
         occurrenceMatchesOwner(occurrence, this.owner) &&
         attendanceMatchesSubgroup(
-          occurrence.groups,
+          occurrence.groups.values,
           this.owner,
           options?.subgroup,
         )
@@ -231,21 +236,18 @@ export class Schedule {
     }
 
     for (const occurrence of direct) {
-      if (!isSameDay(occurrence.date, date)) continue;
+      if (!isSameDay(occurrence.scheduledDate, date)) continue;
       if (!occurrenceMatchesOwner(occurrence, this.owner)) continue;
       if (
         !attendanceMatchesSubgroup(
-          occurrence.groups,
+          occurrence.groups.values,
           this.owner,
           options?.subgroup,
         )
       ) {
         continue;
       }
-      occurrences.push({
-        ...occurrence,
-        date: dateAt(date, occurrence.slot.start),
-      });
+      occurrences.push(occurrence);
     }
 
     return occurrences.sort(sortOccurrences);
@@ -286,7 +288,7 @@ export class Schedule {
   ): LessonOccurrence[] {
     if (options?.week != null) {
       return this.week(options.week, options).filter(
-        (value) => value.date.getDay() === weekday,
+        (value) => value.scheduledDate.getDay() === weekday,
       );
     }
     const now = new Date();
@@ -314,9 +316,8 @@ export class Schedule {
     const now = new Date();
     return (
       this.on(now, options).find((value) => {
-        const start = dateAt(now, value.slot.start);
-        const end = dateAt(now, value.slot.end);
-        return now >= start && now <= end;
+        return value.startsAt != null && value.endsAt != null &&
+          now >= value.startsAt && now <= value.endsAt;
       }) ?? null
     );
   }

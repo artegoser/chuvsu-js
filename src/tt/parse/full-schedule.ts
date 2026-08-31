@@ -6,14 +6,12 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
-import { EducationLevel } from "../../common/types.js";
 import type {
   ParsedScheduleDay,
-  ParsedScheduleSlot,
-  ParsedScheduleEntry,
+  ParsedScheduleBlock,
+  ParsedLesson,
   Substitution,
 } from "../types.js";
-import { getLessonNumber } from "../utils/index.js";
 import {
   parseSubstitutionDiv,
   parseTransferDiv,
@@ -33,16 +31,12 @@ import {
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
-export function parseGroupSchedule(
-  html: string,
-  educationLevel?: EducationLevel,
-): ParsedScheduleDay[] {
+export function parseGroupSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
-  const edType = educationLevel ?? EducationLevel.HigherEducation;
 
   // Session layout has date-based cells with ids like "trd20251224"
   if (doc.querySelector('td[id^="trd2"]')) {
-    return parseSessionSchedule(doc, edType);
+    return parseSessionSchedule(doc);
   }
 
   return parseSemesterSchedule(doc);
@@ -52,7 +46,7 @@ export function parseGroupSchedule(
 
 export function parseSemesterScheduleWith(
   doc: Document,
-  entryParser: (el: Element) => ParsedScheduleEntry | null,
+  entryParser: (el: Element) => ParsedLesson | null,
 ): ParsedScheduleDay[] {
   const days: ParsedScheduleDay[] = [];
 
@@ -66,7 +60,7 @@ export function parseSemesterScheduleWith(
     if (style.includes("lightgray") && cls.includes("trfd")) {
       const dayName = text(row.querySelector("td"));
       if (dayName) {
-        currentDay = { weekday: dayName, slots: [] };
+        currentDay = { weekday: dayName, blocks: [] };
         days.push(currentDay);
       }
       continue;
@@ -96,17 +90,18 @@ export function parseSemesterScheduleWith(
     const timeMatch = timeText.match(/\((\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})\)/);
     if (!numberMatch) continue;
 
-    const entries: ParsedScheduleEntry[] = [];
+    const lessons: ParsedLesson[] = [];
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const entry = entryParser(entryRow);
-      if (entry) entries.push(entry);
+      if (entry) lessons.push(entry);
     }
 
-    currentDay.slots.push({
-      number: parseInt(numberMatch[1]),
-      timeStart: parseTime(timeMatch?.[1] ?? "00:00"),
-      timeEnd: parseTime(timeMatch?.[2] ?? "00:00"),
-      entries,
+    currentDay.blocks.push({
+      slotNumber: parseInt(numberMatch[1]),
+      time: timeMatch
+        ? { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) }
+        : undefined,
+      lessons,
     });
   }
 
@@ -117,7 +112,7 @@ function parseSemesterSchedule(doc: Document): ParsedScheduleDay[] {
   return parseSemesterScheduleWith(doc, parseSemesterEntry);
 }
 
-function parseSemesterEntry(el: Element): ParsedScheduleEntry | null {
+function parseSemesterEntry(el: Element): ParsedLesson | null {
   const td = el.querySelector("td") ?? el;
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -171,15 +166,14 @@ function parseSemesterEntry(el: Element): ParsedScheduleEntry | null {
   const weekParity = parseWeekParity(cleanHtml);
 
   return {
-    room,
+    room: room || undefined,
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
-    teacher: parseTeacher(teacherLine),
-    groups: [],
+    teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room),
+    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room ?? ""),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -187,10 +181,7 @@ function parseSemesterEntry(el: Element): ParsedScheduleEntry | null {
 
 // --- Session schedule parsing (date-based, specific dates) ---
 
-function parseSessionSchedule(
-  doc: Document,
-  educationLevel: EducationLevel,
-): ParsedScheduleDay[] {
+function parseSessionSchedule(doc: Document): ParsedScheduleDay[] {
   const days: ParsedScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
@@ -216,23 +207,21 @@ function parseSessionSchedule(
       continue;
     }
 
-    const slots: ParsedScheduleSlot[] = [];
+    const blocks: ParsedScheduleBlock[] = [];
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
       const entry = parseSessionEntry(td);
       if (!entry) continue;
 
-      slots.push({
-        number: getLessonNumber(entry.timeStart, educationLevel),
-        timeStart: entry.timeStart,
-        timeEnd: entry.timeEnd,
-        entries: [entry.entry],
+      blocks.push({
+        time: entry.time,
+        lessons: [entry.lesson],
       });
     }
 
-    if (slots.length > 0) {
-      days.push({ weekday, date, slots });
+    if (blocks.length > 0) {
+      days.push({ weekday, date, blocks });
     }
   }
 
@@ -242,9 +231,8 @@ function parseSessionSchedule(
 function parseSessionEntry(
   td: Element,
 ): {
-  entry: ParsedScheduleEntry;
-  timeStart: { hours: number; minutes: number };
-  timeEnd: { hours: number; minutes: number };
+  lesson: ParsedLesson;
+  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
 } | null {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -282,18 +270,16 @@ function parseSessionEntry(
   if (!timeMatch) return null;
 
   return {
-    entry: {
-      room,
+    lesson: {
+      room: room || undefined,
       subject,
       type,
       weeks: { from: 0, to: 0 },
-      teacher: parseTeacher(teacherPart),
-      groups: [],
+      teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room),
+      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),
       possibleChanges,
     },
-    timeStart: parseTime(timeMatch[1]),
-    timeEnd: parseTime(timeMatch[2]),
+    time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },
   };
 }

@@ -18,6 +18,9 @@ import type {
   LessonSeriesId,
   LessonSourceRef,
   OccurrenceObservation,
+  RelationCompleteness,
+  RelationSet,
+  RoomRef,
   ScheduleObservation,
   ScheduleOwner,
   ScheduleSourceSnapshot,
@@ -25,6 +28,7 @@ import type {
   SerializedScheduleObservation,
   SerializedScheduleSourceSnapshot,
   SeriesObservation,
+  TeacherRef,
   TimetableRepositoryAdapter,
   TimetableRepositorySnapshot,
 } from "./types.js";
@@ -58,6 +62,12 @@ function sameDate(a: Date, b: Date): boolean {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate()
   );
+}
+
+function dateAt(date: Date, time: { hours: number; minutes: number }): Date {
+  const value = new Date(date);
+  value.setHours(time.hours, time.minutes, 0, 0);
+  return value;
 }
 
 function rangesOverlap(
@@ -114,10 +124,16 @@ function observationScore(
     score -= 12;
   }
 
-  if (left.slot.number === right.slot.number) score += 12;
   if (
-    left.slot.start.hours === right.slot.start.hours &&
-    left.slot.start.minutes === right.slot.start.minutes
+    left.slotNumber != null &&
+    right.slotNumber != null &&
+    left.slotNumber === right.slotNumber
+  ) score += 12;
+  if (
+    left.time &&
+    right.time &&
+    left.time.start.hours === right.time.start.hours &&
+    left.time.start.minutes === right.time.start.minutes
   ) {
     score += 5;
   }
@@ -140,9 +156,9 @@ function observationScore(
     }
   }
 
-  score += relationScore(valuesOverlap(left.rooms, right.rooms));
-  score += relationScore(valuesOverlap(left.teachers, right.teachers));
-  score += relationScore(groupsOverlap(left.groups, right.groups));
+  score += relationScore(valuesOverlap(left.rooms.values, right.rooms.values));
+  score += relationScore(valuesOverlap(left.teachers.values, right.teachers.values));
+  score += relationScore(groupsOverlap(left.groups.values, right.groups.values));
   if (sameSource) score += 8;
   return score;
 }
@@ -246,9 +262,9 @@ function preferredClaim<T extends ScheduleObservation>(
 ): ObservationClaim<T> {
   return [...claims].sort((a, b) => {
     const completeness = (claim: ObservationClaim<T>) =>
-      (claim.observation.groups?.length ?? 0) +
-      (claim.observation.teachers?.length ?? 0) +
-      (claim.observation.rooms?.length ?? 0);
+      claim.observation.groups.values.length +
+      claim.observation.teachers.values.length +
+      claim.observation.rooms.values.length;
     return (
       completeness(b) - completeness(a) ||
       a.source.sourceKey.localeCompare(b.source.sourceKey) ||
@@ -268,23 +284,31 @@ function ownerEntity(owner: ScheduleOwner):
   return { kind: "room", value: owner };
 }
 
+function aggregateCompleteness<T>(sets: RelationSet<T>[]): RelationCompleteness {
+  if (sets.some((value) => value.completeness === "complete")) return "complete";
+  if (sets.some((value) => value.completeness === "partial" || value.values.length > 0)) {
+    return "partial";
+  }
+  return "unknown";
+}
+
 function aggregateRelations(claims: ObservationClaim[]): {
-  groups: GroupAttendance[];
-  teachers: ReturnType<typeof mergeTeachers>;
-  rooms: ReturnType<typeof mergeRooms>;
+  groups: RelationSet<GroupAttendance>;
+  teachers: RelationSet<TeacherRef>;
+  rooms: RelationSet<RoomRef>;
 } {
   const groups: GroupAttendance[] = [];
   const teachers = [];
   const rooms = [];
 
   for (const claim of claims) {
-    groups.push(...(claim.observation.groups ?? []));
-    teachers.push(...(claim.observation.teachers ?? []));
-    rooms.push(...(claim.observation.rooms ?? []));
+    groups.push(...claim.observation.groups.values);
+    teachers.push(...claim.observation.teachers.values);
+    rooms.push(...claim.observation.rooms.values);
     const implicit = ownerEntity(claim.source.owner);
     if (
       implicit.kind === "group" &&
-      !claim.observation.groups?.some(
+      !claim.observation.groups.values.some(
         (value) =>
           entityKey(value.group) === entityKey(implicit.value.group),
       )
@@ -296,9 +320,18 @@ function aggregateRelations(claims: ObservationClaim[]): {
   }
 
   return {
-    groups: mergeGroups(groups),
-    teachers: mergeTeachers(teachers),
-    rooms: mergeRooms(rooms),
+    groups: {
+      values: mergeGroups(groups),
+      completeness: aggregateCompleteness(claims.map((value) => value.observation.groups)),
+    },
+    teachers: {
+      values: mergeTeachers(teachers),
+      completeness: aggregateCompleteness(claims.map((value) => value.observation.teachers)),
+    },
+    rooms: {
+      values: mergeRooms(rooms),
+      completeness: aggregateCompleteness(claims.map((value) => value.observation.rooms)),
+    },
   };
 }
 
@@ -308,14 +341,14 @@ function ownerMatches(
 ): boolean {
   if (owner.type === "group") {
     const key = entityKey(owner.group);
-    return relations.groups.some((value) => entityKey(value.group) === key);
+    return relations.groups.values.some((value) => entityKey(value.group) === key);
   }
   if (owner.type === "teacher") {
     const key = entityKey(owner.teacher);
-    return relations.teachers.some((value) => entityKey(value) === key);
+    return relations.teachers.values.some((value) => entityKey(value) === key);
   }
   const key = entityKey(owner.room);
-  return relations.rooms.some((value) => entityKey(value) === key);
+  return relations.rooms.values.some((value) => entityKey(value) === key);
 }
 
 export class TimetableRepository {
@@ -447,7 +480,8 @@ export class TimetableRepository {
     }
     return values.sort((a, b) =>
       a.recurrence.weekday - b.recurrence.weekday ||
-      a.slot.number - b.slot.number ||
+      (a.slotNumber ?? Number.MAX_SAFE_INTEGER) -
+        (b.slotNumber ?? Number.MAX_SAFE_INTEGER) ||
       a.subject.localeCompare(b.subject) ||
       a.id.localeCompare(b.id),
     );
@@ -473,13 +507,16 @@ export class TimetableRepository {
       values.push(value);
     }
     return values.sort(
-      (a, b) => a.date.getTime() - b.date.getTime() || a.id.localeCompare(b.id),
+      (a, b) =>
+        (a.startsAt?.getTime() ?? Number.MAX_SAFE_INTEGER) -
+          (b.startsAt?.getTime() ?? Number.MAX_SAFE_INTEGER) ||
+        a.id.localeCompare(b.id),
     );
   }
 
   export(): TimetableRepositorySnapshot {
     return {
-      schemaVersion: 1,
+      schemaVersion: 5,
       revision: this._revision,
       directory: this.directory.export(),
       sources: [...this.sources.values()]
@@ -503,7 +540,7 @@ export class TimetableRepository {
   }
 
   private restore(snapshot: TimetableRepositorySnapshot): void {
-    if (snapshot.schemaVersion !== 1) {
+    if (snapshot.schemaVersion !== 5) {
       throw new Error(
         `Unsupported timetable repository schema: ${snapshot.schemaVersion}`,
       );
@@ -634,22 +671,31 @@ export class TimetableRepository {
     const preferred = preferredClaim(claims);
     const rawRelations = aggregateRelations(claims);
     const relations = {
-      groups: mergeGroups(
-        rawRelations.groups.map((value) => ({
-          ...value,
-          group: this.directory.resolveGroup(value.group),
-        })),
-      ),
-      teachers: mergeTeachers(
-        rawRelations.teachers.map((value) =>
-          this.directory.resolveTeacher(value),
+      groups: {
+        values: mergeGroups(
+          rawRelations.groups.values.map((value) => ({
+            ...value,
+            group: this.directory.resolveGroup(value.group),
+          })),
         ),
-      ),
-      rooms: mergeRooms(
-        rawRelations.rooms.map((value) =>
-          this.directory.resolveRoom(value),
+        completeness: rawRelations.groups.completeness,
+      },
+      teachers: {
+        values: mergeTeachers(
+          rawRelations.teachers.values.map((value) =>
+            this.directory.resolveTeacher(value),
+          ),
         ),
-      ),
+        completeness: rawRelations.teachers.completeness,
+      },
+      rooms: {
+        values: mergeRooms(
+          rawRelations.rooms.values.map((value) =>
+            this.directory.resolveRoom(value),
+          ),
+        ),
+        completeness: rawRelations.rooms.completeness,
+      },
     };
     return {
       id: record.id,
@@ -657,7 +703,8 @@ export class TimetableRepository {
       period: preferred.source.period,
       subject: preferred.observation.subject,
       type: preferred.observation.type,
-      slot: preferred.observation.slot,
+      slotNumber: preferred.observation.slotNumber,
+      time: preferred.observation.time,
       recurrence: preferred.observation.recurrence,
       ...relations,
       isDistance: claims.some((value) => value.observation.isDistance === true),
@@ -678,22 +725,31 @@ export class TimetableRepository {
     const preferred = preferredClaim(claims);
     const rawRelations = aggregateRelations(claims);
     const relations = {
-      groups: mergeGroups(
-        rawRelations.groups.map((value) => ({
-          ...value,
-          group: this.directory.resolveGroup(value.group),
-        })),
-      ),
-      teachers: mergeTeachers(
-        rawRelations.teachers.map((value) =>
-          this.directory.resolveTeacher(value),
+      groups: {
+        values: mergeGroups(
+          rawRelations.groups.values.map((value) => ({
+            ...value,
+            group: this.directory.resolveGroup(value.group),
+          })),
         ),
-      ),
-      rooms: mergeRooms(
-        rawRelations.rooms.map((value) =>
-          this.directory.resolveRoom(value),
+        completeness: rawRelations.groups.completeness,
+      },
+      teachers: {
+        values: mergeTeachers(
+          rawRelations.teachers.values.map((value) =>
+            this.directory.resolveTeacher(value),
+          ),
         ),
-      ),
+        completeness: rawRelations.teachers.completeness,
+      },
+      rooms: {
+        values: mergeRooms(
+          rawRelations.rooms.values.map((value) =>
+            this.directory.resolveRoom(value),
+          ),
+        ),
+        completeness: rawRelations.rooms.completeness,
+      },
     };
     const transfer = claims
       .map((value) => value.observation.transfer)
@@ -703,10 +759,23 @@ export class TimetableRepository {
       academicYearStartYear: preferred.source.academicYearStartYear,
       period: preferred.source.period,
       nominalDate: transfer?.fromDate ?? preferred.observation.date,
-      date: transfer?.targetDate ?? preferred.observation.date,
+      scheduledDate: transfer?.targetDate ?? preferred.observation.date,
+      startsAt: preferred.observation.time
+        ? dateAt(
+            transfer?.targetDate ?? preferred.observation.date,
+            preferred.observation.time.start,
+          )
+        : undefined,
+      endsAt: preferred.observation.time
+        ? dateAt(
+            transfer?.targetDate ?? preferred.observation.date,
+            preferred.observation.time.end,
+          )
+        : undefined,
       subject: preferred.observation.subject,
       type: preferred.observation.type,
-      slot: preferred.observation.slot,
+      slotNumber: preferred.observation.slotNumber,
+      time: preferred.observation.time,
       ...relations,
       isDistance: claims.some((value) => value.observation.isDistance === true),
       possibleChanges: claims.some(
@@ -714,7 +783,7 @@ export class TimetableRepository {
       ),
       status: transfer ? "moved" : "scheduled",
       movedFrom: transfer
-        ? { date: transfer.fromDate, slot: transfer.fromSlot }
+        ? { date: transfer.fromDate, slotNumber: transfer.fromSlot }
         : undefined,
       sources: claims.map(sourceRef),
     };

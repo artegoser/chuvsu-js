@@ -1,4 +1,4 @@
-import type { AcademicPeriod, Time, WeekRange } from "../../common/types.js";
+import type { AcademicPeriod, TimeRange, WeekRange } from "../../common/types.js";
 
 export type LessonSeriesId = string;
 export type LessonId = string;
@@ -32,10 +32,11 @@ export type ScheduleOwner =
   | { type: "teacher"; teacher: TeacherRef }
   | { type: "room"; room: RoomRef };
 
-export interface LessonSlot {
-  number: number;
-  start: Time;
-  end: Time;
+export type RelationCompleteness = "unknown" | "partial" | "complete";
+
+export interface RelationSet<T> {
+  values: T[];
+  completeness: RelationCompleteness;
 }
 
 export interface LessonRecurrence {
@@ -70,11 +71,12 @@ export interface LessonSeries {
   period: AcademicPeriod;
   subject: string;
   type: string;
-  slot: LessonSlot;
+  slotNumber?: number;
+  time?: TimeRange;
   recurrence: LessonRecurrence;
-  groups: GroupAttendance[];
-  teachers: TeacherRef[];
-  rooms: RoomRef[];
+  groups: RelationSet<GroupAttendance>;
+  teachers: RelationSet<TeacherRef>;
+  rooms: RelationSet<RoomRef>;
   isDistance: boolean;
   possibleChanges: boolean;
   substitutions: LessonSubstitution[];
@@ -90,19 +92,22 @@ export interface LessonOccurrence {
   period: AcademicPeriod;
   academicWeek?: number;
   nominalDate: Date;
-  date: Date;
+  scheduledDate: Date;
+  startsAt?: Date;
+  endsAt?: Date;
   subject: string;
   type: string;
-  slot: LessonSlot;
-  groups: GroupAttendance[];
-  teachers: TeacherRef[];
-  rooms: RoomRef[];
+  slotNumber?: number;
+  time?: TimeRange;
+  groups: RelationSet<GroupAttendance>;
+  teachers: RelationSet<TeacherRef>;
+  rooms: RelationSet<RoomRef>;
   isDistance: boolean;
   possibleChanges: boolean;
   status: LessonStatus;
-  movedFrom?: { date: Date; slot: number };
-  originalRooms?: RoomRef[];
-  originalTeachers?: TeacherRef[];
+  movedFrom?: { date: Date; slotNumber?: number };
+  originalRooms?: RelationSet<RoomRef>;
+  originalTeachers?: RelationSet<TeacherRef>;
   sources: LessonSourceRef[];
 }
 
@@ -111,13 +116,11 @@ interface ObservationBase {
   key: string;
   subject: string;
   type: string;
-  slot: LessonSlot;
-  /** Undefined means the source did not expose this relation. */
-  groups?: GroupAttendance[];
-  /** Undefined means the source did not expose this relation. */
-  teachers?: TeacherRef[];
-  /** Undefined means the source did not expose this relation. */
-  rooms?: RoomRef[];
+  slotNumber?: number;
+  time?: TimeRange;
+  groups: RelationSet<GroupAttendance>;
+  teachers: RelationSet<TeacherRef>;
+  rooms: RelationSet<RoomRef>;
   isDistance?: boolean;
   possibleChanges?: boolean;
   substitutions?: LessonSubstitution[];
@@ -186,7 +189,7 @@ export interface SerializedLessonSubstitution
 }
 
 export interface TimetableRepositorySnapshot {
-  schemaVersion: 1;
+  schemaVersion: 5;
   revision: number;
   directory: TimetableDirectorySnapshot;
   sources: SerializedScheduleSourceSnapshot[];
