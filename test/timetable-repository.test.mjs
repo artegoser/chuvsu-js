@@ -26,11 +26,14 @@ function seriesObservation(overrides = {}) {
     key: "row:1",
     subject: "Базы данных",
     type: "лб",
-    slot: {
-      number: 2,
+    slotNumber: 2,
+    time: {
       start: { hours: 10, minutes: 0 },
       end: { hours: 11, minutes: 20 },
     },
+    groups: { values: [], completeness: "unknown" },
+    teachers: { values: [], completeness: "unknown" },
+    rooms: { values: [], completeness: "unknown" },
     recurrence: {
       weekday: 2,
       weeks: { from: 1, to: 17 },
@@ -69,23 +72,23 @@ test("one shared lesson keeps one ID across group schedule projections", () => {
   const first = repo.ingest(
     snapshot("group:101", { type: "group", group: groupA }, [
       seriesObservation({
-        teachers: [{ name: "Иванов И. И." }],
-        rooms: [{ name: "Г-402" }],
+        teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+        rooms: { values: [{ name: "Г-402" }], completeness: "partial" },
       }),
     ]),
   );
   const second = repo.ingest(
     snapshot("group:102", { type: "group", group: groupB }, [
       seriesObservation({
-        teachers: [{ name: "Иванов И. И." }],
-        rooms: [{ name: "Г-402" }],
+        teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+        rooms: { values: [{ name: "Г-402" }], completeness: "partial" },
       }),
     ]),
   );
 
   assert.equal(second.seriesIds[0], first.seriesIds[0]);
   assert.equal(repo.getSeries().length, 1);
-  assert.deepEqual(repo.getSeries()[0].groups, [
+  assert.deepEqual(repo.getSeries()[0].groups.values, [
     { group: groupA, subgroup: undefined },
     { group: groupB, subgroup: undefined },
   ]);
@@ -98,30 +101,33 @@ test("teacher and room projections enrich the same canonical lesson", () => {
   const groupResult = repo.ingest(
     snapshot("group:101", { type: "group", group: groupA }, [
       seriesObservation({
-        teachers: [{ name: "Иванов И. И." }],
-        rooms: [{ name: "Г-402" }],
+        teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+        rooms: { values: [{ name: "Г-402" }], completeness: "partial" },
       }),
     ]),
   );
   const teacherResult = repo.ingest(
     snapshot("teacher:201", { type: "teacher", teacher }, [
       seriesObservation({
-        groups: [
+        groups: { values: [
           { group: { name: groupA.name } },
           { group: { name: groupB.name } },
-        ],
-        rooms: [{ name: room.name }],
+        ], completeness: "partial" },
+        rooms: { values: [{ name: room.name }], completeness: "partial" },
       }),
     ]),
   );
   const roomResult = repo.ingest(
     snapshot("room:301", { type: "room", room }, [
       seriesObservation({
-        groups: [
+        groups: { values: [
           { group: { name: groupA.name } },
           { group: { name: groupB.name } },
-        ],
-        teachers: [{ name: teacher.name, degree: teacher.degree }],
+        ], completeness: "partial" },
+        teachers: {
+          values: [{ name: teacher.name, degree: teacher.degree }],
+          completeness: "partial",
+        },
       }),
     ]),
   );
@@ -129,12 +135,12 @@ test("teacher and room projections enrich the same canonical lesson", () => {
   assert.equal(teacherResult.seriesIds[0], groupResult.seriesIds[0]);
   assert.equal(roomResult.seriesIds[0], groupResult.seriesIds[0]);
   const lesson = repo.getSeries()[0];
-  assert.deepEqual(lesson.groups, [
+  assert.deepEqual(lesson.groups.values, [
     { group: groupA, subgroup: undefined },
     { group: groupB, subgroup: undefined },
   ]);
-  assert.deepEqual(lesson.teachers, [teacher]);
-  assert.deepEqual(lesson.rooms, [room]);
+  assert.deepEqual(lesson.teachers.values, [teacher]);
+  assert.deepEqual(lesson.rooms.values, [room]);
   assert.equal(lesson.sources.length, 3);
 });
 
@@ -149,8 +155,8 @@ test("source row movement preserves identity and repository snapshots preserve l
     snapshot("group:101", owner, [
       seriesObservation({
         key: "row:9",
-        slot: {
-          number: 3,
+        slotNumber: 3,
+        time: {
           start: { hours: 11, minutes: 50 },
           end: { hours: 13, minutes: 10 },
         },
@@ -164,8 +170,8 @@ test("source row movement preserves identity and repository snapshots preserve l
     snapshot("group:101", owner, [
       seriesObservation({
         key: "row:10",
-        slot: {
-          number: 3,
+        slotNumber: 3,
+        time: {
           start: { hours: 11, minutes: 50 },
           end: { hours: 13, minutes: 10 },
         },
@@ -191,9 +197,9 @@ test("recurring occurrence ID is stable and excludes mutable room and time", () 
   repo.ingest(
     snapshot("group:101", owner, [
       seriesObservation({
-        rooms: [{ name: "Г-404" }],
-        slot: {
-          number: 2,
+        rooms: { values: [{ name: "Г-404" }], completeness: "partial" },
+        slotNumber: 2,
+        time: {
           start: { hours: 10, minutes: 10 },
           end: { hours: 11, minutes: 30 },
         },
@@ -212,13 +218,21 @@ test("ambiguous parallel lessons remain separate instead of guessing identity", 
   const repo = repository();
   const owner = { type: "group", group: groupA };
   const observation = seriesObservation({
-    teachers: [{ name: "Иванов И. И." }],
-    rooms: [{ name: "Г-402" }],
+    teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+    rooms: { values: [{ name: "Г-402" }], completeness: "partial" },
   });
   repo.ingest(
     snapshot("group:101", owner, [
-      { ...observation, key: "subgroup:1", groups: [{ group: groupA, subgroup: 1 }] },
-      { ...observation, key: "subgroup:2", groups: [{ group: groupA, subgroup: 2 }] },
+      {
+        ...observation,
+        key: "subgroup:1",
+        groups: { values: [{ group: groupA, subgroup: 1 }], completeness: "partial" },
+      },
+      {
+        ...observation,
+        key: "subgroup:2",
+        groups: { values: [{ group: groupA, subgroup: 2 }], completeness: "partial" },
+      },
     ]),
   );
   const result = repo.ingest(

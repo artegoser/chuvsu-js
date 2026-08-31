@@ -60,15 +60,13 @@ async function loadSessionFixture(name) {
 
 function pickOnlyEntry(days) {
   assert.equal(days.length, 1);
-  assert.equal(days[0].slots.length, 1);
-  assert.equal(days[0].slots[0].entries.length, 1);
-  return days[0].slots[0].entries[0];
+  assert.equal(days[0].blocks.length, 1);
+  assert.equal(days[0].blocks[0].lessons.length, 1);
+  return days[0].blocks[0].lessons[0];
 }
 
-function assertDateParts(date, year, monthIndex, day) {
-  assert.equal(date.getFullYear(), year);
-  assert.equal(date.getMonth(), monthIndex);
-  assert.equal(date.getDate(), day);
+function assertLocalDate(date, expected) {
+  assert.equal(date, expected);
 }
 
 test("parseGroupsString covers plain groups, qualifiers and subgroup stripping", () => {
@@ -112,8 +110,8 @@ test("parseTeacherSchedule keeps transfer overlays parsed correctly", async () =
   assert.deepEqual(entry.groups, ["КТ-41-24", "КТ-41-24ин"]);
   assert.equal(entry.subgroup, 1);
   assert.ok(entry.transfer);
-  assertDateParts(entry.transfer.targetDate, 2026, 3, 25);
-  assertDateParts(entry.transfer.fromDate, 2026, 4, 23);
+  assertLocalDate(entry.transfer.targetDate, "2026-04-25");
+  assertLocalDate(entry.transfer.fromDate, "2026-05-23");
   assert.equal(entry.transfer.fromSlot, 2);
 });
 
@@ -125,7 +123,7 @@ test("parseGroupSchedule does not treat transfer room line as group", async () =
   assert.equal(entry.subject, "Основы проектной деятельности");
   assert.equal(entry.type, "пр");
   assert.deepEqual(entry.teacher, { name: "Игреев Р. А." });
-  assert.deepEqual(entry.groups, []);
+  assert.equal(entry.groups, undefined);
   assert.ok(entry.transfer);
 });
 
@@ -154,7 +152,7 @@ test("parseTeacherSchedule parses substitute-for overlays", async () => {
     position: "доц.",
     name: "Петров П.П.",
   });
-  assertDateParts(entry.substituteFor.date, 2026, 3, 25);
+  assertLocalDate(entry.substituteFor.date, "2026-04-25");
 });
 
 test("parseTeacherSchedule parses session entries with flexible lesson types", async () => {
@@ -164,11 +162,11 @@ test("parseTeacherSchedule parses session entries with flexible lesson types", a
 
   assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
-  assert.equal(day.slots.length, 2);
-  assert.equal(day.slots[0].entries[0].type, "экз");
-  assert.deepEqual(day.slots[0].entries[0].groups, ["КТ-41-24", "КТ-41-24ин"]);
-  assert.equal(day.slots[1].entries[0].type, "конс");
-  assert.deepEqual(day.slots[1].entries[0].groups, ["КТ-41-24"]);
+  assert.equal(day.blocks.length, 2);
+  assert.equal(day.blocks[0].lessons[0].type, "экз");
+  assert.deepEqual(day.blocks[0].lessons[0].groups, ["КТ-41-24", "КТ-41-24ин"]);
+  assert.equal(day.blocks[1].lessons[0].type, "конс");
+  assert.deepEqual(day.blocks[1].lessons[0].groups, ["КТ-41-24"]);
 });
 
 test("parseGroupSchedule parses a regular semester group entry", async () => {
@@ -273,14 +271,14 @@ test("parseGroupSchedule parses session entries with flexible lesson types", asy
 
   assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
-  assert.equal(day.slots[0].entries[0].room, "Б-201");
-  assert.equal(day.slots[0].entries[0].type, "конс");
+  assert.equal(day.blocks[0].lessons[0].room, "Б-201");
+  assert.equal(day.blocks[0].lessons[0].type, "конс");
 });
 
 test("parseGroupSchedule parses summer session types, teachers and subgroups", async () => {
   const html = await loadSessionFixture("group-session-summer.html");
   const entries = parseGroupSchedule(html).flatMap((day) =>
-    day.slots.flatMap((slot) => slot.entries),
+    day.blocks.flatMap((slot) => slot.lessons),
   );
 
   assert.equal(entries.length, 3);
@@ -303,8 +301,8 @@ test("Schedule filters session entries by subgroup", async () => {
 
   const lessons = schedule.on(new Date(2026, 3, 25), { subgroup: 1 });
   assert.equal(lessons.length, 1);
-  assert.equal(lessons[0].groups[0].subgroup, 1);
-  assert.deepEqual(lessons[0].teachers, [{ name: "Дигуева О. Г." }]);
+  assert.equal(lessons[0].groups.values[0].subgroup, 1);
+  assert.deepEqual(lessons[0].teachers.values, [{ name: "Дигуева О. Г." }]);
 });
 
 test("Schedule does not reuse semester lessons outside its academic year", async () => {
@@ -329,7 +327,10 @@ test("parseGroupSchedule marks distance substitutions", async () => {
 
   const lessons = schedule.on(new Date(2026, 4, 7), { subgroup: 1 });
   assert.equal(lessons.length, 1);
-  assert.deepEqual(lessons[0].rooms, [{ name: "Дистанционно (ДОТ)" }]);
+  assert.deepEqual(lessons[0].rooms, {
+    values: [{ name: "Дистанционно (ДОТ)" }],
+    completeness: "complete",
+  });
   assert.equal(lessons[0].isDistance, true);
 });
 
@@ -355,18 +356,18 @@ test("parseWebinars parses scheduled rows and attaches them to lessons", async (
         id: "les_test",
         academicYearStartYear: 2025,
         period: 3,
-        nominalDate: new Date(2026, 4, 7),
-        date: new Date(2026, 4, 7, 8, 20),
-        slot: {
-          number: 1,
+        nominalDate: "2026-05-07",
+        scheduledDate: "2026-05-07",
+        slotNumber: 1,
+        time: {
           start: { hours: 8, minutes: 20 },
           end: { hours: 9, minutes: 40 },
         },
         subject: "Правоведение",
         type: "лк",
-        groups: [],
-        teachers: [{ name: "Верещак С. Б." }],
-        rooms: [{ name: "Дистанционно (ДОТ)" }],
+        groups: { values: [], completeness: "unknown" },
+        teachers: { values: [{ name: "Верещак С. Б." }], completeness: "partial" },
+        rooms: { values: [{ name: "Дистанционно (ДОТ)" }], completeness: "complete" },
         isDistance: true,
         possibleChanges: false,
         status: "scheduled",
@@ -387,16 +388,16 @@ test("Schedule applies spring substitutions and suppresses transferred source le
     subgroup: 1,
   });
   assert.equal(substituted.length, 1);
-  assert.deepEqual(substituted[0].teachers, [{ name: "Мытников А. Н." }]);
-  assert.deepEqual(substituted[0].originalTeachers, [{ name: "Мытникова Е. А." }]);
+  assert.deepEqual(substituted[0].teachers.values, [{ name: "Мытников А. Н." }]);
+  assert.deepEqual(substituted[0].originalTeachers.values, [{ name: "Мытникова Е. А." }]);
 
   const sourceDate = schedule.on(new Date(2026, 3, 2), { subgroup: 2 });
   assert.equal(sourceDate.length, 0);
 
   const targetDate = schedule.on(new Date(2026, 4, 26), { subgroup: 2 });
   assert.equal(targetDate.length, 1);
-  assert.deepEqual(targetDate[0].teachers, [{ name: "Мытникова Е. А." }]);
-  assert.equal(targetDate[0].movedFrom?.slot, 3);
+  assert.deepEqual(targetDate[0].teachers.values, [{ name: "Мытникова Е. А." }]);
+  assert.equal(targetDate[0].movedFrom?.slotNumber, 3);
 });
 
 test("parseRoomSchedule parses audience semester entries", async () => {

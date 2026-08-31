@@ -15,18 +15,17 @@ function firstWeekSchedule() {
     [
       {
         weekday: "Вторник",
-        slots: [
+        blocks: [
           {
-            number: 1,
-            timeStart: { hours: 8, minutes: 20 },
-            timeEnd: { hours: 9, minutes: 40 },
-            entries: [
+            slotNumber: 1,
+            time: {
+              start: { hours: 8, minutes: 20 },
+              end: { hours: 9, minutes: 40 },
+            },
+            lessons: [
               {
                 subject: "First-week lesson",
                 type: "лк",
-                teacher: { name: "" },
-                room: "",
-                groups: [],
                 weeks: { from: 1, to: 1 },
                 isDistance: false,
                 possibleChanges: false,
@@ -71,6 +70,5 @@ test("Schedule returns week-1 lessons during first September week", () => {
 
   const week = schedule.week(1);
   assert.equal(week.length, 1);
-  assert.equal(week[0].date.getMonth(), 8);
-  assert.equal(week[0].date.getDate(), 1);
+  assert.equal(week[0].scheduledDate, "2026-09-01");
 });
