@@ -234,6 +234,19 @@ test("parseGroupSchedule parses subgroup, degree and week parity from group entr
   assert.equal(entry.weekParity, "even");
 });
 
+test("parseGroupSchedule recognizes a candidate of arts degree", () => {
+  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+    III-110в <span style="color: blue;">Эстетика и теория искусства</span> (лк) (2 - 11 нед.)<br>
+    зав.каф. к.иск. Данилова И. В.
+  `)));
+
+  assert.deepEqual(entry.teacher, {
+    position: "зав.каф.",
+    degree: "к.иск.",
+    name: "Данилова И. В.",
+  });
+});
+
 test("parseGroupSchedule parses live remote room and teacher markup", async () => {
   const html = await loadSemesterFixture("group-remote.html");
   const entry = pickOnlyEntry(parseGroupSchedule(html));

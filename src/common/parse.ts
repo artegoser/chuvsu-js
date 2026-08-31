@@ -40,7 +40,7 @@ export function parseTeacher(s: string): Teacher {
   );
   const afterPos = posMatch ? trimmed.slice(posMatch[0].length) : trimmed;
 
-  const degMatch = afterPos.match(/^([кд]\.[а-яё.-]+н\.)\s*/);
+  const degMatch = afterPos.match(/^((?:[кд]\.[а-яё.-]+н\.|к\.иск\.))\s*/);
   const name = degMatch ? afterPos.slice(degMatch[0].length).trim() : afterPos.trim();
 
   const result: Teacher = { name };

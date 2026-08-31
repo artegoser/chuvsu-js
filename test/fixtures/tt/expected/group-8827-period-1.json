@@ -604,8 +604,9 @@
       "teachers": {
         "values": [
           {
-            "name": "к.иск. Данилова И. В.",
-            "position": "зав.каф."
+            "name": "Данилова И. В.",
+            "position": "зав.каф.",
+            "degree": "к.иск."
           }
         ],
         "completeness": "partial"
@@ -674,8 +675,9 @@
       "teachers": {
         "values": [
           {
-            "name": "к.иск. Данилова И. В.",
-            "position": "зав.каф."
+            "name": "Данилова И. В.",
+            "position": "зав.каф.",
+            "degree": "к.иск."
           }
         ],
         "completeness": "partial"
