@@ -3,11 +3,14 @@ import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
 import {
+  getStandardScheduleBlocks,
   getSemesterWeeks,
   getWeekNumber,
+  getWeekdayName,
   isLocalDate,
   parseLocalDate,
 } from "../dist/tt/utils/index.js";
+import { EducationLevel } from "../dist/common/types.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 
 const FALL_SEMESTER = AcademicPeriod.FallSemester;
@@ -68,6 +71,29 @@ test("LocalDate validation rejects rollover and malformed dates", () => {
   assert.equal(isLocalDate("2026-02-30"), false);
   assert.equal(isLocalDate("2026-9-3"), false);
   assert.throws(() => parseLocalDate("2026-02-30"), /Invalid local date/u);
+});
+
+test("calendar helpers reject invalid semantic inputs", () => {
+  assert.throws(() => getWeekdayName(7), /0 to 6/u);
+  assert.throws(() => getSemesterWeeks({
+    period: FALL_SEMESTER,
+    year: 2026,
+    weekCount: 0,
+  }), /positive integer/u);
+  assert.throws(() => getWeekNumber({
+    period: AcademicPeriod.WinterSession,
+    year: 2026,
+  }), /must be a semester/u);
+});
+
+test("standard time blocks are independent values", () => {
+  const first = getStandardScheduleBlocks(EducationLevel.HigherEducation);
+  first[0].slotNumber = 99;
+  first[0].time.start.hours = 23;
+
+  const second = getStandardScheduleBlocks(EducationLevel.HigherEducation);
+  assert.equal(second[0].slotNumber, 1);
+  assert.equal(second[0].time.start.hours, 8);
 });
 
 test("Schedule returns week-1 lessons during first September week", () => {

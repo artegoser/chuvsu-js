@@ -11,11 +11,15 @@ const WEEKDAY_NAMES = [
 ];
 
 export function getWeekdayName(weekday: number): string {
-  return WEEKDAY_NAMES[weekday] ?? "";
+  if (!Number.isInteger(weekday) || weekday < 0 || weekday > 6) {
+    throw new RangeError("Weekday must be an integer from 0 to 6");
+  }
+  return WEEKDAY_NAMES[weekday];
 }
 
 /** Monday of the week containing `date` (at 00:00 local time). */
 export function getMonday(date: Date): Date {
+  if (!Number.isFinite(date.getTime())) throw new RangeError("Invalid date");
   const d = new Date(date);
   const day = d.getDay();
   const diff = day === 0 ? -6 : 1 - day;

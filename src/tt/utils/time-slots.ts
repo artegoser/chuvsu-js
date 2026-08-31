@@ -25,7 +25,8 @@ const SPO_TIME_SLOTS: StandardScheduleBlock[] = [
 export function getStandardScheduleBlocks(
   educationLevel: EducationLevel,
 ): StandardScheduleBlock[] {
-  return educationLevel === EducationLevel.VocationalEducation
+  const blocks = educationLevel === EducationLevel.VocationalEducation
     ? SPO_TIME_SLOTS
     : VO_TIME_SLOTS;
+  return structuredClone(blocks);
 }

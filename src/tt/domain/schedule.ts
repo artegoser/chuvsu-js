@@ -146,11 +146,14 @@ export class Schedule {
     options?: ScheduleOptions,
   ) {
     this.repository = repository;
-    this.owner = owner;
+    this.owner = structuredClone(owner);
     this.academicYearStartYear = academicYearStartYear;
     this.period = options?.period ?? getCurrentPeriod();
-    this.holidays = options?.holidays ?? RUSSIAN_HOLIDAYS;
-    this.holidayTransfers = options?.holidayTransfers ?? [];
+    this.holidays = structuredClone(options?.holidays ?? RUSSIAN_HOLIDAYS);
+    this.holidayTransfers = (options?.holidayTransfers ?? []).map((value) => ({
+      dayOff: new Date(value.dayOff),
+      workDay: value.workDay == null ? null : new Date(value.workDay),
+    }));
   }
 
   get revision(): number {

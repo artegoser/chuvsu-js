@@ -2,6 +2,20 @@ import { AcademicPeriod } from "../../common/types.js";
 import type { SemesterWeek } from "../types.js";
 import { getMonday } from "./date.js";
 
+function assertSemesterPeriod(period: AcademicPeriod): void {
+  if (
+    period !== AcademicPeriod.FallSemester &&
+    period !== AcademicPeriod.SpringSemester
+  ) {
+    throw new RangeError("Academic period must be a semester");
+  }
+}
+
+function calendarDayNumber(date: Date): number {
+  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) /
+    (24 * 60 * 60 * 1000);
+}
+
 function getAcademicYearStartYear(date: Date): number {
   const year = date.getFullYear();
   const month = date.getMonth();
@@ -15,9 +29,14 @@ function resolveSemesterYear(opts: {
   year?: number;
   date?: Date;
 }): number {
-  if (opts.year != null) return opts.year;
+  assertSemesterPeriod(opts.period);
+  if (opts.year != null) {
+    if (!Number.isInteger(opts.year)) throw new RangeError("Invalid semester year");
+    return opts.year;
+  }
 
   const baseDate = opts.date ?? new Date();
+  if (!Number.isFinite(baseDate.getTime())) throw new RangeError("Invalid date");
   const academicYearStart = getAcademicYearStartYear(baseDate);
 
   return opts.period === AcademicPeriod.FallSemester
@@ -63,6 +82,9 @@ export function getSemesterWeeks(opts: {
   weekCount?: number;
 }): SemesterWeek[] {
   const weekCount = opts.weekCount ?? 17;
+  if (!Number.isInteger(weekCount) || weekCount < 1) {
+    throw new RangeError("Week count must be a positive integer");
+  }
   const semesterStart = getSemesterStart(opts);
   const startMonday = getMonday(semesterStart);
 
@@ -91,6 +113,6 @@ export function getWeekNumber(opts: {
   const semesterStart = getSemesterStart({ ...opts, date });
   const startMonday = getMonday(semesterStart);
   const targetMonday = getMonday(date);
-  const diff = targetMonday.getTime() - startMonday.getTime();
-  return Math.floor(diff / (7 * 24 * 60 * 60 * 1000)) + 1;
+  const diff = calendarDayNumber(targetMonday) - calendarDayNumber(startMonday);
+  return Math.floor(diff / 7) + 1;
 }
