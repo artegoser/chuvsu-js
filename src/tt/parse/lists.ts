@@ -58,6 +58,14 @@ export function parseGroupButtons(html: string): Group[] {
   return groups;
 }
 
+export function parseGroupName(html: string): string | null {
+  const doc = parseHtml(html);
+  const name = text(
+    doc.querySelector('span.htext span[style*="color: blue"]'),
+  );
+  return name || null;
+}
+
 export function parseFacultyButtons(html: string): Faculty[] {
   const doc = parseHtml(html);
   const faculties: Faculty[] = [];

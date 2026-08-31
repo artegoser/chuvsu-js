@@ -14,6 +14,7 @@ import {
   parseRoomInfo,
   parseRoomName,
   parseGroupButtons,
+  parseGroupName,
   parseFacultyButtons,
   parseTeacherButtons,
   parseGroupSchedule,
@@ -79,6 +80,11 @@ function formatDate(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+interface CachedSchedulePage {
+  days: ParsedScheduleDay[];
+  ownerName: string;
 }
 
 export class TimetableClient {
@@ -263,10 +269,13 @@ export class TimetableClient {
   }
 
   private async authGet(url: string): Promise<HttpResponse> {
-    const res = await this.http.get(url);
+    let res = await this.http.get(url);
     if (this.loginMode && this.isSessionExpired(res.body)) {
       await this.relogin();
-      return this.http.get(url);
+      res = await this.http.get(url);
+    }
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`TT request failed with HTTP ${res.status}: ${url}`);
     }
     return res;
   }
@@ -279,10 +288,13 @@ export class TimetableClient {
     url: string,
     data: Record<string, string>,
   ): Promise<HttpResponse> {
-    const res = await this.http.post(url, data);
+    let res = await this.http.post(url, data);
     if (this.loginMode && this.isSessionExpired(res.body)) {
       await this.relogin();
-      return this.http.post(url, data);
+      res = await this.http.post(url, data);
+    }
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`TT request failed with HTTP ${res.status}: ${url}`);
     }
     return res;
   }
@@ -327,13 +339,43 @@ export class TimetableClient {
   ): Promise<ParsedScheduleDay[]> {
     const cacheKey = `group:${groupId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as ParsedScheduleDay[];
+    if (cached) {
+      const page = cached as CachedSchedulePage;
+      await this.rememberGroups([{ id: groupId, name: page.ownerName }]);
+      return page.days;
+    }
 
     const url = `${BASE}/index/grouptt/gr/${groupId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
+    const ownerName = this.validateSchedulePage(
+      { type: "group", group: { id: groupId, name: "" } },
+      body,
+      academicYearStartYear,
+    );
     const days = parseGroupSchedule(body);
-    await this.cache?.set("schedule", cacheKey, days);
+    await this.rememberGroups([{ id: groupId, name: ownerName }]);
+    await this.cache?.set("schedule", cacheKey, { days, ownerName });
     return days;
+  }
+
+  private validateSchedulePage(
+    owner: ScheduleOwner,
+    html: string,
+    academicYearStartYear: number,
+  ): string {
+    const pageYear = parseAcademicYearFromPage(html);
+    if (pageYear !== academicYearStartYear) {
+      throw new ParseError("TT schedule response has an unexpected academic year");
+    }
+    const ownerName = owner.type === "group"
+      ? parseGroupName(html)
+      : owner.type === "teacher"
+        ? parseTeacherInfo(html)?.name ?? null
+        : parseRoomName(html);
+    if (!ownerName) {
+      throw new ParseError(`TT ${owner.type} schedule response has no owner name`);
+    }
+    return ownerName;
   }
 
   private ownerUrl(owner: ScheduleOwner): string {
@@ -433,13 +475,14 @@ export class TimetableClient {
     );
 
     for (const result of results) {
+      const currentOwner = this.resolveOwner(resolvedOwner);
       const snapshot = createScheduleSourceSnapshot({
         sourceKey: this.sourceKey(
-          resolvedOwner,
+          currentOwner,
           result.period,
           context.academicYearStartYear,
         ),
-        owner: resolvedOwner,
+        owner: currentOwner,
         academicYearStartYear: context.academicYearStartYear,
         period: result.period,
         days: result.days,
@@ -741,12 +784,22 @@ export class TimetableClient {
   ): Promise<ParsedScheduleDay[]> {
     const cacheKey = `room:${roomId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as ParsedScheduleDay[];
+    if (cached) {
+      const page = cached as CachedSchedulePage;
+      await this.rememberRooms([{ id: roomId, name: page.ownerName }]);
+      return page.days;
+    }
 
     const url = `${BASE}/index/audtt/aud/${roomId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
+    const ownerName = this.validateSchedulePage(
+      { type: "room", room: { id: roomId, name: "" } },
+      body,
+      academicYearStartYear,
+    );
     const days = parseRoomSchedule(body);
-    await this.cache?.set("schedule", cacheKey, days);
+    await this.rememberRooms([{ id: roomId, name: ownerName }]);
+    await this.cache?.set("schedule", cacheKey, { days, ownerName });
 
     // Cache audience info from the same page to avoid an extra request.
     if (!(await this.cache?.get("roomInfo", String(roomId)))) {
@@ -893,12 +946,22 @@ export class TimetableClient {
   ): Promise<ParsedScheduleDay[]> {
     const cacheKey = `teacher:${teacherId}:${period}:${academicYearStartYear}-${academicYearStartYear + 1}`;
     const cached = await this.cache?.get("schedule", cacheKey);
-    if (cached) return cached as ParsedScheduleDay[];
+    if (cached) {
+      const page = cached as CachedSchedulePage;
+      await this.rememberTeachers([{ id: teacherId, name: page.ownerName }]);
+      return page.days;
+    }
 
     const url = `${BASE}/index/techtt/tech/${teacherId}`;
     const { body } = await this.authPost(url, { htype: String(period) });
+    const ownerName = this.validateSchedulePage(
+      { type: "teacher", teacher: { id: teacherId, name: "" } },
+      body,
+      academicYearStartYear,
+    );
     const days = parseTeacherSchedule(body);
-    await this.cache?.set("schedule", cacheKey, days);
+    await this.rememberTeachers([{ id: teacherId, name: ownerName }]);
+    await this.cache?.set("schedule", cacheKey, { days, ownerName });
 
     // Cache teacher info from the same page to avoid extra requests
     if (!(await this.cache?.get("teacherInfo", String(teacherId)))) {

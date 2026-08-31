@@ -350,18 +350,23 @@ test("StudentPortalClient caches profile, photo and timetable group id", async (
 test("TimetableClient uses timetable context for canonical group schedule cache", async () => {
   const cacheAdapter = new FakeCacheAdapter();
   const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
+  const schedulePage = `
+    <span class="htext">Группа <span style="color: blue;">КТ-41-24</span></span>
+    <span style="color: blue;">2026/2027 учебный год</span>
+    <input type="radio" name="pertype" value="1" checked="checked">
+    <input type="hidden" id="htype" value="1">
+  `;
   const fakeHttp = new FakeHttpClient({
     get: {
       [groupUrl]: {
         status: 200,
-        body: `
-          <span style="color: blue;">2026/2027 учебный год</span>
-          <input type="radio" name="pertype" value="1" checked="checked">
-          <input type="radio" name="pertype" value="4">
-          <input type="hidden" id="htype" value="1">
-        `,
+        body: schedulePage,
       },
     },
+    post: Object.fromEntries([1, 2, 3, 4].map((period) => [
+      `${groupUrl}|${JSON.stringify({ htype: String(period) })}`,
+      { status: 200, body: schedulePage },
+    ])),
   });
 
   const tt = new TimetableClient({ cache: 10_000, cacheAdapter });
@@ -371,6 +376,10 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
 
   assert.equal(schedule.period, 1);
   assert.equal(schedule.academicYearStartYear, 2026);
+  assert.deepEqual(schedule.owner, {
+    type: "group",
+    group: { id: 8919, name: "КТ-41-24" },
+  });
   for (const period of [1, 2, 3, 4]) {
     assert.ok(tt.exportCache()[`schedule:group:8919:${period}:2026-2027`]);
     assert.equal(
@@ -382,6 +391,33 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
     );
   }
   assert.equal(fakeHttp.count("get", groupUrl), 1);
+});
+
+test("TimetableClient never caches an invalid schedule response", async () => {
+  const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
+  const contextPage = `
+    <span class="htext">Группа <span style="color: blue;">КТ-41-24</span></span>
+    <span>2026/2027 учебный год</span>
+    <input type="radio" name="pertype" value="1" checked>
+  `;
+  const fakeHttp = new FakeHttpClient({
+    get: { [groupUrl]: { status: 200, body: contextPage } },
+    post: {
+      [`${groupUrl}|${JSON.stringify({ htype: "1" })}`]: {
+        status: 200,
+        body: `<html><body>temporary login/error page</body></html>`,
+      },
+    },
+  });
+  const tt = new TimetableClient({ cache: 10_000 });
+  tt.http = fakeHttp;
+
+  await assert.rejects(
+    () => tt.getGroupSchedule(8919, { periods: [1] }),
+    /unexpected academic year/u,
+  );
+  assert.equal(tt.exportCache()["schedule:group:8919:1:2026-2027"], undefined);
+  assert.equal(tt.repository.getSeries().length, 0);
 });
 
 test("TimetableClient does not guess academic year when timetable page lacks context", async () => {

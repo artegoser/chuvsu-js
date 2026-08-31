@@ -6,6 +6,7 @@ export {
   parseRoomName,
   parseFacultyButtons,
   parseGroupSchedule,
+  parseGroupName,
   parseGroupButtons,
   parseGroupsString,
   parsePeriodFromPage,

@@ -5,6 +5,7 @@ export {
   parseRoomName,
   parseFacultyButtons,
   parseGroupButtons,
+  parseGroupName,
   parsePeriodFromPage,
   parseTeacherButtons,
 } from "./lists.js";
