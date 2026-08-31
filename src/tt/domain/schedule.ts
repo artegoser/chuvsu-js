@@ -6,8 +6,9 @@ import {
   getSemesterStart,
   getSemesterWeeks,
   getWeekNumber,
+  formatLocalDate,
   isHoliday,
-  isSameDay,
+  parseLocalDate,
   type Holiday,
   type HolidayTransfer,
   RUSSIAN_HOLIDAYS,
@@ -107,8 +108,9 @@ function sortOccurrences(
   right: LessonOccurrence,
 ): number {
   return (
-    (left.startsAt?.getTime() ?? left.scheduledDate.getTime()) -
-      (right.startsAt?.getTime() ?? right.scheduledDate.getTime()) ||
+    left.scheduledDate.localeCompare(right.scheduledDate) ||
+    ((left.time?.start.hours ?? 24) * 60 + (left.time?.start.minutes ?? 0)) -
+      ((right.time?.start.hours ?? 24) * 60 + (right.time?.start.minutes ?? 0)) ||
     (left.slotNumber ?? Number.MAX_SAFE_INTEGER) -
       (right.slotNumber ?? Number.MAX_SAFE_INTEGER) ||
     left.subject.localeCompare(right.subject) ||
@@ -152,6 +154,7 @@ export class Schedule {
   on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
     if (!this.isInAcademicYear(date)) return [];
     if (isHoliday(date, this.holidays, this.holidayTransfers)) return [];
+    const localDate = formatLocalDate(date);
 
     const direct = this.repository.getDirectOccurrences({
       academicYearStartYear: this.academicYearStartYear,
@@ -171,7 +174,7 @@ export class Schedule {
       if (
         movedSources.some(
           (source) =>
-            isSameDay(source.date, date) &&
+            source.date === localDate &&
             source.slotNumber === series.slotNumber &&
             source.subject === series.subject,
         )
@@ -185,7 +188,7 @@ export class Schedule {
       let originalRooms: typeof rooms | undefined;
       let originalTeachers: typeof teachers | undefined;
       const substitution = series.substitutions.find((value) =>
-        isSameDay(value.date, date),
+        value.date === localDate,
       );
       if (substitution?.rooms) {
         originalRooms = rooms;
@@ -205,10 +208,8 @@ export class Schedule {
         academicYearStartYear: series.academicYearStartYear,
         period: series.period,
         academicWeek: week,
-        nominalDate: new Date(date),
-        scheduledDate: new Date(date),
-        startsAt: series.time ? dateAt(date, series.time.start) : undefined,
-        endsAt: series.time ? dateAt(date, series.time.end) : undefined,
+        nominalDate: localDate,
+        scheduledDate: localDate,
         subject: series.subject,
         type: series.type,
         slotNumber: series.slotNumber,
@@ -236,7 +237,7 @@ export class Schedule {
     }
 
     for (const occurrence of direct) {
-      if (!isSameDay(occurrence.scheduledDate, date)) continue;
+      if (occurrence.scheduledDate !== localDate) continue;
       if (!occurrenceMatchesOwner(occurrence, this.owner)) continue;
       if (
         !attendanceMatchesSubgroup(
@@ -288,7 +289,7 @@ export class Schedule {
   ): LessonOccurrence[] {
     if (options?.week != null) {
       return this.week(options.week, options).filter(
-        (value) => value.scheduledDate.getDay() === weekday,
+        (value) => parseLocalDate(value.scheduledDate).getDay() === weekday,
       );
     }
     const now = new Date();
@@ -316,8 +317,10 @@ export class Schedule {
     const now = new Date();
     return (
       this.on(now, options).find((value) => {
-        return value.startsAt != null && value.endsAt != null &&
-          now >= value.startsAt && now <= value.endsAt;
+        if (!value.time) return false;
+        const start = dateAt(now, value.time.start);
+        const end = dateAt(now, value.time.end);
+        return now >= start && now <= end;
       }) ?? null
     );
   }

@@ -11,14 +11,6 @@ function normalize(value: string): string {
     .trim();
 }
 
-function sameDay(left: Date, right: Date): boolean {
-  return (
-    left.getFullYear() === right.getFullYear() &&
-    left.getMonth() === right.getMonth() &&
-    left.getDate() === right.getDate()
-  );
-}
-
 export function findWebinar(
   lesson: LessonOccurrence,
   webinars: Webinar[],
@@ -27,7 +19,7 @@ export function findWebinar(
     if (!webinar.scheduled) return false;
     if (
       webinar.scheduledDate &&
-      !sameDay(webinar.scheduledDate, lesson.scheduledDate)
+      webinar.scheduledDate !== lesson.scheduledDate
     ) return false;
     if (
       webinar.slotNumber != null &&

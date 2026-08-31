@@ -1,5 +1,5 @@
 import { parseTeacher, text } from "../../common/parse.js";
-import type { Teacher } from "../../common/types.js";
+import type { LocalDate, Teacher } from "../../common/types.js";
 import type {
   ParsedLesson,
   Substitution,
@@ -18,8 +18,8 @@ const DISTANCE_RE = /дистанционно|ДОТ/i;
 const BLUE_SPAN_RE =
   /<span\b(?=[^>]*(?:style=["'][^"']*color:\s*blue|class=["'][^"']*\bblue\b))[^>]*>([^<]+)<\/span>/i;
 
-export function parseDate(dd: string, mm: string, yyyy: string): Date {
-  return new Date(parseInt(yyyy), parseInt(mm) - 1, parseInt(dd));
+export function parseDate(dd: string, mm: string, yyyy: string): LocalDate {
+  return `${yyyy}-${mm}-${dd}` as LocalDate;
 }
 
 export function parseTransferDiv(

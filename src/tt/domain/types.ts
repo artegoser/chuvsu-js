@@ -1,4 +1,9 @@
-import type { AcademicPeriod, TimeRange, WeekRange } from "../../common/types.js";
+import type {
+  AcademicPeriod,
+  LocalDate,
+  TimeRange,
+  WeekRange,
+} from "../../common/types.js";
 
 export type LessonSeriesId = string;
 export type LessonId = string;
@@ -46,16 +51,16 @@ export interface LessonRecurrence {
 }
 
 export interface LessonSubstitution {
-  date: Date;
+  date: LocalDate;
   rooms?: RoomRef[];
   teachers?: TeacherRef[];
   isDistance?: boolean;
 }
 
 export interface LessonTransfer {
-  fromDate: Date;
+  fromDate: LocalDate;
   fromSlot: number;
-  targetDate: Date;
+  targetDate: LocalDate;
 }
 
 export interface LessonSourceRef {
@@ -91,10 +96,8 @@ export interface LessonOccurrence {
   academicYearStartYear: number;
   period: AcademicPeriod;
   academicWeek?: number;
-  nominalDate: Date;
-  scheduledDate: Date;
-  startsAt?: Date;
-  endsAt?: Date;
+  nominalDate: LocalDate;
+  scheduledDate: LocalDate;
   subject: string;
   type: string;
   slotNumber?: number;
@@ -105,7 +108,7 @@ export interface LessonOccurrence {
   isDistance: boolean;
   possibleChanges: boolean;
   status: LessonStatus;
-  movedFrom?: { date: Date; slotNumber?: number };
+  movedFrom?: { date: LocalDate; slotNumber?: number };
   originalRooms?: RelationSet<RoomRef>;
   originalTeachers?: RelationSet<TeacherRef>;
   sources: LessonSourceRef[];
@@ -133,7 +136,7 @@ export interface SeriesObservation extends ObservationBase {
 
 export interface OccurrenceObservation extends ObservationBase {
   kind: "occurrence";
-  date: Date;
+  date: LocalDate;
   transfer?: LessonTransfer;
 }
 
@@ -165,28 +168,7 @@ export interface SerializedScheduleSourceSnapshot
   observations: SerializedScheduleObservation[];
 }
 
-export type SerializedScheduleObservation =
-  | (Omit<
-      SeriesObservation,
-      "substitutions"
-    > & { substitutions?: SerializedLessonSubstitution[] })
-  | (Omit<
-      OccurrenceObservation,
-      "date" | "transfer" | "substitutions"
-    > & {
-      date: string;
-      transfer?: {
-        fromDate: string;
-        fromSlot: number;
-        targetDate: string;
-      };
-      substitutions?: SerializedLessonSubstitution[];
-    });
-
-export interface SerializedLessonSubstitution
-  extends Omit<LessonSubstitution, "date"> {
-  date: string;
-}
+export type SerializedScheduleObservation = ScheduleObservation;
 
 export interface TimetableRepositorySnapshot {
   schemaVersion: 5;

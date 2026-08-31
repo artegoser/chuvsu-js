@@ -1,4 +1,5 @@
 import type { Teacher } from "../common/types.js";
+import { parseLocalDate } from "./utils/index.js";
 import type {
   ParsedScheduleDay,
   ParsedLesson,
@@ -106,7 +107,7 @@ function substitutionsFor(
 ): LessonSubstitution[] | undefined {
   if (!substitutions?.length) return undefined;
   return substitutions.map((value) => ({
-    date: new Date(value.date),
+    date: value.date,
     rooms: value.room ? [{ name: value.room }] : undefined,
     teachers: value.teacher
       ? [teacherRef(value.teacher)].filter(
@@ -142,18 +143,18 @@ function occurrenceFrom(
   key: string,
   entry: ParsedLesson,
   block: ParsedScheduleDay["blocks"][number],
-  date: Date,
+  date: OccurrenceObservation["date"],
   owner: ScheduleOwner,
 ): OccurrenceObservation {
   return {
     kind: "occurrence",
     ...observationBase(key, entry, block, owner),
-    date: new Date(date),
+    date,
     transfer: entry.transfer
       ? {
-          fromDate: new Date(entry.transfer.fromDate),
+          fromDate: entry.transfer.fromDate,
           fromSlot: entry.transfer.fromSlot,
-          targetDate: new Date(entry.transfer.targetDate),
+          targetDate: entry.transfer.targetDate,
         }
       : undefined,
   };
@@ -184,7 +185,8 @@ export function createScheduleSourceSnapshot(
 
   for (const [dayIndex, day] of options.days.entries()) {
     const weekday =
-      day.date?.getDay() ?? WEEKDAY_INDEX.get(day.weekday.toLowerCase());
+      (day.date ? parseLocalDate(day.date).getDay() : undefined) ??
+      WEEKDAY_INDEX.get(day.weekday.toLowerCase());
     if (weekday == null) continue;
 
     for (const [blockIndex, block] of day.blocks.entries()) {

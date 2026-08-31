@@ -10,6 +10,7 @@ import type {
   Teacher,
   EducationLevel,
   AcademicPeriod,
+  LocalDate,
 } from "../common/types.js";
 
 export interface Faculty {
@@ -50,7 +51,7 @@ export interface RoomInfo {
 /** A date-specific substitution (room and/or teacher change). */
 export interface Substitution {
   /** The date this substitution applies to. */
-  date: Date;
+  date: LocalDate;
   /** New room, if changed. */
   room?: string;
   /** Whether the substitution moves the lesson online. */
@@ -62,7 +63,7 @@ export interface Substitution {
 /** Info about a lesson this teacher is substituting for another teacher. */
 export interface SubstituteForInfo {
   /** The date this substitute lesson takes place. */
-  date: Date;
+  date: LocalDate;
   /** The original teacher being replaced. */
   originalTeacher: Teacher;
 }
@@ -70,9 +71,9 @@ export interface SubstituteForInfo {
 /** Info about a lesson transferred from another date/slot. */
 export interface TransferInfo {
   /** Date when this lesson takes place (target). */
-  targetDate: Date;
+  targetDate: LocalDate;
   /** Original date the lesson was moved from. */
-  fromDate: Date;
+  fromDate: LocalDate;
   /** Original slot number (пара). */
   fromSlot: number;
   /** Subject name (used to match the source entry). */
@@ -118,7 +119,7 @@ export interface ParsedScheduleBlock {
 
 export interface ParsedScheduleDay {
   weekday: string;
-  date?: Date;
+  date?: LocalDate;
   /** True when portal marks this weekday as a self-study day. */
   isSelfStudyDay?: boolean;
   blocks: ParsedScheduleBlock[];
@@ -151,7 +152,7 @@ export interface Webinar {
   idType: number;
   /** True for "Вебинары по расписанию"; false for external webinars. */
   scheduled: boolean;
-  scheduledDate?: Date;
+  scheduledDate?: LocalDate;
   slotNumber?: number;
   time: TimeRange;
   subject: string;

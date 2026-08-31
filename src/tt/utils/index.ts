@@ -1,4 +1,10 @@
-export { getMonday, getWeekdayName, isSameDay } from "./date.js";
+export {
+  formatLocalDate,
+  getMonday,
+  getWeekdayName,
+  isSameDay,
+  parseLocalDate,
+} from "./date.js";
 export {
   getAdjacentSemester,
   getCurrentPeriod,

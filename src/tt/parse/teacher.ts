@@ -5,6 +5,7 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
+import type { LocalDate } from "../../common/types.js";
 import type {
   ParsedScheduleDay,
   ParsedScheduleBlock,
@@ -124,10 +125,7 @@ function parseTeacherSessionSchedule(doc: Document): ParsedScheduleDay[] {
     const dateMatch = id.match(/trd(\d{4})(\d{2})(\d{2})/);
     if (!dateMatch) continue;
 
-    const year = parseInt(dateMatch[1]);
-    const month = parseInt(dateMatch[2]) - 1;
-    const dayNum = parseInt(dateMatch[3]);
-    const date = new Date(year, month, dayNum);
+    const date = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` as LocalDate;
 
     const cellHtml = dateCell.innerHTML ?? "";
     const brMatch = cellHtml.match(/<br\s*\/?>\s*(.+)/i);

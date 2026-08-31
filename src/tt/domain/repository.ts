@@ -24,7 +24,6 @@ import type {
   ScheduleObservation,
   ScheduleOwner,
   ScheduleSourceSnapshot,
-  SerializedLessonSubstitution,
   SerializedScheduleObservation,
   SerializedScheduleSourceSnapshot,
   SeriesObservation,
@@ -56,18 +55,8 @@ function sourceObservationKey(sourceKey: string, observationKey: string): string
   return claimKey(sourceKey, observationKey);
 }
 
-function sameDate(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
-
-function dateAt(date: Date, time: { hours: number; minutes: number }): Date {
-  const value = new Date(date);
-  value.setHours(time.hours, time.minutes, 0, 0);
-  return value;
+function sameDate(a: string, b: string): boolean {
+  return a === b;
 }
 
 function rangesOverlap(
@@ -163,60 +152,16 @@ function observationScore(
   return score;
 }
 
-function serializeSubstitutions(
-  substitutions: ScheduleObservation["substitutions"],
-): SerializedLessonSubstitution[] | undefined {
-  return substitutions?.map((value) => ({
-    ...value,
-    date: value.date.toISOString(),
-  }));
-}
-
 function serializeObservation(
   observation: ScheduleObservation,
 ): SerializedScheduleObservation {
-  if (observation.kind === "series") {
-    return {
-      ...observation,
-      substitutions: serializeSubstitutions(observation.substitutions),
-    };
-  }
-  return {
-    ...observation,
-    date: observation.date.toISOString(),
-    transfer: observation.transfer
-      ? {
-          ...observation.transfer,
-          fromDate: observation.transfer.fromDate.toISOString(),
-          targetDate: observation.transfer.targetDate.toISOString(),
-        }
-      : undefined,
-    substitutions: serializeSubstitutions(observation.substitutions),
-  };
+  return structuredClone(observation);
 }
 
 function deserializeObservation(
   observation: SerializedScheduleObservation,
 ): ScheduleObservation {
-  const substitutions = observation.substitutions?.map((value) => ({
-    ...value,
-    date: new Date(value.date),
-  }));
-  if (observation.kind === "series") {
-    return { ...observation, substitutions };
-  }
-  return {
-    ...observation,
-    date: new Date(observation.date),
-    transfer: observation.transfer
-      ? {
-          ...observation.transfer,
-          fromDate: new Date(observation.transfer.fromDate),
-          targetDate: new Date(observation.transfer.targetDate),
-        }
-      : undefined,
-    substitutions,
-  };
+  return structuredClone(observation);
 }
 
 function serializeSource(
@@ -508,8 +453,9 @@ export class TimetableRepository {
     }
     return values.sort(
       (a, b) =>
-        (a.startsAt?.getTime() ?? Number.MAX_SAFE_INTEGER) -
-          (b.startsAt?.getTime() ?? Number.MAX_SAFE_INTEGER) ||
+        a.scheduledDate.localeCompare(b.scheduledDate) ||
+        ((a.time?.start.hours ?? 24) * 60 + (a.time?.start.minutes ?? 0)) -
+          ((b.time?.start.hours ?? 24) * 60 + (b.time?.start.minutes ?? 0)) ||
         a.id.localeCompare(b.id),
     );
   }
@@ -760,18 +706,6 @@ export class TimetableRepository {
       period: preferred.source.period,
       nominalDate: transfer?.fromDate ?? preferred.observation.date,
       scheduledDate: transfer?.targetDate ?? preferred.observation.date,
-      startsAt: preferred.observation.time
-        ? dateAt(
-            transfer?.targetDate ?? preferred.observation.date,
-            preferred.observation.time.start,
-          )
-        : undefined,
-      endsAt: preferred.observation.time
-        ? dateAt(
-            transfer?.targetDate ?? preferred.observation.date,
-            preferred.observation.time.end,
-          )
-        : undefined,
       subject: preferred.observation.subject,
       type: preferred.observation.type,
       slotNumber: preferred.observation.slotNumber,

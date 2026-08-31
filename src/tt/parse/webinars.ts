@@ -4,21 +4,17 @@ import {
   parseTime,
   text,
 } from "../../common/parse.js";
-import type { Time } from "../../common/types.js";
+import type { LocalDate, Time } from "../../common/types.js";
 import type { Webinar } from "../types.js";
 import { parseGroupsString } from "./groups.js";
 import { FLEXIBLE_LESSON_TYPE_RE_I, SUBGROUP_RE } from "./patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+(?:\s*ин)?/u;
 
-function parseDateValue(value: string | undefined | null): Date | undefined {
+function parseDateValue(value: string | undefined | null): LocalDate | undefined {
   const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (!match) return undefined;
-  return new Date(
-    parseInt(match[1]),
-    parseInt(match[2]) - 1,
-    parseInt(match[3]),
-  );
+  return `${match[1]}-${match[2]}-${match[3]}` as LocalDate;
 }
 
 function parseTimeRange(raw: string): { start: Time; end: Time } | null {
@@ -68,7 +64,7 @@ function parseWebinarRows(
   doc: Document,
   tableSelector: string,
   scheduled: boolean,
-  fallbackDate: Date | undefined,
+  fallbackDate: LocalDate | undefined,
 ): Webinar[] {
   const webinars: Webinar[] = [];
 

@@ -20,6 +20,9 @@ export interface TimeRange {
   end: Time;
 }
 
+/** Calendar date without a timezone or time component. */
+export type LocalDate = `${number}-${number}-${number}`;
+
 export interface WeekRange {
   from: number;
   to: number;

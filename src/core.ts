@@ -9,6 +9,7 @@ export {
   getCompensatingWorkDays,
   getCurrentPeriod,
   getEffectiveHolidays,
+  formatLocalDate,
   getHolidayTransfers,
   getSemesterStart,
   getSemesterWeeks,
@@ -17,6 +18,7 @@ export {
   getWeekdayName,
   isHoliday,
   isSessionPeriod,
+  parseLocalDate,
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils/index.js";
 export type { Holiday, HolidayTransfer } from "./tt/utils/index.js";
@@ -27,7 +29,13 @@ export {
   ParseError,
   AcademicPeriod,
 } from "./common/types.js";
-export type { Teacher, Time, TimeRange, WeekRange } from "./common/types.js";
+export type {
+  LocalDate,
+  Teacher,
+  Time,
+  TimeRange,
+  WeekRange,
+} from "./common/types.js";
 
 export type { CacheAdapter, CacheEntry } from "./common/cache.js";
 
