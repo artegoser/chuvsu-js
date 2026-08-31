@@ -5,6 +5,8 @@ import { AcademicPeriod } from "../dist/common/types.js";
 import {
   getSemesterWeeks,
   getWeekNumber,
+  isLocalDate,
+  parseLocalDate,
 } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 
@@ -59,6 +61,13 @@ test("fall week 1 contains September 1 when it starts midweek", () => {
     year: 2026,
     date: new Date(2026, 8, 1),
   }), 1);
+});
+
+test("LocalDate validation rejects rollover and malformed dates", () => {
+  assert.equal(isLocalDate("2026-09-03"), true);
+  assert.equal(isLocalDate("2026-02-30"), false);
+  assert.equal(isLocalDate("2026-9-3"), false);
+  assert.throws(() => parseLocalDate("2026-02-30"), /Invalid local date/u);
 });
 
 test("Schedule returns week-1 lessons during first September week", () => {

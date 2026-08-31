@@ -17,6 +17,7 @@ export {
   getWeekNumber,
   getWeekdayName,
   isHoliday,
+  isLocalDate,
   isSessionPeriod,
   parseLocalDate,
   RUSSIAN_HOLIDAYS,

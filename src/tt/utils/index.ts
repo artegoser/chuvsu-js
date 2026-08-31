@@ -3,6 +3,7 @@ export {
   getMonday,
   getWeekdayName,
   isSameDay,
+  isLocalDate,
   parseLocalDate,
 } from "./date.js";
 export {

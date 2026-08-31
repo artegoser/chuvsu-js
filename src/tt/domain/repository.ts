@@ -1,4 +1,5 @@
 import type { AcademicPeriod } from "../../common/types.js";
+import { isLocalDate } from "../utils/date.js";
 import { TimetableDirectory } from "./directory.js";
 import { RandomLessonIdGenerator } from "./ids.js";
 import {
@@ -621,6 +622,9 @@ export class TimetableRepository {
     if (!Number.isInteger(source.academicYearStartYear)) {
       throw new Error(`Invalid academic year for source ${source.sourceKey}`);
     }
+    if (!Number.isInteger(source.period) || source.period < 1 || source.period > 4) {
+      throw new Error(`Invalid academic period for source ${source.sourceKey}`);
+    }
     if (!(source.observedAt instanceof Date) || !Number.isFinite(source.observedAt.getTime())) {
       throw new Error(`Invalid observation time for source ${source.sourceKey}`);
     }
@@ -631,6 +635,54 @@ export class TimetableRepository {
       }
       if (!observation.subject.trim()) {
         throw new Error(`Empty lesson subject in ${source.sourceKey}/${observation.key}`);
+      }
+      if (!observation.type.trim()) {
+        throw new Error(`Empty lesson type in ${source.sourceKey}/${observation.key}`);
+      }
+      if (
+        observation.slotNumber != null &&
+        (!Number.isInteger(observation.slotNumber) || observation.slotNumber < 1)
+      ) {
+        throw new Error(`Invalid slot number in ${source.sourceKey}/${observation.key}`);
+      }
+      if (observation.time) {
+        const start = observation.time.start.hours * 60 + observation.time.start.minutes;
+        const end = observation.time.end.hours * 60 + observation.time.end.minutes;
+        const validPart = (value: { hours: number; minutes: number }) =>
+          Number.isInteger(value.hours) && value.hours >= 0 && value.hours <= 23 &&
+          Number.isInteger(value.minutes) && value.minutes >= 0 && value.minutes <= 59;
+        if (!validPart(observation.time.start) || !validPart(observation.time.end) || end <= start) {
+          throw new Error(`Invalid lesson time in ${source.sourceKey}/${observation.key}`);
+        }
+      }
+      for (const substitution of observation.substitutions ?? []) {
+        if (!isLocalDate(substitution.date)) {
+          throw new Error(`Invalid substitution date in ${source.sourceKey}/${observation.key}`);
+        }
+      }
+      if (observation.kind === "series") {
+        const { weekday, weeks } = observation.recurrence;
+        if (!Number.isInteger(weekday) || weekday < 0 || weekday > 6) {
+          throw new Error(`Invalid recurrence weekday in ${source.sourceKey}/${observation.key}`);
+        }
+        if (weeks && (
+          !Number.isInteger(weeks.from) || !Number.isInteger(weeks.to) ||
+          weeks.from < 1 || weeks.to < weeks.from
+        )) {
+          throw new Error(`Invalid recurrence weeks in ${source.sourceKey}/${observation.key}`);
+        }
+      } else {
+        if (!isLocalDate(observation.date)) {
+          throw new Error(`Invalid lesson date in ${source.sourceKey}/${observation.key}`);
+        }
+        if (observation.transfer && (
+          !isLocalDate(observation.transfer.fromDate) ||
+          !isLocalDate(observation.transfer.targetDate) ||
+          !Number.isInteger(observation.transfer.fromSlot) ||
+          observation.transfer.fromSlot < 1
+        )) {
+          throw new Error(`Invalid lesson transfer in ${source.sourceKey}/${observation.key}`);
+        }
       }
       keys.add(observation.key);
     }

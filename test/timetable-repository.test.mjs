@@ -348,6 +348,15 @@ test("repository rejects duplicate observation keys and dangling snapshots", () 
   const exported = valid.export();
   exported.links = [];
   assert.throws(() => repository(exported), /Missing timetable link/u);
+
+  assert.throws(() => repo.ingest(snapshot("group:102", owner, [
+    seriesObservation({
+      time: {
+        start: { hours: 12, minutes: 0 },
+        end: { hours: 11, minutes: 0 },
+      },
+    }),
+  ])), /Invalid lesson time/u);
 });
 
 test("replacing a persisted snapshot keeps existing Schedule views live", () => {
