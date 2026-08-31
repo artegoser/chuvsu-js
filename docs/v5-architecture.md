@@ -1,193 +1,139 @@
-# chuvsu-js v5 schedule architecture
+# Архитектура расписания chuvsu-js v5
 
-Status: accepted for v5 implementation.
+## Цели
 
-## Goals
+- Одна реальная пара хранится один раз, даже если разные страницы показывают
+  разные части информации о ней.
+- Серии и конкретные занятия получают устойчивые случайные ID, не зависящие от
+  изменяемых даты, аудитории и времени.
+- Семестровое расписание и сессия становятся форматами входных наблюдений одной
+  модели запросов.
+- TTL-кеш страниц не управляет временем жизни канонических ID.
+- Репозиторий, календарь и запросы работают в браузере без Node-сети и DOM.
 
-- Represent one real lesson once even when group, teacher, and room pages expose
-  different subsets of it.
-- Give recurring series and concrete lesson occurrences stable IDs that are not
-  derived from mutable date, time, or room fields.
-- Treat semester and session schedules as two ingestion formats for one query
-  model.
-- Keep source-page caching independent from persistent canonical identity.
-- Make schedule querying and persisted snapshots usable in browsers without
-  Node.js networking, certificates, `Buffer`, or an HTML DOM implementation.
+Версия 5 намеренно несовместима с v4; старые формы вызовов не сохраняются.
 
-## Public vocabulary
+## Границы пакетов
 
-| v4 | v5 | Reason |
-| --- | --- | --- |
-| `TtClient` | `TimetableClient` | Describes the service instead of its hostname. |
-| `LkClient` | `StudentPortalClient` | Describes the portal responsibility. |
-| `Audience` | `Room` | Natural English API name. |
-| `ScheduleEntry` | `ScheduleObservation` (internal) | Parsed page rows are incomplete observations, not canonical lessons. |
-| `FullScheduleDay` | `ParsedScheduleDay` (parser boundary) | Makes raw/parser ownership explicit. |
-| `groupId` on every `Schedule` | `owner: ScheduleOwner` | A schedule can belong to a group, teacher, or room. |
+- `chuvsu-js` и `chuvsu-js/node` — Node-клиенты, парсеры и ядро;
+- `chuvsu-js/browser` — репозиторий, `Schedule`, календарные функции, доменные
+  типы и импорт/экспорт снимков;
+- `chuvsu-js/parsers` — серверные HTML-парсеры без авторизованных клиентов.
 
-v5 is intentionally breaking. Runtime aliases and legacy call shapes are not
-retained; migration guidance documents replacements instead.
+Браузерная точка входа не импортирует `undici`, `linkedom`, сертификаты или
+`Buffer`.
 
-## Package boundaries
+## Наблюдение и каноническая сущность
 
-- `chuvsu-js` and `chuvsu-js/node`: Node.js clients, HTML parsers, and all core
-  exports.
-- `chuvsu-js/browser`: canonical repository, schedule views, calendar helpers,
-  public domain types, and snapshot import/export. It must not reach Node-only
-  modules or `linkedom`.
-- `chuvsu-js/parsers`: HTML parsers for server/tooling use without exporting
-  authenticated clients.
+Строка страницы — не готовая пара, а `ScheduleObservation`. Владелец страницы
+является достоверным неявным фактом: страница группы доказывает участие группы,
+страница преподавателя — преподавателя, страница аудитории — аудиторию.
 
-Relative ESM imports keep explicit `.js` extensions. Every package export has a
-matching `types` condition.
-
-## Domain model
-
-### Owners and entities
+Отсутствующие поля означают «источник не сообщил». Явное отсутствие передается
+как `null` на границе парсера и превращается в пустой `RelationSet` с
+`completeness: "complete"`.
 
 ```text
-ScheduleOwner = GroupOwner | TeacherOwner | RoomOwner
-EntityRef     = { id?: upstream numeric ID, name }
+RelationSet<T> = {
+  values: T[]
+  completeness: "unknown" | "partial" | "complete"
+}
 ```
 
-The requested page owner is authoritative implicit data:
+Это устраняет пустые строки и не позволяет принять нехватку данных за известное
+отсутствие.
 
-- a group page proves group participation;
-- a teacher page proves teacher participation;
-- a room page proves the room.
+## Время и дата
 
-Visible page text supplies complementary, lower-authority entity claims.
+Номер и фактический интервал независимы:
 
-### Source snapshot
+```text
+slotNumber?: number
+time?: { start: Time, end: Time }
+```
 
-A source snapshot records owner, academic year, period, fetch time, and parsed
-observations. Missing fields mean “not exposed by this projection”; they never
-mean an authoritative empty list.
+Стандартная сетка звонков — только справочная информация и не переписывает
+утверждение портала. Сессия не получает вычисленный номер пары по ближайшему
+времени.
 
-Snapshots replace only their own previous source projection. A lesson is not
-deleted merely because another projection omits it.
+Дата без времени — `LocalDate` (`YYYY-MM-DD`). В модели не используется
+полуночный `Date`, поэтому сериализация через UTC не может сдвинуть учебный день.
 
-### Lesson series
+## Серии и занятия
 
-A `LessonSeries` represents a semester recurrence:
+`LessonSeries` описывает повторение в семестре: учебный год, период, день недели,
+диапазон недель, чередование, независимые номер и время, предмет, тип, связи,
+замены и происхождение данных.
 
-- stable random `seriesId`;
-- academic year and period;
-- weekday, slot, time, week range, and optional parity;
-- subject and type;
-- group participation scopes, teachers, and rooms;
-- substitutions and transfer observations;
-- source provenance.
+`LessonOccurrence` описывает конкретное занятие. У него есть `scheduledDate`,
+`nominalDate`, статус переноса, отдельное локальное время и, для семестровой
+пары, `seriesId`.
 
-### Lesson occurrence
+ID серии создается генератором и хранится в репозитории. ID семестрового
+занятия выводится из ID серии, учебной недели и порядкового номера возникновения;
+дата, время и аудитория в идентичность не входят. Строка сессии получает
+сохраненный `lessonId`.
 
-A `LessonOccurrence` represents one concrete meeting:
+## Согласование наблюдений
 
-- stable `lessonId`;
-- optional `seriesId`;
-- nominal academic week and date;
-- actual date/time after transfer or substitution;
-- participants, teachers, rooms, status, and provenance.
+При загрузке источника репозиторий:
 
-Semester occurrences use a collision-free structural ID inside one repository:
-`seriesId + academic week + occurrence ordinal`. The mutable actual date, room,
-and time are not part of identity. Session rows are direct persisted
-occurrences with assigned IDs.
+1. Нормализует текст и ссылки на сущности.
+2. Сохраняет прежний ID, если наблюдение связано с уже известной строкой этого
+   источника.
+3. Для нового источника рассматривает только тот же учебный год, период и вид
+   сущности.
+4. Запрещает объединение разных дат конкретных занятий, разных дней недели,
+   непересекающихся недель и несовместимого чередования.
+5. Независимо оценивает совпадение номера и времени, а также предмета, типа,
+   групп, преподавателей и аудиторий.
+6. Объединяет только единственного кандидата с достаточным доказательством;
+   неоднозначность создает новый ID.
+7. Хранит происхождение всех утверждений и объединяет совместимые связи.
 
-## Reconciliation
+Результат проверяется в прямом и обратном порядке загрузки корпуса. Совпавшее
+время может сохранить идентичность при ошибочном номере пары, но разные дни или
+чередование не могут быть склеены похожими метаданными.
 
-Reconciliation runs whenever a source snapshot is ingested.
+## Справочник сущностей
 
-1. Normalize text, entity names, recurrence, and local dates.
-2. Prefer an existing canonical ID previously linked to the same source row.
-3. Otherwise build candidates from academic year/period and compatible nominal
-   position or date.
-4. Score subject, type, recurrence, slot, room, teacher, and group evidence.
-5. Merge only one unambiguous candidate above threshold.
-6. Preserve conflicting claims and provenance; never use last-write-wins to
-   fabricate certainty.
-7. Create a new ID for ambiguous observations.
+Репозиторий содержит справочник групп, преподавателей и аудиторий. Его наполняют
+поиск, списки и владельцы загруженных страниц. Сокращение преподавателя
+разрешается по фамилии и инициалам только при единственном совпадении.
 
-Request order must not affect the canonical result. Group arrays, teacher
-arrays, and room arrays are compatible unions. Scalar conflicts remain source
-claims until a deterministic authority rule resolves them.
+Загрузка расписания не делает скрытых сетевых запросов. Допустимы только явно
+вызванные `resolve*` со стратегией поиска или `preloadDirectory`.
 
-Complete unrecognizable edits cannot be proven to be the same upstream lesson.
-Those create a new ID and may carry predecessor/successor lineage.
+## Хранилища
 
-## Repository and cache
+Есть три независимых слоя:
 
-Three independent layers:
+1. TTL-кеш сетевых ответов и метаданных.
+2. Канонический репозиторий ID, наблюдений, связей и ревизии.
+3. Производные представления запросов, инвалидируемые ревизией.
 
-1. Transport cache: fetched/parsed page snapshots; TTL is allowed.
-2. Canonical repository: IDs, series, occurrences, relations, source links,
-   revision; persisted independently from cache TTL.
-3. Query-view cache: optional derived owner/date views, invalidated by canonical
-   repository revision.
+Снимок репозитория имеет `schemaVersion: 5`. Адаптер постоянного хранилища
+использует compare-and-set по ревизии.
 
-`TimetableRepository` has an in-memory implementation, snapshot import/export,
-and an optional compare-and-set persistence adapter. Concurrent writers retry
-against repository revision instead of silently overwriting identities.
+## Запросы
 
-### Entity directory
-
-Canonical storage includes a persistent entity directory for groups, teachers,
-and rooms. Search/list responses and requested page owners seed it. Schedule
-ingestion and reads resolve incomplete visible names against already-known
-entities:
-
-- exact normalized names for groups and rooms;
-- normalized surname plus initials for teachers;
-- an ID is attached only when the lookup is unique.
-
-Schedule fetching never performs hidden entity lookups. This prevents one
-schedule from causing an N+1 cascade. Callers can explicitly choose cache-only
-resolution, one targeted search, or a deliberate directory preload. Ambiguous
-teacher initials remain unresolved instead of receiving a guessed ID.
-
-## Query behavior
-
-`Schedule` is a lightweight view over `TimetableRepository` and one owner. Its
-queries are synchronous after client ingestion:
+`Schedule` — легкое синхронное представление владельца поверх репозитория:
 
 - `on(date)`;
 - `week(academicWeek?)`;
-- `today()` / `tomorrow()` / `thisWeek()`;
+- `weekday(day, options?)`;
+- `today()`, `tomorrow()`, `thisWeek()`;
 - `current()`;
-- `series()` for recurring definitions.
+- `series()`.
 
-Query resolution expands recurring series into occurrences, applies holiday
-rules, substitutions, transfers, and cancellations, then combines direct
-session occurrences. Session-specific branching stays inside ingestion and
-occurrence resolution, not public query methods.
+При раскрытии серии применяются недели, праздники, замены и переносы, после чего
+добавляются прямые занятия сессии.
 
-## Client API
+## Проверка
 
-Primary API:
-
-```text
-getSchedule(owner, options?)
-getGroupSchedule(groupId, options?)
-getTeacherSchedule(teacherId, options?)
-getRoomSchedule(roomId, options?)
-```
-
-Search methods use plural resource names and direct query values where useful:
-`searchGroups`, `searchTeachers`, and `searchRooms`. Explicit resource helpers
-remain discoverable and all return typed entity references.
-
-Directory helpers expose `resolveGroup`, `resolveTeacher`, and `resolveRoom`
-with cache-only defaults, plus explicit preload methods for applications that
-need fully resolved entity IDs before rendering schedules.
-
-## Verification order
-
-1. Implement domain, repository, reconciliation, and query model.
-2. Migrate all existing group golden fixtures to the v5 parser/canonical
-   boundary and prove current behavior parity.
-3. Add complete teacher and room corpora with frozen reviewed expectations.
-4. Add cross-projection bundles and request-order invariance tests.
-5. Add ID stability, ambiguity, persistence, session, browser-boundary, and
-   client tests.
-6. Run fixture audit, build, complete tests, export checks, and packed-package
-   smoke tests before v5 release.
+Замороженные ожидания v5 охватывают 34 страницы групп, 4 преподавателей и 4
+аудиторий. Каждое ожидание проверяется двумя путями: точным повторным построением
+и независимым аудитом исходного DOM без вызова проверяемого парсера. Отдельные
+тесты проверяют устойчивость ID, неоднозначность, объединение трех проекций,
+порядок запросов, локальные даты, три состояния связей и границу браузерного
+пакета.

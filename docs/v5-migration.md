@@ -1,8 +1,8 @@
-# Migrating from v4 to v5
+# Переход с v4 на v5
 
-v5 intentionally provides no runtime compatibility aliases.
+В v5 нет алиасов и совместимости старых форм API.
 
-## Renamed API
+## Переименования
 
 | v4 | v5 |
 | --- | --- |
@@ -26,24 +26,31 @@ v5 intentionally provides no runtime compatibility aliases.
 | `getPhoto()` | `getProfilePhoto()` |
 | `getGroupId()` | `getTimetableGroupId()` |
 
-## Changed schedule data
+## Новая форма расписания
 
-`Schedule` no longer exposes parser-shaped day/slot maps. Query methods return
-canonical `LessonOccurrence` objects:
+`Schedule` больше не возвращает структуру HTML-таблицы. Методы запросов выдают
+канонические `LessonOccurrence`:
 
-- `id` is mandatory;
-- `seriesId` identifies recurring definitions;
-- `teachers`, `rooms`, and `groups` are entity relations with optional upstream
-  IDs;
-- `date` is actual start date/time;
-- `nominalDate` remains stable across transfers;
-- `sources` describes contributing page observations.
+- `id` обязателен;
+- `seriesId` связывает занятие с повторяющейся серией;
+- `slotNumber` и `time` независимы;
+- `scheduledDate` и `nominalDate` — строки `YYYY-MM-DD` без часового пояса;
+- `groups`, `teachers`, `rooms` имеют `values` и `completeness`;
+- `sources` показывает исходные наблюдения.
 
-Use `schedule.series()` when recurring definitions are required. Raw HTML parser
-output is available only from `chuvsu-js/parsers`.
+```ts
+const lesson = schedule.on(date)[0];
+console.log(lesson.teachers.values);
+console.log(lesson.rooms.completeness);
+```
 
-## Cache split
+Повторяющиеся определения доступны через `schedule.series()`. Сырой результат
+HTML-парсера экспортируется из `chuvsu-js/parsers` и использует
+`ParsedScheduleDay.blocks[].lessons`; блок также содержит независимые
+`slotNumber` и `time`.
 
-v4 cache export/import does not preserve v5 lesson identity. Configure a
-`repositoryAdapter` or persist `exportRepository()` output separately. TTL cache
-expiration is no longer allowed to erase canonical IDs.
+## Кеш и ID
+
+Снимок кеша v4 не сохраняет идентичность v5. Подключите `repositoryAdapter` или
+храните результат `exportRepository()` отдельно. Истечение TTL сетевого кеша
+не удаляет канонические ID.
