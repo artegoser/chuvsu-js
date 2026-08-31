@@ -1,0 +1,3667 @@
+{
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:room:803:1:2026",
+    "owner": {
+      "type": "room",
+      "room": {
+        "id": 803,
+        "name": "Е-407"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Статистика",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Ф-91-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Соколова А. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:0:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Иностранный язык",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-92-26"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Львова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международные товарные рынки",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-10-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Архипова В. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Государственное и муниципальное управление",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-06-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-07-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-07-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Михопаров Н. И.",
+            "position": "доц.",
+            "degree": "к.соц.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Литература",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 14
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Ф-93-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Кучаева Е. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:4:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Практические основы бухгалтерского учета активов организации и источников их формирования",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ильина Н. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:0:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-06-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-07-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-08-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-26ин"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-07-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-08-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-051-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-051-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-051-26ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:1:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:2:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-04-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-04-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-08-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-08-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Русский язык",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          },
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Васильева М. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Экономика организации",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Ф-91-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рассадина Я. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы бухгалтерского учета",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-92-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Романова О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:0:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-052-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-052-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-06-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-07-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-26ин"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-07-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:1:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Статистика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-06-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-07-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-06-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-07-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов А. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:1:lesson:2",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-01-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-01-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-01-26ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-02-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-02-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:2:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-02-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-02-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Е. Г.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:2:lesson:2",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Митрофанова М. Ю.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Практические основы бухгалтерского учета активов организации и источников их формирования",
+      "type": "КРП",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 11
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ильина Н. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Митрофанова М. Ю.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:4:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Организация расчетов с бюджетом и внебюджетными фондами",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-24"
+            }
+          },
+          {
+            "group": {
+              "name": "Б-92-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Романова О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы безопасности и защиты Родины",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Ф-91-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сучкова А. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:0:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Микроэкономика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-052-26"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-052-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Кадышева О. Е."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление конкурентоспособностью предприятий торговли",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-10-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бондаренко Н. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Обязательное социальное страхование и социальная безопасность",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Березина Н. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 14,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тюнтеров О. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы безопасности и защиты Родины",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сучкова А. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социальная ответственность и социальная политика государственных и муниципальных учреждений",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-08-26 УГМУ"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-08-26 УГМУ"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Марков А. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы, денежное обращение и кредит",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Ф-11-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Пантелеймонова О. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:4:block:0:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоги и налогообложение",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-01-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-04-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-01-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-04-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Зотиков Н. З.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:4:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Аудит",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-01-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-04-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-01-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-04-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Львова М. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Цифровизация исполнения бюджета",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Аркадьева О. Г.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 8,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          },
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тюнтеров О. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:1:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физика",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 7
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          },
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Митрюхин Л. К.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Биология",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ванина О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_41",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информатика",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 6
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          },
+          {
+            "group": {
+              "name": "Б-92-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:2:lesson:2",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_42",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физика",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 11,
+          "to": 11
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-92-26"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Митрюхин Л. К.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:2:lesson:3",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_40",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Химия",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 7,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Васильева А. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:2:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_44",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоговый учет и налоговое планирование",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Романова О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:3:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_43",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Химия",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-91-26"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Васильева А. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_45",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоговый учет и налоговое планирование",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Романова О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:4:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_room_803_46",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Технология составления бухгалтерской отчетности",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "Б-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Романова О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:5:block:5:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "occurrence",
+      "id": "les_fixture_room_803_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "nominalDate": "2026-09-07",
+      "scheduledDate": "2026-09-21",
+      "subject": "Государственное и муниципальное управление",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-08-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-08-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рассадина Я. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "status": "moved",
+      "movedFrom": {
+        "date": "2026-09-07",
+        "slotNumber": 4
+      },
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "occurrence",
+      "id": "les_fixture_room_803_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "nominalDate": "2026-09-08",
+      "scheduledDate": "2026-09-23",
+      "subject": "Государственное и муниципальное управление",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-02-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-02-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-02-25ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рассадина Я. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "id": 803,
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "status": "moved",
+      "movedFrom": {
+        "date": "2026-09-08",
+        "slotNumber": 2
+      },
+      "sources": [
+        {
+          "sourceKey": "fixture:room:803:1:2026",
+          "observationKey": "day:2:block:0:lesson:1",
+          "owner": {
+            "type": "room",
+            "room": {
+              "id": 803,
+              "name": "Е-407"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

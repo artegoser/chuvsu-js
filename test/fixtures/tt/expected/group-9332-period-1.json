@@ -1,0 +1,1691 @@
+{
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:9332:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 9332,
+        "name": "Ю-11-25"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физическая культура",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенов С. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Спорткомплекс ЧГУ СЗ"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:0:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Документационное обеспечение управления",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Данилов Н. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:0:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Документационное обеспечение управления",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Данилов Н. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:0:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Экологическое право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-200"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Экологическое право",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-200"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:0:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданское право",
+      "type": "КРП",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Семейное право",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенова И. Ю."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-200"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Юридическая психология",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Саливаров В. Я."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-241"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Семейное право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенова И. Ю."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-200"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Юридическая психология",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Саливаров В. Я."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Трудовое право",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Куракина К. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Трудовое право",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Куракина К. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданское право",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-200"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданский процесс",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 25
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 55
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Юманова Н. М."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-136"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданский процесс",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 17,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Юманова Н. М."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-136"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административное право",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рыбакова П. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:3:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Трудовое право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Куракина К. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-125"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административное право",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рыбакова П. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-313"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданское право",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-02"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:3:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданское право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-08"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:4:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданское право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева Н. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-326"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:4:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Семейное право",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 55
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 25
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенова И. Ю."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административное право",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 15,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рыбакова П. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-136"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9332_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физическая культура",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 25
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 55
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенов С. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Спорткомплекс ЧГУ СЗ"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9332:1:2026",
+          "observationKey": "day:4:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9332,
+              "name": "Ю-11-25"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

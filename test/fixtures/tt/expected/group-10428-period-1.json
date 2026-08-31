@@ -1,0 +1,2123 @@
+{
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:10428:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 10428,
+        "name": "Х-41-26ин (ОиВФД)"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные технологии",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 6,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Горбунова П. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-Актовый зал"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:0:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Иностранный язык",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Губанов А. Р.",
+            "position": "проф.",
+            "degree": "д.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-418"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:0:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Иностранный язык",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Игнатьева Е. А.",
+            "position": "доц.",
+            "degree": "к.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-520"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая и неорганическая химия",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Зиновьева Е. Г.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-121"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:0:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы российской государственности",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 10,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Моторова А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-217"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:0:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физическая культура и спорт",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Физическая культура и спорт",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Колесникова О. Б.",
+            "position": "доц.",
+            "degree": "к.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Биология",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Добросмыслова И. А.",
+            "position": "доц.",
+            "degree": "к.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-Актовый зал"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История России",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ласточкин В. Б.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева А. Н.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История России",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ласточкин В. Б.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные технологии",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Горбунова П. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Т-121"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История России",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 11,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ласточкин В. Б.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История фармации",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Николаева Т. В.",
+            "position": "доц."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-418"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История фармации",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 11,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Николаева Т. В.",
+            "position": "доц."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-418"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:1:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая и неорганическая химия",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Зиновьева Е. Г.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Т-226"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Биоэтика",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Губанова Г. Ф.",
+            "position": "доц.",
+            "degree": "к.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История фармации",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Николаева Т. В.",
+            "position": "доц."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История фармации",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 11,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Николаева Т. В.",
+            "position": "доц."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Биоэтика",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Губанова Г. Ф.",
+            "position": "доц.",
+            "degree": "к.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-334"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Спорткомплекс ЧГУ БЗ"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:3:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные технологии",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Горбунова П. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-104"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:3:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Латинский язык",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Пушкин А. А.",
+            "position": "проф.",
+            "degree": "к.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-308"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Латинский язык",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 15
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Пушкин А. А.",
+            "position": "проф.",
+            "degree": "к.ф.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-308"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Математика",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеева А. Н.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:3:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Биология",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Добросмыслова И. А.",
+            "position": "доц.",
+            "degree": "к.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-024"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:4:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая и неорганическая химия",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рамская Е. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-205"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая и неорганическая химия",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рамская Е. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "О-205"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы российской государственности",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Вязовская Т. Н.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:4:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_10428_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "История России",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ласточкин В. Б.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:10428:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 10428,
+              "name": "Х-41-26ин (ОиВФД)"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

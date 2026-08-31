@@ -1,0 +1,2876 @@
+{
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:teacher:543:1:2026",
+    "owner": {
+      "type": "teacher",
+      "teacher": {
+        "id": 543,
+        "name": "Митрофанова Марина Юрьевна"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Рынок ценных бумаг",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-409"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Рынок ценных бумаг",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-409"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:0:block:3:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Профессиональная деятельность на рынке ценных бумаг",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-03-26 БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-26 БиФР"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Профессиональная деятельность на рынке ценных бумаг",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-03-26 БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-26 БиФР"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Профессиональная деятельность на рынке ценных бумаг",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-03-26 БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-26 БиФР"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:0:block:7:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Государственный (муниципальный) контроль и надзор в финансовой сфере",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Государственный (муниципальный) контроль и надзор в финансовой сфере",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-313"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые основы деятельности сектора государственного управления",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:1:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые основы деятельности сектора государственного управления",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:1:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-08-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-08-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Институциональное и инструментальное развитие финансового рынка",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-03-25у БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-25 БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-25 ин БиФР"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-309"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Институциональное и инструментальное развитие финансового рынка",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭКМ-03-25у БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-25 БиФР"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭКМ-03-25 ин БиФР"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-309"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:2:block:6:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые основы деятельности сектора государственного управления",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-306"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:1:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые основы деятельности сектора государственного управления",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-09-24"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:2:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансы",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-08-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ОЗЭК-10-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-08-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-09-25"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-10-25"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки и цифровые финансовые активы",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки и цифровые финансовые активы",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-03-23"
+            }
+          },
+          {
+            "group": {
+              "name": "ЭК-03-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:5:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:5:lesson:2",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:5:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:6:lesson:3",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:6:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:6:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:6:lesson:2",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:7:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:4:block:7:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:0:lesson:2",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:0:lesson:3",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:0:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:0:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:1:lesson:2",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление государственными и муниципальными финансами",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-50-25д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:1:lesson:3",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовые рынки",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:1:lesson:1",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_teacher_543_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Финансовый контроль",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "name": "ОЗЭК-51-24д"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "id": 543,
+            "name": "Митрофанова Марина Юрьевна"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:teacher:543:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "teacher",
+            "teacher": {
+              "id": 543,
+              "name": "Митрофанова Марина Юрьевна"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

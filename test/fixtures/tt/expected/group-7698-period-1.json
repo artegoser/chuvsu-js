@@ -1,0 +1,1498 @@
+{
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:7698:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 7698,
+        "name": "ОЗЮФ-71-22"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы теории национальной безопасности",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Казимиров М. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы теории национальной безопасности",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Казимиров М. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-902"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административный процесс",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Вязовская Т. Н.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-08"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:1:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовые основы защиты в чрезвычайных ситуациях",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Медведев В. А.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-06"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Антимонопольное право",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сошко И. А.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-119"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Специальная подготовка",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Скворцов А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:1:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Специальная подготовка",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Скворцов А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:1:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административный процесс",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Моторова А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-126"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Административный процесс",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Моторова А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Конституционное судопроизводство",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гайнетдинова Г. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-126"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Конституционное судопроизводство",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гайнетдинова Г. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-126"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Конституционное судопроизводство",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гайнетдинова Г. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-08"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовые основы противодействия коррупции",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Купирова Ч. Ш.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовые основы противодействия коррупции",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Купирова Ч. Ш.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-903"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Антимонопольное право",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сошко И. А.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-08"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовые основы защиты в чрезвычайных ситуациях",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Панзин Д. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-126"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовые основы защиты в чрезвычайных ситуациях",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Панзин Д. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:4:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы теории национальной безопасности",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Кузнецов А. К.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:5:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовое регулирование публичных закупок",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Блинов В. Г.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:5:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Специальная подготовка",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Скворцов А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_7698_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правовое регулирование публичных закупок",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Блинов В. Г.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-907"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:7698:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 7698,
+              "name": "ОЗЮФ-71-22"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
