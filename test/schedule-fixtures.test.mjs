@@ -31,6 +31,7 @@ const CONFIG = {
     requiredCount: 4,
   },
 };
+const CORPORA = [];
 
 const WEEKDAYS = new Map([
   ["воскресенье", 0],
@@ -283,6 +284,7 @@ async function loadFixtures(kind, config) {
 
 for (const [kind, config] of Object.entries(CONFIG)) {
   const fixtures = await loadFixtures(kind, config);
+  CORPORA.push(...fixtures.map((fixture) => ({ ...fixture, kind, parser: config.parser })));
   test(`${kind} schema-v5 corpus coverage`, () => {
     assert.equal(fixtures.length, config.requiredCount);
     const lessons = fixtures.flatMap((fixture) => fixture.expected.lessons);
@@ -304,3 +306,55 @@ for (const [kind, config] of Object.entries(CONFIG)) {
     });
   }
 }
+
+function corpusRepository(fixtures) {
+  let series = 0;
+  let occurrences = 0;
+  const repository = new TimetableRepository({
+    idGenerator: {
+      seriesId: () => `ser_corpus_${++series}`,
+      lessonId: () => `les_corpus_${++occurrences}`,
+    },
+  });
+  for (const fixture of fixtures) {
+    repository.ingest(createScheduleSourceSnapshot({
+      ...fixture.expected.source,
+      observedAt: new Date("2026-08-31T00:00:00.000Z"),
+      days: fixture.parser(fixture.html),
+    }));
+  }
+  return repository;
+}
+
+function sourcePartition(repository) {
+  return repository.getSeries()
+    .map((lesson) => lesson.sources
+      .map((source) => `${source.sourceKey}:${source.observationKey}`)
+      .sort()
+      .join("|"))
+    .sort();
+}
+
+test("real corpus merges shared lessons without conflating unrelated owners", () => {
+  const repository = corpusRepository(CORPORA);
+  const shared = repository.getSeries().filter((lesson) =>
+    lesson.sources.length > 1
+  );
+  assert.ok(shared.length > 0, "corpus must contain shared group lessons");
+  assert.ok(shared.some((lesson) =>
+    lesson.groups.values.length > 0 &&
+    lesson.teachers.values.length > 0 &&
+    lesson.rooms.values.length > 0
+  ), "a shared lesson must accumulate all known relations");
+  assert.ok(repository.getSeries().every((lesson) => {
+    const ownerKinds = new Set(lesson.sources.map((source) => source.owner.type));
+    return ownerKinds.size === 1;
+  }), "unrelated teacher and room samples must not be false-positive matches");
+
+  const reversed = corpusRepository([...CORPORA].reverse());
+  assert.deepEqual(
+    sourcePartition(reversed),
+    sourcePartition(repository),
+    "canonical grouping must not depend on request order",
+  );
+});

@@ -16,6 +16,7 @@ import {
 import { attachWebinars } from "../dist/tt/webinars.js";
 import { isHoliday } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
+import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 
 const FIXTURE_DIR = new URL("./fixtures/tt/parser/", import.meta.url);
 
@@ -86,6 +87,38 @@ test("parseGroupsString covers plain groups, qualifiers and subgroup stripping",
     "КТ-41-24ин",
   ]);
   assert.deepEqual(parseGroupsString(""), []);
+});
+
+test("missing and explicitly absent relations remain distinguishable", () => {
+  const base = {
+    sourceKey: "test:relations",
+    owner: { type: "group", group: { id: 1, name: "TEST-1" } },
+    academicYearStartYear: 2026,
+    period: 1,
+    observedAt: new Date("2026-08-31T00:00:00.000Z"),
+  };
+  const makeDays = (lesson) => [{
+    weekday: "Понедельник",
+    blocks: [{ lessons: [{
+      subject: "Архитектура",
+      type: "лк",
+      weeks: { from: 1, to: 1 },
+      ...lesson,
+    }] }],
+  }];
+  const unknown = createScheduleSourceSnapshot({ ...base, days: makeDays({}) })
+    .observations[0];
+  const absent = createScheduleSourceSnapshot({
+    ...base,
+    days: makeDays({ room: null, teacher: null, groups: null }),
+  }).observations[0];
+
+  assert.deepEqual(unknown.rooms, { values: [], completeness: "unknown" });
+  assert.deepEqual(absent.rooms, { values: [], completeness: "complete" });
+  assert.deepEqual(unknown.teachers, { values: [], completeness: "unknown" });
+  assert.deepEqual(absent.teachers, { values: [], completeness: "complete" });
+  assert.equal(unknown.groups.completeness, "partial");
+  assert.equal(absent.groups.completeness, "complete");
 });
 
 test("parseTeacherSchedule parses a regular semester entry", async () => {

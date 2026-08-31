@@ -144,6 +144,47 @@ test("teacher and room projections enrich the same canonical lesson", () => {
   assert.equal(lesson.sources.length, 3);
 });
 
+test("matching time survives a conflicting portal slot number", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  const first = repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation({
+      teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+      rooms: { values: [{ name: room.name }], completeness: "partial" },
+    }),
+  ]));
+  const second = repo.ingest(snapshot("group:102", { type: "group", group: groupB }, [
+    seriesObservation({
+      slotNumber: 7,
+      teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+      rooms: { values: [{ name: room.name }], completeness: "partial" },
+    }),
+  ]));
+
+  assert.equal(second.seriesIds[0], first.seriesIds[0]);
+  assert.equal(repo.getSeries().length, 1);
+});
+
+test("different recurrence days never merge despite matching metadata", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation({
+      teachers: { values: [teacher], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+  ]));
+  repo.ingest(snapshot("teacher:201", { type: "teacher", teacher }, [
+    seriesObservation({
+      recurrence: { weekday: 3, weeks: { from: 1, to: 17 }, parity: "odd" },
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+  ]));
+
+  assert.equal(repo.getSeries().length, 2);
+});
+
 test("source row movement preserves identity and repository snapshots preserve links", () => {
   const repo = repository();
   seedDirectory(repo);

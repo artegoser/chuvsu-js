@@ -70,6 +70,16 @@ function rangesOverlap(
   return Math.max(aFrom, bFrom) <= Math.min(aTo, bTo);
 }
 
+function sameTimeRange(
+  left: NonNullable<ScheduleObservation["time"]>,
+  right: NonNullable<ScheduleObservation["time"]>,
+): boolean {
+  return left.start.hours === right.start.hours &&
+    left.start.minutes === right.start.minutes &&
+    left.end.hours === right.end.hours &&
+    left.end.minutes === right.end.minutes;
+}
+
 function valuesOverlap(
   left: Array<{ id?: number; name: string }> | undefined,
   right: Array<{ id?: number; name: string }> | undefined,
@@ -106,6 +116,29 @@ function observationScore(
     return Number.NEGATIVE_INFINITY;
   }
 
+  if (left.kind === "series" && right.kind === "series") {
+    if (left.recurrence.weekday !== right.recurrence.weekday) {
+      return Number.NEGATIVE_INFINITY;
+    }
+    if (!rangesOverlap(left.recurrence.weeks, right.recurrence.weeks)) {
+      return Number.NEGATIVE_INFINITY;
+    }
+    if (
+      left.recurrence.parity != null &&
+      right.recurrence.parity != null &&
+      left.recurrence.parity !== right.recurrence.parity
+    ) {
+      return Number.NEGATIVE_INFINITY;
+    }
+  }
+  if (
+    left.kind === "occurrence" &&
+    right.kind === "occurrence" &&
+    !sameDate(left.date, right.date)
+  ) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
   let score = 35;
   if (normalizeScheduleText(left.type) === normalizeScheduleText(right.type)) {
     score += 10;
@@ -121,20 +154,18 @@ function observationScore(
   if (
     left.time &&
     right.time &&
-    left.time.start.hours === right.time.start.hours &&
-    left.time.start.minutes === right.time.start.minutes
+    sameTimeRange(left.time, right.time)
   ) {
-    score += 5;
+    score += 12;
   }
 
   if (left.kind === "series" && right.kind === "series") {
-    if (left.recurrence.weekday === right.recurrence.weekday) score += 16;
-    if (rangesOverlap(left.recurrence.weeks, right.recurrence.weeks)) score += 8;
+    score += 24;
     if (left.recurrence.parity === right.recurrence.parity) score += 5;
   }
 
   if (left.kind === "occurrence" && right.kind === "occurrence") {
-    if (sameDate(left.date, right.date)) score += 34;
+    score += 34;
     if (
       left.transfer &&
       right.transfer &&
@@ -606,7 +637,7 @@ export class TimetableRepository {
       }
     }
 
-    if (!best || best.score < 75 || best.score - second < 10) return undefined;
+    if (!best || best.score < 95 || best.score - second < 10) return undefined;
     return { kind: observation.kind, id: best.id };
   }
 
