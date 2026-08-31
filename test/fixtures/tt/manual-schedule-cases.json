@@ -1,0 +1,78 @@
+[
+  {
+    "fixture": "group-semester-basic.html",
+    "kind": "group",
+    "wrapper": "semester",
+    "day": 0,
+    "block": 0,
+    "lesson": 0,
+    "fields": {
+      "room": "Г-402",
+      "subject": "Базы данных",
+      "type": "лб",
+      "weeks": { "from": 1, "to": 16 },
+      "teacher": { "position": "доц.", "name": "Иванов И.И." }
+    }
+  },
+  {
+    "fixture": "teacher-substitution.html",
+    "kind": "teacher",
+    "wrapper": "semester",
+    "day": 0,
+    "block": 0,
+    "lesson": 0,
+    "fields": {
+      "room": "Г-402",
+      "subject": "Базы данных",
+      "type": "лб",
+      "substitutions.0.date": "2026-04-28",
+      "substitutions.0.room": "Б-116",
+      "substitutions.0.teacher": { "position": "доц.", "name": "Иванов И.И." }
+    }
+  },
+  {
+    "fixture": "audience-transfer.html",
+    "kind": "room",
+    "wrapper": "semester",
+    "day": 0,
+    "block": 0,
+    "lesson": 0,
+    "fields": {
+      "room": "Г-316",
+      "subject": "Основы проектной деятельности",
+      "type": "пр",
+      "teacher": { "name": "Игреев Р. А." },
+      "groups": ["КТ-41-24", "КТ-41-24ин"],
+      "transfer.fromSlot": 7
+    }
+  },
+  {
+    "fixture": "teacher-session.html",
+    "kind": "teacher",
+    "wrapper": "session",
+    "day": 0,
+    "block": 0,
+    "lesson": 0,
+    "fields": {
+      "subject": "Базы данных",
+      "type": "экз",
+      "groups": ["КТ-41-24", "КТ-41-24ин"]
+    },
+    "absent": ["weeks"]
+  },
+  {
+    "fixture": "group-distance-substitution.html",
+    "kind": "group",
+    "wrapper": "raw",
+    "day": 0,
+    "block": 0,
+    "lesson": 0,
+    "fields": {
+      "subject": "Объектно-ориентированное программирование",
+      "type": "лб",
+      "substitutions.0.date": "2026-05-07",
+      "substitutions.0.room": "Дистанционно (ДОТ)",
+      "substitutions.0.isDistance": true
+    }
+  }
+]

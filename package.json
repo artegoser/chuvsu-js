@@ -35,7 +35,7 @@
     "test": "pnpm build && node --test",
     "test:coverage": "pnpm build && node --experimental-test-coverage --test-coverage-include='dist/tt/domain/*.js' --test-coverage-include='dist/tt/observations.js' --test-coverage-include='dist/tt/parse/*.js' --test-coverage-include='dist/tt/utils/*.js' --test-coverage-include='dist/tt/webinars.js' --test-coverage-lines=95 --test-coverage-functions=94 --test-coverage-branches=80 --test",
     "test:live:schedules": "pnpm build && node --env-file=.env utils/testSchedules.mjs",
-    "fixtures:audit": "pnpm build && node --test test/schedule-fixtures.test.mjs",
+    "fixtures:test": "pnpm build && node --test test/schedule-fixtures.test.mjs",
     "fixtures:collect": "pnpm build && node --env-file=.env utils/collectScheduleFixtures.mjs",
     "prepublishOnly": "pnpm build"
   },

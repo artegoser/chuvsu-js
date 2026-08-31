@@ -264,7 +264,7 @@ const groupId = await portal.getTimetableGroupId();
 pnpm build
 pnpm test
 pnpm test:coverage
-pnpm fixtures:audit
+pnpm fixtures:test
 ```
 
 Подробности архитектуры: [`docs/v5-architecture.md`](docs/v5-architecture.md).
