@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
+import { Cache, HybridCache } from "../dist/common/cache.js";
 import { StudentPortalClient } from "../dist/lk/client.js";
 import { TimetableClient } from "../dist/tt/client.js";
 
@@ -91,6 +92,44 @@ class FakeBlobAdapter {
 
 const TT_BASE = "https://tt.chuvsu.ru";
 const LK_BASE = "https://lk.chuvsu.ru/student";
+
+test("cache values and snapshots cannot mutate stored state by reference", async () => {
+  const source = { nested: { value: 1 } };
+  const cache = new Cache({ test: Infinity });
+  cache.set("test", "one", source);
+  source.nested.value = 2;
+
+  const first = cache.get("test", "one");
+  assert.equal(first.nested.value, 1);
+  first.nested.value = 3;
+  assert.equal(cache.get("test", "one").nested.value, 1);
+
+  const exported = cache.export();
+  exported["test:one"].data.nested.value = 4;
+  assert.equal(cache.get("test", "one").nested.value, 1);
+
+  const adapter = new FakeCacheAdapter();
+  const external = { nested: { value: 5 } };
+  adapter.store.set("test:two", external);
+  const hybrid = new HybridCache({ test: Infinity }, adapter);
+  const loaded = await hybrid.get("test", "two");
+  loaded.nested.value = 6;
+  assert.equal(external.nested.value, 5);
+  assert.equal(hybrid.getLocal("test", "two").nested.value, 5);
+});
+
+test("cache rejects invalid TTLs and imported entries", () => {
+  assert.throws(() => new Cache({ test: -1 }), /Invalid cache TTL/u);
+  const cache = new Cache({ test: 1_000 });
+  assert.throws(
+    () => cache.import({ "unknown:key": { timestamp: Date.now(), data: 1 } }),
+    /cache category/u,
+  );
+  assert.throws(
+    () => cache.import({ "test:key": { timestamp: Number.NaN, data: 1 } }),
+    /Invalid cache entry/u,
+  );
+});
 
 test("TimetableClient caches discovery/search requests and image fetches when cache is a number", async () => {
   const cacheAdapter = new FakeCacheAdapter();

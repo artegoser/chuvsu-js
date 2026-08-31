@@ -31,7 +31,16 @@ export class Cache {
   private store = new Map<string, CacheEntry>();
 
   constructor(ttls: Record<string, number | undefined>) {
-    this.ttls = ttls;
+    for (const [category, ttl] of Object.entries(ttls)) {
+      if (
+        ttl != null &&
+        ttl !== Infinity &&
+        (!Number.isFinite(ttl) || ttl < 0)
+      ) {
+        throw new RangeError(`Invalid cache TTL for ${category}`);
+      }
+    }
+    this.ttls = { ...ttls };
   }
 
   get(category: string, key: string): unknown | null {
@@ -46,13 +55,13 @@ export class Cache {
       return null;
     }
 
-    return entry.data;
+    return structuredClone(entry.data);
   }
 
   set(category: string, key: string, data: unknown): void {
     if (this.ttls[category] == null) return;
     this.store.set(`${category}:${key}`, {
-      data,
+      data: structuredClone(data),
       timestamp: Date.now(),
     });
   }
@@ -71,12 +80,29 @@ export class Cache {
   }
 
   export(): Record<string, CacheEntry> {
-    return Object.fromEntries(this.store);
+    return structuredClone(Object.fromEntries(this.store));
   }
 
   import(data: Record<string, CacheEntry>): void {
     for (const [key, entry] of Object.entries(data)) {
-      this.store.set(key, entry);
+      const separator = key.indexOf(":");
+      const category =
+        separator < 1 || separator === key.length - 1
+          ? ""
+          : key.slice(0, separator);
+      if (this.ttls[category] == null) {
+        throw new TypeError(`Invalid or disabled cache category in ${key}`);
+      }
+      if (
+        entry == null ||
+        typeof entry !== "object" ||
+        !Number.isFinite(entry.timestamp) ||
+        entry.timestamp < 0 ||
+        !("data" in entry)
+      ) {
+        throw new TypeError(`Invalid cache entry: ${key}`);
+      }
+      this.store.set(key, structuredClone(entry));
     }
   }
 }
@@ -90,8 +116,8 @@ export class HybridCache {
     ttls: Record<string, number | undefined>,
     adapter?: CacheAdapter,
   ) {
-    this.ttls = ttls;
-    this.memory = new Cache(ttls);
+    this.ttls = { ...ttls };
+    this.memory = new Cache(this.ttls);
     this.adapter = adapter;
   }
 
@@ -118,7 +144,7 @@ export class HybridCache {
     if (external === null || external === undefined) return null;
 
     this.memory.set(category, key, external);
-    return external;
+    return this.memory.get(category, key);
   }
 
   async set(category: string, key: string, data: unknown): Promise<void> {
@@ -129,7 +155,7 @@ export class HybridCache {
   async setExternal(category: string, key: string, data: unknown): Promise<void> {
     const ttl = this.ttls[category];
     if (ttl == null || !this.adapter) return;
-    await this.adapter.set(category, key, data, ttl);
+    await this.adapter.set(category, key, structuredClone(data), ttl);
   }
 
   async clear(category?: string): Promise<void> {
