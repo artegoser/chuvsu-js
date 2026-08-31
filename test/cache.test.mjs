@@ -531,3 +531,28 @@ test("TimetableClient does not guess academic year when timetable page lacks con
       error?.message === "TT page does not expose the current academic year",
   );
 });
+
+test("TimetableClient rejects invalid public inputs before network access", async () => {
+  const fakeHttp = new FakeHttpClient();
+  const tt = new TimetableClient();
+  tt.http = fakeHttp;
+
+  await assert.rejects(() => tt.searchGroups("   "), /at least 1/u);
+  await assert.rejects(() => tt.searchTeachers(""), /at least 1/u);
+  await assert.rejects(() => tt.searchRooms("E1"), /at least 3/u);
+  await assert.rejects(() => tt.getGroupSchedule(0), /positive integer/u);
+  await assert.rejects(
+    () => tt.getTeacherSchedule(1, { periods: [] }),
+    /At least one period/u,
+  );
+  await assert.rejects(
+    () => tt.getRoomSchedule(1, { periods: [1, 1] }),
+    /Duplicate academic period/u,
+  );
+  await assert.rejects(
+    () => tt.getGroupSchedule(1, { periods: [99] }),
+    /Invalid academic period/u,
+  );
+  assert.equal(fakeHttp.calls.get.size, 0);
+  assert.equal(fakeHttp.calls.post.size, 0);
+});

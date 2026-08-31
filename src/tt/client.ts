@@ -63,6 +63,43 @@ const ALL_PERIODS = [
   AcademicPeriod.SummerSession,
 ] as const;
 
+function requirePositiveId(value: number | undefined, label: string): number {
+  if (!Number.isInteger(value) || value == null || value < 1) {
+    throw new RangeError(`${label} must be a positive integer`);
+  }
+  return value;
+}
+
+function normalizeSearchQuery(
+  value: string,
+  label: string,
+  minimumLength = 1,
+): string {
+  const normalized = value.trim();
+  if (normalized.length < minimumLength) {
+    throw new RangeError(`${label} must contain at least ${minimumLength} characters`);
+  }
+  return normalized;
+}
+
+function normalizePeriods(
+  periods: readonly AcademicPeriod[] | undefined,
+): AcademicPeriod[] {
+  const values = [...(periods ?? ALL_PERIODS)];
+  if (values.length === 0) throw new RangeError("At least one period is required");
+  const unique = new Set<AcademicPeriod>();
+  for (const period of values) {
+    if (!ALL_PERIODS.includes(period)) {
+      throw new RangeError(`Invalid academic period: ${period}`);
+    }
+    if (unique.has(period)) {
+      throw new RangeError(`Duplicate academic period: ${period}`);
+    }
+    unique.add(period);
+  }
+  return values;
+}
+
 function makeUniformCacheConfig(ttl: number): CacheConfig {
   return {
     schedule: ttl,
@@ -110,6 +147,12 @@ export class TimetableClient {
 
   constructor(opts?: TimetableClientOptions) {
     this.educationLevel = opts?.educationLevel ?? EducationLevel.HigherEducation;
+    if (
+      this.educationLevel !== EducationLevel.HigherEducation &&
+      this.educationLevel !== EducationLevel.VocationalEducation
+    ) {
+      throw new RangeError("Invalid education level");
+    }
     this.blobAdapter = opts?.blobAdapter;
     this._repository = opts?.repository ?? new TimetableRepository();
     this.repositoryAdapter = opts?.repositoryAdapter;
@@ -407,17 +450,12 @@ export class TimetableClient {
 
   private ownerUrl(owner: ScheduleOwner): string {
     if (owner.type === "group") {
-      if (owner.group.id == null) throw new Error("Group owner requires an ID");
-      return `${BASE}/index/grouptt/gr/${owner.group.id}`;
+      return `${BASE}/index/grouptt/gr/${requirePositiveId(owner.group.id, "Group ID")}`;
     }
     if (owner.type === "teacher") {
-      if (owner.teacher.id == null) {
-        throw new Error("Teacher owner requires an ID");
-      }
-      return `${BASE}/index/techtt/tech/${owner.teacher.id}`;
+      return `${BASE}/index/techtt/tech/${requirePositiveId(owner.teacher.id, "Teacher ID")}`;
     }
-    if (owner.room.id == null) throw new Error("Room owner requires an ID");
-    return `${BASE}/index/audtt/aud/${owner.room.id}`;
+    return `${BASE}/index/audtt/aud/${requirePositiveId(owner.room.id, "Room ID")}`;
   }
 
   private sourceKey(
@@ -483,13 +521,14 @@ export class TimetableClient {
     owner: ScheduleOwner,
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
+    const ownerUrl = this.ownerUrl(owner);
+    const periods = normalizePeriods(options?.periods);
     await this.ensureRepository();
     if (owner.type === "group") await this.rememberGroups([owner.group]);
     if (owner.type === "teacher") await this.rememberTeachers([owner.teacher]);
     if (owner.type === "room") await this.rememberRooms([owner.room]);
     const resolvedOwner = this.resolveOwner(owner);
-    const context = await this.getTimetableContext(this.ownerUrl(resolvedOwner));
-    const periods = options?.periods ?? ALL_PERIODS;
+    const context = await this.getTimetableContext(ownerUrl);
     const results = await Promise.all(
       periods.map(async (period) => ({
         period,
@@ -529,7 +568,6 @@ export class TimetableClient {
     groupId: number,
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
-    await this.ensureRepository();
     return this.getSchedule(
       {
         type: "group",
@@ -600,6 +638,7 @@ export class TimetableClient {
   }
 
   async getFacultyGroups(facultyId: number): Promise<Group[]> {
+    requirePositiveId(facultyId, "Faculty ID");
     const cacheKey = String(facultyId);
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) {
@@ -619,6 +658,7 @@ export class TimetableClient {
   }
 
   async searchGroups(name: string): Promise<GroupRef[]> {
+    name = normalizeSearchQuery(name, "Group search query");
     const cacheKey = `search:${name}:${this.pertt}`;
     const cached = await this.cache?.get("groups", cacheKey);
     if (cached) {
@@ -644,6 +684,7 @@ export class TimetableClient {
    * least 3 characters in the query.
    */
   async searchRooms(name: string): Promise<Room[]> {
+    name = normalizeSearchQuery(name, "Room search query", 3);
     const cacheKey = `search:${name}:${this.pertt}`;
     const cached = await this.cache?.get("rooms", cacheKey);
     if (cached) {
@@ -750,6 +791,7 @@ export class TimetableClient {
    * selecting the button whose `value` equals the given name.
    */
   async findRoomByName(name: string): Promise<Room | null> {
+    name = normalizeSearchQuery(name, "Room name");
     const query = name.length >= 3 ? name : "%%%";
     const list = await this.searchRooms(query);
     return list.find((room) => room.name === name) ?? null;
@@ -757,6 +799,7 @@ export class TimetableClient {
 
   /** Fetch the audience's display name from its schedule page. */
   async getRoomName(roomId: number): Promise<string | null> {
+    requirePositiveId(roomId, "Room ID");
     const cacheKey = String(roomId);
     const cached = await this.cache?.get("roomNames", cacheKey);
     if (cached !== null && cached !== undefined) {
@@ -788,6 +831,7 @@ export class TimetableClient {
    * image URLs for the audience photo, building photo and floor plan).
    */
   async getRoomInfo(roomId: number): Promise<RoomInfo | null> {
+    requirePositiveId(roomId, "Room ID");
     const cached = await this.cache?.get("roomInfo", String(roomId));
     if (cached) {
       const info = cached as RoomInfo;
@@ -842,7 +886,6 @@ export class TimetableClient {
     roomId: number,
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
-    await this.ensureRepository();
     return this.getSchedule(
       {
         type: "room",
@@ -906,6 +949,7 @@ export class TimetableClient {
 
   /** Get the audience photo (audimage). Returns null if missing. */
   async getRoomImage(roomId: number): Promise<Buffer | null> {
+    requirePositiveId(roomId, "Room ID");
     return this.getCachedRoomImage(
       `room:${roomId}`,
       async () => (await this.getRoomInfo(roomId))?.audImageUrl,
@@ -914,6 +958,7 @@ export class TimetableClient {
 
   /** Get the building exterior image (blockimage). Returns null if missing. */
   async getRoomBuildingImage(roomId: number): Promise<Buffer | null> {
+    requirePositiveId(roomId, "Room ID");
     return this.getCachedRoomImage(
       `block:${roomId}`,
       async () => (await this.getRoomInfo(roomId))?.blockImageUrl,
@@ -922,6 +967,7 @@ export class TimetableClient {
 
   /** Get the floor plan image for the audience. Returns null if missing. */
   async getRoomFloorPlan(roomId: number): Promise<Buffer | null> {
+    requirePositiveId(roomId, "Room ID");
     return this.getCachedRoomImage(
       `floor:${roomId}`,
       async () => (await this.getRoomInfo(roomId))?.floorplanUrl,
@@ -929,6 +975,7 @@ export class TimetableClient {
   }
 
   async searchTeachers(name: string): Promise<TeacherRef[]> {
+    name = normalizeSearchQuery(name, "Teacher search query");
     const cacheKey = `search:${name}:${this.pertt}`;
     const cached = await this.cache?.get("teachers", cacheKey);
     if (cached) {
@@ -1012,7 +1059,6 @@ export class TimetableClient {
     teacherId: number,
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
-    await this.ensureRepository();
     return this.getSchedule(
       {
         type: "teacher",
@@ -1027,6 +1073,7 @@ export class TimetableClient {
 
 
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
+    requirePositiveId(teacherId, "Teacher ID");
     const cached = await this.cache?.get("teacherInfo", String(teacherId));
     if (cached) {
       const info = cached as TeacherInfo;
@@ -1054,6 +1101,7 @@ export class TimetableClient {
    * Returns null if the teacher has no photo.
    */
   async getTeacherPhoto(teacherId: number): Promise<Buffer | null> {
+    requirePositiveId(teacherId, "Teacher ID");
     const photoCacheKey = String(teacherId);
     const cachedPhoto =
       this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
