@@ -1,6 +1,7 @@
 const BR_RE = /<br\s*\/?>/i;
 const TAG_RE = /<[^>]*>/g;
-const DISTANCE_RE = /дистанционно|ДОТ/i;
+const DISTANCE_RE =
+  /(?:^|[^\p{L}\p{N}])(?:дистанционно|ДОТ)(?=$|[^\p{L}\p{N}])/iu;
 const GROUP_TOKEN_RE = /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u;
 
 export function entryHtmlLines(html: string): string[] {
@@ -15,6 +16,10 @@ export function entryTextLines(html: string): string[] {
 
 export function stripHtml(html: string): string {
   return html.replace(TAG_RE, " ").replace(/\s+/g, " ").trim();
+}
+
+export function hasDistanceMarker(value: string): boolean {
+  return DISTANCE_RE.test(value);
 }
 
 export function linesAfterSubject(html: string, subject: string): string[] {
@@ -36,7 +41,7 @@ export function parseEntryRoom(html: string, subject: string): string {
     .slice(0, subjectIndex)
     .replace(/^\*+\s*/, "")
     .trim();
-  if (DISTANCE_RE.test(stripHtml(html))) {
+  if (hasDistanceMarker(stripHtml(html))) {
     return "Дистанционно (ДОТ)";
   }
   if (!beforeSubject) return "";

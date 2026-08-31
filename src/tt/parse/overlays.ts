@@ -6,6 +6,7 @@ import type {
   TransferInfo,
 } from "../types.js";
 import { parseGroupsString } from "./groups.js";
+import { hasDistanceMarker } from "./entry-parts.js";
 import {
   LESSON_TYPE_PATTERN,
   LESSON_TYPE_RE,
@@ -14,7 +15,6 @@ import {
 } from "./patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
-const DISTANCE_RE = /дистанционно|ДОТ/i;
 const BLUE_SPAN_RE =
   /<span\b(?=[^>]*(?:style=["'][^"']*color:\s*blue|class=["'][^"']*\bblue\b))[^>]*>([^<]+)<\/span>/i;
 
@@ -91,7 +91,7 @@ export function parseTransferDiv(
       teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
+      isDistance: hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
       transfer,
     },
   };
@@ -119,7 +119,7 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
   );
   if (teacherMatch) teacher = parseTeacher(teacherMatch[1].trim());
 
-  return { date, room, teacher, isDistance: DISTANCE_RE.test(room ?? divText) };
+  return { date, room, teacher, isDistance: hasDistanceMarker(room ?? divText) };
 }
 
 export function parseSubstituteForDiv(div: Element): {
@@ -170,7 +170,7 @@ export function parseSubstituteForDiv(div: Element): {
       type: typeMatch?.[1] ?? "",
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
+      isDistance: hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
       substituteFor: { date, originalTeacher },
     },
   };

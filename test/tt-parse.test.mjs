@@ -298,6 +298,16 @@ test("parseRoomSchedule strips remote marker from teacher and groups", async () 
   assert.equal(entry.isDistance, true);
 });
 
+test("parseRoomSchedule does not treat Федотова as a ДОТ marker", () => {
+  const entry = pickOnlyEntry(parseRoomSchedule(semesterPage(`
+    <tr><td class="want"><span style="color: blue;">История России</span> (пр) (1 - 16 нед.)<br>
+      Федотова Т. Ю.<br>Б-91-25</td></tr>
+  `)));
+
+  assert.equal(entry.teacher.name, "Федотова Т. Ю.");
+  assert.equal(entry.isDistance, false);
+});
+
 test("parseGroupSchedule parses session entries with flexible lesson types", async () => {
   const html = await loadSessionFixture("group-session-consultation.html");
   const days = parseGroupSchedule(html);

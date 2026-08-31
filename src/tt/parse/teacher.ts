@@ -29,12 +29,11 @@ import {
 } from "./patterns.js";
 import {
   containsGroupCode,
+  hasDistanceMarker,
   linesAfterSubject,
   parseEntryRoom,
   stripDistanceMarker,
 } from "./entry-parts.js";
-
-const DISTANCE_RE = /дистанционно|ДОТ/i;
 
 export function parseTeacherSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
@@ -112,7 +111,7 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
     groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room ?? ""),
+    isDistance: hasDistanceMarker(cleanText) || hasDistanceMarker(room ?? ""),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -163,7 +162,7 @@ function parseTeacherSessionEntry(
       type,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),
+      isDistance: hasDistanceMarker(plainText) || hasDistanceMarker(room ?? ""),
       possibleChanges,
     },
     time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },

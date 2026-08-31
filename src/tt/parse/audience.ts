@@ -33,11 +33,10 @@ import {
 } from "./patterns.js";
 import {
   containsGroupCode,
+  hasDistanceMarker,
   linesAfterSubject,
   stripDistanceMarker,
 } from "./entry-parts.js";
-
-const DISTANCE_RE = /дистанционно|ДОТ/i;
 
 export function parseRoomInfo(html: string): RoomInfo | null {
   const doc = parseHtml(html);
@@ -185,7 +184,7 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
     groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText),
+    isDistance: hasDistanceMarker(cleanText),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -233,7 +232,7 @@ function parseRoomSessionEntry(td: Element): {
       teacher: teacherLine ? parseTeacher(stripDistanceMarker(teacherLine)) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(plainText),
+      isDistance: hasDistanceMarker(plainText),
       possibleChanges:
         (td.getAttribute("class") ?? "").includes("want") || undefined,
     },

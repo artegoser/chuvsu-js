@@ -24,13 +24,12 @@ import {
   WEEKS_RE,
 } from "./patterns.js";
 import {
+  hasDistanceMarker,
   containsGroupCode,
   linesAfterSubject,
   parseEntryRoom,
   stripDistanceMarker,
 } from "./entry-parts.js";
-
-const DISTANCE_RE = /дистанционно|ДОТ/i;
 
 export function parseGroupSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
@@ -174,7 +173,7 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
     teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
-    isDistance: DISTANCE_RE.test(cleanText) || DISTANCE_RE.test(room ?? ""),
+    isDistance: hasDistanceMarker(cleanText) || hasDistanceMarker(room ?? ""),
     substitutions: substitutions.length > 0 ? substitutions : undefined,
     possibleChanges,
   };
@@ -281,7 +280,7 @@ function parseSessionEntry(td: Element): ParsedSessionEntry | null {
       type,
       teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),
+      isDistance: hasDistanceMarker(plainText) || hasDistanceMarker(room ?? ""),
       possibleChanges,
     },
     time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },
