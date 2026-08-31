@@ -305,8 +305,10 @@ test("parseGroupSchedule parses session entries with flexible lesson types", asy
 
   assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
+  assert.equal(day.date, "2026-04-25");
   assert.equal(day.blocks[0].lessons[0].room, "Б-201");
   assert.equal(day.blocks[0].lessons[0].type, "конс");
+  assert.equal(day.blocks[0].lessons[0].weeks, undefined);
 });
 
 test("parseRoomSchedule parses session teachers and groups", () => {
@@ -344,6 +346,8 @@ test("parseGroupSchedule parses summer session types, teachers and subgroups", a
   );
 
   assert.equal(entries.length, 3);
+  assert.ok(parseGroupSchedule(html).every((day) => day.date != null));
+  assert.ok(entries.every((entry) => entry.weeks === undefined));
   assert.equal(entries[0].type, "зач");
   assert.equal(entries[0].subgroup, 1);
   assert.deepEqual(entries[0].teacher, { name: "Дигуева О. Г." });
@@ -363,6 +367,8 @@ test("Schedule filters session entries by subgroup", async () => {
 
   const lessons = schedule.on(new Date(2026, 3, 25), { subgroup: 1 });
   assert.equal(lessons.length, 1);
+  assert.equal(lessons[0].scheduledDate, "2026-04-25");
+  assert.equal(lessons[0].seriesId, undefined);
   assert.equal(lessons[0].groups.values[0].subgroup, 1);
   assert.deepEqual(lessons[0].teachers.values, [{ name: "Дигуева О. Г." }]);
 });

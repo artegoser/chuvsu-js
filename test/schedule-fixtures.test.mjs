@@ -5,6 +5,7 @@ import test from "node:test";
 import { parseHtml } from "../dist/common/parse.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
+import { isLocalDate } from "../dist/tt/utils/index.js";
 import {
   parseGroupSchedule,
   parseRoomSchedule,
@@ -144,11 +145,31 @@ function dateText(value) {
 
 function assertWeeks(source, weeks, label) {
   if (!weeks) return;
-  if (weeks.from === 0 && weeks.to === 0) return;
   const marker = weeks.from === weeks.to
     ? `${weeks.from}\\s*нед\\.?`
     : `${weeks.from}\\s*-\\s*${weeks.to}\\s*нед\\.?`;
   assert.match(source, new RegExp(`\\(${marker}\\)`, "iu"), `${label}: weeks`);
+}
+
+function assertCanonicalShape(lesson, label) {
+  for (const legacy of ["index", "number", "timeStart", "timeEnd", "room", "teacher", "weeks"]) {
+    assert.equal(Object.hasOwn(lesson, legacy), false, `${label}: legacy field ${legacy}`);
+  }
+  assert.ok(lesson.slotNumber == null || lesson.slotNumber >= 1, `${label}: slot`);
+  if (lesson.kind === "series") {
+    assert.ok(lesson.recurrence, `${label}: recurrence`);
+    if (lesson.recurrence.weeks) {
+      assert.ok(lesson.recurrence.weeks.from >= 1, `${label}: recurrence start`);
+      assert.ok(
+        lesson.recurrence.weeks.to >= lesson.recurrence.weeks.from,
+        `${label}: recurrence end`,
+      );
+    }
+  } else {
+    assert.equal(Object.hasOwn(lesson, "recurrence"), false, `${label}: dated recurrence`);
+    assert.ok(isLocalDate(lesson.nominalDate), `${label}: nominal date`);
+    assert.ok(isLocalDate(lesson.scheduledDate), `${label}: scheduled date`);
+  }
 }
 
 function assertOverlays(cell, lesson, label) {
@@ -205,6 +226,7 @@ function auditCanonicalAgainstHtml(fixture) {
     const block = day?.blocks[blockIndex];
     const raw = block?.lessons[lessonIndex];
     const label = `${fixture.file}:${lesson.id}`;
+    assertCanonicalShape(lesson, label);
     assert.ok(raw, `${label}: raw source row missing`);
     const text = normalize(raw.cell.textContent ?? "");
     assert.ok(raw.subjects.includes(lesson.subject), `${label}: subject`);
