@@ -1,6 +1,10 @@
-import { HttpClient, type HttpResponse } from "../common/http.js";
+import {
+  HttpClient,
+  type HttpBufferResponse,
+  type HttpResponse,
+} from "../common/http.js";
 import { HybridCache } from "../common/cache.js";
-import { AuthError } from "../common/types.js";
+import { AuthError, ParseError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
 import type {
   StudentPortalCacheConfig,
@@ -60,12 +64,39 @@ export class StudentPortalClient {
   }
 
   private async authGet(url: string): Promise<HttpResponse> {
-    const res = await this.http.get(url);
+    let res = await this.http.get(url);
     if (this.credentials && this.isSessionExpired(res.body)) {
       await this.login(this.credentials);
-      return this.http.get(url);
+      res = await this.http.get(url);
+    }
+    if (this.isSessionExpired(res.body)) {
+      throw new AuthError("LK request returned an authentication page");
+    }
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`LK request failed with HTTP ${res.status}: ${url}`);
     }
     return res;
+  }
+
+  private isBinarySessionExpired(response: HttpBufferResponse): boolean {
+    const prefix = response.body.subarray(0, 8_192).toString("utf8");
+    return this.isSessionExpired(prefix) ||
+      response.contentType?.toLowerCase().includes("text/html") === true;
+  }
+
+  private async authGetBuffer(url: string): Promise<Buffer> {
+    let res = await this.http.getBufferResponse(url);
+    if (this.credentials && this.isBinarySessionExpired(res)) {
+      await this.login(this.credentials);
+      res = await this.http.getBufferResponse(url);
+    }
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`LK request failed with HTTP ${res.status}: ${url}`);
+    }
+    if (this.isBinarySessionExpired(res)) {
+      throw new AuthError("LK binary request returned an authentication page");
+    }
+    return res.body;
   }
 
   async getProfile(): Promise<StudentProfile> {
@@ -74,6 +105,9 @@ export class StudentPortalClient {
 
     const { body } = await this.authGet(`${STUDENT_BASE}/personal_data.php`);
     const vals = extractScriptValues(body, "form_personal_data");
+    if (!vals.fam?.trim() || !vals.nam?.trim()) {
+      throw new ParseError("LK profile response has no student identity");
+    }
     const data = {
       lastName: vals.fam ?? "",
       firstName: vals.nam ?? "",
@@ -112,7 +146,7 @@ export class StudentPortalClient {
       }
     }
 
-    const photo = await this.http.getBuffer(`${STUDENT_BASE}/face.php`);
+    const photo = await this.authGetBuffer(`${STUDENT_BASE}/face.php`);
     if (this.blobAdapter) {
       const blobKey = "lk/photo/self";
       this.cache?.setLocal("profilePhoto", "self", { data: photo.toString("base64") });

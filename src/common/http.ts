@@ -11,6 +11,12 @@ export interface HttpResponse {
   location?: string;
 }
 
+export interface HttpBufferResponse {
+  status: number;
+  body: Buffer;
+  contentType?: string;
+}
+
 export class HttpClient {
   private cookies = new Map<string, string>();
 
@@ -44,13 +50,21 @@ export class HttpClient {
   }
 
   async getBuffer(url: string): Promise<Buffer> {
+    return (await this.getBufferResponse(url)).body;
+  }
+
+  async getBufferResponse(url: string): Promise<HttpBufferResponse> {
     const res = await fetch(url, {
       method: "GET",
       headers: { Cookie: this.cookieHeader() },
       dispatcher: agent as Dispatcher,
     });
     this.saveCookies(res.headers);
-    return Buffer.from(await res.arrayBuffer());
+    return {
+      status: res.status,
+      body: Buffer.from(await res.arrayBuffer()),
+      contentType: res.headers.get("content-type") ?? undefined,
+    };
   }
 
   async post(

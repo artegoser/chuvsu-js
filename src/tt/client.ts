@@ -1,4 +1,8 @@
-import { HttpClient, type HttpResponse } from "../common/http.js";
+import {
+  HttpClient,
+  type HttpBufferResponse,
+  type HttpResponse,
+} from "../common/http.js";
 import { HybridCache } from "../common/cache.js";
 import type { CacheEntry } from "../common/cache.js";
 import {
@@ -259,6 +263,12 @@ export class TimetableClient {
     return body.includes('name="wname"');
   }
 
+  private isBinarySessionExpired(response: HttpBufferResponse): boolean {
+    const prefix = response.body.subarray(0, 8_192).toString("utf8");
+    return this.isSessionExpired(prefix) ||
+      response.contentType?.toLowerCase().includes("text/html") === true;
+  }
+
   private async relogin(): Promise<void> {
     if (!this.loginMode) return;
     if (this.loginMode.type === "credentials") {
@@ -274,6 +284,9 @@ export class TimetableClient {
       await this.relogin();
       res = await this.http.get(url);
     }
+    if (this.isSessionExpired(res.body)) {
+      throw new AuthError("TT request returned an authentication page");
+    }
     if (res.status < 200 || res.status >= 300) {
       throw new Error(`TT request failed with HTTP ${res.status}: ${url}`);
     }
@@ -281,7 +294,18 @@ export class TimetableClient {
   }
 
   private async authGetBuffer(url: string): Promise<Buffer> {
-    return this.http.getBuffer(url);
+    let res = await this.http.getBufferResponse(url);
+    if (this.loginMode && this.isBinarySessionExpired(res)) {
+      await this.relogin();
+      res = await this.http.getBufferResponse(url);
+    }
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error(`TT request failed with HTTP ${res.status}: ${url}`);
+    }
+    if (this.isBinarySessionExpired(res)) {
+      throw new AuthError("TT binary request returned an authentication page");
+    }
+    return res.body;
   }
 
   private async authPost(
@@ -292,6 +316,9 @@ export class TimetableClient {
     if (this.loginMode && this.isSessionExpired(res.body)) {
       await this.relogin();
       res = await this.http.post(url, data);
+    }
+    if (this.isSessionExpired(res.body)) {
+      throw new AuthError("TT request returned an authentication page");
     }
     if (res.status < 200 || res.status >= 300) {
       throw new Error(`TT request failed with HTTP ${res.status}: ${url}`);

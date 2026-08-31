@@ -39,8 +39,16 @@ class FakeHttpClient {
   }
 
   async getBuffer(url) {
+    return (await this.getBufferResponse(url)).body;
+  }
+
+  async getBufferResponse(url) {
     this.bump(this.calls.getBuffer, url);
-    return this.bufferResponses.get(url) ?? Buffer.alloc(0);
+    return {
+      status: 200,
+      body: this.bufferResponses.get(url) ?? Buffer.alloc(0),
+      contentType: "application/octet-stream",
+    };
   }
 }
 
@@ -384,6 +392,49 @@ test("StudentPortalClient caches profile, photo and timetable group id", async (
     blobKey: "lk/photo/self",
   });
   assert.equal(blobAdapter.store.get("lk/photo/self")?.toString(), "lk-photo");
+});
+
+test("clients reject authentication HTML instead of caching it as binary data", async () => {
+  const fakeHttp = new FakeHttpClient({
+    buffers: {
+      [`${LK_BASE}/face.php`]: "<html><a href='login.php'>login</a></html>",
+      [`${TT_BASE}/index/photo/tech/10/id/10`]:
+        '<html><input name="wname"></html>',
+    },
+  });
+  fakeHttp.getBufferResponse = async function (url) {
+    this.bump(this.calls.getBuffer, url);
+    return {
+      status: 200,
+      body: this.bufferResponses.get(url) ?? Buffer.alloc(0),
+      contentType: "text/html; charset=utf-8",
+    };
+  };
+
+  const lk = new StudentPortalClient({ cache: 10_000 });
+  lk.http = fakeHttp;
+  await assert.rejects(() => lk.getProfilePhoto(), /authentication page/u);
+
+  const tt = new TimetableClient({ cache: 10_000 });
+  tt.http = fakeHttp;
+  await assert.rejects(() => tt.getTeacherPhoto(10), /authentication page/u);
+  assert.equal(tt.exportCache()["teacherPhotos:10"], undefined);
+});
+
+test("StudentPortalClient rejects an unparseable profile before caching", async () => {
+  const fakeHttp = new FakeHttpClient({
+    get: {
+      [`${LK_BASE}/personal_data.php`]: {
+        status: 200,
+        body: "<html><body>unexpected response</body></html>",
+      },
+    },
+  });
+  const lk = new StudentPortalClient({ cache: 10_000 });
+  lk.http = fakeHttp;
+
+  await assert.rejects(() => lk.getProfile(), /no student identity/u);
+  assert.equal(fakeHttp.count("get", `${LK_BASE}/personal_data.php`), 1);
 });
 
 test("TimetableClient uses timetable context for canonical group schedule cache", async () => {
