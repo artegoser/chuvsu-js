@@ -266,6 +266,39 @@ function preferredClaim<T extends ScheduleObservation>(
   })[0];
 }
 
+function consensusField<T, O extends ScheduleObservation>(
+  claims: ObservationClaim<O>[],
+  select: (observation: O) => T | undefined,
+  key: (value: T) => string,
+): T | undefined {
+  const ranked = [...claims].sort((a, b) => {
+    const completeness = (claim: ObservationClaim<O>) =>
+      claim.observation.groups.values.length +
+      claim.observation.teachers.values.length +
+      claim.observation.rooms.values.length;
+    return (
+      completeness(b) - completeness(a) ||
+      a.source.sourceKey.localeCompare(b.source.sourceKey) ||
+      a.observation.key.localeCompare(b.observation.key)
+    );
+  });
+  const evidence = new Map<string, { value: T; count: number; rank: number }>();
+  for (const [rank, claim] of ranked.entries()) {
+    const value = select(claim.observation);
+    if (value === undefined) continue;
+    const evidenceKey = key(value);
+    const current = evidence.get(evidenceKey);
+    if (current == null) {
+      evidence.set(evidenceKey, { value, count: 1, rank });
+    } else {
+      current.count++;
+    }
+  }
+  return [...evidence.values()].sort(
+    (a, b) => b.count - a.count || a.rank - b.rank,
+  )[0]?.value;
+}
+
 function ownerEntity(owner: ScheduleOwner):
   | { kind: "group"; value: GroupAttendance }
   | { kind: "teacher"; value: ScheduleOwner & { type: "teacher" } }
@@ -866,8 +899,12 @@ export class TimetableRepository {
       period: preferred.source.period,
       subject: preferred.observation.subject,
       type: preferred.observation.type,
-      slotNumber: preferred.observation.slotNumber,
-      time: preferred.observation.time,
+      slotNumber: consensusField(claims, (value) => value.slotNumber, String),
+      time: consensusField(
+        claims,
+        (value) => value.time,
+        (value) => JSON.stringify(value),
+      ),
       recurrence: preferred.observation.recurrence,
       ...relations,
       isDistance: claims.some((value) => value.observation.isDistance === true),
@@ -923,8 +960,12 @@ export class TimetableRepository {
       scheduledDate: transfer?.targetDate ?? preferred.observation.date,
       subject: preferred.observation.subject,
       type: preferred.observation.type,
-      slotNumber: preferred.observation.slotNumber,
-      time: preferred.observation.time,
+      slotNumber: consensusField(claims, (value) => value.slotNumber, String),
+      time: consensusField(
+        claims,
+        (value) => value.time,
+        (value) => JSON.stringify(value),
+      ),
       ...relations,
       isDistance: claims.some((value) => value.observation.isDistance === true),
       possibleChanges: claims.some(

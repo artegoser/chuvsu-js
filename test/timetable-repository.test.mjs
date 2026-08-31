@@ -155,6 +155,52 @@ test("teacher and room projections enrich the same canonical lesson", () => {
   assert.equal(lesson.sources.length, 3);
 });
 
+test("scalar evidence is aggregated independently across projections", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  const expectedTime = {
+    start: { hours: 10, minutes: 0 },
+    end: { hours: 11, minutes: 20 },
+  };
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation({
+      slotNumber: undefined,
+      time: expectedTime,
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      teachers: { values: [teacher], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+    occurrenceObservation({
+      key: "session:1",
+      slotNumber: undefined,
+      time: expectedTime,
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      teachers: { values: [teacher], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+  ]));
+  repo.ingest(snapshot("teacher:201", { type: "teacher", teacher }, [
+    seriesObservation({
+      slotNumber: 2,
+      time: undefined,
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+    occurrenceObservation({
+      key: "session:1",
+      slotNumber: 2,
+      time: undefined,
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+    }),
+  ]));
+
+  assert.equal(repo.getSeries()[0].slotNumber, 2);
+  assert.deepEqual(repo.getSeries()[0].time, expectedTime);
+  assert.equal(repo.getDirectOccurrences()[0].slotNumber, 2);
+  assert.deepEqual(repo.getDirectOccurrences()[0].time, expectedTime);
+});
+
 test("matching time survives a conflicting portal slot number", () => {
   const repo = repository();
   seedDirectory(repo);
