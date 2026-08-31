@@ -1,1091 +1,1601 @@
 {
-  "schemaVersion": 1,
-  "file": "group-9347-period-1.html",
-  "groupId": 9347,
-  "period": 1,
-  "groupName": "ЭКМ-01-25 УВЭД",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:9347:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 9347,
+        "name": "ЭКМ-01-25 УВЭД"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная конкурентоспособность организации",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 3,
+          "to": 17
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Система международных грейдов",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-203",
-              "teacher": {
-                "name": "Бондаренко Н. В.",
-                "position": "зав.каф.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Международная конкурентоспособность организации",
-              "type": "лк",
-              "weeks": {
-                "from": 3,
-                "to": 17
-              },
-              "room": "Е-203",
-              "teacher": {
-                "name": "Бондаренко Н. В.",
-                "position": "зав.каф.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бондаренко Н. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Система международных грейдов",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-203",
-              "teacher": {
-                "name": "Бондаренко Н. В.",
-                "position": "зав.каф.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Международная конкурентоспособность организации",
-              "type": "пр",
-              "weeks": {
-                "from": 3,
-                "to": 17
-              },
-              "room": "Е-203",
-              "teacher": {
-                "name": "Бондаренко Н. В.",
-                "position": "зав.каф.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
-        {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международная интеграция и международные экономические организации",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Архипова В. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Международная интеграция и международные экономические организации",
-              "type": "лк",
-              "weeks": {
-                "from": 3,
-                "to": 17
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Архипова В. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Система международных грейдов",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы в экономике и управлении",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-302",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бондаренко Н. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы в экономике и управлении",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-302",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная конкурентоспособность организации",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 3,
+          "to": 17
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное коммерческое дело",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-306",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Современная торговая политика зарубежных стран",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-107",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бондаренко Н. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное коммерческое дело",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-306",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Современная торговая политика зарубежных стран",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-107",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
-        {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное коммерческое дело",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-306",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Современная торговая политика зарубежных стран",
-              "type": "лк",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Е-107",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Современная торговая политика зарубежных стран",
-              "type": "пр",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Е-107",
-              "teacher": {
-                "name": "Ефремова М. П.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Система международных грейдов",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы в экономике и управлении",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-307",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Международная экономическая безопасность",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-307",
-              "teacher": {
-                "name": "Александров М. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бондаренко Н. В.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Оценка страновых рисков",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Ефремов Н. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Международная экономическая безопасность",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-307",
-              "teacher": {
-                "name": "Александров М. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
-        {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Оценка страновых рисков",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Ефремов Н. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная интеграция и международные экономические организации",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Экономическое развитие зарубежных стран",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Архипова В. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Архипова В. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Экономическое развитие зарубежных стран",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-202",
-              "teacher": {
-                "name": "Архипова В. А.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+      "kind": "series",
+      "id": "ser_fixture_group_9347_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная интеграция и международные экономические организации",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 3,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Архипова В. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:0:block:7:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы в экономике и управлении",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:1:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы в экономике и управлении",
+      "type": "лб",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:1:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное коммерческое дело",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-306"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Современная торговая политика зарубежных стран",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-107"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное коммерческое дело",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-306"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Современная торговая политика зарубежных стран",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-107"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное коммерческое дело",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-306"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Современная торговая политика зарубежных стран",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-107"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:7:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Современная торговая политика зарубежных стран",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремова М. П.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-107"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:2:block:7:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы в экономике и управлении",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная экономическая безопасность",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров М. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:3:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международная экономическая безопасность",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров М. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-307"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:3:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Оценка страновых рисков",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремов Н. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Оценка страновых рисков",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефремов Н. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:3:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Экономическое развитие зарубежных стран",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Архипова В. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:4:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9347_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Экономическое развитие зарубежных стран",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Архипова В. А.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9347:1:2026",
+          "observationKey": "day:4:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9347,
+              "name": "ЭКМ-01-25 УВЭД"
+            }
+          }
+        }
+      ]
     }
   ]
 }

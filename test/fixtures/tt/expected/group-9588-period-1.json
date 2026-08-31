@@ -1,578 +1,583 @@
 {
-  "schemaVersion": 1,
-  "file": "group-9588-period-1.html",
-  "groupId": 9588,
-  "period": 1,
-  "groupName": "ФММ-01-25_2",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:9588:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 9588,
+        "name": "ФММ-01-25_2"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9588_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фотонные кристаллы",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фотонные кристаллы",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "I-318",
-              "teacher": {
-                "name": "Александров В. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров В. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-318"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фотонные кристаллы",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "I-318",
-              "teacher": {
-                "name": "Александров В. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9588_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фотонные кристаллы",
+      "type": "пр",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Метрология наносистем",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-231",
-              "teacher": {
-                "name": "Абруков В. С.",
-                "position": "зав.каф.",
-                "degree": "д.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров В. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-318"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Метрология наносистем",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-231",
-              "teacher": {
-                "name": "Анисимов Н. Е."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
-    },
-    {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9588_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Метрология наносистем",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Приоритетные направления науки и критические технологии Российской Федерации",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-335",
-              "teacher": {
-                "name": "Абруков В. С.",
-                "position": "зав.каф.",
-                "degree": "д.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Абруков В. С.",
+            "position": "зав.каф.",
+            "degree": "д.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-231"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Приоритетные направления науки и критические технологии Российской Федерации",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-335",
-              "teacher": {
-                "name": "Абруков В. С.",
-                "position": "зав.каф.",
-                "degree": "д.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+      "kind": "series",
+      "id": "ser_fixture_group_9588_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Метрология наносистем",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Анисимов Н. Е."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-231"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:1:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        }
+      ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9588_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Приоритетные направления науки и критические технологии Российской Федерации",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фотовольтаика",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-320",
-              "teacher": {
-                "name": "Казаков В. А.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Абруков В. С.",
+            "position": "зав.каф.",
+            "degree": "д.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-335"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фотовольтаика",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "I-320",
-              "teacher": {
-                "name": "Казаков В. А.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
             }
-          ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9588_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Приоритетные направления науки и критические технологии Российской Федерации",
+      "type": "пр",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Абруков В. С.",
+            "position": "зав.каф.",
+            "degree": "д.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-335"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:3:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9588_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фотовольтаика",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Казаков В. А.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-320"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9588_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фотовольтаика",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Казаков В. А.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-320"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9588:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9588,
+              "name": "ФММ-01-25_2"
+            }
+          }
         }
       ]
     }

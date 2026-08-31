@@ -1,950 +1,1575 @@
 {
-  "schemaVersion": 1,
-  "file": "group-8219-period-1.html",
-  "groupId": 8219,
-  "period": 1,
-  "groupName": "ОЗЮФ-12-23",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:8219:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 8219,
+        "name": "ОЗЮФ-12-23"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Прокурорский надзор",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 13,
+          "to": 13
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Прокурорский надзор",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "III-908",
-              "teacher": {
-                "name": "Тасаков В. С.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тасаков В. С.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-908"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Земельное право",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "I-222",
-              "teacher": {
-                "name": "Семенова И. Ю."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Арбитражный процесс",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "II-208",
-              "teacher": {
-                "name": "Тимофеева Т. Ф.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Земельное право",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 13,
+          "to": 13
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное частное право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "III-908",
-              "teacher": {
-                "name": "Данилов Н. И."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенова И. Ю."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "I-222"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Прокурорский надзор",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "2-08",
-              "teacher": {
-                "name": "Тасаков В. С.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Арбитражный процесс",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "2-05",
-              "teacher": {
-                "name": "Тимофеева Т. Ф.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Прокурорский надзор",
-              "type": "лк",
-              "weeks": {
-                "from": 3,
-                "to": 16
-              },
-              "room": "2-04",
-              "teacher": {
-                "name": "Тасаков В. С.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:0:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное частное право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "2-04",
-              "teacher": {
-                "name": "Тимофеева Т. Ф.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Гражданско-исполнительное право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-208",
-              "teacher": {
-                "name": "Юманова Н. М."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Арбитражный процесс",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 13,
+          "to": 13
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Налоговое право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "2-05",
-              "teacher": {
-                "name": "Сошко И. А.",
-                "position": "доц.",
-                "degree": "к.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Земельное право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "2-05",
-              "teacher": {
-                "name": "Иванов Н. В.",
-                "position": "проф.",
-                "degree": "д.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тимофеева Т. Ф.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Арбитражный процесс",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-203",
-              "teacher": {
-                "name": "Тимофеева Т. Ф.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:0:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Земельное право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "III-907",
-              "teacher": {
-                "name": "Семенова И. Ю."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Прокурорский надзор",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "III-403",
-              "teacher": {
-                "name": "Тасаков В. С.",
-                "position": "доц.",
-                "degree": "к.ю.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное частное право",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "III-908",
-              "teacher": {
-                "name": "Кожина Т. Н.",
-                "position": "доц.",
-                "degree": "к.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Данилов Н. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-908"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Международное право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "2-04",
-              "teacher": {
-                "name": "Кожина Т. Н.",
-                "position": "доц.",
-                "degree": "к.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Гражданско-исполнительное право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-102",
-              "teacher": {
-                "name": "Юманова Н. М."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Банковское право",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "III-902",
-              "teacher": {
-                "name": "Толстова М. Л.",
-                "position": "зав.каф.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Налоговое право",
-              "type": "лк",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "2-05",
-              "teacher": {
-                "name": "Сошко И. А.",
-                "position": "доц.",
-                "degree": "к.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Арбитражный процесс",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Налоговое право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-208",
-              "teacher": {
-                "name": "Гаранина В. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тимофеева Т. Ф.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-05"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Банковское право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-208",
-              "teacher": {
-                "name": "Гаранина В. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
             }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Банковское право",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "II-208",
-              "teacher": {
-                "name": "Гаранина В. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+      "kind": "series",
+      "id": "ser_fixture_group_8219_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Прокурорский надзор",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тасаков В. С.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-08"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Прокурорский надзор",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 3,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тасаков В. С.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:3:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное частное право",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тимофеева Т. Ф.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданско-исполнительное право",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Юманова Н. М."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Земельное право",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов Н. В.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-05"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:2:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоговое право",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сошко И. А.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-05"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Арбитражный процесс",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тимофеева Т. Ф.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Земельное право",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Семенова И. Ю."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-907"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Прокурорский надзор",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тасаков В. С.",
+            "position": "доц.",
+            "degree": "к.ю.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное право",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Кожина Т. Н.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-908"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Гражданско-исполнительное право",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Юманова Н. М."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Международное право",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Кожина Т. Н.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-04"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Банковское право",
+      "type": "лк",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Толстова М. Л.",
+            "position": "зав.каф.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "III-902"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоговое право",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Сошко И. А.",
+            "position": "доц.",
+            "degree": "к.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "2-05"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Налоговое право",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гаранина В. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Банковское право",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гаранина В. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:4:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8219_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Банковское право",
+      "type": "пр",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гаранина В. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "II-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8219:1:2026",
+          "observationKey": "day:4:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8219,
+              "name": "ОЗЮФ-12-23"
+            }
+          }
+        }
+      ]
     }
   ]
 }

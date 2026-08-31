@@ -1,1429 +1,2982 @@
 {
-  "schemaVersion": 1,
-  "file": "group-8917-period-1.html",
-  "groupId": 8917,
-  "period": 1,
-  "groupName": "М-17-24АН",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:8917:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 8917,
+        "name": "М-17-24АН"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
+      "kind": "series",
+      "id": "ser_fixture_group_8917_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая хирургия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Общая хирургия",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Общая хирургия",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Общая хирургия",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 3,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             }
-          ]
-        },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "С-305",
-              "teacher": {
-                "name": "Мишин А. О."
-              },
-              "groups": [],
-              "subgroup": 3,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "С-305",
-              "teacher": {
-                "name": "Мишин А. О."
-              },
-              "groups": [],
-              "subgroup": 3,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Медицинская генетика",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "С-304",
-              "teacher": {
-                "name": "Дмитриева О. Ф.",
-                "position": "доц.",
-                "degree": "к.с.-х.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патологическая анатомия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "П-102",
-              "teacher": {
-                "name": "Тихонов Б. В."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Патологическая анатомия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "П-110",
-              "teacher": {
-                "name": "Альпидовская О. В.",
-                "position": "доц.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8917_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая хирургия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патологическая анатомия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "П-102",
-              "teacher": {
-                "name": "Тихонов Б. В."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             },
-            {
-              "index": 1,
-              "subject": "Патологическая анатомия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "П-110",
-              "teacher": {
-                "name": "Альпидовская О. В.",
-                "position": "доц.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             }
-          ]
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 3,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Медицина катастроф",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": 3,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патофизиология",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "М-410",
-              "teacher": {
-                "name": "Яковлева Л. М.",
-                "position": "проф.",
-                "degree": "д.б.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патологическая анатомия",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 8
-              },
-              "room": "П-206",
-              "teacher": {
-                "name": "Петрова А. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Медицина катастроф",
-              "type": "лк",
-              "weeks": {
-                "from": 9,
-                "to": 16
-              },
-              "room": "База кафедры",
-              "teacher": {
-                "name": "Лушин А. В.",
-                "position": "доц.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8917_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая хирургия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Топографическая анатомия и оперативная хирургия",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "П-206",
-              "teacher": {
-                "name": "Елдырёва М. В.",
-                "position": "зав.каф.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             },
-            {
-              "index": 1,
-              "subject": "Топографическая анатомия и оперативная хирургия",
-              "type": "лк",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "П-206",
-              "teacher": {
-                "name": "Елдырёва М. В.",
-                "position": "зав.каф.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 3
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:0:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Общая хирургия",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "С-300",
-              "teacher": {
-                "name": "Прохоров Г. П.",
-                "position": "доц.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Фармакология",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "М-410",
-              "teacher": {
-                "name": "Павлова С. И.",
-                "position": "зав.каф.",
-                "degree": "д.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Фармакология",
-              "type": "лк",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "М-410",
-              "teacher": {
-                "name": "Павлова С. И.",
-                "position": "зав.каф.",
-                "degree": "д.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фармакология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-413",
-              "teacher": {
-                "name": "Ибрагимова А. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Фармакология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-406",
-              "teacher": {
-                "name": "Ермакова А. А."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Фармакология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-413",
-              "teacher": {
-                "name": "Ибрагимова А. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Фармакология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-406",
-              "teacher": {
-                "name": "Ермакова А. А."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8917_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Топографическая анатомия и оперативная хирургия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "",
-              "teacher": {
-                "name": "Елдырёва М. В.",
-                "position": "зав.каф.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патофизиология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-212",
-              "teacher": {
-                "name": "Никифорова А. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             },
-            {
-              "index": 1,
-              "subject": "Медицинская генетика",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "С-304",
-              "teacher": {
-                "name": "Дмитриева О. Ф.",
-                "position": "доц.",
-                "degree": "к.с.-х.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патофизиология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-212",
-              "teacher": {
-                "name": "Никифорова А. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8917_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патофизиология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-214",
-              "teacher": {
-                "name": "Яковлева Л. М.",
-                "position": "проф.",
-                "degree": "д.б.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Патофизиология",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-214",
-              "teacher": {
-                "name": "Яковлева Л. М.",
-                "position": "проф.",
-                "degree": "д.б.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             },
-            {
-              "index": 1,
-              "subject": "Медицинская генетика",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "С-304",
-              "teacher": {
-                "name": "Дмитриева О. Ф.",
-                "position": "доц.",
-                "degree": "к.с.-х.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Топографическая анатомия и оперативная хирургия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "",
-              "teacher": {
-                "name": "Елдырёва М. В.",
-                "position": "зав.каф.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Медицинская генетика",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "М-416",
-              "teacher": {
-                "name": "Дмитриева О. Ф.",
-                "position": "доц.",
-                "degree": "к.с.-х.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Пропедевтика внутренних болезней",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "М-410",
-              "teacher": {
-                "name": "Гладышева С. Ю.",
-                "position": "доц.",
-                "degree": "к.м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+      "kind": "series",
+      "id": "ser_fixture_group_8917_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 3
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мишин А. О."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:1:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 3
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мишин А. О."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицинская генетика",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Дмитриева О. Ф.",
+            "position": "доц.",
+            "degree": "к.с.-х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-304"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патологическая анатомия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тихонов Б. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патологическая анатомия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Альпидовская О. В.",
+            "position": "доц.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-110"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патологическая анатомия",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Тихонов Б. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патологическая анатомия",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Альпидовская О. В.",
+            "position": "доц.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-110"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 3
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 3
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:3:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патофизиология",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Яковлева Л. М.",
+            "position": "проф.",
+            "degree": "д.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-410"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицина катастроф",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 9,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Лушин А. В.",
+            "position": "доц.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "База кафедры"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патологическая анатомия",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова А. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-206"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:1:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Топографическая анатомия и оперативная хирургия",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Елдырёва М. В.",
+            "position": "зав.каф.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-206"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Топографическая анатомия и оперативная хирургия",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Елдырёва М. В.",
+            "position": "зав.каф.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "П-206"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая хирургия",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Прохоров Г. П.",
+            "position": "доц.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-300"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Павлова С. И.",
+            "position": "зав.каф.",
+            "degree": "д.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-410"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Павлова С. И.",
+            "position": "зав.каф.",
+            "degree": "д.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-410"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:4:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ибрагимова А. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ермакова А. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-406"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ибрагимова А. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-413"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Фармакология",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ермакова А. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-406"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:2:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Топографическая анатомия и оперативная хирургия",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Елдырёва М. В.",
+            "position": "зав.каф.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицинская генетика",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Дмитриева О. Ф.",
+            "position": "доц.",
+            "degree": "к.с.-х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-304"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:3:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патофизиология",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Никифорова А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патофизиология",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Никифорова А. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патофизиология",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Яковлева Л. М.",
+            "position": "проф.",
+            "degree": "д.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_40",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицинская генетика",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Дмитриева О. Ф.",
+            "position": "доц.",
+            "degree": "к.с.-х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "С-304"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Патофизиология",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Яковлева Л. М.",
+            "position": "проф.",
+            "degree": "д.б.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_41",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Топографическая анатомия и оперативная хирургия",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Елдырёва М. В.",
+            "position": "зав.каф.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_42",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Медицинская генетика",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Дмитриева О. Ф.",
+            "position": "доц.",
+            "degree": "к.с.-х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-416"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8917_43",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Пропедевтика внутренних болезней",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Гладышева С. Ю.",
+            "position": "доц.",
+            "degree": "к.м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "М-410"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8917:1:2026",
+          "observationKey": "day:4:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8917,
+              "name": "М-17-24АН"
+            }
+          }
+        }
+      ]
     }
   ]
 }

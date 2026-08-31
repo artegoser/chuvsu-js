@@ -1,1405 +1,3422 @@
 {
-  "schemaVersion": 1,
-  "file": "group-8231-period-1.html",
-  "groupId": 8231,
-  "period": 1,
-  "groupName": "ОЗС-21-23 (ТГВ 4,6 года)",
-  "layout": "semester",
-  "days": [
-    {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:8231:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 8231,
+        "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+      }
     },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
-    },
-    {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
-    },
-    {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8231_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Правоведение",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Иванов Н. В.",
-                "position": "проф.",
-                "degree": "д.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Вентиляция",
-              "type": "лк",
-              "weeks": {
-                "from": 9,
-                "to": 14
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 9,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Правоведение",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Иванов Н. В.",
-                "position": "проф.",
-                "degree": "д.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теплоснабжение",
-              "type": "лк",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:3:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8231_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правоведение",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Сметное дело в строительстве",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 6
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Лампасова Н. Н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Общая электротехника и электроснабжение",
-              "type": "лк",
-              "weeks": {
-                "from": 13,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Петросов Ю. М.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов Н. В.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Отопление",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 8
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теплоснабжение",
-              "type": "лк",
-              "weeks": {
-                "from": 9,
-                "to": 13
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Социология",
-              "type": "лк",
-              "weeks": {
-                "from": 14,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Карпов А. П.",
-                "position": "доц.",
-                "degree": "к.соц.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Отопление",
-              "type": "лб",
-              "weeks": {
-                "from": 4,
-                "to": 4
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Отопление",
-              "type": "пр",
-              "weeks": {
-                "from": 6,
-                "to": 6
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Отопление",
-              "type": "лб",
-              "weeks": {
-                "from": 7,
-                "to": 7
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Социология",
-              "type": "пр",
-              "weeks": {
-                "from": 15,
-                "to": 15
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Карпов А. П.",
-                "position": "доц.",
-                "degree": "к.соц.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Общая электротехника и электроснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 16,
-                "to": 16
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Петросов Ю. М.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8231_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правоведение",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Отопление",
-              "type": "лб",
-              "weeks": {
-                "from": 4,
-                "to": 4
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Отопление",
-              "type": "пр",
-              "weeks": {
-                "from": 6,
-                "to": 6
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Отопление",
-              "type": "лб",
-              "weeks": {
-                "from": 7,
-                "to": 7
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Социология",
-              "type": "пр",
-              "weeks": {
-                "from": 15,
-                "to": 15
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Карпов А. П.",
-                "position": "доц.",
-                "degree": "к.соц.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Общая электротехника и электроснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 16,
-                "to": 16
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Петросов Ю. М.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Теплоснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 7,
-              "subject": "Теплоснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 10,
-                "to": 10
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 8,
-              "subject": "Теплоснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "Г-015",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов Н. В.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:3:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теплоснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теплоснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 10,
-                "to": 10
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Правоведение",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Иванов Н. В.",
-                "position": "проф.",
-                "degree": "д.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Отопление",
-              "type": "пр",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 8,
-                "to": 8
-              },
-              "room": "Н-313",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Г-015",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 7,
-              "subject": "Теплоснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "Г-015",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 8,
-              "subject": "Социология",
-              "type": "пр",
-              "weeks": {
-                "from": 16,
-                "to": 16
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Карпов А. П.",
-                "position": "доц.",
-                "degree": "к.соц.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:3:block:7:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая электротехника и электроснабжение",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теплоснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Щенникова Т. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теплоснабжение",
-              "type": "пр",
-              "weeks": {
-                "from": 10,
-                "to": 10
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": ""
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Отопление",
-              "type": "пр",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 8,
-                "to": 8
-              },
-              "room": "Н-313",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Г-015",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Правоведение",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Н-102",
-              "teacher": {
-                "name": "Иванов Н. В.",
-                "position": "проф.",
-                "degree": "д.и.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 7,
-              "subject": "Общая электротехника и электроснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "",
-              "teacher": {
-                "name": "Петросов Ю. М.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 8,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 9,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 15,
-                "to": 15
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 13,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петросов Ю. М.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:4:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сметное дело в строительстве",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Общая электротехника и электроснабжение",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "",
-              "teacher": {
-                "name": "Петросов Ю. М.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 15,
-                "to": 15
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Сметное дело в строительстве",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 8
-              },
-              "room": "Н-202",
-              "teacher": {
-                "name": "Лампасова Н. Н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 6
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Лампасова Н. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:4:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:4:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 14,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Карпов А. П.",
+            "position": "доц.",
+            "degree": "к.соц.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:4:block:7:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 9,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:4:block:7:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая электротехника и электроснабжение",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петросов Ю. М.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 4,
+          "to": 4
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 6,
+          "to": 6
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Карпов А. П.",
+            "position": "доц.",
+            "degree": "к.соц.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:0:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая электротехника и электроснабжение",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петросов Ю. М.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 4,
+          "to": 4
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 6,
+          "to": 6
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Карпов А. П.",
+            "position": "доц.",
+            "degree": "к.соц.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:7",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-015"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:1:lesson:8",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-015"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 8,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-313"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правоведение",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов Н. В.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Карпов А. П.",
+            "position": "доц.",
+            "degree": "к.соц.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:8",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-015"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:2:lesson:7",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-015"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_42",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:8",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_43",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:9",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 8,
+          "to": 8
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-313"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_41",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая электротехника и электроснабжение",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петросов Ю. М.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:7",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Отопление",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_40",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Правоведение",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов Н. В.",
+            "position": "проф.",
+            "degree": "д.и.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-102"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Щенникова Т. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплоснабжение",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_46",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_47",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_44",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_49",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_45",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общая электротехника и электроснабжение",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петросов Ю. М.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [],
+        "completeness": "unknown"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8231_48",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сметное дело в строительстве",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 8
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Лампасова Н. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-202"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8231:1:2026",
+          "observationKey": "day:5:block:4:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8231,
+              "name": "ОЗС-21-23 (ТГВ 4,6 года)"
+            }
+          }
         }
       ]
     }

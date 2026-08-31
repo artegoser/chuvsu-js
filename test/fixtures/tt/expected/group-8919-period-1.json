@@ -1,1852 +1,4266 @@
 {
-  "schemaVersion": 1,
-  "file": "group-8919-period-1.html",
-  "groupId": 8919,
-  "period": 1,
-  "groupName": "КТ-41-24",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:8919:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 8919,
+        "name": "КТ-41-24"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Архитектура вычислительных систем",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-316",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8919_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Архитектура вычислительных систем",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-316",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Архитектура вычислительных систем",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Базы данных",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-407",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Базы данных",
-              "type": "лб",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "Г-407",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 17
-              },
-              "room": "Е-115",
-              "teacher": {
-                "name": "Дигуева О. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Базы данных",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-407",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Общественный проект Обучение служением",
-              "type": "пр",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "Г-313",
-              "teacher": {
-                "name": "Ануфриева Е. М.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8919_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 17,
-                "to": 17
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Архитектура вычислительных систем",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Безопасность жизнедеятельности",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Б-316",
-              "teacher": {
-                "name": "Илларионова М. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы и технологии",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-212",
-              "teacher": {
-                "name": "Рубан О. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Информационные системы и технологии",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-212",
-              "teacher": {
-                "name": "Рубан О. А."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы и технологии",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-212",
-              "teacher": {
-                "name": "Рубан О. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Информационные системы и технологии",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-212",
-              "teacher": {
-                "name": "Рубан О. А."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8919_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Архитектура вычислительных систем",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             },
-            {
-              "index": 1,
-              "subject": "Программная инженерия",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "И-208",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Программная инженерия",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-216",
-              "teacher": {
-                "name": "Мытников А. Н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Системы управления базами данных",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Системы управления базами данных",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Системы управления базами данных",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 10
-              },
-              "room": "И-207",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Г-402",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 16
-              },
-              "room": "И-207",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8919_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Менеджмент",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-216",
-              "teacher": {
-                "name": "Бабешкова Е. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
         },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Менеджмент",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Г-315",
-              "teacher": {
-                "name": "Бабешкова Е. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Менеджмент",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 12
-              },
-              "room": "Г-315",
-              "teacher": {
-                "name": "Бабешкова Е. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Менеджмент",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 16
-              },
-              "room": "Г-216",
-              "teacher": {
-                "name": "Бабешкова Е. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Менеджмент",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Г-315",
-              "teacher": {
-                "name": "Бабешкова Е. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Общественный проект Обучение служением",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 16
-              },
-              "room": "Г-315",
-              "teacher": {
-                "name": "Ануфриева Е. М.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-407",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Базы данных",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Архитектура вычислительных систем",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-407",
-              "teacher": {
-                "name": "Матвеев С. В.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [
-                {
-                  "date": "2026-09-03",
-                  "room": "И-112",
-                  "isDistance": false,
-                  "teacher": null
-                }
-              ],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Системы управления базами данных",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 12
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы и технологии",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-316",
-              "teacher": {
-                "name": "Александров А. Х.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8919_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные системы и технологии",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-316",
-              "teacher": {
-                "name": "Александров А. Х.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 17,
+          "to": 17
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Системы управления базами данных",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-316",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             },
-            {
-              "index": 1,
-              "subject": "Социология",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-315",
-              "teacher": {
-                "name": "Ластухина Н. В.",
-                "position": "доц.",
-                "degree": "к.филос.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Базы данных",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-216",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Базы данных",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Г-408",
-              "teacher": {
-                "name": "Димитриев А. П.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "slots": [
+      "kind": "series",
+      "id": "ser_fixture_group_8919_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Элективные дисциплины (модули) по физической культуре и спорту",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 17
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Дигуева О. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-115"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Безопасность жизнедеятельности",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Иванова К. Ю.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             },
-            {
-              "index": 1,
-              "subject": "Общественный проект Обучение служением",
-              "type": "лк",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Г-301",
-              "teacher": {
-                "name": "Ануфриева Е. М.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Безопасность жизнедеятельности",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Иванова К. Ю.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общественный проект Обучение служением",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ануфриева Е. М.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-313"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             },
-            {
-              "index": 1,
-              "subject": "Общественный проект Обучение служением",
-              "type": "лк",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Г-301",
-              "teacher": {
-                "name": "Ануфриева Е. М.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Социология",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Ластухина Н. В.",
-                "position": "доц.",
-                "degree": "к.филос.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Информационные справочно-правовые системы",
-              "type": "лб",
-              "weeks": {
-                "from": 4,
-                "to": 6
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Решетников А. В.",
-                "position": "доц.",
-                "degree": "к.х.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
             }
-          ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 17,
+          "to": 17
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Архитектура вычислительных систем",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Безопасность жизнедеятельности",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Илларионова М. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Б-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рубан О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рубан О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:5:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рубан О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Рубан О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-212"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:1:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-208"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Программная инженерия",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мытников А. Н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-216"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы управления базами данных",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы управления базами данных",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы управления базами данных",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 10
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-207"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:5:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-402"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:5:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 14,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "И-207"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:5:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:2:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Менеджмент",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бабешкова Е. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-216"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Менеджмент",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бабешкова Е. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-315"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_40",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Менеджмент",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бабешкова Е. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-315"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_41",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Менеджмент",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 13,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бабешкова Е. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-216"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_42",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Менеджмент",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Бабешкова Е. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-315"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_43",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общественный проект Обучение служением",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 2,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ануфриева Е. М.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-315"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_44",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_46",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Архитектура вычислительных систем",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Матвеев С. В.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-407"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [
+        {
+          "date": "2026-09-03",
+          "rooms": [
+            {
+              "name": "И-112"
+            }
+          ],
+          "isDistance": false
+        }
+      ],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:4:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_45",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_47",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы управления базами данных",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 12
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:3:block:4:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_48",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров А. Х.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_49",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные системы и технологии",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Александров А. Х.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_50",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы управления базами данных",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-316"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_51",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ластухина Н. В.",
+            "position": "доц.",
+            "degree": "к.филос.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-315"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_52",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-216"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_53",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Базы данных",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Димитриев А. П.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-408"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:4:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_54",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Безопасность жизнедеятельности",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванова К. Ю.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_55",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общественный проект Обучение служением",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ануфриева Е. М.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-301"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_56",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Безопасность жизнедеятельности",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванова К. Ю.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_57",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Общественный проект Обучение служением",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ануфриева Е. М.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-301"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_58",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Социология",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ластухина Н. В.",
+            "position": "доц.",
+            "degree": "к.филос.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8919_59",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Информационные справочно-правовые системы",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 4,
+          "to": 6
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Решетников А. В.",
+            "position": "доц.",
+            "degree": "к.х.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8919:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8919,
+              "name": "КТ-41-24"
+            }
+          }
         }
       ]
     }

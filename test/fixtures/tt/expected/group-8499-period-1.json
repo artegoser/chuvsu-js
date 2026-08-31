@@ -1,1026 +1,2017 @@
 {
-  "schemaVersion": 1,
-  "file": "group-8499-period-1.html",
-  "groupId": 8499,
-  "period": 1,
-  "groupName": "ЭК-05-23ин",
-  "layout": "semester",
-  "days": [
-    {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:8499:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 8499,
+        "name": "ЭК-05-23ин"
+      }
     },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8499_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             },
-            {
-              "index": 1,
-              "subject": "Системы искусственного интеллекта",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Албарцева Е. И."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-302",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:1:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Web-программирование",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-302",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление жизненным циклом информационных систем",
-              "type": "лк",
-              "weeks": {
-                "from": 11,
-                "to": 11
-              },
-              "room": "Е-105",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Системы искусственного интеллекта",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 13
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Албарцева Е. И."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Управление жизненным циклом информационных систем",
-              "type": "пр",
-              "weeks": {
-                "from": 15,
-                "to": 15
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8499_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы искусственного интеллекта",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление жизненным циклом информационных систем",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-112",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление жизненным циклом информационных систем",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-112",
-              "teacher": {
-                "name": "Ефимова Н. А.",
-                "position": "доц.",
-                "degree": "к.ф.-м.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-112",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             },
-            {
-              "index": 1,
-              "subject": "Системы искусственного интеллекта",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Албарцева Е. И."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Албарцева Е. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:1:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8499_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Тестирование программных средств",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Тестирование программных средств",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:1:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Методы и технологии продвижения Web ресурсов",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_8499_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Web-программирование",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Тестирование программных средств",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 2,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             },
-            {
-              "index": 1,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-302"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Системы искусственного интеллекта",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:1:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Методы и технологии продвижения Web ресурсов",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Методы и технологии продвижения Web ресурсов",
-              "type": "лб",
-              "weeks": {
-                "from": 1,
-                "to": 16
-              },
-              "room": "Е-211",
-              "teacher": {
-                "name": "Иванов В. В.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 0,
-                "to": 0
-              },
-              "room": "Е-210",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": {
-                "targetDate": "2026-09-11",
-                "fromDate": "2026-09-04",
-                "fromSlot": 2,
-                "subject": "Управление it сервисом и контентом"
-              },
-              "substituteFor": null
-            }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_8499_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы искусственного интеллекта",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 13,
+          "to": 13
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 6,
-                "to": 6
-              },
-              "room": "Е-112",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             },
-            {
-              "index": 1,
-              "subject": "Управление it сервисом и контентом",
-              "type": "лб",
-              "weeks": {
-                "from": 0,
-                "to": 0
-              },
-              "room": "Е-112",
-              "teacher": {
-                "name": "Иванов И. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": {
-                "targetDate": "2026-10-03",
-                "fromDate": "2026-09-04",
-                "fromSlot": 1,
-                "subject": "Управление it сервисом и контентом"
-              },
-              "substituteFor": null
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Албарцева Е. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
             }
-          ]
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление жизненным циклом информационных систем",
+      "type": "лк",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 11,
+          "to": 11
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-105"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление жизненным циклом информационных систем",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 15,
+          "to": 15
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:0:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление жизненным циклом информационных систем",
+      "type": "лк",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление жизненным циклом информационных систем",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Ефимова Н. А.",
+            "position": "доц.",
+            "degree": "к.ф.-м.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы искусственного интеллекта",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Албарцева Е. И."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:2:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Тестирование программных средств",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Тестирование программных средств",
+      "type": "лк",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Методы и технологии продвижения Web ресурсов",
+      "type": "лк",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные системы инвестиционного проектирования и бизнес-планирования",
+      "type": "лб",
+      "slotNumber": 6,
+      "time": {
+        "start": {
+          "hours": 16,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 18,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:3:block:5:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Тестирование программных средств",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Системы искусственного интеллекта",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лк",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Методы и технологии продвижения Web ресурсов",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Методы и технологии продвижения Web ресурсов",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 16
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов В. В.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-211"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_8499_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 6,
+          "to": 6
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "occurrence",
+      "id": "les_fixture_group_8499_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "nominalDate": "2026-09-04",
+      "scheduledDate": "2026-09-11",
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-210"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "status": "moved",
+      "movedFrom": {
+        "date": "2026-09-04",
+        "slotNumber": 2
+      },
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:4:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "occurrence",
+      "id": "les_fixture_group_8499_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "nominalDate": "2026-09-04",
+      "scheduledDate": "2026-10-03",
+      "subject": "Управление it сервисом и контентом",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванов И. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Е-112"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "status": "moved",
+      "movedFrom": {
+        "date": "2026-09-04",
+        "slotNumber": 1
+      },
+      "sources": [
+        {
+          "sourceKey": "fixture:group:8499:1:2026",
+          "observationKey": "day:5:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 8499,
+              "name": "ЭК-05-23ин"
+            }
+          }
         }
       ]
     }

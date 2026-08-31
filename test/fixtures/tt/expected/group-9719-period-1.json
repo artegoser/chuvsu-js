@@ -1,1459 +1,3086 @@
 {
-  "schemaVersion": 1,
-  "file": "group-9719-period-1.html",
-  "groupId": 9719,
-  "period": 1,
-  "groupName": "ОЗС-22-25 (ТГВ 3 года)",
-  "layout": "semester",
-  "days": [
+  "schemaVersion": 5,
+  "source": {
+    "sourceKey": "fixture:group:9719:1:2026",
+    "owner": {
+      "type": "group",
+      "group": {
+        "id": 9719,
+        "name": "ОЗС-22-25 (ТГВ 3 года)"
+      }
+    },
+    "academicYearStartYear": 2026,
+    "period": 1
+  },
+  "lessons": [
     {
-      "index": 0,
-      "weekday": "Понедельник",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9719_1",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 1,
+        "weeks": {
+          "from": 13,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Солин С. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 16
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Солин С. В."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:0:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 1,
-      "weekday": "Вторник",
-      "date": null,
-      "isSelfStudyDay": true,
-      "slots": []
-    },
-    {
-      "index": 2,
-      "weekday": "Среда",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9719_2",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Механика грунтов",
+      "type": "лб",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": []
-        },
-        {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Механика грунтов",
-              "type": "лб",
-              "weeks": {
-                "from": 16,
-                "to": 16
-              },
-              "room": "Н-305",
-              "teacher": {
-                "name": "Викторова С. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 3,
+        "weeks": {
+          "from": 16,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Викторова С. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-305"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:2:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
         }
       ]
     },
     {
-      "index": 3,
-      "weekday": "Четверг",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9719_3",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "лб",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 4,
+        "weeks": {
+          "from": 14,
+          "to": 15
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            },
+            "subgroup": 2
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Сопротивление материалов",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 15
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": 2,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:3:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 4,
-      "weekday": "Пятница",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": []
+      "kind": "series",
+      "id": "ser_fixture_group_9719_7",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": []
-        },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": []
-        },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": []
-        },
-        {
-          "index": 5,
-          "number": 6,
-          "timeStart": {
-            "hours": 16,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 18,
-            "minutes": 0
-          },
-          "entries": []
-        },
-        {
-          "index": 6,
-          "number": 7,
-          "timeStart": {
-            "hours": 18,
-            "minutes": 10
-          },
-          "timeEnd": {
-            "hours": 19,
-            "minutes": 30
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 7
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Сопротивление материалов",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 8
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Михайлов Б. В.",
-                "position": "доц.",
-                "degree": "к.т.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Теплогенерирующие установки",
-              "type": "лк",
-              "weeks": {
-                "from": 9,
-                "to": 12
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Федоров Н. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Вентиляция",
-              "type": "лк",
-              "weeks": {
-                "from": 13,
-                "to": 14
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 13,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
-        },
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
         {
-          "index": 7,
-          "number": 8,
-          "timeStart": {
-            "hours": 19,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 21,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Вентиляция",
-              "type": "лк",
-              "weeks": {
-                "from": 13,
-                "to": 14
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Основы строительных конструкций",
-              "type": "лк",
-              "weeks": {
-                "from": 1,
-                "to": 7
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Иванова Н. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Технологические процессы в строительстве",
-              "type": "лк",
-              "weeks": {
-                "from": 2,
-                "to": 8
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Федосеева И. П."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Механика грунтов",
-              "type": "лк",
-              "weeks": {
-                "from": 9,
-                "to": 12
-              },
-              "room": "Дистанционно (ДОТ)",
-              "teacher": {
-                "name": "Викторова С. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": true,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:6:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
         }
       ]
     },
     {
-      "index": 5,
-      "weekday": "Суббота",
-      "date": null,
-      "slots": [
-        {
-          "index": 0,
-          "number": 1,
-          "timeStart": {
-            "hours": 8,
-            "minutes": 20
-          },
-          "timeEnd": {
-            "hours": 9,
-            "minutes": 40
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Н-303",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Теплогенерирующие установки",
-              "type": "пр",
-              "weeks": {
-                "from": 10,
-                "to": 10
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Федоров Н. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 11,
-                "to": 11
-              },
-              "room": "Н-403",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Механика грунтов",
-              "type": "лб",
-              "weeks": {
-                "from": 14,
-                "to": 14
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Викторова С. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+      "kind": "series",
+      "id": "ser_fixture_group_9719_5",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 1,
-          "number": 2,
-          "timeStart": {
-            "hours": 9,
-            "minutes": 50
-          },
-          "timeEnd": {
-            "hours": 11,
-            "minutes": 10
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 5,
-                "to": 5
-              },
-              "room": "Н-303",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Теплогенерирующие установки",
-              "type": "пр",
-              "weeks": {
-                "from": 10,
-                "to": 10
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Федоров Н. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 11,
-                "to": 11
-              },
-              "room": "Н-403",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Технологические процессы в строительстве",
-              "type": "пр",
-              "weeks": {
-                "from": 2,
-                "to": 8
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Федосеева И. П."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "even",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "лб",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 7,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 8,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 14
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 9,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 15,
-                "to": 16
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 8
         },
-        {
-          "index": 2,
-          "number": 3,
-          "timeStart": {
-            "hours": 11,
-            "minutes": 40
-          },
-          "timeEnd": {
-            "hours": 13,
-            "minutes": 0
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Сопротивление материалов",
-              "type": "пр",
-              "weeks": {
-                "from": 11,
-                "to": 11
-              },
-              "room": "Н-403",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "лб",
-              "weeks": {
-                "from": 9,
-                "to": 9
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Вентиляция",
-              "type": "пр",
-              "weeks": {
-                "from": 13,
-                "to": 14
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Вентиляция",
-              "type": "лб",
-              "weeks": {
-                "from": 15,
-                "to": 16
-              },
-              "room": "Г-014",
-              "teacher": {
-                "name": "Русинова Н. Г."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 6,
-              "subject": "Компьютерные технологии расчета инженерных сетей зданий",
-              "type": "лб",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Петрова М. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 7,
-              "subject": "Теплогенерирующие установки",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Федоров Н. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Михайлов Б. В.",
+            "position": "доц.",
+            "degree": "к.т.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:6:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_4",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
         },
-        {
-          "index": 3,
-          "number": 4,
-          "timeStart": {
-            "hours": 13,
-            "minutes": 30
-          },
-          "timeEnd": {
-            "hours": 14,
-            "minutes": 50
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 1
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
-              "type": "лб",
-              "weeks": {
-                "from": 2,
-                "to": 2
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Мозгова А. С.",
-                "position": "доц.",
-                "degree": "к.э.н."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 2,
-              "subject": "Теплогенерирующие установки",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 12
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Федоров Н. А."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 3,
-              "subject": "Сопротивление материалов",
-              "type": "лб",
-              "weeks": {
-                "from": 3,
-                "to": 3
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 4,
-              "subject": "Сопротивление материалов",
-              "type": "лб",
-              "weeks": {
-                "from": 7,
-                "to": 7
-              },
-              "room": "Н-214",
-              "teacher": {
-                "name": "Алексеева О. А."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 5,
-              "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
-              "type": "лб",
-              "weeks": {
-                "from": 13,
-                "to": 16
-              },
-              "room": "Н-314",
-              "teacher": {
-                "name": "Солин С. В."
-              },
-              "groups": [],
-              "subgroup": 1,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            }
-          ]
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 7
         },
-        {
-          "index": 4,
-          "number": 5,
-          "timeStart": {
-            "hours": 15,
-            "minutes": 0
-          },
-          "timeEnd": {
-            "hours": 16,
-            "minutes": 20
-          },
-          "entries": [
-            {
-              "index": 0,
-              "subject": "Основы строительных конструкций",
-              "type": "пр",
-              "weeks": {
-                "from": 1,
-                "to": 7
-              },
-              "room": "Н-306",
-              "teacher": {
-                "name": "Иванова Н. В."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": "odd",
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
-            },
-            {
-              "index": 1,
-              "subject": "Механика грунтов",
-              "type": "лб",
-              "weeks": {
-                "from": 12,
-                "to": 13
-              },
-              "room": "Н-203",
-              "teacher": {
-                "name": "Викторова С. С."
-              },
-              "groups": [],
-              "subgroup": null,
-              "weekParity": null,
-              "isDistance": false,
-              "possibleChanges": true,
-              "substitutions": [],
-              "transfer": null,
-              "substituteFor": null
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
             }
-          ]
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:6:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_6",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплогенерирующие установки",
+      "type": "лк",
+      "slotNumber": 7,
+      "time": {
+        "start": {
+          "hours": 18,
+          "minutes": 10
+        },
+        "end": {
+          "hours": 19,
+          "minutes": 30
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 9,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федоров Н. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:6:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_8",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 13,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:7:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_11",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Механика грунтов",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 9,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Викторова С. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:7:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_9",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы строительных конструкций",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 1,
+          "to": 7
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванова Н. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:7:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_10",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Технологические процессы в строительстве",
+      "type": "лк",
+      "slotNumber": 8,
+      "time": {
+        "start": {
+          "hours": 19,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 21,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 5,
+        "weeks": {
+          "from": 2,
+          "to": 8
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федосеева И. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Дистанционно (ДОТ)"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": true,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:4:block:7:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_13",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_18",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Механика грунтов",
+      "type": "лб",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 14,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Викторова С. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_14",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-303"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_15",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_17",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 11,
+          "to": 11
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_12",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_16",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплогенерирующие установки",
+      "type": "пр",
+      "slotNumber": 1,
+      "time": {
+        "start": {
+          "hours": 8,
+          "minutes": 20
+        },
+        "end": {
+          "hours": 9,
+          "minutes": 40
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федоров Н. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:0:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_27",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:8",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_28",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:9",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_20",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_26",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:7",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_21",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 5,
+          "to": 5
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-303"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_23",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 11,
+          "to": 11
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_19",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_25",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "лб",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_22",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплогенерирующие установки",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 10,
+          "to": 10
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федоров Н. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_24",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Технологические процессы в строительстве",
+      "type": "пр",
+      "slotNumber": 2,
+      "time": {
+        "start": {
+          "hours": 9,
+          "minutes": 50
+        },
+        "end": {
+          "hours": 11,
+          "minutes": 10
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 8
+        },
+        "parity": "even"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федосеева И. П."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:1:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_31",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 14
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_32",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Вентиляция",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 15,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Русинова Н. Г."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Г-014"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_35",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерные технологии расчета инженерных сетей зданий",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Петрова М. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:6",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_29",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 11,
+          "to": 11
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-403"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_30",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 9,
+          "to": 9
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_33",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "пр",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_34",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_36",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплогенерирующие установки",
+      "type": "лб",
+      "slotNumber": 3,
+      "time": {
+        "start": {
+          "hours": 11,
+          "minutes": 40
+        },
+        "end": {
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федоров Н. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:2:lesson:7",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_42",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Компьютерная графика с применением интеллектуальных систем проектирования",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 13,
+          "to": 16
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Солин С. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-314"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:5",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_40",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 3,
+          "to": 3
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:3",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_41",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Сопротивление материалов",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 7,
+          "to": 7
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            },
+            "subgroup": 1
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Алексеева О. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:4",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_37",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "пр",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 1
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_38",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теоретические основы создания микроклимата здания и строительная теплофизика",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 2,
+          "to": 2
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Мозгова А. С.",
+            "position": "доц.",
+            "degree": "к.э.н."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-214"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_39",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Теплогенерирующие установки",
+      "type": "лб",
+      "slotNumber": 4,
+      "time": {
+        "start": {
+          "hours": 13,
+          "minutes": 30
+        },
+        "end": {
+          "hours": 14,
+          "minutes": 50
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 12
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Федоров Н. А."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:3:lesson:2",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_44",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Механика грунтов",
+      "type": "лб",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 12,
+          "to": 13
+        }
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Викторова С. С."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-203"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:4:lesson:1",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "series",
+      "id": "ser_fixture_group_9719_43",
+      "academicYearStartYear": 2026,
+      "period": 1,
+      "subject": "Основы строительных конструкций",
+      "type": "пр",
+      "slotNumber": 5,
+      "time": {
+        "start": {
+          "hours": 15,
+          "minutes": 0
+        },
+        "end": {
+          "hours": 16,
+          "minutes": 20
+        }
+      },
+      "recurrence": {
+        "weekday": 6,
+        "weeks": {
+          "from": 1,
+          "to": 7
+        },
+        "parity": "odd"
+      },
+      "groups": {
+        "values": [
+          {
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
+        ],
+        "completeness": "partial"
+      },
+      "teachers": {
+        "values": [
+          {
+            "name": "Иванова Н. В."
+          }
+        ],
+        "completeness": "partial"
+      },
+      "rooms": {
+        "values": [
+          {
+            "name": "Н-306"
+          }
+        ],
+        "completeness": "partial"
+      },
+      "isDistance": false,
+      "possibleChanges": true,
+      "substitutions": [],
+      "sources": [
+        {
+          "sourceKey": "fixture:group:9719:1:2026",
+          "observationKey": "day:5:block:4:lesson:0",
+          "owner": {
+            "type": "group",
+            "group": {
+              "id": 9719,
+              "name": "ОЗС-22-25 (ТГВ 3 года)"
+            }
+          }
         }
       ]
     }
