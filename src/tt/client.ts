@@ -133,7 +133,7 @@ export class TimetableClient {
       this.repositoryReady = (async () => {
         const snapshot = await this.repositoryAdapter!.load();
         if (snapshot && this._repository.revision === 0) {
-          this._repository = new TimetableRepository({ snapshot });
+          this._repository.replaceSnapshot(snapshot);
         }
       })();
     }
@@ -170,8 +170,12 @@ export class TimetableClient {
         return result;
       }
       const latest = await this.repositoryAdapter.load();
-      this._repository = new TimetableRepository({
-        snapshot: latest ?? undefined,
+      this._repository.replaceSnapshot(latest ?? {
+        schemaVersion: 5,
+        revision: 0,
+        directory: { groups: [], teachers: [], rooms: [] },
+        sources: [],
+        links: [],
       });
     }
     throw new Error("Timetable repository update conflict");

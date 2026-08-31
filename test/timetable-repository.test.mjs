@@ -185,6 +185,77 @@ test("different recurrence days never merge despite matching metadata", () => {
   assert.equal(repo.getSeries().length, 2);
 });
 
+test("partially overlapping recurrence ranges remain separate series", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  const common = {
+    teachers: { values: [teacher], completeness: "partial" },
+    rooms: { values: [room], completeness: "partial" },
+  };
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation({
+      ...common,
+      recurrence: { weekday: 2, weeks: { from: 1, to: 9 } },
+    }),
+  ]));
+  repo.ingest(snapshot("group:102", { type: "group", group: groupB }, [
+    seriesObservation({
+      ...common,
+      recurrence: { weekday: 2, weeks: { from: 5, to: 17 } },
+    }),
+  ]));
+
+  assert.equal(repo.getSeries().length, 2);
+});
+
+test("partial relation evidence cannot become globally complete", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  const first = seriesObservation({
+    rooms: { values: [], completeness: "complete" },
+    teachers: { values: [teacher], completeness: "partial" },
+  });
+  const second = seriesObservation({
+    groups: { values: [{ group: groupA }], completeness: "partial" },
+    teachers: { values: [teacher], completeness: "partial" },
+    rooms: { values: [room], completeness: "partial" },
+  });
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [first]));
+  repo.ingest(snapshot("teacher:201", { type: "teacher", teacher }, [second]));
+
+  assert.deepEqual(repo.getSeries()[0].rooms, {
+    values: [room],
+    completeness: "partial",
+  });
+});
+
+test("substitutions from projections are deduplicated and enriched", () => {
+  const repo = repository();
+  seedDirectory(repo);
+  const date = "2025-09-09";
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation({
+      teachers: { values: [teacher], completeness: "partial" },
+      rooms: { values: [room], completeness: "partial" },
+      substitutions: [{ date, teachers: [{ name: "Иванов И. И." }] }],
+    }),
+  ]));
+  repo.ingest(snapshot("room:301", { type: "room", room }, [
+    seriesObservation({
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+      teachers: { values: [teacher], completeness: "partial" },
+      substitutions: [{ date, rooms: [{ name: room.name }], isDistance: false }],
+    }),
+  ]));
+
+  assert.deepEqual(repo.getSeries()[0].substitutions, [{
+    date,
+    rooms: [room],
+    teachers: [teacher],
+    isDistance: false,
+  }]);
+});
+
 test("source row movement preserves identity and repository snapshots preserve links", () => {
   const repo = repository();
   seedDirectory(repo);
@@ -220,6 +291,67 @@ test("source row movement preserves identity and repository snapshots preserve l
     ]),
   );
   assert.equal(afterRestore.seriesIds[0], initial.seriesIds[0]);
+});
+
+test("deleted rows remove stale links and report exact removals", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  repo.ingest(snapshot("group:101", owner, [
+    seriesObservation({ key: "row:1" }),
+    seriesObservation({ key: "row:2", subject: "Сети" }),
+  ]));
+  const result = repo.ingest(snapshot("group:101", owner, [
+    seriesObservation({ key: "row:1" }),
+    seriesObservation({ key: "row:3", subject: "ОС" }),
+  ]));
+
+  assert.equal(result.removedObservations, 1);
+  assert.equal(
+    repo.export().links.some((value) => value.observationKey === "row:2"),
+    false,
+  );
+});
+
+test("same source position does not preserve ID for an unrelated lesson", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  const first = repo.ingest(snapshot("group:101", owner, [seriesObservation()]));
+  const replacement = repo.ingest(snapshot("group:101", owner, [
+    seriesObservation({ subject: "Совсем другой предмет" }),
+  ]));
+
+  assert.notEqual(replacement.seriesIds[0], first.seriesIds[0]);
+  assert.equal(repo.getSeries().length, 1);
+});
+
+test("repository rejects duplicate observation keys and dangling snapshots", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  assert.throws(() => repo.ingest(snapshot("group:101", owner, [
+    seriesObservation(),
+    seriesObservation(),
+  ])), /duplicate observation key/u);
+
+  const valid = repository();
+  valid.ingest(snapshot("group:101", owner, [seriesObservation()]));
+  const exported = valid.export();
+  exported.links = [];
+  assert.throws(() => repository(exported), /Missing timetable link/u);
+});
+
+test("replacing a persisted snapshot keeps existing Schedule views live", () => {
+  const owner = { type: "group", group: groupA };
+  const repo = repository();
+  repo.ingest(snapshot("group:101", owner, [seriesObservation()]));
+  const schedule = new Schedule(repo, owner, YEAR, { period: PERIOD, holidays: [] });
+
+  const external = repository();
+  external.ingest(snapshot("group:101", owner, [
+    seriesObservation({ subject: "Обновленный предмет" }),
+  ]));
+  repo.replaceSnapshot(external.export());
+
+  assert.equal(schedule.series()[0].subject, "Обновленный предмет");
 });
 
 test("recurring occurrence ID is stable and excludes mutable room and time", () => {
