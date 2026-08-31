@@ -11,6 +11,7 @@ import {
 } from "./normalize.js";
 import type {
   GroupAttendance,
+  GroupRef,
   IngestResult,
   LessonId,
   LessonIdGenerator,
@@ -122,6 +123,7 @@ function observationScore(
   left: ScheduleObservation,
   right: ScheduleObservation,
   sameSource: boolean,
+  directory: TimetableDirectory,
 ): number {
   if (left.kind !== right.kind) return Number.NEGATIVE_INFINITY;
   if (
@@ -193,9 +195,24 @@ function observationScore(
     }
   }
 
-  score += relationScore(valuesOverlap(left.rooms.values, right.rooms.values));
-  score += relationScore(valuesOverlap(left.teachers.values, right.teachers.values));
-  score += relationScore(groupsOverlap(left.groups.values, right.groups.values));
+  score += relationScore(valuesOverlap(
+    left.rooms.values.map((value) => directory.resolveRoom(value)),
+    right.rooms.values.map((value) => directory.resolveRoom(value)),
+  ));
+  score += relationScore(valuesOverlap(
+    left.teachers.values.map((value) => directory.resolveTeacher(value)),
+    right.teachers.values.map((value) => directory.resolveTeacher(value)),
+  ));
+  score += relationScore(groupsOverlap(
+    left.groups.values.map((value) => ({
+      ...value,
+      group: directory.resolveGroup(value.group),
+    })),
+    right.groups.values.map((value) => ({
+      ...value,
+      group: directory.resolveGroup(value.group),
+    })),
+  ));
   if (sameSource) score += 8;
   return score;
 }
@@ -348,15 +365,21 @@ function aggregateRelations(claims: ObservationClaim[]): {
   return {
     groups: {
       values: mergeGroups(groups),
-      completeness: aggregateCompleteness(claims.map((value) => value.observation.groups)),
+      completeness: claims.some((value) => value.source.owner.type === "group")
+        ? "partial"
+        : aggregateCompleteness(claims.map((value) => value.observation.groups)),
     },
     teachers: {
       values: mergeTeachers(teachers),
-      completeness: aggregateCompleteness(claims.map((value) => value.observation.teachers)),
+      completeness: claims.some((value) => value.source.owner.type === "teacher")
+        ? "partial"
+        : aggregateCompleteness(claims.map((value) => value.observation.teachers)),
     },
     rooms: {
       values: mergeRooms(rooms),
-      completeness: aggregateCompleteness(claims.map((value) => value.observation.rooms)),
+      completeness: claims.some((value) => value.source.owner.type === "room")
+        ? "partial"
+        : aggregateCompleteness(claims.map((value) => value.observation.rooms)),
     },
   };
 }
@@ -426,6 +449,7 @@ export class TimetableRepository {
   ingest(snapshot: ScheduleSourceSnapshot): IngestResult {
     const incoming = structuredClone(snapshot);
     this.validateSource(incoming);
+    this.rememberSourceEntities(incoming);
     const prior = this.sources.get(incoming.sourceKey);
     const priorClaims = new Map<string, ObservationClaim>();
     if (prior) {
@@ -450,7 +474,12 @@ export class TimetableRepository {
       let target =
         exact?.kind === observation.kind &&
         exactPrior?.observation.kind === observation.kind &&
-        observationScore(observation, exactPrior.observation, true) >= 55 &&
+        observationScore(
+          observation,
+          exactPrior.observation,
+          true,
+          this.directory,
+        ) >= 55 &&
         !usedTargets.has(exact.id)
           ? exact
           : undefined;
@@ -661,6 +690,18 @@ export class TimetableRepository {
     if (!(source.observedAt instanceof Date) || !Number.isFinite(source.observedAt.getTime())) {
       throw new Error(`Invalid observation time for source ${source.sourceKey}`);
     }
+    const validateRef = (value: { id?: number; name: string }, label: string) => {
+      if (!value.name.trim()) throw new Error(`Empty ${label} in ${source.sourceKey}`);
+      if (value.id != null && (!Number.isInteger(value.id) || value.id < 1)) {
+        throw new Error(`Invalid ${label} ID in ${source.sourceKey}`);
+      }
+    };
+    const ownerRef = source.owner.type === "group"
+      ? source.owner.group
+      : source.owner.type === "teacher"
+        ? source.owner.teacher
+        : source.owner.room;
+    validateRef(ownerRef, `${source.owner.type} owner`);
     const keys = new Set<string>();
     for (const observation of source.observations) {
       if (!observation.key.trim() || keys.has(observation.key)) {
@@ -671,6 +712,20 @@ export class TimetableRepository {
       }
       if (!observation.type.trim()) {
         throw new Error(`Empty lesson type in ${source.sourceKey}/${observation.key}`);
+      }
+      const relations = [
+        ["group", observation.groups, observation.groups.values.map((value) => value.group)],
+        ["teacher", observation.teachers, observation.teachers.values],
+        ["room", observation.rooms, observation.rooms.values],
+      ] as const;
+      for (const [label, relation, values] of relations) {
+        if (!["unknown", "partial", "complete"].includes(relation.completeness)) {
+          throw new Error(`Invalid ${label} completeness in ${source.sourceKey}/${observation.key}`);
+        }
+        if (relation.completeness === "unknown" && values.length > 0) {
+          throw new Error(`Unknown ${label} relation has values in ${source.sourceKey}/${observation.key}`);
+        }
+        for (const value of values) validateRef(value, label);
       }
       if (
         observation.slotNumber != null &&
@@ -692,6 +747,8 @@ export class TimetableRepository {
         if (!isLocalDate(substitution.date)) {
           throw new Error(`Invalid substitution date in ${source.sourceKey}/${observation.key}`);
         }
+        for (const value of substitution.rooms ?? []) validateRef(value, "substitution room");
+        for (const value of substitution.teachers ?? []) validateRef(value, "substitution teacher");
       }
       if (observation.kind === "series") {
         const { weekday, weeks } = observation.recurrence;
@@ -719,6 +776,27 @@ export class TimetableRepository {
       }
       keys.add(observation.key);
     }
+  }
+
+  private rememberSourceEntities(source: ScheduleSourceSnapshot): void {
+    const groups: GroupRef[] = [];
+    const teachers: TeacherRef[] = [];
+    const rooms: RoomRef[] = [];
+    if (source.owner.type === "group") groups.push(source.owner.group);
+    if (source.owner.type === "teacher") teachers.push(source.owner.teacher);
+    if (source.owner.type === "room") rooms.push(source.owner.room);
+    for (const observation of source.observations) {
+      groups.push(...observation.groups.values.map((value) => value.group));
+      teachers.push(...observation.teachers.values);
+      rooms.push(...observation.rooms.values);
+      for (const substitution of observation.substitutions ?? []) {
+        teachers.push(...(substitution.teachers ?? []));
+        rooms.push(...(substitution.rooms ?? []));
+      }
+    }
+    this.directory.rememberGroups(groups);
+    this.directory.rememberTeachers(teachers);
+    this.directory.rememberRooms(rooms);
   }
 
   private pruneEmptyRecords(): void {
@@ -778,7 +856,12 @@ export class TimetableRepository {
       if (!link || link.kind !== observation.kind || usedTargets.has(link.id)) {
         continue;
       }
-      const score = observationScore(observation, claim.observation, true);
+      const score = observationScore(
+        observation,
+        claim.observation,
+        true,
+        this.directory,
+      );
       if (!best || score > best.score) {
         best = { link, score };
         tied = false;
@@ -814,7 +897,12 @@ export class TimetableRepository {
         }
         recordScore = Math.max(
           recordScore,
-          observationScore(observation, claim.observation, false),
+          observationScore(
+            observation,
+            claim.observation,
+            false,
+            this.directory,
+          ),
         );
       }
       if (!best || recordScore > best.score) {

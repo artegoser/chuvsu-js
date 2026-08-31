@@ -26,6 +26,21 @@ function exactKey(name: string): string {
   return normalizeScheduleText(name);
 }
 
+function validateRefs<T extends { id?: number; name: string }>(
+  values: T[],
+  label: string,
+): void {
+  for (const value of values) {
+    if (!value.name.trim()) throw new TypeError(`${label} name is empty`);
+    if (
+      value.id != null &&
+      (!Number.isInteger(value.id) || value.id < 1)
+    ) {
+      throw new RangeError(`${label} ID must be a positive integer`);
+    }
+  }
+}
+
 function mergeByIdAndName<T extends { id?: number; name: string }>(
   current: T[],
   incoming: T[],
@@ -34,6 +49,32 @@ function mergeByIdAndName<T extends { id?: number; name: string }>(
   const before = JSON.stringify(current);
   const after = JSON.stringify(values);
   return { values, changed: before !== after };
+}
+
+function mergeTeachersByIdentity(
+  current: TeacherRef[],
+  incoming: TeacherRef[],
+): { values: TeacherRef[]; changed: boolean } {
+  const merged = mergeEntityRefs([...current, ...incoming]);
+  const identified = merged.filter((value) => value.id != null);
+  const unresolved: TeacherRef[] = [];
+  for (const alias of merged.filter((value) => value.id == null)) {
+    const matches = identified
+      .map((value, index) => ({ value, index }))
+      .filter(({ value }) => personKey(value.name) === personKey(alias.name));
+    const ids = new Set(matches.map(({ value }) => value.id));
+    if (ids.size === 1) {
+      const match = matches[0];
+      identified[match.index] = { ...alias, ...match.value };
+    } else {
+      unresolved.push(alias);
+    }
+  }
+  const values = mergeEntityRefs([...identified, ...unresolved]);
+  return {
+    values,
+    changed: JSON.stringify(current) !== JSON.stringify(values),
+  };
 }
 
 function resolveUnique<T extends { id?: number; name: string }>(
@@ -61,25 +102,31 @@ export class TimetableDirectory {
 
   constructor(snapshot?: TimetableDirectorySnapshot) {
     if (snapshot) {
-      this.groups = structuredClone(snapshot.groups);
-      this.teachers = structuredClone(snapshot.teachers);
-      this.rooms = structuredClone(snapshot.rooms);
+      validateRefs(snapshot.groups, "Group");
+      validateRefs(snapshot.teachers, "Teacher");
+      validateRefs(snapshot.rooms, "Room");
+      this.groups = mergeEntityRefs(structuredClone(snapshot.groups));
+      this.teachers = mergeTeachersByIdentity([], structuredClone(snapshot.teachers)).values;
+      this.rooms = mergeEntityRefs(structuredClone(snapshot.rooms));
     }
   }
 
   rememberGroups(values: GroupRef[]): boolean {
+    validateRefs(values, "Group");
     const result = mergeByIdAndName(this.groups, values);
     this.groups = result.values;
     return result.changed;
   }
 
   rememberTeachers(values: TeacherRef[]): boolean {
-    const result = mergeByIdAndName(this.teachers, values);
+    validateRefs(values, "Teacher");
+    const result = mergeTeachersByIdentity(this.teachers, values);
     this.teachers = result.values;
     return result.changed;
   }
 
   rememberRooms(values: RoomRef[]): boolean {
+    validateRefs(values, "Room");
     const result = mergeByIdAndName(this.rooms, values);
     this.rooms = result.values;
     return result.changed;

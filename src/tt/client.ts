@@ -524,9 +524,15 @@ export class TimetableClient {
     const ownerUrl = this.ownerUrl(owner);
     const periods = normalizePeriods(options?.periods);
     await this.ensureRepository();
-    if (owner.type === "group") await this.rememberGroups([owner.group]);
-    if (owner.type === "teacher") await this.rememberTeachers([owner.teacher]);
-    if (owner.type === "room") await this.rememberRooms([owner.room]);
+    if (owner.type === "group" && owner.group.name.trim()) {
+      await this.rememberGroups([owner.group]);
+    }
+    if (owner.type === "teacher" && owner.teacher.name.trim()) {
+      await this.rememberTeachers([owner.teacher]);
+    }
+    if (owner.type === "room" && owner.room.name.trim()) {
+      await this.rememberRooms([owner.room]);
+    }
     const resolvedOwner = this.resolveOwner(owner);
     const context = await this.getTimetableContext(ownerUrl);
     const results = await Promise.all(

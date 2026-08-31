@@ -155,6 +155,31 @@ test("teacher and room projections enrich the same canonical lesson", () => {
   assert.equal(lesson.sources.length, 3);
 });
 
+test("repository directory resolves initials during identity matching", () => {
+  const repo = repository();
+  const groupResult = repo.ingest(
+    snapshot("group:101", { type: "group", group: groupA }, [
+      seriesObservation({
+        teachers: { values: [{ name: "Иванов И. И." }], completeness: "partial" },
+        rooms: { values: [{ name: room.name }], completeness: "partial" },
+      }),
+    ]),
+  );
+  const teacherResult = repo.ingest(
+    snapshot("teacher:201", { type: "teacher", teacher }, [
+      seriesObservation({
+        groups: { values: [{ group: groupA }], completeness: "partial" },
+        teachers: { values: [teacher], completeness: "partial" },
+        rooms: { values: [room], completeness: "partial" },
+      }),
+    ]),
+  );
+
+  assert.equal(teacherResult.seriesIds[0], groupResult.seriesIds[0]);
+  assert.deepEqual(repo.getSeries()[0].teachers.values, [teacher]);
+  assert.deepEqual(repo.directory.export().teachers, [teacher]);
+});
+
 test("scalar evidence is aggregated independently across projections", () => {
   const repo = repository();
   seedDirectory(repo);
@@ -286,6 +311,18 @@ test("partial relation evidence cannot become globally complete", () => {
   });
 });
 
+test("source owner is always explicit partial relation evidence", () => {
+  const repo = repository();
+  repo.ingest(snapshot("group:101", { type: "group", group: groupA }, [
+    seriesObservation(),
+  ]));
+
+  assert.deepEqual(repo.getSeries()[0].groups, {
+    values: [{ group: groupA, subgroup: undefined }],
+    completeness: "partial",
+  });
+});
+
 test("substitutions from projections are deduplicated and enriched", () => {
   const repo = repository();
   seedDirectory(repo);
@@ -403,6 +440,21 @@ test("repository rejects duplicate observation keys and dangling snapshots", () 
       },
     }),
   ])), /Invalid lesson time/u);
+
+  assert.throws(() => repo.ingest(snapshot("group:103", owner, [
+    seriesObservation({
+      rooms: { values: [{ name: "" }], completeness: "partial" },
+    }),
+  ])), /Empty room/u);
+  assert.throws(() => repo.ingest(snapshot("group:104", owner, [
+    seriesObservation({
+      teachers: { values: [teacher], completeness: "unknown" },
+    }),
+  ])), /Unknown teacher relation has values/u);
+  assert.throws(
+    () => repo.rememberRooms([{ id: 1, name: "" }]),
+    /Room name is empty/u,
+  );
 });
 
 test("replacing a persisted snapshot keeps existing Schedule views live", () => {
