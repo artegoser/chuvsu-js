@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" /><link rel="stylesheet" href="/javascript/jquery-ui-1.10.1/themes/start/jquery-ui.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="/javascript/jquery-1.12.4/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/javascript/jquery-ui-1.10.1/jquery-ui-1.10.1.custom.js"></script>
+<script type="text/javascript" src="/javascript/jquery-1.9.1/jquery-migrate-1.1.1.js"></script>
+
+<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/js/jquery.maphilight.min.js"></script>
+<script type="text/javascript" src="//api-maps.yandex.ru/2.0/?load=package.full&amp;lang=ru-RU"></script>
+<script type="text/javascript" src="/js/uhpv-full.js"></script><link href="/css/site.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/css/jquery.dataTables.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/css/highlight.css" media="screen" rel="stylesheet" type="text/css" />
+<link href="/css/special.css" media="screen" rel="stylesheet" type="text/css" /><title>Расписание занятий</title></head>
+<body style="min-width: 1250px;">
+<div id="logo" style="background-color: white;" class="unspecial">
+<!--
+    <div id="finevision_banner" onclick="finevision.activate_navbar()" style="cursor: pointer; z-index: 9999; background: rgb(255, 255, 255); border: 2px solid rgb(0, 0, 0); float: right; position: fixed; top: 0px; left: auto; right: 0px;">
+        <img width="128" src="http://finevision.ru/static/banner1.jpg"></div>
+-->
+    <center><a href="https://www.chuvsu.ru" title="www.chuvsu.ru"><img src="/images/logo.jpg" ></a></center>
+</div>
+<div id="banner" style="background-color: lightcoral; border: 2px solid red; color: white; text-align: center; font-size: 30px; margin-top: 5px; margin-bottom: 5px; width: 100%; height: 70px; ">
+ВНИМАНИЕ! Учебные занятия проводятся в смешанном формате с применением дистанционных образовательных технологий
+</div>
+    <table style="width: 100%;"><tr><td align="right">
+<div style="float: right; width: 100%; background-color: lightyellow;">Вы вошли как <font id="uname">Егоров А.С.. </font><a href="/auth/logout">Выйти</a></div>            </td></tr></table>
+    <div id="header">
+    <div style="float: right; background-color: white; margin: 5px 5px;">
+        <a id="specialButton" href="#" >
+            <img src="/images/special.png" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" />
+        </a>
+    </div>
+<div id="path" class="sbtext">
+<a href="/">Расписание занятий</a> &nbsp;&nbsp;/&nbsp;&nbsp; <a href="/index/findaud">Аудитории</a> &nbsp;&nbsp;/&nbsp;&nbsp; Е-407</div>
+</div>
+<div id="content" >
+<style>
+.htext {font-family: 'Arial'; font-size: 24px; color: #666666;}
+.htextb {font-family: 'Arial'; font-size: 24px; color: #000000;}
+.clbut {background-color: #D3D6FF;}
+.want{
+
+  background: -moz-linear-gradient(45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%),-moz-linear-gradient(-45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%);
+  background: -webkit-linear-gradient(45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%),-webkit-linear-gradient(-45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%);
+  background: -ms-linear-gradient(45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%),-ms-linear-gradient(-45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%);
+  background: linear-gradient(45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%),linear-gradient(-45deg,rgba(0, 0, 0, 0) 48%,rgba(0, 0, 0, 0.2) 50%,rgba(0, 0, 0, 0) 52%);
+  background-size: 1em 1em;
+/*  background-color: #fff; */
+  background-color: lightyellow;
+}
+input {cursor: pointer;}
+.lbut {cursor: pointer; margin-left: 1px;}
+
+</style>
+<form id="tt" method="post"><table width="100%">
+    <tr><td valign="top">
+<div style="float: left;">
+    <table cellspacing="10" class="sbtext"><tr><td valign="top">
+    <span class="htext"><nobr>Аудитория <span style="color: blue;">Е-407</span></nobr></span></td><td valign="top"><span class="htextb"> (Корпус Е; 4 этаж - Учебный класс)</span></td></tr>
+<tr><td colspan="2">
+</td></tr>
+</table>
+
+<div ><hr><table><tr><td rowspan="2" valign="bottom"><button name="let99" id="let99" type="submit" class="lbut nicebut" style="min-width: 185px; min-height: 50px;" autofocus="autofocus" >Еженедельное расписание<br>(ОЧ+ОЗ)</button></td><td align="center" valign="bottom">по неделям (ОЧ+ОЗ+ЗО):</td></tr><tr><td valign="bottom"><button name="let1" id="let1" type="submit" value="1" class="lbut nicebut" title="31.08 - 05.09">1</button><button name="let2" id="let2" type="submit" value="2" class="lbut nicebut" title="07.09 - 12.09">2</button><button name="let3" id="let3" type="submit" value="3" class="lbut nicebut" title="14.09 - 19.09">3</button><button name="let4" id="let4" type="submit" value="4" class="lbut nicebut" title="21.09 - 26.09">4</button><button name="let5" id="let5" type="submit" value="5" class="lbut nicebut" title="28.09 - 03.10">5</button><button name="let6" id="let6" type="submit" value="6" class="lbut nicebut" title="05.10 - 10.10">6</button><button name="let7" id="let7" type="submit" value="7" class="lbut nicebut" title="12.10 - 17.10">7</button><button name="let8" id="let8" type="submit" value="8" class="lbut nicebut" title="19.10 - 24.10">8</button><button name="let9" id="let9" type="submit" value="9" class="lbut nicebut" title="26.10 - 31.10">9</button><button name="let10" id="let10" type="submit" value="10" class="lbut nicebut" title="02.11 - 07.11">10</button><button name="let11" id="let11" type="submit" value="11" class="lbut nicebut" title="09.11 - 14.11">11</button><button name="let12" id="let12" type="submit" value="12" class="lbut nicebut" title="16.11 - 21.11">12</button><button name="let13" id="let13" type="submit" value="13" class="lbut nicebut" title="23.11 - 28.11">13</button><button name="let14" id="let14" type="submit" value="14" class="lbut nicebut" title="30.11 - 05.12">14</button><button name="let15" id="let15" type="submit" value="15" class="lbut nicebut" title="07.12 - 12.12">15</button><button name="let16" id="let16" type="submit" value="16" class="lbut nicebut" title="14.12 - 19.12">16</button><button name="let17" id="let17" type="submit" value="17" class="lbut nicebut" title="21.12 - 26.12">17</button></td></tr></table></div>
+<table id="audstt" width="100%">
+    <thead>
+        <tr>
+            <th width="120">Время (ВО)
+            </th>
+            <th >Занятия
+            </th>
+            <th width="120">Время (СПО)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style=" background: lightgray; " class="trfd" ><td width="120">Понедельник</td><td align="center"></td><td width="120">Понедельник</td></tr><tr><td class="trf trdata" ><div id="trd1t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td1t1" align="left" valign="top" class="trdata"><div id="tdd1t1" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Статистика</span> (пр) (2 - 16 нед.) <br>Соколова А. Г.<br>Ф-91-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd1t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd1t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td1t2" align="left" valign="top" class="trdata"><div id="tdd1t2" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Иностранный язык</span> (лб) (2 - 17 нед.) <br>Львова Т. В.<br>Б-92-26 (2 подгруппа)</td></tr></table></div></td><td class="trf trdata" ><div id="trd1t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd1t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td1t3" align="left" valign="top" class="trdata"><div id="tdd1t3" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Международные товарные рынки</span> (лк) (2 - 17 нед.) <br>доц.  к.э.н. Архипова В. А.<br>ЭК-10-23 ОЗЭК-10-23</td></tr></table></div></td><td class="trf trdata" ><div id="trd1t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd1t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td1t4" align="left" valign="top" class="trdata"><div id="tdd1t4" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Государственное и муниципальное управление</span> (пр) (2 - 17 нед.) <br>доц.  к.соц.н. Михопаров Н. И.<br>ЭК-07-25 ОЗЭК-07-25 ЭК-06-25 ОЗЭК-06-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd1t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr><td class="trf trdata" ><div id="trd1t5" class="trfd">5 пара<br>(15:00 - 16:20)</div></td><td id="td1t5" align="left" valign="top" class="trdata"><div id="tdd1t5" class="tdd"><table width="100%"><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Литература</span> (пр) (2 - 14 нед.) <br>Кучаева Е. Г.<br>Ф-93-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd1t5" class="trfd">5 пара<br>(15:25 - 16:55)</div></td></tr><tr><td class="trf trdata" ><div id="trd1t6" class="trfd">6 пара<br>(16:40 - 18:00)</div></td><td id="td1t6" align="left" valign="top" class="trdata"><div id="tdd1t6" class="tdd"><table width="100%"><tr><td  class="want" ><div style="border: 2px solid red; padding: 5px; margin-top: 1px;"><span style="color: red;"><b>21.09.2026  перенос с 07.09.2026 (4 пара) вместо: </b></span><span style="color: blue;">Е-306</span><br>Е-407 <span style="color: blue;">Государственное и муниципальное управление</span> (пр)<br>Рассадина Я. А.<br>ЭК-08-25 ОЗЭК-08-25</div></td></tr></table></div></td><td class="trf trdata" ><div id="trd1t6" class="trfd">6 пара<br>(17:10 - 18:40)</div></td></tr><tr style=" background: lightgray; " class="trfd" ><td width="120">Вторник</td><td align="center"></td><td width="120">Вторник</td></tr><tr><td class="trf trdata" ><div id="trd2t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td2t1" align="left" valign="top" class="trdata"><div id="tdd2t1" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Практические основы бухгалтерского учета активов организации и источников их формирования</span> (пр) (1 - 16 нед.) <br>Ильина Н. В.<br>Б-11-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd2t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td2t2" align="left" valign="top" class="trdata"><div id="tdd2t2" class="tdd"><table width="100%"><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Математика</span> (лк) (2 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-06-26 ОЗЭК-06-26 ЭК-07-26 ОЗЭК-07-26 ЭК-08-26 ОЗЭК-08-26 ЭК-06-26ин</td></tr><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (3 - 17 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-051-26 ОЗЭК-051-26 ЭК-051-26ин</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd2t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td2t3" align="left" valign="top" class="trdata"><div id="tdd2t3" class="tdd"><table width="100%"><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (3 - 17 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-04-26 ОЗЭК-04-26</td></tr><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-10-26 ОЗЭК-10-26 ЭК-09-26 ОЗЭК-09-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd2t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td2t4" align="left" valign="top" class="trdata"><div id="tdd2t4" class="tdd"><table width="100%"><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-08-26 ОЗЭК-08-26</td></tr><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Русский язык</span> (лк) (2 - 17 нед.) <br>Васильева М. А.<br>Б-91-26 Б-92-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr><td class="trf trdata" ><div id="trd2t5" class="trfd">5 пара<br>(15:00 - 16:20)</div></td><td id="td2t5" align="left" valign="top" class="trdata"><div id="tdd2t5" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Экономика организации</span> (пр) (3 - 16 нед.) <br>Рассадина Я. А.<br>Ф-91-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t5" class="trfd">5 пара<br>(15:25 - 16:55)</div></td></tr><tr><td class="trf trdata" ><div id="trd2t6" class="trfd">6 пара<br>(16:40 - 18:00)</div></td><td id="td2t6" align="left" valign="top" class="trdata"><div id="tdd2t6" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Основы бухгалтерского учета</span> (пр) (1 - 16 нед.) <br>Романова О. А.<br>Б-92-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd2t6" class="trfd">6 пара<br>(17:10 - 18:40)</div></td></tr><tr style=" background: lightgray; " class="trfd" ><td width="120">Среда</td><td align="center"></td><td width="120">Среда</td></tr><tr><td class="trf trdata" ><div id="trd3t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td3t1" align="left" valign="top" class="trdata"><div id="tdd3t1" class="tdd"><table width="100%"><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-03-26 ОЗЭК-03-26</td></tr><tr><td  class="want" ><div style="border: 2px solid red; padding: 5px; margin-top: 1px;"><span style="color: red;"><b>23.09.2026  перенос с 08.09.2026 (2 пара) вместо: </b></span><span style="color: blue;">Е-202</span><br>Е-407 <span style="color: blue;">Государственное и муниципальное управление</span> (пр)<br>Рассадина Я. А.<br>ЭК-02-25 ОЗЭК-02-25 ЭК-02-25ин</div></td></tr></table></div></td><td class="trf trdata" ><div id="trd3t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd3t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td3t2" align="left" valign="top" class="trdata"><div id="tdd3t2" class="tdd"><table width="100%"><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-052-26 ОЗЭК-052-26</td></tr><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-06-26 ОЗЭК-06-26 ЭК-07-26 ОЗЭК-07-26 ЭК-06-26ин</td></tr><tr><td  class="want" > <span style="color: blue;">Статистика</span> (пр) (17 нед.) <br>Иванов А. П.<br>ЭК-07-25 ОЗЭК-07-25 ЭК-06-25 ОЗЭК-06-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd3t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd3t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td3t3" align="left" valign="top" class="trdata"><div id="tdd3t3" class="tdd"><table width="100%"><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-01-26 ОЗЭК-01-26 ЭК-01-26ин</td></tr><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Математика</span> (пр) (1 - 16 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-02-26 ОЗЭК-02-26</td></tr><tr><td  class="want" ><sup>*</sup> <span style="color: blue;">Математика</span> (пр) (17 нед.) <br>доц.  к.ф.-м.н. Ефимова Е. Г.<br>ЭК-02-26 ОЗЭК-02-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd3t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd3t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td3t4" align="left" valign="top" class="trdata"><div id="tdd3t4" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Финансы</span> (пр) (1 - 16 нед.) <br>доц.  к.э.н. Митрофанова М. Ю.<br>ЭК-10-25 ОЗЭК-10-25 ЭК-09-25 ОЗЭК-09-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd3t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr><td class="trf trdata" ><div id="trd3t5" class="trfd">5 пара<br>(15:00 - 16:20)</div></td><td id="td3t5" align="left" valign="top" class="trdata"><div id="tdd3t5" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Практические основы бухгалтерского учета активов организации и источников их формирования</span> (КРП) (1 - 11 нед.) <br>Ильина Н. В.<br>Б-11-25</td></tr><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Финансы</span> (пр) (14 нед.) <br>доц.  к.э.н. Митрофанова М. Ю.<br>ЭК-10-25 ОЗЭК-10-25 ЭК-09-25 ОЗЭК-09-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd3t5" class="trfd">5 пара<br>(15:25 - 16:55)</div></td></tr><tr><td class="trf trdata" ><div id="trd3t6" class="trfd">6 пара<br>(16:40 - 18:00)</div></td><td id="td3t6" align="left" valign="top" class="trdata"><div id="tdd3t6" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Организация расчетов с бюджетом и внебюджетными фондами</span> (пр) (1 - 12 нед.) <br>Романова О. А.<br>Б-91-24 Б-92-24</td></tr></table></div></td><td class="trf trdata" ><div id="trd3t6" class="trfd">6 пара<br>(17:10 - 18:40)</div></td></tr><tr style=" background: lightgray; " class="trfd" ><td width="120">Четверг</td><td align="center"></td><td width="120">Четверг</td></tr><tr><td class="trf trdata" ><div id="trd4t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td4t1" align="left" valign="top" class="trdata"><div id="tdd4t1" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Основы безопасности и защиты Родины</span> (пр) (7 нед.) <br>Сучкова А. Г.<br>Ф-91-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td4t2" align="left" valign="top" class="trdata"><div id="tdd4t2" class="tdd"><table width="100%"><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Микроэкономика</span> (пр) (1 - 16 нед.) <br>Кадышева О. Е.<br>ЭК-052-26 ОЗЭК-052-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td4t3" align="left" valign="top" class="trdata"><div id="tdd4t3" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Управление конкурентоспособностью предприятий торговли</span> (лк) (1 - 16 нед.) <br>зав.каф.  к.э.н. Бондаренко Н. В.<br>ЭК-10-24 ОЗЭК-10-24</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td4t4" align="left" valign="top" class="trdata"><div id="tdd4t4" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Обязательное социальное страхование и социальная безопасность</span> (пр) (1 - 16 нед.) <br>доц.  к.э.н. Березина Н. В.<br>ЭК-09-23 ОЗЭК-09-23</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t5" class="trfd">5 пара<br>(15:00 - 16:20)</div></td><td id="td4t5" align="left" valign="top" class="trdata"><div id="tdd4t5" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Основы безопасности и защиты Родины</span> (пр) (1 - 13 нед.) <br>Сучкова А. Г.<br>Б-92-26</td></tr><tr><td  class="want" > <span style="color: blue;">История</span> (пр) (14 - 17 нед.) <br>Тюнтеров О. С.<br>Б-92-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t5" class="trfd">5 пара<br>(15:25 - 16:55)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t6" class="trfd">6 пара<br>(16:40 - 18:00)</div></td><td id="td4t6" align="left" valign="top" class="trdata"><div id="tdd4t6" class="tdd"></div></td><td class="trf trdata" ><div id="trd4t6" class="trfd">6 пара<br>(17:10 - 18:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd4t7" class="trfd">7 пара<br>(18:10 - 19:30)</div></td><td id="td4t7" align="left" valign="top" class="trdata"><div id="tdd4t7" class="tdd"><table width="100%"><tr><td  class="want" ><sup>**</sup> <span style="color: blue;">Социальная ответственность и социальная политика государственных и муниципальных учреждений</span> (лк) (1 - 16 нед.) <br>доц.  к.э.н. Марков А. В.<br>ЭКМ-08-26 УГМУ ОЗЭКМ-08-26 УГМУ</td></tr></table></div></td><td class="trf trdata" ><div id="trd4t7" class="trfd">7 пара<br>(18:55 - 20:25)</div></td></tr><tr style=" background: lightgray; " class="trfd" ><td width="120">Пятница</td><td align="center"></td><td width="120">Пятница</td></tr><tr><td class="trf trdata" ><div id="trd5t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td5t1" align="left" valign="top" class="trdata"><div id="tdd5t1" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Финансы, денежное обращение и кредит</span> (лк) (1 - 16 нед.) <br>Пантелеймонова О. Н.<br>Ф-11-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd5t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd5t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td5t2" align="left" valign="top" class="trdata"><div id="tdd5t2" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Налоги и налогообложение</span> (пр) (1 - 16 нед.) <br>доц.  к.э.н. Зотиков Н. З.<br>ЭК-01-24 ЭК-04-24 ОЗЭК-01-24 ОЗЭК-04-24</td></tr></table></div></td><td class="trf trdata" ><div id="trd5t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd5t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td5t3" align="left" valign="top" class="trdata"><div id="tdd5t3" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Аудит</span> (пр) (1 - 16 нед.) <br>зав.каф.  к.э.н. Львова М. В.<br>ЭК-01-24 ЭК-04-24 ОЗЭК-01-24 ОЗЭК-04-24</td></tr></table></div></td><td class="trf trdata" ><div id="trd5t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd5t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td5t4" align="left" valign="top" class="trdata"><div id="tdd5t4" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Цифровизация исполнения бюджета</span> (лк) (1 - 16 нед.) <br>доц.  к.э.н. Аркадьева О. Г.<br>ЭК-03-23 ОЗЭК-03-23</td></tr></table></div></td><td class="trf trdata" ><div id="trd5t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr style=" background: lightgray; " class="trfd" ><td width="120">Суббота</td><td align="center"></td><td width="120">Суббота</td></tr><tr><td class="trf trdata" ><div id="trd6t1" class="trfd">1 пара<br>(08:20 - 09:40)</div></td><td id="td6t1" align="left" valign="top" class="trdata"><div id="tdd6t1" class="tdd"></div></td><td class="trf trdata" ><div id="trd6t1" class="trfd">1 пара<br>(08:10 - 09:40)</div></td></tr><tr><td class="trf trdata" ><div id="trd6t2" class="trfd">2 пара<br>(09:50 - 11:10)</div></td><td id="td6t2" align="left" valign="top" class="trdata"><div id="tdd6t2" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Физика</span> (лк) (1 - 7 нед.) <br>доц.  к.ф.-м.н. Митрюхин Л. К.<br>Б-91-26 Б-92-26</td></tr><tr><td  class="want" > <span style="color: blue;">История</span> (лк) (8 - 13 нед.) <br>Тюнтеров О. С.<br>Б-91-26 Б-92-26</td></tr></table></div></td><td class="trf trdata" ><div id="trd6t2" class="trfd">2 пара<br>(09:55 - 11:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd6t3" class="trfd">3 пара<br>(11:40 - 13:00)</div></td><td id="td6t3" align="left" valign="top" class="trdata"><div id="tdd6t3" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Биология</span> (пр) (13 - 17 нед.) <br>Ванина О. А.<br>Б-91-26</td></tr><tr><td  class="want" > <span style="color: blue;">Химия</span> (лб) (7 - 8 нед.) <br>Васильева А. П.<br>Б-91-26 (2 подгруппа)</td></tr><tr><td  class="want" > <span style="color: blue;">Информатика</span> (лк) (2 - 6 нед.) <br>Иванов И. В.<br>Б-91-26 Б-92-26</td></tr><tr><td  class="want" > <span style="color: blue;">Физика</span> (лб) (11 нед.) <br>доц.  к.ф.-м.н. Митрюхин Л. К.<br>Б-92-26 (2 подгруппа)</td></tr></table></div></td><td class="trf trdata" ><div id="trd6t3" class="trfd">3 пара<br>(11:55 - 13:25)</div></td></tr><tr><td class="trf trdata" ><div id="trd6t4" class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td id="td6t4" align="left" valign="top" class="trdata"><div id="tdd6t4" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Химия</span> (пр) (9 - 10 нед.) <br>Васильева А. П.<br>Б-91-26</td></tr><tr><td  class="want" > <span style="color: blue;">Налоговый учет и налоговое планирование</span> (лк) (1 нед.) <br>Романова О. А.<br>Б-11-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd6t4" class="trfd">4 пара<br>(13:40 - 15:10)</div></td></tr><tr><td class="trf trdata" ><div id="trd6t5" class="trfd">5 пара<br>(15:00 - 16:20)</div></td><td id="td6t5" align="left" valign="top" class="trdata"><div id="tdd6t5" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Налоговый учет и налоговое планирование</span> (пр) (1 нед.) <br>Романова О. А.<br>Б-11-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd6t5" class="trfd">5 пара<br>(15:25 - 16:55)</div></td></tr><tr><td class="trf trdata" ><div id="trd6t6" class="trfd">6 пара<br>(16:40 - 18:00)</div></td><td id="td6t6" align="left" valign="top" class="trdata"><div id="tdd6t6" class="tdd"><table width="100%"><tr><td  class="want" > <span style="color: blue;">Технология составления бухгалтерской отчетности</span> (лк) (1 нед.) <br>Романова О. А.<br>Б-11-25</td></tr></table></div></td><td class="trf trdata" ><div id="trd6t6" class="trfd">6 пара<br>(17:10 - 18:40)</div></td></tr>
+    </tbody>
+</table>
+
+    <table style="margin-top: 20px;" class='unspecial'>
+    <tr>
+        <td valign="top" style="width: 500px; ">
+        <div id="blockimage">
+        <img id="blocksrc" draggable="false" unselectable="on" src="/index/blockimage/aud/803/bid/6"
+             alt="Е" ></div>
+        <p>
+        <span class="uname">Адрес: </span>Московский проспект, 29        </td>
+        <td valign="top" align="left" style="width: 450px; float: left;">
+        <div id="blockplace6"   style="width:400px; height:400px"></div>
+        </td>
+    </tr>
+
+
+    <tr><td valign="top">
+        <div id="floorplan">
+            <div id="floordiv" >
+        <img id="floorsrc" draggable="false"  unselectable="on" usemap="#flooraud" style="border: none;" src="/index/floorplan/aud/803/fid/40">
+            </div>
+        <map name="flooraud" id="flooraud">
+    <area name="planaud" id="planaud803" alt="Е-407" shape="rect" coords="212,216,298,296" nohref  data-maphilight='{"fillColor":"ff0000","strokeColor":"afafaf","fillOpacity":0.6,"shadow":true,"shadowBackground":"ffffff","alwaysOn":true}' >
+        </map>
+        </div>
+            </td><td valign="top">
+            <div id=audimage"6"
+             style="display: none;"
+                 >
+    <img id="audsrc" draggable="false" unselectable="on" src="/index/audimage/aud/803/aid/803"
+         alt="Е-407" >
+    </div>
+
+            </td></tr>
+
+
+
+    </table>
+</div>
+
+
+        </td><td valign="top" width="250">
+<div style="float: right; font-size: 8; padding: 10px;">
+<center><span style="color: blue;">2026/2027 учебный год</span></center><p><fieldset id="pertypef"  style="border: 2px solid; "><label><input type="radio" name="pertype" id="pertype-1" value="1" />Осенний семестр</label><br /><label><input type="radio" name="pertype" id="pertype-2" value="2" />Зимняя сессия</label><br /><label><input type="radio" name="pertype" id="pertype-3" value="3" />Весенний семестр</label><br /><label><input type="radio" name="pertype" id="pertype-4" value="4" />Летняя сессия</label><br /></fieldset>
+    <div style='margin-top: 30px;' width="100%"><center>
+        <span  style="color: blue; font-size: 20px;">
+        31 Августа 2026г.<br />
+        </span>
+        Понедельник<br />
+        <p>
+                </p>
+        </center>
+
+    </div>
+    <div style='margin-top: 30px; padding: 20px;' class='want'><center><b> - В расписании возможны изменения! </b></center></div>
+
+    <div style='margin-top: 30px; padding: 20px; border: 1px solid blue; ' ><center><span style="color: blue;"> (ДОТ)</span><b> - Занятия проводятся с применением электронного обучения и дистанционных образовательных технологий </b></center></div>
+    <div style="border: 2px solid red; padding: 5px; margin-top: 30px;"><b><span style="color: red;">
+31.08.2026            </span> - замены и переносы </b></div>
+
+</div>
+</td></tr>
+</table>
+<input type="hidden" name="htype" value="1" id="htype" /></form>
+<script language="JavaScript">
+var cwbut=99;
+
+$(document).ready(function(){
+    $("#let"+cwbut).addClass('clbut')
+    $("#pertype-"+"1").attr('checked','checked');
+    $("input[name=pertype]").click(function(){$("#htype").val($(this).val());$("#tt").submit();});
+    $('#audstt').dataTable({
+        "bjQueryUI":false,
+        "bPaginate":false,
+//        "bProcessing": true,
+        "bFilter":false,
+        "bInfo":false,
+//        "sScrollX": window.availWidth,
+        "sScrollX": "100%",
+        "bScrollCollapse":  true,
+//        "bScrollCollapse": false,
+//        "sScrollY": hy.toString()+'px',
+        "bSort": false,
+        "oLanguage": {
+            "sProcessing":   "Подождите...",
+            "sLengthMenu":   "Показать _MENU_ записей",
+            "sZeroRecords":  "Записи отсутствуют.",
+            "sInfo":         "Записи с _START_ до _END_ из _TOTAL_ записей",
+            "sInfoEmpty":    "Записи с 0 до 0 из 0 записей",
+            "sInfoFiltered": "(отфильтровано из _MAX_ записей)",
+            "sInfoPostFix":  "",
+            "sSearch":       "Поиск:",
+            "sUrl":          "",
+            "oPaginate": {         "sFirst": "Первая",
+                             "sPrevious": "Предыдущая",
+                             "sNext": "Следующая",
+                             "sLast": "Последняя"
+            }
+         }
+    });
+$( window ).resize(function() {
+        $('#floorsrc').attr('src', $('#floorsrc').attr('src')+'?'+Math.random());
+        $('#floorsrc').attr('width', 500);
+        $('#floorsrc').maphilight();
+});
+ymaps.ready(yinit);
+                    $('#floorsrc').attr('src', $('#floorsrc').attr('src')+'?'+Math.random());
+                    $('#floorsrc').maphilight();
+
+});
+
+    var bid="6";
+    var myMap;
+    var myPlacemark;
+    var myPoint;
+
+function yinit () {
+    // Создание экземпляра карты и его привязка к контейнеру с
+    // заданным id ("map").
+    myMap = new ymaps.Map('blockplace'+bid, {
+        // При инициализации карты обязательно нужно указать
+        // её центр и коэффициент масштабирования.
+//        center:[55.76, 37.64], // Москва
+        center:[56.145459,
+                47.214406],
+        zoom:15.000000    });
+
+    myMap.controls
+        // Кнопка изменения масштаба.
+        .add('zoomControl', { left: 5, top: 5 })
+        // Список типов карты
+//        .add('typeSelector')
+        // Стандартный набор кнопок
+        .add('mapTools', { left: 35, top: 5 });
+        myPoint = [56.143830,
+                   47.210157];
+        myPlacemark = new ymaps.Placemark(myPoint);
+        myMap.geoObjects.add(myPlacemark);
+//   document.getElementById('destroyButton').onclick = function () {
+        // Для уничтожения используется метод destroy.
+//        myMap.destroy();
+//    };
+}
+
+
+</script></div>
+<div id="footer">
+<div id='footmessage'>
+© ФГБОУ ВО «ЧГУ им. И.Н. Ульянова»</div>
+</div>
+<!-- Top.Mail.Ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "3607308", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = "https://top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "tmr-code");
+</script>
+<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3607308;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
+<!-- /Top.Mail.Ru counter -->
+</body>
+</html>

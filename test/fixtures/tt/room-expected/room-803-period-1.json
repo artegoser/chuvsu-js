@@ -1,0 +1,1765 @@
+{
+  "schemaVersion": 1,
+  "file": "room-803-period-1.html",
+  "owner": {
+    "type": "room",
+    "id": 803,
+    "name": "Е-407"
+  },
+  "academicYearStartYear": 2026,
+  "period": 1,
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Статистика",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Соколова А. Г."
+              },
+              "groups": [
+                "Ф-91-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Иностранный язык",
+              "type": "лб",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Львова Т. В."
+              },
+              "groups": [
+                "Б-92-26"
+              ],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Международные товарные рынки",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Архипова В. А.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-10-23",
+                "ОЗЭК-10-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Государственное и муниципальное управление",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Михопаров Н. И.",
+                "position": "доц.",
+                "degree": "к.соц.н."
+              },
+              "groups": [
+                "ЭК-07-25",
+                "ОЗЭК-07-25",
+                "ЭК-06-25",
+                "ОЗЭК-06-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Литература",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 14
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кучаева Е. Г."
+              },
+              "groups": [
+                "Ф-93-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Государственное и муниципальное управление",
+              "type": "пр",
+              "weeks": {
+                "from": 0,
+                "to": 0
+              },
+              "room": "Е-407",
+              "teacher": {
+                "name": "Рассадина Я. А."
+              },
+              "groups": [
+                "ЭК-08-25",
+                "ОЗЭК-08-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": {
+                "targetDate": "2026-09-21",
+                "fromDate": "2026-09-07",
+                "fromSlot": 4,
+                "subject": "Государственное и муниципальное управление"
+              },
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Практические основы бухгалтерского учета активов организации и источников их формирования",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ильина Н. В."
+              },
+              "groups": [
+                "Б-11-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-06-26",
+                "ОЗЭК-06-26",
+                "ЭК-07-26",
+                "ОЗЭК-07-26",
+                "ЭК-08-26",
+                "ОЗЭК-08-26",
+                "ЭК-06-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-051-26",
+                "ОЗЭК-051-26",
+                "ЭК-051-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-04-26",
+                "ОЗЭК-04-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-10-26",
+                "ОЗЭК-10-26",
+                "ЭК-09-26",
+                "ОЗЭК-09-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-08-26",
+                "ОЗЭК-08-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Русский язык",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Васильева М. А."
+              },
+              "groups": [
+                "Б-91-26",
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экономика организации",
+              "type": "пр",
+              "weeks": {
+                "from": 3,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Рассадина Я. А."
+              },
+              "groups": [
+                "Ф-91-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы бухгалтерского учета",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Романова О. А."
+              },
+              "groups": [
+                "Б-92-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-03-26",
+                "ОЗЭК-03-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Государственное и муниципальное управление",
+              "type": "пр",
+              "weeks": {
+                "from": 0,
+                "to": 0
+              },
+              "room": "Е-407",
+              "teacher": {
+                "name": "Рассадина Я. А."
+              },
+              "groups": [
+                "ЭК-02-25",
+                "ОЗЭК-02-25",
+                "ЭК-02-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": {
+                "targetDate": "2026-09-23",
+                "fromDate": "2026-09-08",
+                "fromSlot": 2,
+                "subject": "Государственное и муниципальное управление"
+              },
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-052-26",
+                "ОЗЭК-052-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-06-26",
+                "ОЗЭК-06-26",
+                "ЭК-07-26",
+                "ОЗЭК-07-26",
+                "ЭК-06-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Статистика",
+              "type": "пр",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Иванов А. П."
+              },
+              "groups": [
+                "ЭК-07-25",
+                "ОЗЭК-07-25",
+                "ЭК-06-25",
+                "ОЗЭК-06-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-01-26",
+                "ОЗЭК-01-26",
+                "ЭК-01-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-02-26",
+                "ОЗЭК-02-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Математика",
+              "type": "пр",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимова Е. Г.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "ЭК-02-26",
+                "ОЗЭК-02-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Митрофанова М. Ю.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-10-25",
+                "ОЗЭК-10-25",
+                "ЭК-09-25",
+                "ОЗЭК-09-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Практические основы бухгалтерского учета активов организации и источников их формирования",
+              "type": "КРП",
+              "weeks": {
+                "from": 1,
+                "to": 11
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ильина Н. В."
+              },
+              "groups": [
+                "Б-11-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансы",
+              "type": "пр",
+              "weeks": {
+                "from": 14,
+                "to": 14
+              },
+              "room": "",
+              "teacher": {
+                "name": "Митрофанова М. Ю.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-10-25",
+                "ОЗЭК-10-25",
+                "ЭК-09-25",
+                "ОЗЭК-09-25"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Организация расчетов с бюджетом и внебюджетными фондами",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 12
+              },
+              "room": "",
+              "teacher": {
+                "name": "Романова О. А."
+              },
+              "groups": [
+                "Б-91-24",
+                "Б-92-24"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы безопасности и защиты Родины",
+              "type": "пр",
+              "weeks": {
+                "from": 7,
+                "to": 7
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сучкова А. Г."
+              },
+              "groups": [
+                "Ф-91-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микроэкономика",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кадышева О. Е."
+              },
+              "groups": [
+                "ЭК-052-26",
+                "ОЗЭК-052-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Управление конкурентоспособностью предприятий торговли",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Бондаренко Н. В.",
+                "position": "зав.каф.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-10-24",
+                "ОЗЭК-10-24"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Обязательное социальное страхование и социальная безопасность",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Березина Н. В.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-09-23",
+                "ОЗЭК-09-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы безопасности и защиты Родины",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 13
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сучкова А. Г."
+              },
+              "groups": [
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "История",
+              "type": "пр",
+              "weeks": {
+                "from": 14,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Тюнтеров О. С."
+              },
+              "groups": [
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Социальная ответственность и социальная политика государственных и муниципальных учреждений",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Марков А. В.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭКМ-08-26 УГМУ",
+                "ОЗЭКМ-08-26 УГМУ"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы, денежное обращение и кредит",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Пантелеймонова О. Н."
+              },
+              "groups": [
+                "Ф-11-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Налоги и налогообложение",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Зотиков Н. З.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-01-24",
+                "ЭК-04-24",
+                "ОЗЭК-01-24",
+                "ОЗЭК-04-24"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Аудит",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Львова М. В.",
+                "position": "зав.каф.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-01-24",
+                "ЭК-04-24",
+                "ОЗЭК-01-24",
+                "ОЗЭК-04-24"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Цифровизация исполнения бюджета",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Аркадьева О. Г.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "ЭК-03-23",
+                "ОЗЭК-03-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Физика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 7
+              },
+              "room": "",
+              "teacher": {
+                "name": "Митрюхин Л. К.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "Б-91-26",
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "История",
+              "type": "лк",
+              "weeks": {
+                "from": 8,
+                "to": 13
+              },
+              "room": "",
+              "teacher": {
+                "name": "Тюнтеров О. С."
+              },
+              "groups": [
+                "Б-91-26",
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Биология",
+              "type": "пр",
+              "weeks": {
+                "from": 13,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ванина О. А."
+              },
+              "groups": [
+                "Б-91-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Химия",
+              "type": "лб",
+              "weeks": {
+                "from": 7,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Васильева А. П."
+              },
+              "groups": [
+                "Б-91-26"
+              ],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Информатика",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 6
+              },
+              "room": "",
+              "teacher": {
+                "name": "Иванов И. В."
+              },
+              "groups": [
+                "Б-91-26",
+                "Б-92-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Физика",
+              "type": "лб",
+              "weeks": {
+                "from": 11,
+                "to": 11
+              },
+              "room": "",
+              "teacher": {
+                "name": "Митрюхин Л. К.",
+                "position": "доц.",
+                "degree": "к.ф.-м.н."
+              },
+              "groups": [
+                "Б-92-26"
+              ],
+              "subgroup": 2,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Химия",
+              "type": "пр",
+              "weeks": {
+                "from": 9,
+                "to": 10
+              },
+              "room": "",
+              "teacher": {
+                "name": "Васильева А. П."
+              },
+              "groups": [
+                "Б-91-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Налоговый учет и налоговое планирование",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "",
+              "teacher": {
+                "name": "Романова О. А."
+              },
+              "groups": [
+                "Б-11-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Налоговый учет и налоговое планирование",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "",
+              "teacher": {
+                "name": "Романова О. А."
+              },
+              "groups": [
+                "Б-11-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Технология составления бухгалтерской отчетности",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "",
+              "teacher": {
+                "name": "Романова О. А."
+              },
+              "groups": [
+                "Б-11-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

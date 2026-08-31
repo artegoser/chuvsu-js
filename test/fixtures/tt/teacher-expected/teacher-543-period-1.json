@@ -1,0 +1,1469 @@
+{
+  "schemaVersion": 1,
+  "file": "teacher-543-period-1.html",
+  "owner": {
+    "type": "teacher",
+    "id": 543,
+    "name": "Митрофанова Марина Юрьевна"
+  },
+  "academicYearStartYear": 2026,
+  "period": 1,
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Рынок ценных бумаг",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "Е-409",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-23",
+                "ОЗЭК-09-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Рынок ценных бумаг",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "Е-409",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-23",
+                "ОЗЭК-09-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Профессиональная деятельность на рынке ценных бумаг",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "Е-307",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭКМ-03-26 БиФР",
+                "ОЗЭКМ-03-26 БиФР"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Профессиональная деятельность на рынке ценных бумаг",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "Е-302",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭКМ-03-26 БиФР",
+                "ОЗЭКМ-03-26 БиФР"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "number": 8,
+          "timeStart": {
+            "hours": 19,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 21,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Профессиональная деятельность на рынке ценных бумаг",
+              "type": "пр",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "Е-302",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭКМ-03-26 БиФР",
+                "ОЗЭКМ-03-26 БиФР"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Государственный (муниципальный) контроль и надзор в финансовой сфере",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-413",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-23",
+                "ОЗЭК-09-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Государственный (муниципальный) контроль и надзор в финансовой сфере",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-313",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-23",
+                "ОЗЭК-09-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые основы деятельности сектора государственного управления",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-305",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-24",
+                "ОЗЭК-09-24"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовые основы деятельности сектора государственного управления",
+              "type": "пр",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "Е-305",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-24",
+                "ОЗЭК-09-24"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 17
+              },
+              "room": "Е-307",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-08-25",
+                "ОЗЭК-08-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-407",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-10-25",
+                "ОЗЭК-10-25",
+                "ЭК-09-25",
+                "ОЗЭК-09-25"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы",
+              "type": "пр",
+              "weeks": {
+                "from": 14,
+                "to": 14
+              },
+              "room": "Е-407",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-10-25",
+                "ОЗЭК-10-25",
+                "ЭК-09-25",
+                "ОЗЭК-09-25"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Институциональное и инструментальное развитие финансового рынка",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-309",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭКМ-03-25 БиФР",
+                "ЭКМ-03-25 ин БиФР",
+                "ОЗЭКМ-03-25у БиФР"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Институциональное и инструментальное развитие финансового рынка",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-309",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭКМ-03-25 БиФР",
+                "ЭКМ-03-25 ин БиФР",
+                "ОЗЭКМ-03-25у БиФР"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые основы деятельности сектора государственного управления",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-306",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-24",
+                "ОЗЭК-09-24"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансы",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-307",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-08-25",
+                "ОЗЭК-08-25",
+                "ЭК-10-25",
+                "ОЗЭК-10-25",
+                "ЭК-09-25",
+                "ОЗЭК-09-25"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовые основы деятельности сектора государственного управления",
+              "type": "лб",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-112",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-09-24",
+                "ОЗЭК-09-24"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки и цифровые финансовые активы",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-413",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-03-23",
+                "ОЗЭК-03-23"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки и цифровые финансовые активы",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-413",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-03-23",
+                "ОЗЭК-03-23"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовый контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-413",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-03-23",
+                "ОЗЭК-03-23"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовый контроль",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "Е-413",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ЭК-03-23",
+                "ОЗЭК-03-23"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": []
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": []
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "лк",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "лк",
+              "weeks": {
+                "from": 13,
+                "to": 13
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовые рынки",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Финансовый контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "лк",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "number": 8,
+          "timeStart": {
+            "hours": 19,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 21,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовый контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 2
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовый контроль",
+              "type": "пр",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "пр",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "пр",
+              "weeks": {
+                "from": 13,
+                "to": 13
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовые рынки",
+              "type": "пр",
+              "weeks": {
+                "from": 1,
+                "to": 2
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Финансовый контроль",
+              "type": "пр",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "пр",
+              "weeks": {
+                "from": 12,
+                "to": 12
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Управление государственными и муниципальными финансами",
+              "type": "пр",
+              "weeks": {
+                "from": 13,
+                "to": 13
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-50-25д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Финансовый контроль",
+              "type": "пр",
+              "weeks": {
+                "from": 9,
+                "to": 9
+              },
+              "room": "Дистанционно (ДОТ)",
+              "teacher": {
+                "name": ""
+              },
+              "groups": [
+                "ОЗЭК-51-24д"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": true,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

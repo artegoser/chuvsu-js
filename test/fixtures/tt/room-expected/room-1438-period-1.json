@@ -1,0 +1,3073 @@
+{
+  "schemaVersion": 1,
+  "file": "room-1438-period-1.html",
+  "owner": {
+    "type": "room",
+    "id": 1438,
+    "name": "С-302"
+  },
+  "academicYearStartYear": 2026,
+  "period": 1,
+  "layout": "semester",
+  "days": [
+    {
+      "index": 0,
+      "weekday": "Понедельник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микробиология, вирусология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Дьячкова И. М.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-02-25",
+                "М-03-25",
+                "М-04-25",
+                "М-05-25",
+                "М-06-25",
+                "М-06-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Безопасность жизнедеятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кравченко Т. В.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "М-21-25",
+                "М-22-25",
+                "М-23-25",
+                "М-24-25",
+                "М-25-25",
+                "М-26-25",
+                "М-26-25ин М-29-25(Д)"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Психиатрия и наркология",
+              "type": "лк",
+              "weeks": {
+                "from": 10,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Орлов Ф. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-35-22",
+                "М-36-22",
+                "М-37-22",
+                "М-38-22",
+                "М-39-22",
+                "М-38-22ин",
+                "М-39-22ин",
+                "М-37-22ин",
+                "М-36-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Психиатрия, медицинская психология",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Булыгина И. Е.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Психиатрия и наркология",
+              "type": "лк",
+              "weeks": {
+                "from": 9,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Орлов Ф. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-31-22",
+                "М-32-22",
+                "М-33-22",
+                "М-34-22",
+                "М-30-22"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Психиатрия, медицинская психология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Булыгина И. Е.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Материаловедение в ортопедической практике",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Аль-Мобарак Я. М."
+              },
+              "groups": [
+                "М-30-24",
+                "М-30-24ин",
+                "М-31-24",
+                "М-32-24",
+                "М-33-24",
+                "М-33-24ин",
+                "М-34-24",
+                "М-35-24",
+                "М-34-24ин",
+                "М-32-24ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Основы проектной деятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Перфилова Е. Ф.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "М-30-24",
+                "М-30-24ин",
+                "М-31-24",
+                "М-32-24",
+                "М-33-24",
+                "М-33-24ин",
+                "М-34-24",
+                "М-35-24",
+                "М-34-24ин",
+                "М-32-24ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Основы проектной деятельности",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Перфилова Е. Ф.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "М-36-24",
+                "М-37-24",
+                "М-37-24ин",
+                "М-38-24",
+                "М-38-24ин",
+                "М-39-24",
+                "М-40-24",
+                "М-40-24ин",
+                "М-41-24ин",
+                "М-41-24",
+                "М-42-24"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Фтизиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Возякова Т. Р.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Фтизиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Возякова Т. Р.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-11-22АН",
+                "М-12-22АН",
+                "М-13-22АН",
+                "М-14-22АН",
+                "М-15-22АН",
+                "М-16-22АН",
+                "М-17-22АН"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "weekday": "Вторник",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Химия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Пыльчикова Ю. Ю.",
+                "position": "доц.",
+                "degree": "к.х.н."
+              },
+              "groups": [
+                "М-35-26",
+                "М-36-26",
+                "М-37-26",
+                "М-38-26",
+                "М-39-26",
+                "М-40-26",
+                "М-40-26ин",
+                "М-39-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Химия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Пыльчикова Ю. Ю.",
+                "position": "доц.",
+                "degree": "к.х.н."
+              },
+              "groups": [
+                "М-30-26",
+                "М-31-26",
+                "М-32-26",
+                "М-33-26",
+                "М-34-26",
+                "М-30-26ин",
+                "М-31-26ин",
+                "М-32-26ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Гималдинова Н. Е.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-07-24",
+                "М-08-24",
+                "М-09-24",
+                "М-10-24",
+                "М-11-24",
+                "М-07-24 ин",
+                "М-08-24 ин",
+                "М-09-24 ин",
+                "М-10-24 ин",
+                "М-11-24 ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Биология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Агафошкина Л. Ю."
+              },
+              "groups": [
+                "М-14-25АН",
+                "М-15-25АН",
+                "М-16-25АН",
+                "М-17-25АН",
+                "М-18-25АН",
+                "М-19-25АН"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Инфекционные болезни",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Анисимова Т. А.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Микробиология, вирусология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Дьячкова И. М.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-39-25",
+                "М-40-25",
+                "М-42-25ин",
+                "М-40-25ин",
+                "М-41-25",
+                "М-42-25"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Микробиология, вирусология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Дьячкова И. М.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-31-25",
+                "М-30-25",
+                "М-32-25",
+                "М-33-25",
+                "М-34-25",
+                "М-30-25ин",
+                "М-32-25ин",
+                "М-34-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Поликлиническая терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Журавлева Н. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-21",
+                "М-02-21",
+                "М-03-21",
+                "М-04-21",
+                "М-05-21",
+                "М-06-21",
+                "М-06-21ин",
+                "М-07-21"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "number": 8,
+          "timeStart": {
+            "hours": 19,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 21,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Поликлиническая терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Журавлева Н. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-21",
+                "М-09-21",
+                "М-10-21",
+                "М-11-21",
+                "М-11-21ин",
+                "М-12-21",
+                "М-12-21ин",
+                "М-13-21",
+                "М-13-21ин",
+                "М-14-21",
+                "М-14-21ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "weekday": "Среда",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Физическая культура и спорт",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Пьянзина Н. Н.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [
+                "М-21-26",
+                "М-22-26",
+                "М-23-26",
+                "М-24-26",
+                "М-25-26",
+                "М-26-26",
+                "М-27-26",
+                "М-28-26"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Биология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Московская О. И.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-21-26",
+                "М-22-26",
+                "М-23-26",
+                "М-24-26"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Биология",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Московская О. И.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-21-26",
+                "М-22-26",
+                "М-23-26",
+                "М-24-26"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Судебная медицина",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Семенов Г. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-21",
+                "М-09-21",
+                "М-10-21",
+                "М-11-21",
+                "М-11-21ин",
+                "М-12-21",
+                "М-12-21ин",
+                "М-13-21",
+                "М-13-21ин",
+                "М-14-21",
+                "М-14-21ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Судебная медицина",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Семенов Г. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-12-21АН",
+                "М-13-21АН",
+                "М-14-21АН",
+                "М-15-21АН",
+                "М-16-21АН"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Судебная медицина",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Семенов Г. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-12-21АН",
+                "М-13-21АН",
+                "М-14-21АН",
+                "М-15-21АН",
+                "М-16-21АН"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Гигиена",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Жамлиханов Н. Х.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [
+                "М-21-25",
+                "М-22-25",
+                "М-23-25",
+                "М-24-25",
+                "М-25-25",
+                "М-26-25",
+                "М-26-25ин М-29-25(Д)"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Хирургическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Трубин В. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-31-23",
+                "М-32-23",
+                "М-33-23",
+                "М-34-23",
+                "М-30-23",
+                "М-34-23ин",
+                "М-33-23ин",
+                "М-32-23ин",
+                "М-30-23ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Гигиена",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Маслова Ж. В.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-11-25АН",
+                "М-12-25АН",
+                "М-13-25АН",
+                "М-14-25АН",
+                "М-15-25АН"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Экономика",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кузнецова Э. Г.",
+                "position": "доц.",
+                "degree": "к.э.н."
+              },
+              "groups": [
+                "М-31-25",
+                "М-30-25",
+                "М-32-25",
+                "М-33-25",
+                "М-34-25",
+                "М-30-25ин",
+                "М-32-25ин",
+                "М-34-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сергеев А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-14-24",
+                "М-14-24 ин"
+              ],
+              "subgroup": 1,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сергеев А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-14-24",
+                "М-14-24 ин"
+              ],
+              "subgroup": 1,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сергеев А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-36-24",
+                "М-37-24",
+                "М-37-24ин",
+                "М-38-24",
+                "М-38-24ин",
+                "М-39-24",
+                "М-40-24",
+                "М-40-24ин",
+                "М-41-24ин",
+                "М-41-24",
+                "М-42-24"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Детская стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кузина О. В."
+              },
+              "groups": [
+                "М-31-22",
+                "М-32-22",
+                "М-33-22",
+                "М-34-22",
+                "М-30-22"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Фтизиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Возякова Т. Р.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Фтизиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 17,
+                "to": 17
+              },
+              "room": "",
+              "teacher": {
+                "name": "Возякова Т. Р.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "weekday": "Четверг",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Терапевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Карпунина А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-35-22",
+                "М-36-22",
+                "М-37-22",
+                "М-38-22",
+                "М-39-22",
+                "М-38-22ин",
+                "М-39-22ин",
+                "М-37-22ин",
+                "М-36-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Медицинская информатика и искусственный интеллект в медицине",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Речнов А. В.",
+                "position": "доц.",
+                "degree": "к.пед.н."
+              },
+              "groups": [
+                "М-21-25",
+                "М-22-25",
+                "М-23-25",
+                "М-24-25",
+                "М-25-25",
+                "М-26-25",
+                "М-26-25ин М-29-25(Д)"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Гнатология в ортодонтии",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Лосев К. В.",
+                "position": "зав.каф.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-35-22",
+                "М-36-22",
+                "М-37-22",
+                "М-38-22",
+                "М-39-22",
+                "М-38-22ин",
+                "М-39-22ин",
+                "М-37-22ин",
+                "М-36-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Факультетская терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Тимофеева Н. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-23",
+                "М-09-23",
+                "М-10-23",
+                "М-11-23",
+                "М-12-23",
+                "М-13-23",
+                "М-14-23",
+                "М-09-23ин",
+                "М-10-23ин",
+                "М-11-23ин",
+                "М-12-23ин",
+                "М-13-23ин",
+                "М-14-23ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Инфекционные болезни",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Анисимова Т. А.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Факультетская терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Тимофеева Н. Ю.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-23",
+                "М-02-23",
+                "М-03-23",
+                "М-04-23",
+                "М-05-23",
+                "М-06-23",
+                "М-07-23",
+                "М-04-23ин",
+                "М-05-23ин",
+                "М-07-23ин",
+                "М-01-23 ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Биохимия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Шамитова Е. Н.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-12-25",
+                "М-13-25",
+                "М-14-25",
+                "М-15-25",
+                "М-16-25",
+                "М-13-25ин",
+                "М-14-25ин",
+                "М-15-25ин",
+                "М-16-25ин",
+                "М-17-25",
+                "М-17-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Терапевтическая стоматология",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Трубина Е. О."
+              },
+              "groups": [
+                "М-31-23",
+                "М-32-23",
+                "М-33-23",
+                "М-34-23",
+                "М-30-23",
+                "М-34-23ин",
+                "М-33-23ин",
+                "М-32-23ин",
+                "М-30-23ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Спортивная медицина, лечебная физкультура и врачебный контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Петрова Р. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-21",
+                "М-02-21",
+                "М-03-21",
+                "М-04-21",
+                "М-05-21",
+                "М-06-21",
+                "М-06-21ин",
+                "М-07-21"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Общая хирургия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Иванов В. А.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-36-24",
+                "М-37-24",
+                "М-37-24ин",
+                "М-38-24",
+                "М-38-24ин",
+                "М-39-24",
+                "М-40-24",
+                "М-40-24ин",
+                "М-41-24ин",
+                "М-41-24",
+                "М-42-24"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Спортивная медицина, лечебная физкультура и врачебный контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Петрова Р. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-21",
+                "М-09-21",
+                "М-10-21",
+                "М-11-21",
+                "М-11-21ин",
+                "М-12-21",
+                "М-12-21ин",
+                "М-13-21",
+                "М-13-21ин",
+                "М-14-21",
+                "М-14-21ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Спортивная медицина, лечебная физкультура и врачебный контроль",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Петрова Р. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-12-21АН",
+                "М-13-21АН",
+                "М-14-21АН",
+                "М-15-21АН",
+                "М-16-21АН"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "weekday": "Пятница",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Биохимия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Мадебейкин И. И.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-02-25",
+                "М-03-25",
+                "М-04-25",
+                "М-05-25",
+                "М-06-25",
+                "М-06-25ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Биохимия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Мадебейкин И. И.",
+                "position": "доц.",
+                "degree": "к.б.н."
+              },
+              "groups": [
+                "М-07-25",
+                "М-08-25",
+                "М-09-25",
+                "М-10-25",
+                "М-11-25",
+                "М-08-25ин",
+                "М-11-25ин",
+                "М-10-25 АН"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": []
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Михайлова М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-21-25",
+                "М-22-25",
+                "М-23-25",
+                "М-24-25",
+                "М-25-25",
+                "М-26-25",
+                "М-26-25ин М-29-25(Д)"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Госпитальная терапия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Бусалаева Е. И.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сапожников М. Ю.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [
+                "М-30-24",
+                "М-30-24ин",
+                "М-31-24",
+                "М-32-24",
+                "М-33-24",
+                "М-33-24ин",
+                "М-34-24",
+                "М-35-24",
+                "М-34-24ин",
+                "М-32-24ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Пропедевтика внутренних болезней",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сапожников М. Ю.",
+                "position": "проф.",
+                "degree": "д.м.н."
+              },
+              "groups": [
+                "М-36-24",
+                "М-37-24",
+                "М-37-24ин",
+                "М-38-24",
+                "М-38-24ин",
+                "М-39-24",
+                "М-40-24",
+                "М-40-24ин",
+                "М-41-24ин",
+                "М-41-24",
+                "М-42-24"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сергеев А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-02-24",
+                "М-03-24",
+                "М-04-24",
+                "М-05-24",
+                "М-06-24",
+                "М-04-24 ин",
+                "М-05-24 ин",
+                "М-06-24 ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Патологическая анатомия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Сергеев А. В.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-30-24",
+                "М-30-24ин",
+                "М-31-24",
+                "М-32-24",
+                "М-33-24",
+                "М-33-24ин",
+                "М-34-24",
+                "М-35-24",
+                "М-34-24ин",
+                "М-32-24ин"
+              ],
+              "subgroup": null,
+              "weekParity": "even",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "number": 6,
+          "timeStart": {
+            "hours": 16,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 18,
+            "minutes": 0
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Травматология, ортопедия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимов Д. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-21",
+                "М-02-21",
+                "М-03-21",
+                "М-04-21",
+                "М-05-21",
+                "М-06-21",
+                "М-06-21ин",
+                "М-07-21"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "number": 7,
+          "timeStart": {
+            "hours": 18,
+            "minutes": 10
+          },
+          "timeEnd": {
+            "hours": 19,
+            "minutes": 30
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Травматология, ортопедия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 16
+              },
+              "room": "",
+              "teacher": {
+                "name": "Ефимов Д. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-21",
+                "М-09-21",
+                "М-10-21",
+                "М-11-21",
+                "М-11-21ин",
+                "М-12-21",
+                "М-12-21ин",
+                "М-13-21",
+                "М-13-21ин",
+                "М-14-21",
+                "М-14-21ин"
+              ],
+              "subgroup": null,
+              "weekParity": "odd",
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "weekday": "Суббота",
+      "date": null,
+      "isSelfStudyDay": false,
+      "slots": [
+        {
+          "index": 0,
+          "number": 1,
+          "timeStart": {
+            "hours": 8,
+            "minutes": 20
+          },
+          "timeEnd": {
+            "hours": 9,
+            "minutes": 40
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 5,
+                "to": 5
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 7,
+                "to": 7
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 4,
+                "to": 4
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 6,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 6,
+                "to": 6
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 7,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 8,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-01-22",
+                "М-02-22",
+                "М-03-22",
+                "М-04-22",
+                "М-05-22",
+                "М-06-22",
+                "М-07-22",
+                "М-02-22ин",
+                "М-06-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "number": 2,
+          "timeStart": {
+            "hours": 9,
+            "minutes": 50
+          },
+          "timeEnd": {
+            "hours": 11,
+            "minutes": 10
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 1
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 1,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 3,
+                "to": 3
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 2,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 5,
+                "to": 5
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 3,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 7,
+                "to": 7
+              },
+              "room": "",
+              "teacher": {
+                "name": "Боровкова М. Г.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 4,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 2,
+                "to": 2
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 5,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 4,
+                "to": 4
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 6,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 6,
+                "to": 6
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            },
+            {
+              "index": 7,
+              "subject": "Педиатрия",
+              "type": "лк",
+              "weeks": {
+                "from": 8,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Григорьева М. Н.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-08-22",
+                "М-09-22",
+                "М-10-22",
+                "М-11-22",
+                "М-12-22",
+                "М-13-22",
+                "М-14-22",
+                "М-08-22ин",
+                "М-09-22ин",
+                "М-12-22ин",
+                "М-13-22ин"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "number": 3,
+          "timeStart": {
+            "hours": 11,
+            "minutes": 40
+          },
+          "timeEnd": {
+            "hours": 13,
+            "minutes": 0
+          },
+          "entries": []
+        },
+        {
+          "index": 3,
+          "number": 4,
+          "timeStart": {
+            "hours": 13,
+            "minutes": 30
+          },
+          "timeEnd": {
+            "hours": 14,
+            "minutes": 50
+          },
+          "entries": []
+        },
+        {
+          "index": 4,
+          "number": 5,
+          "timeStart": {
+            "hours": 15,
+            "minutes": 0
+          },
+          "timeEnd": {
+            "hours": 16,
+            "minutes": 20
+          },
+          "entries": [
+            {
+              "index": 0,
+              "subject": "Профессиональные болезни",
+              "type": "лк",
+              "weeks": {
+                "from": 1,
+                "to": 8
+              },
+              "room": "",
+              "teacher": {
+                "name": "Кудряшов С. И.",
+                "position": "доц.",
+                "degree": "к.м.н."
+              },
+              "groups": [
+                "М-11-23АН",
+                "М-12-23АН",
+                "М-13-23АН",
+                "М-14-23АН",
+                "М-15-23АН",
+                "М-16-23АН",
+                "М-17-23АН",
+                "М-18-23АН",
+                "М-19-23АН"
+              ],
+              "subgroup": null,
+              "weekParity": null,
+              "isDistance": false,
+              "possibleChanges": true,
+              "substitutions": [],
+              "transfer": null,
+              "substituteFor": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
