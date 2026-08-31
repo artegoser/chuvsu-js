@@ -263,7 +263,9 @@ const groupId = await portal.getTimetableGroupId();
 ```bash
 pnpm build
 pnpm test
+pnpm test:coverage
 pnpm fixtures:audit
 ```
 
 Подробности архитектуры: [`docs/v5-architecture.md`](docs/v5-architecture.md).
+Границы и честная интерпретация тестов: [`docs/testing.md`](docs/testing.md).

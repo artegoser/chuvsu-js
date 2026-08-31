@@ -18,18 +18,21 @@ const CONFIG = {
     fixtureDir: "group-schedules",
     expectedDir: "expected",
     requiredCount: 34,
+    requiredFeatures: { occurrences: 3, substitutions: 1, distance: 1 },
   },
   teacher: {
     parser: parseTeacherSchedule,
     fixtureDir: "teacher-schedules",
     expectedDir: "teacher-expected",
     requiredCount: 4,
+    requiredFeatures: { occurrences: 0, substitutions: 0, distance: 1 },
   },
   room: {
     parser: parseRoomSchedule,
     fixtureDir: "room-schedules",
     expectedDir: "room-expected",
     requiredCount: 4,
+    requiredFeatures: { occurrences: 2, substitutions: 0, distance: 1 },
   },
 };
 const CORPORA = [];
@@ -316,6 +319,20 @@ for (const [kind, config] of Object.entries(CONFIG)) {
     assert.ok(lessons.every((lesson) => lesson.groups.completeness !== undefined));
     assert.ok(lessons.every((lesson) => lesson.teachers.completeness !== undefined));
     assert.ok(lessons.every((lesson) => lesson.rooms.completeness !== undefined));
+    assert.ok(
+      lessons.filter((lesson) => lesson.kind === "occurrence").length >=
+        config.requiredFeatures.occurrences,
+      `${kind}: dated occurrence coverage`,
+    );
+    assert.ok(
+      lessons.reduce((count, lesson) => count + (lesson.substitutions?.length ?? 0), 0) >=
+        config.requiredFeatures.substitutions,
+      `${kind}: substitution coverage`,
+    );
+    assert.ok(
+      lessons.filter((lesson) => lesson.isDistance).length >= config.requiredFeatures.distance,
+      `${kind}: distance coverage`,
+    );
   });
 
   for (const fixture of fixtures) {

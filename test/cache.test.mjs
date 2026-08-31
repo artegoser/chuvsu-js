@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 
 import { Cache, HybridCache } from "../dist/common/cache.js";
 import { StudentPortalClient } from "../dist/lk/client.js";
@@ -555,4 +556,54 @@ test("TimetableClient rejects invalid public inputs before network access", asyn
   );
   assert.equal(fakeHttp.calls.get.size, 0);
   assert.equal(fakeHttp.calls.post.size, 0);
+});
+
+test("TimetableClient ingests real teacher and room pages through public methods", async () => {
+  const teacherHtml = await readFile(
+    new URL("./fixtures/tt/teacher-schedules/teacher-543-period-1.html", import.meta.url),
+    "utf8",
+  );
+  const roomHtml = await readFile(
+    new URL("./fixtures/tt/room-schedules/room-811-period-1.html", import.meta.url),
+    "utf8",
+  );
+  const teacherUrl = `${TT_BASE}/index/techtt/tech/543`;
+  const roomUrl = `${TT_BASE}/index/audtt/aud/811`;
+  const postKey = (url) => `${url}|${JSON.stringify({ htype: "1" })}`;
+  const fakeHttp = new FakeHttpClient({
+    get: {
+      [teacherUrl]: { status: 200, body: teacherHtml },
+      [roomUrl]: { status: 200, body: roomHtml },
+    },
+    post: {
+      [postKey(teacherUrl)]: { status: 200, body: teacherHtml },
+      [postKey(roomUrl)]: { status: 200, body: roomHtml },
+    },
+  });
+  const tt = new TimetableClient({ cache: 10_000 });
+  tt.http = fakeHttp;
+
+  const teacherSchedule = await tt.getTeacherSchedule(543, { periods: [1] });
+  const roomSchedule = await tt.getRoomSchedule(811, { periods: [1] });
+
+  assert.deepEqual(teacherSchedule.owner, {
+    type: "teacher",
+    teacher: {
+      id: 543,
+      name: "Митрофанова Марина Юрьевна",
+      degree: "кандидат экономических наук",
+    },
+  });
+  assert.deepEqual(roomSchedule.owner, {
+    type: "room",
+    room: { id: 811, name: "Е-302" },
+  });
+  assert.ok(teacherSchedule.series().length > 0);
+  assert.ok(roomSchedule.series().length > 0);
+  assert.ok(tt.repository.getSeries().some((lesson) => {
+    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+    return kinds.has("teacher") && kinds.has("room");
+  }));
+  assert.equal(fakeHttp.count("post", postKey(teacherUrl)), 1);
+  assert.equal(fakeHttp.count("post", postKey(roomUrl)), 1);
 });

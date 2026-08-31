@@ -339,6 +339,26 @@ test("parseRoomSchedule does not fabricate an empty teacher", () => {
   assert.deepEqual(entry.groups, ["КТ-41-24"]);
 });
 
+test("parseRoomSchedule preserves room-page substitutions", () => {
+  const html = semesterPage(`
+    <span style="color: blue;">Базы данных</span> (лб) (1 - 16 нед.)<br>
+    доц. Иванов И. И.<br>КТ-41-24
+    <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+      <span style="color: red;"><b>08.09.2026 замена на: </b></span><br>
+      Аудитория: <span class="blue">Б-116</span><br>
+      Преподаватель: <span class="blue">доц. Петров П. П.</span>
+    </div>
+  `);
+  const entry = pickOnlyEntry(parseRoomSchedule(html));
+
+  assert.deepEqual(entry.substitutions, [{
+    date: "2026-09-08",
+    room: "Б-116",
+    teacher: { position: "доц.", name: "Петров П. П." },
+    isDistance: false,
+  }]);
+});
+
 test("parseGroupSchedule parses summer session types, teachers and subgroups", async () => {
   const html = await loadSessionFixture("group-session-summer.html");
   const entries = parseGroupSchedule(html).flatMap((day) =>
