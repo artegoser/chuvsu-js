@@ -3,76 +3,182 @@
     "fixture": "group-semester-basic.html",
     "kind": "group",
     "wrapper": "semester",
-    "day": 0,
-    "block": 0,
-    "lesson": 0,
-    "fields": {
-      "room": "Г-402",
-      "subject": "Базы данных",
-      "type": "лб",
-      "weeks": { "from": 1, "to": 16 },
-      "teacher": { "position": "доц.", "name": "Иванов И.И." }
-    }
+    "expected": [
+      {
+        "weekday": "Суббота",
+        "blocks": [
+          {
+            "slotNumber": 4,
+            "time": {
+              "start": { "hours": 13, "minutes": 30 },
+              "end": { "hours": 14, "minutes": 50 }
+            },
+            "lessons": [
+              {
+                "room": "Г-402",
+                "subject": "Базы данных",
+                "type": "лб",
+                "weeks": { "from": 1, "to": 16 },
+                "teacher": { "position": "доц.", "name": "Иванов И.И." },
+                "isDistance": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "fixture": "teacher-substitution.html",
     "kind": "teacher",
     "wrapper": "semester",
-    "day": 0,
-    "block": 0,
-    "lesson": 0,
-    "fields": {
-      "room": "Г-402",
-      "subject": "Базы данных",
-      "type": "лб",
-      "substitutions.0.date": "2026-04-28",
-      "substitutions.0.room": "Б-116",
-      "substitutions.0.teacher": { "position": "доц.", "name": "Иванов И.И." }
-    }
+    "expected": [
+      {
+        "weekday": "Суббота",
+        "blocks": [
+          {
+            "slotNumber": 4,
+            "time": {
+              "start": { "hours": 13, "minutes": 30 },
+              "end": { "hours": 14, "minutes": 50 }
+            },
+            "lessons": [
+              {
+                "room": "Г-402",
+                "subject": "Базы данных",
+                "type": "лб",
+                "weeks": { "from": 1, "to": 16 },
+                "groups": ["КТ-31-24"],
+                "subgroup": 2,
+                "isDistance": false,
+                "substitutions": [
+                  {
+                    "date": "2026-04-28",
+                    "room": "Б-116",
+                    "teacher": { "position": "доц.", "name": "Иванов И.И." },
+                    "isDistance": false
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "fixture": "audience-transfer.html",
     "kind": "room",
     "wrapper": "semester",
-    "day": 0,
-    "block": 0,
-    "lesson": 0,
-    "fields": {
-      "room": "Г-316",
-      "subject": "Основы проектной деятельности",
-      "type": "пр",
-      "teacher": { "name": "Игреев Р. А." },
-      "groups": ["КТ-41-24", "КТ-41-24ин"],
-      "transfer.fromSlot": 7
-    }
+    "expected": [
+      {
+        "weekday": "Суббота",
+        "blocks": [
+          {
+            "slotNumber": 4,
+            "time": {
+              "start": { "hours": 13, "minutes": 30 },
+              "end": { "hours": 14, "minutes": 50 }
+            },
+            "lessons": [
+              {
+                "room": "Г-316",
+                "subject": "Основы проектной деятельности",
+                "type": "пр",
+                "teacher": { "name": "Игреев Р. А." },
+                "groups": ["КТ-41-24", "КТ-41-24ин"],
+                "isDistance": false,
+                "transfer": {
+                  "targetDate": "2026-05-27",
+                  "fromDate": "2026-05-20",
+                  "fromSlot": 7,
+                  "subject": "Основы проектной деятельности"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "fixture": "teacher-session.html",
     "kind": "teacher",
     "wrapper": "session",
-    "day": 0,
-    "block": 0,
-    "lesson": 0,
-    "fields": {
-      "subject": "Базы данных",
-      "type": "экз",
-      "groups": ["КТ-41-24", "КТ-41-24ин"]
-    },
-    "absent": ["weeks"]
+    "expected": [
+      {
+        "weekday": "Суббота",
+        "date": "2026-04-25",
+        "blocks": [
+          {
+            "time": {
+              "start": { "hours": 11, "minutes": 40 },
+              "end": { "hours": 13, "minutes": 0 }
+            },
+            "lessons": [
+              {
+                "room": "И-208",
+                "subject": "Базы данных",
+                "type": "экз",
+                "groups": ["КТ-41-24", "КТ-41-24ин"],
+                "isDistance": false
+              }
+            ]
+          },
+          {
+            "time": {
+              "start": { "hours": 13, "minutes": 30 },
+              "end": { "hours": 14, "minutes": 50 }
+            },
+            "lessons": [
+              {
+                "room": "Б-201",
+                "subject": "Консультация",
+                "type": "конс",
+                "groups": ["КТ-41-24"],
+                "isDistance": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "fixture": "group-distance-substitution.html",
     "kind": "group",
     "wrapper": "raw",
-    "day": 0,
-    "block": 0,
-    "lesson": 0,
-    "fields": {
-      "subject": "Объектно-ориентированное программирование",
-      "type": "лб",
-      "substitutions.0.date": "2026-05-07",
-      "substitutions.0.room": "Дистанционно (ДОТ)",
-      "substitutions.0.isDistance": true
-    }
+    "expected": [
+      {
+        "weekday": "Четверг",
+        "blocks": [
+          {
+            "slotNumber": 1,
+            "time": {
+              "start": { "hours": 8, "minutes": 20 },
+              "end": { "hours": 9, "minutes": 40 }
+            },
+            "lessons": [
+              {
+                "room": "И-212",
+                "subject": "Объектно-ориентированное программирование",
+                "type": "лб",
+                "weeks": { "from": 1, "to": 16 },
+                "teacher": { "name": "Мытникова Е. А." },
+                "subgroup": 1,
+                "isDistance": false,
+                "substitutions": [
+                  {
+                    "date": "2026-05-07",
+                    "room": "Дистанционно (ДОТ)",
+                    "isDistance": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

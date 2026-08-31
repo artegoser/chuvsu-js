@@ -98,10 +98,6 @@ for (const [kind, config] of Object.entries(CONFIG)) {
   });
 }
 
-function valueAt(value, path) {
-  return path.split(".").reduce((current, key) => current?.[key], value);
-}
-
 const manualCases = JSON.parse(await readFile(
   new URL("./fixtures/tt/manual-schedule-cases.json", import.meta.url),
   "utf8",
@@ -120,13 +116,11 @@ test("hand-authored schedule cases match parser output", async () => {
         ? html
         : `<!doctype html><table id="groupstt"><tr style="background: lightgray" class="trfd"><td>Суббота</td></tr><tr><td class="trf trdata"><div class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td class="trdata"><div class="tdd"><table><tr><td>${html}</td></tr></table></div></td></tr></table>`;
     const days = parser(page);
-    const lesson = days[testCase.day].blocks[testCase.block].lessons[testCase.lesson];
-    for (const [path, expected] of Object.entries(testCase.fields)) {
-      assert.deepEqual(valueAt(lesson, path), expected, `${testCase.fixture}: ${path}`);
-    }
-    for (const path of testCase.absent ?? []) {
-      assert.equal(valueAt(lesson, path), undefined, `${testCase.fixture}: absent ${path}`);
-    }
+    assert.deepEqual(
+      JSON.parse(JSON.stringify(days)),
+      testCase.expected,
+      testCase.fixture,
+    );
   }
 });
 
@@ -142,6 +136,15 @@ function corpusRepository(fixtures) {
   return repository;
 }
 
+function sourcePartition(repository) {
+  return repository.getSeries()
+    .map((lesson) => lesson.sources
+      .map((source) => `${source.sourceKey}:${source.observationKey}`)
+      .sort()
+      .join("|"))
+    .sort();
+}
+
 test("full-page corpus contains genuine cross-owner canonical lessons", () => {
   const repository = corpusRepository(CORPORA);
   const shared = repository.getSeries().filter((lesson) =>
@@ -153,4 +156,15 @@ test("full-page corpus contains genuine cross-owner canonical lessons", () => {
     lesson.teachers.values.length > 0 &&
     lesson.rooms.values.length > 0
   ));
+  assert.ok(shared.some((lesson) => {
+    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+    return kinds.has("teacher") && kinds.has("room");
+  }));
+  assert.ok(shared.some((lesson) => {
+    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+    return kinds.has("group") && kinds.has("room");
+  }));
+
+  const reversed = corpusRepository([...CORPORA].reverse());
+  assert.deepEqual(sourcePartition(reversed), sourcePartition(repository));
 });
