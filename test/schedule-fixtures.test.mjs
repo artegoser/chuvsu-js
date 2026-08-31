@@ -358,7 +358,7 @@ function sourcePartition(repository) {
     .sort();
 }
 
-test("real corpus merges shared lessons without conflating unrelated owners", () => {
+test("real corpus merges shared lessons across owner projections", () => {
   const repository = corpusRepository(CORPORA);
   const shared = repository.getSeries().filter((lesson) =>
     lesson.sources.length > 1
@@ -369,10 +369,34 @@ test("real corpus merges shared lessons without conflating unrelated owners", ()
     lesson.teachers.values.length > 0 &&
     lesson.rooms.values.length > 0
   ), "a shared lesson must accumulate all known relations");
-  assert.ok(repository.getSeries().every((lesson) => {
+  const crossOwnerMerges = repository.getSeries().filter((lesson) => {
     const ownerKinds = new Set(lesson.sources.map((source) => source.owner.type));
-    return ownerKinds.size === 1;
-  }), "unrelated teacher and room samples must not be false-positive matches");
+    return ownerKinds.size > 1;
+  });
+  assert.ok(crossOwnerMerges.length > 0, "corpus must contain cross-owner lessons");
+  assert.ok(
+    crossOwnerMerges.some((lesson) => {
+      const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+      return kinds.has("teacher") && kinds.has("room");
+    }),
+    "teacher and room projections must share a canonical lesson",
+  );
+  assert.ok(
+    crossOwnerMerges.some((lesson) => {
+      const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+      return kinds.has("group") && kinds.has("room");
+    }),
+    "group and room projections must share a canonical lesson",
+  );
+  assert.ok(
+    crossOwnerMerges.every((lesson) =>
+      lesson.groups.values.length > 0 &&
+      lesson.teachers.values.length > 0 &&
+      lesson.rooms.values.length > 0 &&
+      new Set(lesson.sources.map((source) => source.sourceKey)).size === lesson.sources.length
+    ),
+    "cross-owner lessons must retain complete evidence and unique provenance",
+  );
 
   const reversed = corpusRepository([...CORPORA].reverse());
   assert.deepEqual(
