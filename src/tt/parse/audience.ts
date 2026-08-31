@@ -1,6 +1,7 @@
 import {
   parseHtml,
   parseTeacher,
+  parseTime,
   parseWeekParity,
   parseWeeks,
   text,
@@ -11,7 +12,10 @@ import type {
   ParsedLesson,
   Substitution,
 } from "../types.js";
-import { parseSemesterScheduleWith } from "./full-schedule.js";
+import {
+  parseSemesterScheduleWith,
+  parseSessionScheduleWith,
+} from "./full-schedule.js";
 import { parseGroupsString } from "./groups.js";
 import {
   parseSubstituteForDiv,
@@ -21,12 +25,17 @@ import {
 import {
   LESSON_TYPE_GLOBAL_RE,
   LESSON_TYPE_RE,
+  FLEXIBLE_LESSON_TYPE_RE_I,
   SUBGROUP_ANNOTATION_RE,
   SUBGROUP_RE,
   WEEKS_GLOBAL_RE,
   WEEKS_RE,
 } from "./patterns.js";
-import { linesAfterSubject, stripDistanceMarker } from "./entry-parts.js";
+import {
+  containsGroupCode,
+  linesAfterSubject,
+  stripDistanceMarker,
+} from "./entry-parts.js";
 
 const DISTANCE_RE = /дистанционно|ДОТ/i;
 
@@ -151,9 +160,11 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
 
   // Audience entries: subject line, then teacher line, then group line(s).
   const parts = linesAfterSubject(cleanHtml, subject);
-  const teacherLine = stripDistanceMarker(parts[0] ?? "");
+  const teacherLine = stripDistanceMarker(
+    parts.find((line) => !containsGroupCode(stripDistanceMarker(line))) ?? "",
+  );
   const groupsLine = parts
-    .slice(1)
+    .filter((line) => containsGroupCode(stripDistanceMarker(line)))
     .map(stripDistanceMarker)
     .map((line) =>
       line
@@ -170,7 +181,7 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
     subject,
     type: typeMatch?.[1] ?? "",
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
-    teacher: parseTeacher(teacherLine),
+    teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
     groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
     weekParity,
@@ -182,5 +193,50 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
 
 export function parseRoomSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
+  if (doc.querySelector('td[id^="trd2"]')) {
+    return parseSessionScheduleWith(doc, parseRoomSessionEntry);
+  }
   return parseSemesterScheduleWith(doc, parseRoomSemesterEntry);
+}
+
+function parseRoomSessionEntry(td: Element): {
+  lesson: ParsedLesson;
+  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
+} | null {
+  const fullHtml = td.innerHTML ?? "";
+  const plainText = text(td);
+  const subjectEl = td.querySelector('span[style*="color: blue"]');
+  const subject = subjectEl ? text(subjectEl) : "";
+  if (!plainText || !subject) return null;
+
+  const timeMatch = fullHtml.match(
+    /<br\s*\/?>\s*(\d{2}:\d{2})\s*-\s*(\d{2}:\d{2})/,
+  );
+  if (!timeMatch) return null;
+
+  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
+  const parts = linesAfterSubject(fullHtml, subject);
+  const teacherLine = parts.find((part) =>
+    !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
+    !containsGroupCode(stripDistanceMarker(part))
+  );
+  const groupsLine = parts.find((part) =>
+    containsGroupCode(stripDistanceMarker(part))
+  );
+  const groups = parseGroupsString(stripDistanceMarker(groupsLine ?? ""));
+  const subgroupMatch = plainText.match(SUBGROUP_RE);
+
+  return {
+    lesson: {
+      subject,
+      type: typeMatch?.[1].replace(/\.$/, "").toLowerCase() ?? "",
+      teacher: teacherLine ? parseTeacher(stripDistanceMarker(teacherLine)) : undefined,
+      groups: groups.length > 0 ? groups : undefined,
+      subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
+      isDistance: DISTANCE_RE.test(plainText),
+      possibleChanges:
+        (td.getAttribute("class") ?? "").includes("want") || undefined,
+    },
+    time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },
+  };
 }

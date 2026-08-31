@@ -182,7 +182,15 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
 
 // --- Session schedule parsing (date-based, specific dates) ---
 
-function parseSessionSchedule(doc: Document): ParsedScheduleDay[] {
+interface ParsedSessionEntry {
+  lesson: ParsedLesson;
+  time: NonNullable<ParsedScheduleBlock["time"]>;
+}
+
+export function parseSessionScheduleWith(
+  doc: Document,
+  entryParser: (element: Element) => ParsedSessionEntry | null,
+): ParsedScheduleDay[] {
   const days: ParsedScheduleDay[] = [];
 
   for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
@@ -209,7 +217,7 @@ function parseSessionSchedule(doc: Document): ParsedScheduleDay[] {
 
     for (const entryRow of dataCell.querySelectorAll("table tr")) {
       const td = entryRow.querySelector("td") ?? entryRow;
-      const entry = parseSessionEntry(td);
+      const entry = entryParser(td);
       if (!entry) continue;
 
       blocks.push({
@@ -226,12 +234,11 @@ function parseSessionSchedule(doc: Document): ParsedScheduleDay[] {
   return days;
 }
 
-function parseSessionEntry(
-  td: Element,
-): {
-  lesson: ParsedLesson;
-  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
-} | null {
+function parseSessionSchedule(doc: Document): ParsedScheduleDay[] {
+  return parseSessionScheduleWith(doc, parseSessionEntry);
+}
+
+function parseSessionEntry(td: Element): ParsedSessionEntry | null {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
   if (!plainText) return null;
@@ -272,7 +279,6 @@ function parseSessionEntry(
       room: room || undefined,
       subject,
       type,
-      weeks: { from: 0, to: 0 },
       teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),

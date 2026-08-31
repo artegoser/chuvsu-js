@@ -86,7 +86,6 @@ test("explicit session lessons remain visible on public holidays", () => {
         lessons: [{
           subject: "Экзамен",
           type: "экз",
-          weeks: { from: 0, to: 0 },
         }],
       }],
     },

@@ -61,19 +61,19 @@ function sameDate(a: string, b: string): boolean {
 }
 
 function rangesOverlap(
-  a: { from: number; to: number },
-  b: { from: number; to: number },
+  a: { from: number; to: number } | undefined,
+  b: { from: number; to: number } | undefined,
 ): boolean {
-  const aFrom = a.from || 1;
-  const aTo = a.to || 17;
-  const bFrom = b.from || 1;
-  const bTo = b.to || 17;
+  const aFrom = a?.from ?? 1;
+  const aTo = a?.to ?? 17;
+  const bFrom = b?.from ?? 1;
+  const bTo = b?.to ?? 17;
   return Math.max(aFrom, bFrom) <= Math.min(aTo, bTo);
 }
 
 function recurrenceWeeks(observation: SeriesObservation): string {
-  const from = observation.recurrence.weeks.from || 1;
-  const to = observation.recurrence.weeks.to || 17;
+  const from = observation.recurrence.weeks?.from ?? 1;
+  const to = observation.recurrence.weeks?.to ?? 17;
   const weeks: number[] = [];
   for (let week = from; week <= to; week++) {
     if (observation.recurrence.parity === "even" && week % 2 !== 0) continue;

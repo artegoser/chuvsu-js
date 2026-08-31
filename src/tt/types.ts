@@ -65,7 +65,7 @@ export interface SubstituteForInfo {
   /** The date this substitute lesson takes place. */
   date: LocalDate;
   /** The original teacher being replaced. */
-  originalTeacher: Teacher;
+  originalTeacher?: Teacher;
 }
 
 /** Info about a lesson transferred from another date/slot. */
@@ -85,7 +85,8 @@ export interface ParsedLesson {
   room?: string | null;
   subject: string;
   type: string;
-  weeks: WeekRange;
+  /** Recurrence range; absent for concrete session lessons or unknown evidence. */
+  weeks?: WeekRange;
   /** Missing means this source projection does not expose teacher information. */
   teacher?: Teacher | null;
   /**

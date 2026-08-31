@@ -143,6 +143,7 @@ function dateText(value) {
 }
 
 function assertWeeks(source, weeks, label) {
+  if (!weeks) return;
   if (weeks.from === 0 && weeks.to === 0) return;
   const marker = weeks.from === weeks.to
     ? `${weeks.from}\\s*нед\\.?`

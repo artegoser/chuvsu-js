@@ -102,7 +102,6 @@ test("missing and explicitly absent relations remain distinguishable", () => {
     blocks: [{ lessons: [{
       subject: "Архитектура",
       type: "лк",
-      weeks: { from: 1, to: 1 },
       ...lesson,
     }] }],
   }];
@@ -195,8 +194,10 @@ test("parseTeacherSchedule parses session entries with flexible lesson types", a
 
   assert.equal(days.length, 1);
   assert.equal(day.weekday, "Суббота");
+  assert.equal(day.date, "2026-04-25");
   assert.equal(day.blocks.length, 2);
   assert.equal(day.blocks[0].lessons[0].type, "экз");
+  assert.equal(day.blocks[0].lessons[0].weeks, undefined);
   assert.deepEqual(day.blocks[0].lessons[0].groups, ["КТ-41-24", "КТ-41-24ин"]);
   assert.equal(day.blocks[1].lessons[0].type, "конс");
   assert.deepEqual(day.blocks[1].lessons[0].groups, ["КТ-41-24"]);
@@ -306,6 +307,34 @@ test("parseGroupSchedule parses session entries with flexible lesson types", asy
   assert.equal(day.weekday, "Суббота");
   assert.equal(day.blocks[0].lessons[0].room, "Б-201");
   assert.equal(day.blocks[0].lessons[0].type, "конс");
+});
+
+test("parseRoomSchedule parses session teachers and groups", () => {
+  const html = sessionPage(`
+    <tr><td class="want"><span style="color: blue;">Базы данных</span> (Экз)<br>
+      доц. Иванов И. И.<br>КТ-41-24 КТ-41-24ин (2 подгруппа)<br>
+      11:40 - 13:00</td></tr>
+  `);
+  const entry = pickOnlyEntry(parseRoomSchedule(html));
+
+  assert.equal(entry.subject, "Базы данных");
+  assert.equal(entry.type, "экз");
+  assert.equal(entry.weeks, undefined);
+  assert.deepEqual(entry.teacher, { position: "доц.", name: "Иванов И. И." });
+  assert.deepEqual(entry.groups, ["КТ-41-24", "КТ-41-24ин"]);
+  assert.equal(entry.subgroup, 2);
+  assert.equal(entry.possibleChanges, true);
+});
+
+test("parseRoomSchedule does not fabricate an empty teacher", () => {
+  const html = semesterPage(`
+    <span style="color: blue;">Консультация</span> (конс.) (1 нед.)<br>
+    КТ-41-24
+  `);
+  const entry = pickOnlyEntry(parseRoomSchedule(html));
+
+  assert.equal(entry.teacher, undefined);
+  assert.deepEqual(entry.groups, ["КТ-41-24"]);
 });
 
 test("parseGroupSchedule parses summer session types, teachers and subgroups", async () => {

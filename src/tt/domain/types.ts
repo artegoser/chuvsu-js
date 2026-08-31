@@ -46,7 +46,7 @@ export interface RelationSet<T> {
 
 export interface LessonRecurrence {
   weekday: number;
-  weeks: WeekRange;
+  weeks?: WeekRange;
   parity?: "even" | "odd";
 }
 

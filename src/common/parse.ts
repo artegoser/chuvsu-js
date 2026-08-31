@@ -16,12 +16,12 @@ export function parseTime(s: string): Time {
 }
 
 /** Parse "2 нед." -> {from:2,to:2}, "6 - 8 нед." -> {from:6,to:8} */
-export function parseWeeks(s: string): WeekRange {
+export function parseWeeks(s: string): WeekRange | undefined {
   const range = s.match(/(\d+)\s*-\s*(\d+)/);
   if (range) return { from: parseInt(range[1]), to: parseInt(range[2]) };
   const single = s.match(/(\d+)/);
   if (single) return { from: parseInt(single[1]), to: parseInt(single[1]) };
-  return { from: 0, to: 0 };
+  return undefined;
 }
 
 /** Parse <sup>*</sup> / <sup>**</sup> markers: * = odd week, ** = even week */

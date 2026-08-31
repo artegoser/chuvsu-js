@@ -5,15 +5,16 @@ import {
   parseWeeks,
   text,
 } from "../../common/parse.js";
-import type { LocalDate } from "../../common/types.js";
 import type {
   ParsedScheduleDay,
-  ParsedScheduleBlock,
   ParsedLesson,
   Substitution,
   TeacherInfo,
 } from "../types.js";
-import { parseSemesterScheduleWith } from "./full-schedule.js";
+import {
+  parseSemesterScheduleWith,
+  parseSessionScheduleWith,
+} from "./full-schedule.js";
 import { parseGroupsString } from "./groups.js";
 import {
   parseSubstituteForDiv,
@@ -39,7 +40,7 @@ export function parseTeacherSchedule(html: string): ParsedScheduleDay[] {
   const doc = parseHtml(html);
 
   if (doc.querySelector('td[id^="trd2"]')) {
-    return parseTeacherSessionSchedule(doc);
+    return parseSessionScheduleWith(doc, parseTeacherSessionEntry);
   }
 
   return parseSemesterScheduleWith(doc, parseTeacherSemesterEntry);
@@ -117,46 +118,6 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   };
 }
 
-function parseTeacherSessionSchedule(doc: Document): ParsedScheduleDay[] {
-  const days: ParsedScheduleDay[] = [];
-
-  for (const dateCell of doc.querySelectorAll('td[id^="trd2"]')) {
-    const id = dateCell.getAttribute("id") ?? "";
-    const dateMatch = id.match(/trd(\d{4})(\d{2})(\d{2})/);
-    if (!dateMatch) continue;
-
-    const date = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` as LocalDate;
-
-    const cellHtml = dateCell.innerHTML ?? "";
-    const brMatch = cellHtml.match(/<br\s*\/?>\s*(.+)/i);
-    const weekday = brMatch ? brMatch[1].trim() : "";
-
-    const dataCell = dateCell.nextElementSibling;
-    if (!dataCell?.matches("td.trdata:not(.trfd)")) {
-      continue;
-    }
-
-    const blocks: ParsedScheduleBlock[] = [];
-
-    for (const entryRow of dataCell.querySelectorAll("table tr")) {
-      const td = entryRow.querySelector("td") ?? entryRow;
-      const entry = parseTeacherSessionEntry(td);
-      if (!entry) continue;
-
-      blocks.push({
-        time: entry.time,
-        lessons: [entry.lesson],
-      });
-    }
-
-    if (blocks.length > 0) {
-      days.push({ weekday, date, blocks });
-    }
-  }
-
-  return days;
-}
-
 function parseTeacherSessionEntry(
   td: Element,
 ): {
@@ -200,7 +161,6 @@ function parseTeacherSessionEntry(
       room: room || undefined,
       subject,
       type,
-      weeks: { from: 0, to: 0 },
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(plainText) || DISTANCE_RE.test(room ?? ""),

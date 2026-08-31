@@ -59,8 +59,8 @@ function recurrenceIncludes(series: LessonSeries, date: Date): number | null {
     year: semesterCalendarYear(series),
     date,
   });
-  const from = series.recurrence.weeks.from || 1;
-  const to = series.recurrence.weeks.to || 17;
+  const from = series.recurrence.weeks?.from ?? 1;
+  const to = series.recurrence.weeks?.to ?? 17;
   if (week < from || week > to) return null;
   if (series.recurrence.parity === "even" && week % 2 !== 0) return null;
   if (series.recurrence.parity === "odd" && week % 2 === 0) return null;

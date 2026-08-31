@@ -88,7 +88,6 @@ export function parseTransferDiv(
       room: roomMatch?.[1] || undefined,
       subject,
       type: typeMatch?.[1] ?? "",
-      weeks: { from: 0, to: 0 },
       teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
@@ -140,7 +139,7 @@ export function parseSubstituteForDiv(div: Element): {
   );
   const originalTeacher = origTeacherMatch
     ? parseTeacher(origTeacherMatch[1].trim())
-    : { name: "" };
+    : undefined;
 
   // Subject: second blue span
   const subjectEl = div.querySelectorAll('span[style*="color: blue"]');
@@ -169,7 +168,6 @@ export function parseSubstituteForDiv(div: Element): {
       room: roomMatch?.[1] || undefined,
       subject,
       type: typeMatch?.[1] ?? "",
-      weeks: { from: 0, to: 0 },
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: DISTANCE_RE.test(divText) || DISTANCE_RE.test(roomMatch?.[1] ?? ""),
