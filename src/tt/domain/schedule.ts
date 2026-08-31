@@ -14,7 +14,7 @@ import {
   RUSSIAN_HOLIDAYS,
 } from "../utils/index.js";
 import { occurrenceIdForSeries } from "./ids.js";
-import { entityKey } from "./normalize.js";
+import { entityKey, normalizeScheduleText } from "./normalize.js";
 import { TimetableRepository } from "./repository.js";
 import type {
   GroupAttendance,
@@ -103,6 +103,19 @@ function occurrenceMatchesOwner(
   return occurrence.rooms.values.some((value) => entityKey(value) === key);
 }
 
+function attendanceOverlaps(
+  left: GroupAttendance[],
+  right: GroupAttendance[],
+): boolean | undefined {
+  if (left.length === 0 || right.length === 0) return undefined;
+  return left.some((leftValue) => right.some((rightValue) =>
+    entityKey(leftValue.group) === entityKey(rightValue.group) &&
+    (leftValue.subgroup == null ||
+      rightValue.subgroup == null ||
+      leftValue.subgroup === rightValue.subgroup)
+  ));
+}
+
 function sortOccurrences(
   left: LessonOccurrence,
   right: LessonOccurrence,
@@ -153,10 +166,11 @@ export class Schedule {
 
   on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
     if (!this.isInAcademicYear(date)) return [];
-    if (isHoliday(date, this.holidays, this.holidayTransfers)) return [];
+    const holiday = isHoliday(date, this.holidays, this.holidayTransfers);
     const localDate = formatLocalDate(date);
 
     const direct = this.repository.getDirectOccurrences({
+      owner: this.owner,
       academicYearStartYear: this.academicYearStartYear,
     });
     const movedSources = direct
@@ -165,10 +179,12 @@ export class Schedule {
         date: value.movedFrom!.date,
         slotNumber: value.movedFrom!.slotNumber,
         subject: value.subject,
+        groups: value.groups.values,
       }));
     const occurrences: LessonOccurrence[] = [];
 
     for (const series of this.series()) {
+      if (holiday) continue;
       const week = recurrenceIncludes(series, date);
       if (week == null) continue;
       if (
@@ -176,7 +192,9 @@ export class Schedule {
           (source) =>
             source.date === localDate &&
             source.slotNumber === series.slotNumber &&
-            source.subject === series.subject,
+            normalizeScheduleText(source.subject) ===
+              normalizeScheduleText(series.subject) &&
+            attendanceOverlaps(source.groups, series.groups.values) !== false,
         )
       ) {
         continue;
@@ -266,10 +284,14 @@ export class Schedule {
         : this.academicYearStartYear + 1;
     let monday: Date;
     if (week != null) {
+      if (!Number.isInteger(week) || week < 1) {
+        throw new RangeError("Academic week must be a positive integer");
+      }
       const data = getSemesterWeeks({ period, year, weekCount: week }).find(
         (value) => value.week === week,
       );
-      monday = data?.start ?? getMonday(new Date());
+      if (!data) return [];
+      monday = data.start;
     } else {
       monday = getMonday(new Date());
     }
@@ -287,6 +309,9 @@ export class Schedule {
     weekday: number,
     options?: ScheduleWeekdayOptions,
   ): LessonOccurrence[] {
+    if (!Number.isInteger(weekday) || weekday < 0 || weekday > 6) {
+      throw new RangeError("Weekday must be an integer from 0 to 6");
+    }
     if (options?.week != null) {
       return this.week(options.week, options).filter(
         (value) => parseLocalDate(value.scheduledDate).getDay() === weekday,

@@ -43,6 +43,17 @@ function seriesObservation(overrides = {}) {
   };
 }
 
+function occurrenceObservation(overrides = {}) {
+  const base = seriesObservation();
+  const { recurrence: _recurrence, ...observation } = base;
+  return {
+    ...observation,
+    kind: "occurrence",
+    date: "2025-09-03",
+    ...overrides,
+  };
+}
+
 function snapshot(sourceKey, owner, observations) {
   return {
     sourceKey,
@@ -385,6 +396,28 @@ test("recurring occurrence ID is stable and excludes mutable room and time", () 
   assert.equal(after.id, before.id);
   assert.equal(after.id.includes("2025-09-02"), false);
   assert.equal(after.id.includes("Г-402"), false);
+});
+
+test("another owner's transfer cannot suppress this schedule", () => {
+  const repo = repository();
+  const ownerA = { type: "group", group: groupA };
+  const ownerB = { type: "group", group: groupB };
+  repo.ingest(snapshot("group:101", ownerA, [
+    seriesObservation({ groups: { values: [{ group: groupA }], completeness: "partial" } }),
+  ]));
+  repo.ingest(snapshot("group:102", ownerB, [
+    occurrenceObservation({
+      groups: { values: [{ group: groupB }], completeness: "partial" },
+      transfer: {
+        fromDate: "2025-09-02",
+        fromSlot: 2,
+        targetDate: "2025-09-03",
+      },
+    }),
+  ]));
+  const schedule = new Schedule(repo, ownerA, YEAR, { period: PERIOD, holidays: [] });
+
+  assert.equal(schedule.on(new Date(2025, 8, 2)).length, 1);
 });
 
 test("ambiguous parallel lessons remain separate instead of guessing identity", () => {

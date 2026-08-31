@@ -72,3 +72,35 @@ test("Schedule returns week-1 lessons during first September week", () => {
   assert.equal(week.length, 1);
   assert.equal(week[0].scheduledDate, "2026-09-01");
 });
+
+test("explicit session lessons remain visible on public holidays", () => {
+  const schedule = scheduleFromParsedDays([
+    {
+      weekday: "Пятница",
+      date: "2027-01-01",
+      blocks: [{
+        time: {
+          start: { hours: 10, minutes: 0 },
+          end: { hours: 11, minutes: 30 },
+        },
+        lessons: [{
+          subject: "Экзамен",
+          type: "экз",
+          weeks: { from: 0, to: 0 },
+        }],
+      }],
+    },
+  ], {
+    owner: { type: "group", group: { id: 1, name: "TEST-1" } },
+    period: AcademicPeriod.WinterSession,
+    academicYearStartYear: 2026,
+  });
+
+  assert.equal(schedule.on(new Date(2027, 0, 1)).length, 1);
+});
+
+test("Schedule rejects invalid week and weekday arguments", () => {
+  const schedule = firstWeekSchedule();
+  assert.throws(() => schedule.week(0), /positive integer/u);
+  assert.throws(() => schedule.weekday(7), /0 to 6/u);
+});
