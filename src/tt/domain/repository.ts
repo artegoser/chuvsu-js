@@ -634,15 +634,21 @@ export class TimetableRepository {
     const preferred = preferredClaim(claims);
     const rawRelations = aggregateRelations(claims);
     const relations = {
-      groups: rawRelations.groups.map((value) => ({
-        ...value,
-        group: this.directory.resolveGroup(value.group),
-      })),
-      teachers: rawRelations.teachers.map((value) =>
-        this.directory.resolveTeacher(value),
+      groups: mergeGroups(
+        rawRelations.groups.map((value) => ({
+          ...value,
+          group: this.directory.resolveGroup(value.group),
+        })),
       ),
-      rooms: rawRelations.rooms.map((value) =>
-        this.directory.resolveRoom(value),
+      teachers: mergeTeachers(
+        rawRelations.teachers.map((value) =>
+          this.directory.resolveTeacher(value),
+        ),
+      ),
+      rooms: mergeRooms(
+        rawRelations.rooms.map((value) =>
+          this.directory.resolveRoom(value),
+        ),
       ),
     };
     return {
@@ -672,15 +678,21 @@ export class TimetableRepository {
     const preferred = preferredClaim(claims);
     const rawRelations = aggregateRelations(claims);
     const relations = {
-      groups: rawRelations.groups.map((value) => ({
-        ...value,
-        group: this.directory.resolveGroup(value.group),
-      })),
-      teachers: rawRelations.teachers.map((value) =>
-        this.directory.resolveTeacher(value),
+      groups: mergeGroups(
+        rawRelations.groups.map((value) => ({
+          ...value,
+          group: this.directory.resolveGroup(value.group),
+        })),
       ),
-      rooms: rawRelations.rooms.map((value) =>
-        this.directory.resolveRoom(value),
+      teachers: mergeTeachers(
+        rawRelations.teachers.map((value) =>
+          this.directory.resolveTeacher(value),
+        ),
+      ),
+      rooms: mergeRooms(
+        rawRelations.rooms.map((value) =>
+          this.directory.resolveRoom(value),
+        ),
       ),
     };
     const transfer = claims
