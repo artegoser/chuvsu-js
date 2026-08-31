@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { TtClient } from "../dist/index.js";
+import { TimetableClient } from "../dist/index.js";
 
 const FALL_SEMESTER = 1;
 const REQUIRED_GROUP = "КТ-41-24";
@@ -78,7 +78,7 @@ function shuffle(items, seed) {
 async function loadGroups(tt) {
   const requestedGroup = getOption("group");
   if (requestedGroup) {
-    const matches = await tt.searchGroup({ name: requestedGroup });
+    const matches = await tt.searchGroups(requestedGroup);
     assert.ok(matches.length > 0, `Group not found: ${requestedGroup}`);
     return matches;
   }
@@ -87,7 +87,7 @@ async function loadGroups(tt) {
   const groupLists = await mapConcurrent(
     faculties,
     CONCURRENCY,
-    (faculty) => tt.getGroupsForFaculty({ facultyId: faculty.id }),
+    (faculty) => tt.getFacultyGroups(faculty.id),
   );
   return groupLists.flat();
 }
@@ -103,11 +103,11 @@ function validateAllWeeks(schedule, group) {
     const dates = datesFromWeek(week);
     const expectedWeekLessons = dates.reduce(
       (total, date) =>
-        total + schedule.forDay(date.getDay(), { week: week.week }).length,
+        total + schedule.weekday(date.getDay(), { week: week.week }).length,
       0,
     );
     const actualWeekLessons = dates.reduce(
-      (total, date) => total + schedule.forDate(date).length,
+      (total, date) => total + schedule.on(date).length,
       0,
     );
 
@@ -127,21 +127,19 @@ function validateAllWeeks(schedule, group) {
 }
 
 function validateEntryShape(schedule, group) {
-  const entries = schedule.getDays(FALL_SEMESTER).flatMap((day) =>
-    day.slots.flatMap((slot) => slot.entries),
-  );
+  const entries = schedule.series();
   for (const entry of entries) {
     assert.ok(entry.subject, `${group.name} [${group.id}]: subject missing`);
     assert.ok(entry.type, `${group.name} [${group.id}]: lesson type missing`);
     if (entry.isDistance) {
-      assert.equal(entry.room, "Дистанционно (ДОТ)");
-      assert.ok(!entry.teacher.name.includes("ДОТ"));
+      assert.ok(entry.rooms.values.some((room) => room.name === "Дистанционно (ДОТ)"));
+      assert.ok(entry.teachers.values.every((teacher) => !teacher.name.includes("ДОТ")));
     }
   }
   return entries.length;
 }
 
-const tt = new TtClient({ cache: 15 * 60 * 1000 });
+const tt = new TimetableClient({ cache: 15 * 60 * 1000 });
 await tt.login(getCredentials());
 
 const allGroups = await loadGroups(tt);
@@ -172,10 +170,7 @@ console.log(`Testing ${groups.length}/${allGroups.length} groups...`);
 let contextResolved = false;
 for (const group of groups) {
   try {
-    await tt.getScheduleForPeriod({
-      groupId: group.id,
-      period: FALL_SEMESTER,
-    });
+    await tt.getGroupSchedule(group.id, { periods: [FALL_SEMESTER] });
     contextResolved = true;
     break;
   } catch (error) {
@@ -189,9 +184,8 @@ let parsedEntries = 0;
 const failures = [];
 await mapConcurrent(groups, CONCURRENCY, async (group, index) => {
   try {
-    const schedule = await tt.getScheduleForPeriod({
-      groupId: group.id,
-      period: FALL_SEMESTER,
+    const schedule = await tt.getGroupSchedule(group.id, {
+      periods: [FALL_SEMESTER],
     });
     const result = validateAllWeeks(schedule, group);
     parsedEntries += validateEntryShape(schedule, group);

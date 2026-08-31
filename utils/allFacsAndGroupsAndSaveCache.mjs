@@ -1,9 +1,9 @@
 import { writeFileSync, readFileSync, existsSync } from "node:fs";
-import { TtClient } from "../dist/index.js";
+import { TimetableClient } from "../dist/index.js";
 
 const CACHE_FILE = "cache.json";
 
-const tt = new TtClient({
+const tt = new TimetableClient({
   cache: Infinity,
 });
 
@@ -27,7 +27,7 @@ let totalGroups = 0;
 
 console.log(`\nГруппы (${faculties.length} факультетов)`);
 for (const f of faculties) {
-  const groups = await tt.getGroupsForFaculty({ facultyId: f.id });
+  const groups = await tt.getFacultyGroups(f.id);
   totalGroups += groups.length;
   console.log(`  ${f.name}: ${groups.length} групп`);
   for (const g of groups) {

@@ -39,8 +39,8 @@ function seededShuffle(values, seed) {
 
 function entryCount(body, parseSchedule) {
   return parseSchedule(body).reduce(
-    (days, day) => days + day.slots.reduce(
-      (slots, slot) => slots + slot.entries.length,
+    (days, day) => days + day.blocks.reduce(
+      (blocks, block) => blocks + block.lessons.length,
       0,
     ),
     0,

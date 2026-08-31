@@ -1,7 +1,7 @@
 {
   "name": "chuvsu-js",
   "version": "5.0.0",
-  "description": "Node.js library for ChuvSU student portal (lk.chuvsu.ru) and schedule (tt.chuvsu.ru)",
+  "description": "Библиотека для расписания и личного кабинета ЧГУ им. И. Н. Ульянова",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,7 @@
     "build": "pnpm clean && tsc",
     "test": "pnpm build && node --test",
     "test:live:schedules": "pnpm build && node --env-file=.env utils/testSchedules.mjs",
-    "fixtures:audit": "pnpm build && node utils/auditScheduleExpectations.mjs",
+    "fixtures:audit": "pnpm build && node --test test/schedule-fixtures.test.mjs",
     "fixtures:collect": "pnpm build && node --env-file=.env utils/collectScheduleFixtures.mjs",
     "prepublishOnly": "pnpm build"
   },
