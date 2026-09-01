@@ -80,8 +80,7 @@ export class StudentPortalClient {
 
   private isBinarySessionExpired(response: HttpBufferResponse): boolean {
     const prefix = response.body.subarray(0, 8_192).toString("utf8");
-    return this.isSessionExpired(prefix) ||
-      response.contentType?.toLowerCase().includes("text/html") === true;
+    return this.isSessionExpired(prefix);
   }
 
   private async authGetBuffer(url: string): Promise<Buffer> {

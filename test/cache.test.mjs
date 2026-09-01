@@ -422,6 +422,24 @@ test("clients reject authentication HTML instead of caching it as binary data", 
   assert.equal(tt.exportCache()["teacherPhotos:10"], undefined);
 });
 
+test("TimetableClient accepts JPEG photos mislabeled as HTML by TT", async () => {
+  const photo = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10]);
+  const fakeHttp = new FakeHttpClient();
+  fakeHttp.getBufferResponse = async function (url) {
+    this.bump(this.calls.getBuffer, url);
+    return {
+      status: 200,
+      body: photo,
+      contentType: "text/html; charset=utf-8",
+    };
+  };
+
+  const tt = new TimetableClient({ cache: 10_000 });
+  tt.http = fakeHttp;
+
+  assert.deepEqual(await tt.getTeacherPhoto(10), photo);
+});
+
 test("StudentPortalClient rejects an unparseable profile before caching", async () => {
   const fakeHttp = new FakeHttpClient({
     get: {
