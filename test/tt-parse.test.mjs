@@ -382,6 +382,28 @@ test("parseRoomSchedule preserves room-page substitutions", () => {
   }]);
 });
 
+test("parseRoomSchedule parses teacher and groups in substitute-for overlays", () => {
+  const html = semesterPage(`
+    <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+      <span style="color: red;"><b>01.09.2026 замена вместо: </b></span>
+      <span style="color: blue;">Б-314</span><br>
+      Б-316 <span style="color: blue;">Математическая логика и теория алгоритмов</span> (пр)<br>
+      доц. к.т.н. Иванова Н. Н.<br>ИВТ-13-25
+    </div>
+  `);
+  const entry = pickOnlyEntry(parseRoomSchedule(html));
+
+  assert.equal(entry.room, "Б-316");
+  assert.deepEqual(entry.teacher, {
+    position: "доц.",
+    degree: "к.т.н.",
+    name: "Иванова Н. Н.",
+  });
+  assert.deepEqual(entry.groups, ["ИВТ-13-25"]);
+  assert.equal(entry.substituteFor.originalTeacher, undefined);
+  assertLocalDate(entry.substituteFor.date, "2026-09-01");
+});
+
 test("parseGroupSchedule parses summer session types, teachers and subgroups", async () => {
   const html = await loadSessionFixture("group-session-summer.html");
   const entries = parseGroupSchedule(html).flatMap((day) =>

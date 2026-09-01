@@ -6,15 +6,20 @@ import type {
   TransferInfo,
 } from "../types.js";
 import { parseGroupsString } from "./groups.js";
-import { hasDistanceMarker } from "./entry-parts.js";
 import {
-  LESSON_TYPE_PATTERN,
+  containsGroupCode,
+  hasDistanceMarker,
+  linesAfterSubject,
+  stripDistanceMarker,
+} from "./entry-parts.js";
+import {
   LESSON_TYPE_RE,
   LESSON_TYPE_RE_I,
   SUBGROUP_RE,
 } from "./patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
+const ROOM_CODE_RE = /^[А-Яа-яA-Za-z]-\d+$/u;
 const BLUE_SPAN_RE =
   /<span\b(?=[^>]*(?:style=["'][^"']*color:\s*blue|class=["'][^"']*\bblue\b))[^>]*>([^<]+)<\/span>/i;
 
@@ -137,8 +142,9 @@ export function parseSubstituteForDiv(div: Element): {
   const origTeacherMatch = divHtml.match(
     /замена\s*вместо:\s*<\/b><\/span>\s*<span[^>]*>([^<]+)<\/span>/,
   );
-  const originalTeacher = origTeacherMatch
-    ? parseTeacher(origTeacherMatch[1].trim())
+  const originalValue = origTeacherMatch?.[1].trim();
+  const originalTeacher = originalValue && !ROOM_CODE_RE.test(originalValue)
+    ? parseTeacher(originalValue)
     : undefined;
 
   // Subject: second blue span
@@ -155,19 +161,23 @@ export function parseSubstituteForDiv(div: Element): {
 
   const roomMatch = divHtml.match(/(?:<br\s*\/?>)\s*([А-Яа-яA-Za-z]-\d+)/);
   const typeMatch = divText.match(LESSON_TYPE_RE);
-  const groupsMatch = divHtml.match(
-    new RegExp(
-      `\\((?:${LESSON_TYPE_PATTERN})\\)\\s*(?:<br\\s*\\/?>)\\s*([^<]+?)(?:\\s*<i|$)`,
-    ),
+  const parts = linesAfterSubject(divHtml, subject);
+  const teacherLine = stripDistanceMarker(
+    parts.find((line) => !containsGroupCode(stripDistanceMarker(line))) ?? "",
   );
+  const groupsLine = parts
+    .filter((line) => containsGroupCode(stripDistanceMarker(line)))
+    .map(stripDistanceMarker)
+    .join(" ");
   const subgroupMatch = divText.match(SUBGROUP_RE);
-  const groups = parseGroupsString(groupsMatch?.[1]);
+  const groups = parseGroupsString(groupsLine);
 
   return {
     entry: {
       room: roomMatch?.[1] || undefined,
       subject,
       type: typeMatch?.[1] ?? "",
+      teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
