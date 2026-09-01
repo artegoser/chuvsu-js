@@ -1,6 +1,6 @@
 {
   "name": "chuvsu-js",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Библиотека для расписания и личного кабинета ЧГУ им. И. Н. Ульянова",
   "type": "module",
   "main": "dist/index.js",

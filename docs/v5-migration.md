@@ -276,6 +276,31 @@ const client = new TimetableClient({
 const snapshot = await client.exportRepository();
 ```
 
+Репозиторий предназначен для серверного хранения и дополнения данных. Не
+отправляйте полный `TimetableRepositorySnapshot` в браузер: его размер растет
+вместе со всеми когда-либо загруженными расписаниями, а восстановление требует
+повторной агрегации связей.
+
+Для API, SSR и офлайн-кеша материализуйте только готовое расписание владельца:
+
+```ts
+// Сервер: агрегация выполняется один раз, источники можно убрать из payload.
+const payload = schedule.materializeSnapshot({ includeSources: false });
+return Response.json(payload);
+
+// Браузер: JSON восстанавливается в индексированное по дате представление.
+import { MaterializedSchedule } from "chuvsu-js/browser";
+
+const schedule = new MaterializedSchedule(await response.json());
+schedule.on(date);                  // O(1) поиск даты
+schedule.dateKeys({ subgroup: 2 }); // даты для календаря
+```
+
+`MaterializedScheduleSnapshot` содержит уже объединенные `LessonOccurrence`,
+но не канонический репозиторий. Поле `repositoryRevision` позволяет серверному
+кешу инвалидировать снимок после дополнения пары из расписания преподавателя,
+аудитории или другой группы.
+
 Не передавайте экспорт `exportCache()` из v4 в `importCache()` v5: изменились
 ключи, категории и форма закешированных страниц. Старый TTL-кеш и старые blob-
 ключи следует удалить. Снимок репозитория v5 имеет `schemaVersion: 5`.

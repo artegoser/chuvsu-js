@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
+import { MaterializedSchedule } from "../dist/tt/domain/materialized-schedule.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import { formatLocalDate } from "../dist/tt/utils/index.js";
@@ -149,4 +150,81 @@ test("convenience queries and semester metadata use the same calendar", () => {
   assert.ok(Number.isInteger(schedule.getWeekNumber(now)));
   assert.equal(schedule.getSemesterWeeks(2).length, 2);
   assert.ok(schedule.getSemesterStart() instanceof Date);
+});
+
+test("schedule queries reuse aggregation until the repository revision changes", () => {
+  const schedule = recurringSchedule();
+  const repository = schedule.repository;
+  const getSeries = repository.getSeries.bind(repository);
+  const getDirectOccurrences = repository.getDirectOccurrences.bind(repository);
+  let seriesCalls = 0;
+  let occurrenceCalls = 0;
+  repository.getSeries = (...args) => {
+    seriesCalls++;
+    return getSeries(...args);
+  };
+  repository.getDirectOccurrences = (...args) => {
+    occurrenceCalls++;
+    return getDirectOccurrences(...args);
+  };
+
+  schedule.on(new Date(2026, 8, 8));
+  schedule.on(new Date(2026, 8, 22));
+  schedule.series();
+  assert.equal(seriesCalls, 1);
+  assert.equal(occurrenceCalls, 1);
+
+  repository.rememberRooms([{ id: 99, name: "Б-202" }]);
+  schedule.on(new Date(2026, 8, 8));
+  assert.equal(seriesCalls, 2);
+  assert.equal(occurrenceCalls, 2);
+});
+
+test("materialized schedules survive JSON transport and provide indexed dates", () => {
+  const schedule = recurringSchedule();
+  const materialized = schedule.materialize({
+    start: new Date(2026, 8, 1),
+    end: new Date(2026, 8, 30),
+  });
+  const snapshot = JSON.parse(JSON.stringify(materialized.export()));
+  const restored = new MaterializedSchedule(snapshot);
+
+  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
+    "2026-09-08",
+    "2026-09-22",
+  ]);
+  assert.deepEqual([...restored.dateKeys({ subgroup: 2 })], []);
+  assert.equal(restored.on(new Date(2026, 8, 8))[0].isDistance, true);
+  assert.ok(restored.on(new Date(2026, 8, 8))[0].sources[0].observedAt instanceof Date);
+  assert.deepEqual(JSON.parse(JSON.stringify(restored.export())), snapshot);
+  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
+    "2026-09-08",
+    "2026-09-22",
+  ]);
+  assert.equal("repository" in snapshot, false);
+});
+
+test("materialized schedule validates ranges and can omit source metadata", () => {
+  const schedule = recurringSchedule();
+  const withoutSources = schedule.materializeSnapshot({
+    start: new Date(2026, 8, 8),
+    end: new Date(2026, 8, 8),
+    includeSources: false,
+  });
+  assert.deepEqual(withoutSources.lessonsByDate["2026-09-08"][0].sources, []);
+  assert.throws(
+    () => new MaterializedSchedule({ ...withoutSources, schemaVersion: 2 }),
+    /Unsupported materialized schedule schema/,
+  );
+  assert.throws(
+    () => schedule.materialize({ start: new Date("invalid") }),
+    /invalid date/,
+  );
+  assert.throws(
+    () => schedule.materialize({
+      start: new Date(2026, 8, 9),
+      end: new Date(2026, 8, 8),
+    }),
+    /must not exceed/,
+  );
 });

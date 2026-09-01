@@ -16,6 +16,13 @@ import {
 import { occurrenceIdForSeries } from "./ids.js";
 import { entityKey, normalizeScheduleText } from "./normalize.js";
 import { TimetableRepository } from "./repository.js";
+import {
+  materializeSchedule,
+  materializeScheduleSnapshot,
+  type MaterializeScheduleOptions,
+  type MaterializedSchedule,
+  type MaterializedScheduleSnapshot,
+} from "./materialized-schedule.js";
 import type {
   GroupAttendance,
   LessonOccurrence,
@@ -138,6 +145,9 @@ export class Schedule {
   readonly period: AcademicPeriod;
   readonly holidays: Holiday[];
   readonly holidayTransfers: HolidayTransfer[];
+  private cachedRevision = -1;
+  private cachedSeries: LessonSeries[] = [];
+  private cachedDirectOccurrences: LessonOccurrence[] = [];
 
   constructor(
     repository: TimetableRepository,
@@ -160,11 +170,29 @@ export class Schedule {
     return this.repository.revision;
   }
 
+  private queryData(): {
+    series: LessonSeries[];
+    direct: LessonOccurrence[];
+  } {
+    if (this.cachedRevision !== this.repository.revision) {
+      this.cachedSeries = this.repository.getSeries({
+        owner: this.owner,
+        academicYearStartYear: this.academicYearStartYear,
+      });
+      this.cachedDirectOccurrences = this.repository.getDirectOccurrences({
+        owner: this.owner,
+        academicYearStartYear: this.academicYearStartYear,
+      });
+      this.cachedRevision = this.repository.revision;
+    }
+    return {
+      series: this.cachedSeries,
+      direct: this.cachedDirectOccurrences,
+    };
+  }
+
   series(): LessonSeries[] {
-    return this.repository.getSeries({
-      owner: this.owner,
-      academicYearStartYear: this.academicYearStartYear,
-    });
+    return structuredClone(this.queryData().series);
   }
 
   on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
@@ -172,10 +200,7 @@ export class Schedule {
     const holiday = isHoliday(date, this.holidays, this.holidayTransfers);
     const localDate = formatLocalDate(date);
 
-    const direct = this.repository.getDirectOccurrences({
-      owner: this.owner,
-      academicYearStartYear: this.academicYearStartYear,
-    });
+    const { series: recurringSeries, direct } = this.queryData();
     const movedSources = direct
       .filter((value) => value.movedFrom)
       .map((value) => ({
@@ -186,7 +211,7 @@ export class Schedule {
       }));
     const occurrences: LessonOccurrence[] = [];
 
-    for (const series of this.series()) {
+    for (const series of recurringSeries) {
       if (holiday) continue;
       const week = recurrenceIncludes(series, date);
       if (week == null) continue;
@@ -253,7 +278,7 @@ export class Schedule {
           options?.subgroup,
         )
       ) {
-        occurrences.push(occurrence);
+        occurrences.push(structuredClone(occurrence));
       }
     }
 
@@ -269,10 +294,20 @@ export class Schedule {
       ) {
         continue;
       }
-      occurrences.push(occurrence);
+      occurrences.push(structuredClone(occurrence));
     }
 
     return occurrences.sort(sortOccurrences);
+  }
+
+  materialize(options?: MaterializeScheduleOptions): MaterializedSchedule {
+    return materializeSchedule(this, options);
+  }
+
+  materializeSnapshot(
+    options?: MaterializeScheduleOptions,
+  ): MaterializedScheduleSnapshot {
+    return materializeScheduleSnapshot(this, options);
   }
 
   week(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {

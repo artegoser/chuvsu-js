@@ -13,11 +13,22 @@ export {
   TimetableRepository,
 } from "./repository.js";
 export { Schedule } from "./schedule.js";
+export {
+  MaterializedSchedule,
+  materializeSchedule,
+  materializeScheduleSnapshot,
+} from "./materialized-schedule.js";
 export type {
   ScheduleQueryOptions,
   ScheduleOptions,
   ScheduleWeekdayOptions,
 } from "./schedule.js";
+export type {
+  MaterializeScheduleOptions,
+  MaterializedScheduleSnapshot,
+  SerializedLessonOccurrence,
+  SerializedLessonSourceRef,
+} from "./materialized-schedule.js";
 export type {
   GroupAttendance,
   GroupRef,
