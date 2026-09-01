@@ -22,18 +22,39 @@ const CONFIG = {
     fixtureDir: "group-schedules",
     expectedDir: "expected",
     requiredCount: 34,
+    expectedFeatures: {
+      lessons: 900,
+      occurrences: 3,
+      substitutions: 1,
+      distance: 58,
+      moved: 3,
+    },
   },
   teacher: {
     parser: parseTeacherSchedule,
     fixtureDir: "teacher-schedules",
     expectedDir: "teacher-expected",
     requiredCount: 4,
+    expectedFeatures: {
+      lessons: 64,
+      occurrences: 0,
+      substitutions: 0,
+      distance: 18,
+      moved: 0,
+    },
   },
   room: {
     parser: parseRoomSchedule,
     fixtureDir: "room-schedules",
     expectedDir: "room-expected",
     requiredCount: 4,
+    expectedFeatures: {
+      lessons: 220,
+      occurrences: 2,
+      substitutions: 0,
+      distance: 0,
+      moved: 2,
+    },
   },
 };
 const CORPORA = [];
@@ -164,6 +185,23 @@ for (const [kind, config] of Object.entries(CONFIG)) {
         assert.ok(isLocalDate(observation.date));
       }
     }
+  });
+
+  test(`${kind} reviewed corpus retains its feature coverage`, () => {
+    const lessons = fixtures.flatMap((fixture) => fixture.expected.lessons);
+    assert.deepEqual(
+      {
+        lessons: lessons.length,
+        occurrences: lessons.filter((lesson) => lesson.kind === "occurrence").length,
+        substitutions: lessons.reduce(
+          (count, lesson) => count + (lesson.substitutions?.length ?? 0),
+          0,
+        ),
+        distance: lessons.filter((lesson) => lesson.isDistance).length,
+        moved: lessons.filter((lesson) => lesson.status === "moved").length,
+      },
+      config.expectedFeatures,
+    );
   });
 
   for (const fixture of fixtures) {
