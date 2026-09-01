@@ -17,9 +17,24 @@ import {
 import { isLocalDate } from "../dist/tt/utils/index.js";
 
 const CONFIG = {
-  group: { parser: parseGroupSchedule, fixtureDir: "group-schedules", requiredCount: 34 },
-  teacher: { parser: parseTeacherSchedule, fixtureDir: "teacher-schedules", requiredCount: 4 },
-  room: { parser: parseRoomSchedule, fixtureDir: "room-schedules", requiredCount: 4 },
+  group: {
+    parser: parseGroupSchedule,
+    fixtureDir: "group-schedules",
+    expectedDir: "expected",
+    requiredCount: 34,
+  },
+  teacher: {
+    parser: parseTeacherSchedule,
+    fixtureDir: "teacher-schedules",
+    expectedDir: "teacher-expected",
+    requiredCount: 4,
+  },
+  room: {
+    parser: parseRoomSchedule,
+    fixtureDir: "room-schedules",
+    expectedDir: "room-expected",
+    requiredCount: 4,
+  },
 };
 const CORPORA = [];
 
@@ -34,7 +49,11 @@ function ownerFromPage(kind, id, html) {
     assert.ok(info?.name, `teacher ${id}: missing owner`);
     return {
       type: "teacher",
-      teacher: { id, name: info.name, degree: info.degree },
+      teacher: {
+        id,
+        name: info.name,
+        ...(info.degree ? { degree: info.degree } : {}),
+      },
     };
   }
   const name = parseRoomName(html);
@@ -44,10 +63,22 @@ function ownerFromPage(kind, id, html) {
 
 async function loadCorpus(kind, config) {
   const dir = new URL(`./fixtures/tt/${config.fixtureDir}/`, import.meta.url);
+  const expectedDir = new URL(`./fixtures/tt/${config.expectedDir}/`, import.meta.url);
   const files = (await readdir(dir)).filter((value) => value.endsWith(".html")).sort();
+  const expectedFiles = (await readdir(expectedDir))
+    .filter((value) => value.endsWith(".json"))
+    .sort();
   assert.equal(files.length, config.requiredCount);
+  assert.deepEqual(
+    expectedFiles,
+    files.map((value) => value.replace(/\.html$/u, ".json")),
+  );
   return Promise.all(files.map(async (file) => {
     const html = await readFile(new URL(file, dir), "utf8");
+    const expected = JSON.parse(await readFile(
+      new URL(file.replace(/\.html$/u, ".json"), expectedDir),
+      "utf8",
+    ));
     const match = file.match(/-(\d+)-period-(\d+)\.html$/u);
     assert.ok(match, `${file}: invalid filename`);
     const id = Number(match[1]);
@@ -60,6 +91,7 @@ async function loadCorpus(kind, config) {
       file,
       html,
       days: config.parser(html),
+      expected,
       source: {
         sourceKey: `fixture:${kind}:${id}:${period}:${academicYearStartYear}`,
         owner: ownerFromPage(kind, id, html),
@@ -68,6 +100,43 @@ async function loadCorpus(kind, config) {
       },
     };
   }));
+}
+
+function canonicalValue(value, kind) {
+  return {
+    kind,
+    ...value,
+    sources: value.sources.map(({ observedAt: _observedAt, ...source }) => source),
+  };
+}
+
+function recreateCanonical(fixture) {
+  const ownerEntity = fixture.source.owner.type === "group"
+    ? fixture.source.owner.group
+    : fixture.source.owner.type === "teacher"
+      ? fixture.source.owner.teacher
+      : fixture.source.owner.room;
+  let series = 0;
+  let occurrences = 0;
+  const repository = new TimetableRepository({
+    idGenerator: {
+      seriesId: () =>
+        `ser_fixture_${fixture.source.owner.type}_${ownerEntity.id}_${++series}`,
+      lessonId: () =>
+        `les_fixture_${fixture.source.owner.type}_${ownerEntity.id}_${++occurrences}`,
+    },
+  });
+  repository.ingest(createScheduleSourceSnapshot({
+    ...fixture.source,
+    observedAt: new Date("2026-08-31T00:00:00.000Z"),
+    days: fixture.days,
+  }));
+  return [
+    ...repository.getSeries({ owner: fixture.source.owner })
+      .map((value) => canonicalValue(value, "series")),
+    ...repository.getDirectOccurrences({ owner: fixture.source.owner })
+      .map((value) => canonicalValue(value, "occurrence")),
+  ];
 }
 
 for (const [kind, config] of Object.entries(CONFIG)) {
@@ -96,6 +165,17 @@ for (const [kind, config] of Object.entries(CONFIG)) {
       }
     }
   });
+
+  for (const fixture of fixtures) {
+    test(`${kind} fixture ${fixture.file} matches its manually reviewed expectation`, () => {
+      assert.equal(fixture.expected.schemaVersion, 5);
+      assert.deepEqual(fixture.source, fixture.expected.source);
+      assert.deepEqual(
+        JSON.parse(JSON.stringify(recreateCanonical(fixture))),
+        fixture.expected.lessons,
+      );
+    });
+  }
 }
 
 const manualCases = JSON.parse(await readFile(
