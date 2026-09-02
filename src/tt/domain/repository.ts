@@ -43,6 +43,8 @@ interface ObservationClaim<T extends ScheduleObservation = ScheduleObservation> 
 interface CanonicalRecord<T extends ScheduleObservation> {
   id: string;
   claims: Map<string, ObservationClaim<T>>;
+  bucketKey: string;
+  ownerKeys: Set<string>;
 }
 
 interface CanonicalLink {
@@ -56,6 +58,16 @@ function claimKey(sourceKey: string, observationKey: string): string {
 
 function sourceObservationKey(sourceKey: string, observationKey: string): string {
   return claimKey(sourceKey, observationKey);
+}
+
+function canonicalBucketKey(
+  observation: ScheduleObservation,
+  source: Pick<ScheduleSourceSnapshot, "academicYearStartYear" | "period">,
+): string {
+  const prefix = `${source.academicYearStartYear}:${source.period}:${observation.kind}:${normalizeScheduleText(observation.subject)}`;
+  return observation.kind === "series"
+    ? `${prefix}:${observation.recurrence.weekday}:${recurrenceWeeks(observation)}`
+    : `${prefix}:${observation.date}`;
 }
 
 function sameDate(a: string, b: string): boolean {
@@ -413,6 +425,8 @@ export class TimetableRepository {
     LessonId,
     CanonicalRecord<OccurrenceObservation>
   >();
+  private readonly recordIdsByBucket = new Map<string, Set<string>>();
+  private readonly recordIdsByOwner = new Map<string, Set<string>>();
   private _revision = 0;
 
   constructor(opts?: {
@@ -540,7 +554,7 @@ export class TimetableRepository {
     periods?: readonly AcademicPeriod[];
   }): LessonSeries[] {
     const values: LessonSeries[] = [];
-    for (const record of this.seriesRecords.values()) {
+    for (const record of this.recordsForOwner(this.seriesRecords, opts?.owner)) {
       if (record.claims.size === 0) continue;
       const value = this.aggregateSeries(record);
       if (
@@ -568,7 +582,7 @@ export class TimetableRepository {
     periods?: readonly AcademicPeriod[];
   }): LessonOccurrence[] {
     const values: LessonOccurrence[] = [];
-    for (const record of this.occurrenceRecords.values()) {
+    for (const record of this.recordsForOwner(this.occurrenceRecords, opts?.owner)) {
       if (record.claims.size === 0) continue;
       const value = this.aggregateOccurrence(record);
       if (
@@ -642,6 +656,8 @@ export class TimetableRepository {
     this.links.clear();
     this.seriesRecords.clear();
     this.occurrenceRecords.clear();
+    this.recordIdsByBucket.clear();
+    this.recordIdsByOwner.clear();
     this._directory = new TimetableDirectory(snapshot.directory);
     this._revision = snapshot.revision;
     for (const source of sources) {
@@ -801,10 +817,16 @@ export class TimetableRepository {
 
   private pruneEmptyRecords(): void {
     for (const [id, record] of this.seriesRecords) {
-      if (record.claims.size === 0) this.seriesRecords.delete(id);
+      if (record.claims.size === 0) {
+        this.removeRecordIndexes(record);
+        this.seriesRecords.delete(id);
+      }
     }
     for (const [id, record] of this.occurrenceRecords) {
-      if (record.claims.size === 0) this.occurrenceRecords.delete(id);
+      if (record.claims.size === 0) {
+        this.removeRecordIndexes(record);
+        this.occurrenceRecords.delete(id);
+      }
     }
   }
 
@@ -815,7 +837,9 @@ export class TimetableRepository {
       link.kind === "series"
         ? this.seriesRecords.get(link.id)
         : this.occurrenceRecords.get(link.id);
-    record?.claims.delete(claimKey(sourceKey, observationKey));
+    if (!record) return;
+    record.claims.delete(claimKey(sourceKey, observationKey));
+    this.rebuildRecordOwnerIndex(record);
   }
 
   private addClaim(
@@ -824,21 +848,32 @@ export class TimetableRepository {
     observation: ScheduleObservation,
   ): void {
     const key = claimKey(source.sourceKey, observation.key);
+    const bucketKey = canonicalBucketKey(observation, source);
     if (link.kind === "series" && observation.kind === "series") {
       let record = this.seriesRecords.get(link.id);
       if (!record) {
-        record = { id: link.id, claims: new Map() };
+        record = { id: link.id, claims: new Map(), bucketKey, ownerKeys: new Set() };
         this.seriesRecords.set(link.id, record);
+        this.addRecordToBucket(record);
+      }
+      if (record.bucketKey !== bucketKey) {
+        throw new Error(`Incompatible timetable series link: ${link.id}`);
       }
       record.claims.set(key, { source, observation });
+      this.addClaimOwnerKeys(record, source, observation);
     }
     if (link.kind === "occurrence" && observation.kind === "occurrence") {
       let record = this.occurrenceRecords.get(link.id);
       if (!record) {
-        record = { id: link.id, claims: new Map() };
+        record = { id: link.id, claims: new Map(), bucketKey, ownerKeys: new Set() };
         this.occurrenceRecords.set(link.id, record);
+        this.addRecordToBucket(record);
+      }
+      if (record.bucketKey !== bucketKey) {
+        throw new Error(`Incompatible timetable occurrence link: ${link.id}`);
       }
       record.claims.set(key, { source, observation });
+      this.addClaimOwnerKeys(record, source, observation);
     }
   }
 
@@ -877,14 +912,19 @@ export class TimetableRepository {
     source: ScheduleSourceSnapshot,
     usedTargets: Set<string>,
   ): CanonicalLink | undefined {
-    const records =
-      observation.kind === "series"
-        ? this.seriesRecords.values()
-        : this.occurrenceRecords.values();
+    const recordMap = observation.kind === "series"
+      ? this.seriesRecords
+      : this.occurrenceRecords;
+    const candidateIds = this.recordIdsByBucket.get(
+      canonicalBucketKey(observation, source),
+    );
+    if (!candidateIds) return undefined;
     let best: { id: string; score: number } | undefined;
     let second = Number.NEGATIVE_INFINITY;
 
-    for (const record of records) {
+    for (const id of candidateIds) {
+      const record = recordMap.get(id);
+      if (!record) continue;
       if (usedTargets.has(record.id) || record.claims.size === 0) continue;
       let recordScore = Number.NEGATIVE_INFINITY;
       for (const claim of record.claims.values()) {
@@ -915,6 +955,113 @@ export class TimetableRepository {
 
     if (!best || best.score < 95 || best.score - second < 10) return undefined;
     return { kind: observation.kind, id: best.id };
+  }
+
+  private addRecordToBucket(record: CanonicalRecord<ScheduleObservation>): void {
+    let ids = this.recordIdsByBucket.get(record.bucketKey);
+    if (!ids) {
+      ids = new Set();
+      this.recordIdsByBucket.set(record.bucketKey, ids);
+    }
+    ids.add(record.id);
+  }
+
+  private ownerReferenceKeys(
+    kind: "group" | "teacher" | "room",
+    value: GroupRef | TeacherRef | RoomRef,
+  ): string[] {
+    const resolved = kind === "group"
+      ? this.directory.resolveGroup(value)
+      : kind === "teacher"
+        ? this.directory.resolveTeacher(value)
+        : this.directory.resolveRoom(value);
+    const keys = new Set<string>();
+    for (const reference of [value, resolved]) {
+      if (reference.id != null) keys.add(`${kind}:id:${reference.id}`);
+      const name = normalizeScheduleText(reference.name);
+      if (name) keys.add(`${kind}:name:${name}`);
+    }
+    return [...keys];
+  }
+
+  private claimOwnerKeys(
+    source: ScheduleSourceSnapshot,
+    observation: ScheduleObservation,
+  ): Set<string> {
+    const keys = new Set<string>();
+    const add = (
+      kind: "group" | "teacher" | "room",
+      value: GroupRef | TeacherRef | RoomRef,
+    ) => {
+      for (const key of this.ownerReferenceKeys(kind, value)) keys.add(key);
+    };
+    if (source.owner.type === "group") add("group", source.owner.group);
+    if (source.owner.type === "teacher") add("teacher", source.owner.teacher);
+    if (source.owner.type === "room") add("room", source.owner.room);
+    for (const value of observation.groups.values) add("group", value.group);
+    for (const value of observation.teachers.values) add("teacher", value);
+    for (const value of observation.rooms.values) add("room", value);
+    return keys;
+  }
+
+  private addClaimOwnerKeys(
+    record: CanonicalRecord<ScheduleObservation>,
+    source: ScheduleSourceSnapshot,
+    observation: ScheduleObservation,
+  ): void {
+    for (const key of this.claimOwnerKeys(source, observation)) {
+      record.ownerKeys.add(key);
+      let ids = this.recordIdsByOwner.get(key);
+      if (!ids) {
+        ids = new Set();
+        this.recordIdsByOwner.set(key, ids);
+      }
+      ids.add(record.id);
+    }
+  }
+
+  private removeRecordOwnerIndex(record: CanonicalRecord<ScheduleObservation>): void {
+    for (const key of record.ownerKeys) {
+      const ids = this.recordIdsByOwner.get(key);
+      ids?.delete(record.id);
+      if (ids?.size === 0) this.recordIdsByOwner.delete(key);
+    }
+    record.ownerKeys.clear();
+  }
+
+  private rebuildRecordOwnerIndex(record: CanonicalRecord<ScheduleObservation>): void {
+    this.removeRecordOwnerIndex(record);
+    for (const claim of record.claims.values()) {
+      this.addClaimOwnerKeys(record, claim.source, claim.observation);
+    }
+  }
+
+  private removeRecordIndexes(record: CanonicalRecord<ScheduleObservation>): void {
+    const bucketIds = this.recordIdsByBucket.get(record.bucketKey);
+    bucketIds?.delete(record.id);
+    if (bucketIds?.size === 0) this.recordIdsByBucket.delete(record.bucketKey);
+    this.removeRecordOwnerIndex(record);
+  }
+
+  private recordsForOwner<T extends ScheduleObservation>(
+    records: Map<string, CanonicalRecord<T>>,
+    owner: ScheduleOwner | undefined,
+  ): Iterable<CanonicalRecord<T>> {
+    if (!owner) return records.values();
+    const kind = owner.type;
+    const reference = owner.type === "group"
+      ? owner.group
+      : owner.type === "teacher"
+        ? owner.teacher
+        : owner.room;
+    const ids = new Set<string>();
+    for (const key of this.ownerReferenceKeys(kind, reference)) {
+      for (const id of this.recordIdsByOwner.get(key) ?? []) ids.add(id);
+    }
+    return [...ids].flatMap((id) => {
+      const record = records.get(id);
+      return record ? [record] : [];
+    });
   }
 
   private aggregateSubstitutions(

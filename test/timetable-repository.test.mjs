@@ -555,3 +555,51 @@ test("ambiguous parallel lessons remain separate instead of guessing identity", 
   assert.equal(repo.getSeries().length, 3);
   assert.equal(result.created, 1);
 });
+
+test("canonical matching and owner projections never enumerate unrelated records", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  repo.ingest(snapshot("group:101", owner, [seriesObservation()]));
+  repo.ingest(snapshot("group:102", { type: "group", group: groupB }, [
+    seriesObservation({ subject: "Физика", recurrence: { weekday: 4 } }),
+  ]));
+
+  repo.seriesRecords.values = () => {
+    throw new Error("unbounded canonical record scan");
+  };
+
+  const enriched = repo.ingest(
+    snapshot("teacher:201", { type: "teacher", teacher }, [
+      seriesObservation({
+        groups: { values: [{ group: groupA }], completeness: "partial" },
+      }),
+    ]),
+  );
+
+  assert.equal(enriched.created, 0);
+  assert.equal(repo.getSeries({ owner }).length, 1);
+});
+
+test("owner index drops relations removed by a refreshed source", () => {
+  const repo = repository();
+  const sourceOwner = { type: "teacher", teacher };
+  repo.ingest(snapshot("teacher:201", sourceOwner, [
+    seriesObservation({
+      groups: { values: [{ group: groupA }], completeness: "partial" },
+    }),
+  ]));
+  repo.ingest(snapshot("teacher:201", sourceOwner, [
+    seriesObservation({
+      groups: { values: [{ group: groupB }], completeness: "partial" },
+    }),
+  ]));
+
+  assert.equal(
+    repo.getSeries({ owner: { type: "group", group: groupA } }).length,
+    0,
+  );
+  assert.equal(
+    repo.getSeries({ owner: { type: "group", group: groupB } }).length,
+    1,
+  );
+});

@@ -213,6 +213,7 @@ export class TimetableClient {
     for (let attempt = 0; attempt < 4; attempt++) {
       const expectedRevision = this._repository.revision;
       const result = mutate(this._repository);
+      if (this._repository.revision === expectedRevision) return result;
       if (!this.repositoryAdapter) return result;
       if (
         await this.repositoryAdapter.compareAndSet(
@@ -545,21 +546,22 @@ export class TimetableClient {
       })),
     );
 
-    for (const result of results) {
-      const currentOwner = this.resolveOwner(resolvedOwner);
-      const snapshot = createScheduleSourceSnapshot({
-        sourceKey: this.sourceKey(
-          currentOwner,
-          result.period,
-          context.academicYearStartYear,
-        ),
-        owner: currentOwner,
-        academicYearStartYear: context.academicYearStartYear,
-        period: result.period,
-        days: result.days,
-      });
-      await this.mutateRepository((repository) => repository.ingest(snapshot));
-    }
+    await this.mutateRepository((repository) => {
+      for (const result of results) {
+        const currentOwner = this.resolveOwner(resolvedOwner);
+        repository.ingest(createScheduleSourceSnapshot({
+          sourceKey: this.sourceKey(
+            currentOwner,
+            result.period,
+            context.academicYearStartYear,
+          ),
+          owner: currentOwner,
+          academicYearStartYear: context.academicYearStartYear,
+          period: result.period,
+          days: result.days,
+        }));
+      }
+    });
 
     return new Schedule(
       this._repository,
