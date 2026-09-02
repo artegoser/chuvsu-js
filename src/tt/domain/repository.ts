@@ -261,6 +261,17 @@ function deserializeSource(
   };
 }
 
+function sameSourceContent(
+  left: ScheduleSourceSnapshot,
+  right: ScheduleSourceSnapshot,
+): boolean {
+  return left.sourceKey === right.sourceKey &&
+    left.academicYearStartYear === right.academicYearStartYear &&
+    left.period === right.period &&
+    JSON.stringify(left.owner) === JSON.stringify(right.owner) &&
+    JSON.stringify(left.observations) === JSON.stringify(right.observations);
+}
+
 function sourceRef(claim: ObservationClaim): LessonSourceRef {
   return {
     sourceKey: claim.source.sourceKey,
@@ -465,6 +476,19 @@ export class TimetableRepository {
     this.validateSource(incoming);
     this.rememberSourceEntities(incoming);
     const prior = this.sources.get(incoming.sourceKey);
+    if (prior && sameSourceContent(prior, incoming)) {
+      const links = incoming.observations.map((observation) =>
+        this.links.get(sourceObservationKey(incoming.sourceKey, observation.key))
+      );
+      return {
+        revision: this._revision,
+        seriesIds: links.flatMap((link) => link?.kind === "series" ? [link.id] : []),
+        lessonIds: links.flatMap((link) => link?.kind === "occurrence" ? [link.id] : []),
+        created: 0,
+        updated: incoming.observations.length,
+        removedObservations: 0,
+      };
+    }
     const priorClaims = new Map<string, ObservationClaim>();
     if (prior) {
       for (const observation of prior.observations) {

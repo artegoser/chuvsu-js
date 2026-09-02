@@ -603,3 +603,19 @@ test("owner index drops relations removed by a refreshed source", () => {
     1,
   );
 });
+
+test("identical source refreshes do not rebuild or revise the repository", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  const source = snapshot("group:101", owner, [seriesObservation()]);
+  const first = repo.ingest(source);
+  const refreshed = repo.ingest({
+    ...source,
+    observedAt: new Date("2026-09-02T00:00:00.000Z"),
+  });
+
+  assert.equal(refreshed.revision, first.revision);
+  assert.deepEqual(refreshed.seriesIds, first.seriesIds);
+  assert.equal(refreshed.created, 0);
+  assert.equal(repo.getSeries({ owner }).length, 1);
+});
