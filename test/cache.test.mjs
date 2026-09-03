@@ -458,6 +458,22 @@ test("StudentPortalClient rejects an unparseable profile before caching", async 
 
 test("TimetableClient uses timetable context for canonical group schedule cache", async () => {
   const cacheAdapter = new FakeCacheAdapter();
+  const repositoryPatches = [];
+  let repositoryRevision = 0;
+  const repositoryAdapter = {
+    async load() {
+      return null;
+    },
+    async compareAndSetPatch(expectedRevision, patch) {
+      assert.equal(expectedRevision, repositoryRevision);
+      repositoryRevision = patch.revision;
+      repositoryPatches.push(patch);
+      return true;
+    },
+    async compareAndSet() {
+      throw new Error("full repository snapshot must not be written");
+    },
+  };
   const groupUrl = `${TT_BASE}/index/grouptt/gr/8919`;
   const schedulePage = `
     <span class="htext">Группа <span style="color: blue;">КТ-41-24</span></span>
@@ -478,7 +494,7 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
     ])),
   });
 
-  const tt = new TimetableClient({ cache: 10_000, cacheAdapter });
+  const tt = new TimetableClient({ cache: 10_000, cacheAdapter, repositoryAdapter });
   tt.http = fakeHttp;
 
   const schedule = await tt.getGroupSchedule(8919);
@@ -500,6 +516,11 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
     );
   }
   assert.equal(fakeHttp.count("get", groupUrl), 1);
+  assert.ok(repositoryPatches.length > 0);
+  assert.equal(repositoryPatches.flatMap((patch) => patch.sourceReplacements).length, 4);
+  assert.ok(repositoryPatches.some((patch) =>
+    patch.directoryUpserts.groups.some((group) => group.id === 8919)
+  ));
 });
 
 test("TimetableClient never caches an invalid schedule response", async () => {

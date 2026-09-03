@@ -55,5 +55,6 @@ export type {
   TeacherRef,
   TimetableDirectorySnapshot,
   TimetableRepositoryAdapter,
+  TimetableRepositoryPatch,
   TimetableRepositorySnapshot,
 } from "./types.js";

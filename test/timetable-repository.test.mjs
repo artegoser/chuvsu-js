@@ -619,3 +619,44 @@ test("identical source refreshes do not rebuild or revise the repository", () =>
   assert.equal(refreshed.created, 0);
   assert.equal(repo.getSeries({ owner }).length, 1);
 });
+
+test("repository patches contain only touched sources and directory entries", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  const first = repo.capturePatch(() =>
+    repo.ingest(snapshot("group:101", owner, [seriesObservation()]))
+  );
+
+  assert.equal(first.patch.schemaVersion, 5);
+  assert.equal(first.patch.sourceReplacements.length, 1);
+  assert.equal(first.patch.sourceReplacements[0].source.sourceKey, "group:101");
+  assert.deepEqual(first.patch.sourceReplacements[0].links, [
+    { observationKey: "row:1", kind: "series", id: first.result.seriesIds[0] },
+  ]);
+  assert.deepEqual(first.patch.directoryUpserts.groups, [groupA]);
+
+  const unchanged = repo.capturePatch(() =>
+    repo.ingest({
+      ...snapshot("group:101", owner, [seriesObservation()]),
+      observedAt: new Date("2026-09-03T00:00:00.000Z"),
+    })
+  );
+  assert.equal(unchanged.patch, null);
+});
+
+test("changed sources prune only records they emptied", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+  repo.ingest(snapshot("group:101", owner, [seriesObservation()]));
+  repo.ingest(snapshot("group:102", { type: "group", group: groupB }, [
+    seriesObservation({ subject: "Физика", recurrence: { weekday: 4 } }),
+  ]));
+
+  repo.seriesRecords[Symbol.iterator] = () => {
+    throw new Error("whole repository pruning scan");
+  };
+  const result = repo.ingest(snapshot("group:101", owner, []));
+
+  assert.equal(result.removedObservations, 1);
+  assert.equal(repo.getSeries({ owner }).length, 0);
+});

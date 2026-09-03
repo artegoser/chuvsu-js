@@ -212,15 +212,22 @@ export class TimetableClient {
     await this.ensureRepository();
     for (let attempt = 0; attempt < 4; attempt++) {
       const expectedRevision = this._repository.revision;
-      const result = mutate(this._repository);
-      if (this._repository.revision === expectedRevision) return result;
+      const mutation = this._repository.capturePatch(() => mutate(this._repository));
+      const result = mutation.result;
+      if (!mutation.patch) return result;
       if (!this.repositoryAdapter) return result;
-      if (
-        await this.repositoryAdapter.compareAndSet(
+      let saved: boolean;
+      if (this.repositoryAdapter.compareAndSetPatch) {
+        saved = await this.repositoryAdapter.compareAndSetPatch(expectedRevision, mutation.patch);
+      } else if (this.repositoryAdapter.compareAndSet) {
+        saved = await this.repositoryAdapter.compareAndSet(
           expectedRevision,
           this._repository.export(),
-        )
-      ) {
+        );
+      } else {
+        throw new Error("Timetable repository adapter cannot persist changes");
+      }
+      if (saved) {
         return result;
       }
       const latest = await this.repositoryAdapter.load();

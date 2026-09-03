@@ -183,6 +183,22 @@ export interface TimetableRepositorySnapshot {
   }>;
 }
 
+export interface TimetableRepositoryPatch {
+  schemaVersion: 5;
+  revision: number;
+  /** Entity rows changed by this mutation. Merge them into persistent directory storage. */
+  directoryUpserts: TimetableDirectorySnapshot;
+  /** Complete replacements for touched sources. Untouched source rows stay unchanged. */
+  sourceReplacements: Array<{
+    source: SerializedScheduleSourceSnapshot;
+    links: Array<{
+      observationKey: string;
+      kind: "series" | "occurrence";
+      id: string;
+    }>;
+  }>;
+}
+
 export interface TimetableDirectorySnapshot {
   groups: GroupRef[];
   teachers: TeacherRef[];
@@ -191,9 +207,15 @@ export interface TimetableDirectorySnapshot {
 
 export interface TimetableRepositoryAdapter {
   load(): Promise<TimetableRepositorySnapshot | null>;
-  compareAndSet(
+  /** Legacy full-snapshot CAS fallback. Prefer compareAndSetPatch for persistent storage. */
+  compareAndSet?(
     expectedRevision: number,
     snapshot: TimetableRepositorySnapshot,
+  ): Promise<boolean>;
+  /** Incremental CAS: persist only supplied entity upserts and source replacements. */
+  compareAndSetPatch?(
+    expectedRevision: number,
+    patch: TimetableRepositoryPatch,
   ): Promise<boolean>;
   clear?(): Promise<void>;
 }

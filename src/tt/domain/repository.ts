@@ -4,6 +4,7 @@ import { TimetableDirectory } from "./directory.js";
 import { RandomLessonIdGenerator } from "./ids.js";
 import {
   entityKey,
+  mergeEntityRefs,
   mergeGroups,
   mergeRooms,
   mergeTeachers,
@@ -32,6 +33,7 @@ import type {
   SeriesObservation,
   TeacherRef,
   TimetableRepositoryAdapter,
+  TimetableRepositoryPatch,
   TimetableRepositorySnapshot,
 } from "./types.js";
 
@@ -50,6 +52,13 @@ interface CanonicalRecord<T extends ScheduleObservation> {
 interface CanonicalLink {
   kind: "series" | "occurrence";
   id: string;
+}
+
+interface RepositoryPatchTracker {
+  sourceKeys: Set<string>;
+  groups: GroupRef[];
+  teachers: TeacherRef[];
+  rooms: RoomRef[];
 }
 
 function claimKey(sourceKey: string, observationKey: string): string {
@@ -438,6 +447,7 @@ export class TimetableRepository {
   >();
   private readonly recordIdsByBucket = new Map<string, Set<string>>();
   private readonly recordIdsByOwner = new Map<string, Set<string>>();
+  private patchTracker: RepositoryPatchTracker | null = null;
   private _revision = 0;
 
   constructor(opts?: {
@@ -458,28 +468,59 @@ export class TimetableRepository {
   }
 
   rememberGroups(values: Parameters<TimetableDirectory["rememberGroups"]>[0]): void {
-    if (this.directory.rememberGroups(values)) this._revision++;
+    if (this.directory.rememberGroups(values)) {
+      this.patchTracker?.groups.push(...structuredClone(values));
+      this._revision++;
+    }
   }
 
   rememberTeachers(
     values: Parameters<TimetableDirectory["rememberTeachers"]>[0],
   ): void {
-    if (this.directory.rememberTeachers(values)) this._revision++;
+    if (this.directory.rememberTeachers(values)) {
+      this.patchTracker?.teachers.push(...structuredClone(values));
+      this._revision++;
+    }
   }
 
   rememberRooms(values: Parameters<TimetableDirectory["rememberRooms"]>[0]): void {
-    if (this.directory.rememberRooms(values)) this._revision++;
+    if (this.directory.rememberRooms(values)) {
+      this.patchTracker?.rooms.push(...structuredClone(values));
+      this._revision++;
+    }
+  }
+
+  capturePatch<T>(mutate: () => T): { result: T; patch: TimetableRepositoryPatch | null } {
+    if (this.patchTracker) throw new Error("Nested timetable repository mutation");
+    const expectedRevision = this._revision;
+    const tracker: RepositoryPatchTracker = {
+      sourceKeys: new Set(),
+      groups: [],
+      teachers: [],
+      rooms: [],
+    };
+    this.patchTracker = tracker;
+    try {
+      const result = mutate();
+      return {
+        result,
+        patch: this._revision === expectedRevision ? null : this.buildPatch(tracker),
+      };
+    } finally {
+      this.patchTracker = null;
+    }
   }
 
   ingest(snapshot: ScheduleSourceSnapshot): IngestResult {
     const incoming = structuredClone(snapshot);
     this.validateSource(incoming);
-    this.rememberSourceEntities(incoming);
+    const directoryChanged = this.rememberSourceEntities(incoming);
     const prior = this.sources.get(incoming.sourceKey);
     if (prior && sameSourceContent(prior, incoming)) {
       const links = incoming.observations.map((observation) =>
         this.links.get(sourceObservationKey(incoming.sourceKey, observation.key))
       );
+      if (directoryChanged) this._revision++;
       return {
         revision: this._revision,
         seriesIds: links.flatMap((link) => link?.kind === "series" ? [link.id] : []),
@@ -498,6 +539,7 @@ export class TimetableRepository {
     }
 
     this.sources.set(incoming.sourceKey, incoming);
+    this.patchTracker?.sourceKeys.add(incoming.sourceKey);
     const usedTargets = new Set<string>();
     const seriesIds: LessonSeriesId[] = [];
     const lessonIds: LessonId[] = [];
@@ -556,8 +598,6 @@ export class TimetableRepository {
         }
       }
     }
-    this.pruneEmptyRecords();
-
     this._revision++;
     return {
       revision: this._revision,
@@ -650,6 +690,32 @@ export class TimetableRepository {
             a.sourceKey.localeCompare(b.sourceKey) ||
             a.observationKey.localeCompare(b.observationKey),
         ),
+    };
+  }
+
+  private buildPatch(tracker: RepositoryPatchTracker): TimetableRepositoryPatch {
+    return {
+      schemaVersion: 5,
+      revision: this._revision,
+      directoryUpserts: {
+        groups: mergeEntityRefs(tracker.groups),
+        teachers: mergeTeachers(tracker.teachers),
+        rooms: mergeRooms(tracker.rooms),
+      },
+      sourceReplacements: [...tracker.sourceKeys].sort().flatMap((sourceKey) => {
+        const source = this.sources.get(sourceKey);
+        if (!source) return [];
+        return [{
+          source: serializeSource(source),
+          links: source.observations.map((observation) => {
+            const link = this.links.get(sourceObservationKey(sourceKey, observation.key));
+            if (!link) {
+              throw new Error(`Missing timetable link: ${sourceKey}/${observation.key}`);
+            }
+            return { observationKey: observation.key, ...link };
+          }),
+        }];
+      }),
     };
   }
 
@@ -818,7 +884,7 @@ export class TimetableRepository {
     }
   }
 
-  private rememberSourceEntities(source: ScheduleSourceSnapshot): void {
+  private rememberSourceEntities(source: ScheduleSourceSnapshot): boolean {
     const groups: GroupRef[] = [];
     const teachers: TeacherRef[] = [];
     const rooms: RoomRef[] = [];
@@ -834,24 +900,13 @@ export class TimetableRepository {
         rooms.push(...(substitution.rooms ?? []));
       }
     }
-    this.directory.rememberGroups(groups);
-    this.directory.rememberTeachers(teachers);
-    this.directory.rememberRooms(rooms);
-  }
-
-  private pruneEmptyRecords(): void {
-    for (const [id, record] of this.seriesRecords) {
-      if (record.claims.size === 0) {
-        this.removeRecordIndexes(record);
-        this.seriesRecords.delete(id);
-      }
-    }
-    for (const [id, record] of this.occurrenceRecords) {
-      if (record.claims.size === 0) {
-        this.removeRecordIndexes(record);
-        this.occurrenceRecords.delete(id);
-      }
-    }
+    const groupsChanged = this.directory.rememberGroups(groups);
+    const teachersChanged = this.directory.rememberTeachers(teachers);
+    const roomsChanged = this.directory.rememberRooms(rooms);
+    if (groupsChanged) this.patchTracker?.groups.push(...structuredClone(groups));
+    if (teachersChanged) this.patchTracker?.teachers.push(...structuredClone(teachers));
+    if (roomsChanged) this.patchTracker?.rooms.push(...structuredClone(rooms));
+    return groupsChanged || teachersChanged || roomsChanged;
   }
 
   private removeClaim(sourceKey: string, observationKey: string): void {
@@ -863,6 +918,12 @@ export class TimetableRepository {
         : this.occurrenceRecords.get(link.id);
     if (!record) return;
     record.claims.delete(claimKey(sourceKey, observationKey));
+    if (record.claims.size === 0) {
+      this.removeRecordIndexes(record);
+      if (link.kind === "series") this.seriesRecords.delete(link.id);
+      else this.occurrenceRecords.delete(link.id);
+      return;
+    }
     this.rebuildRecordOwnerIndex(record);
   }
 
