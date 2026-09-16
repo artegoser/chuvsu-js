@@ -287,6 +287,15 @@ test("parseGroupSchedule supports individual and group lesson types", async () =
   assert.equal(uppercase.type, "КРП");
 });
 
+test("parseGroupSchedule supports control work lesson types", () => {
+  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+    <tr><td class="want">III-405 <span style="color: blue;">Практический курс перевода английского языка</span> (КР)<br>
+      09:50 - 11:10</td></tr>
+  `)));
+
+  assert.equal(entry.type, "КР");
+});
+
 test("parseTeacherSchedule parses live remote room and group markup", async () => {
   const html = await loadSemesterFixture("teacher-remote.html");
   const entry = pickOnlyEntry(parseTeacherSchedule(html));

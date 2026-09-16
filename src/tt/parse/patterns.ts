@@ -1,5 +1,5 @@
 export const LESSON_TYPE_PATTERN =
-  "лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп";
+  "лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп|кр";
 export const FLEXIBLE_LESSON_TYPE_PATTERN =
   `(?:${LESSON_TYPE_PATTERN})\\.?|Экз`;
 
