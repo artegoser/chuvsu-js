@@ -3,6 +3,9 @@ const TAG_RE = /<[^>]*>/g;
 const DISTANCE_RE =
   /(?:^|[^\p{L}\p{N}])(?:дистанционно|ДОТ)(?=$|[^\p{L}\p{N}])/iu;
 const GROUP_TOKEN_RE = /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u;
+const LEADING_PARENTHESIZED_RE = /^\s*\(([^()]*)\)/u;
+const WEEK_METADATA_RE = /(?:^|\s)нед\.?(?:\s|$)/iu;
+const SUBGROUP_METADATA_RE = /^\d+\s*подгруппа$/iu;
 
 export function entryHtmlLines(html: string): string[] {
   return html.split(BR_RE).map((line) => line.trim());
@@ -58,4 +61,33 @@ export function stripDistanceMarker(value: string): string {
 
 export function containsGroupCode(value: string): boolean {
   return value.split(/\s+/).some((token) => GROUP_TOKEN_RE.test(token));
+}
+
+/**
+ * Lesson type is free-form portal data. Its stable marker is position: the first
+ * parenthesized value immediately after the blue subject span.
+ */
+export function parseLessonTypeAfterSubject(subjectElement: Element): string {
+  let suffix = "";
+  for (
+    let sibling = subjectElement.nextSibling;
+    sibling;
+    sibling = sibling.nextSibling
+  ) {
+    if ((sibling as Element).tagName?.toLowerCase() === "br") break;
+    suffix += sibling.textContent ?? "";
+  }
+
+  const candidate = suffix.match(LEADING_PARENTHESIZED_RE)?.[1]
+    ?.trim()
+    .replace(/\.$/, "") ?? "";
+  if (
+    !candidate ||
+    WEEK_METADATA_RE.test(candidate) ||
+    SUBGROUP_METADATA_RE.test(candidate) ||
+    candidate.toUpperCase() === "ДОТ"
+  ) {
+    return "";
+  }
+  return candidate;
 }

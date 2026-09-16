@@ -816,9 +816,6 @@ export class TimetableRepository {
       if (!observation.subject.trim()) {
         throw new Error(`Empty lesson subject in ${source.sourceKey}/${observation.key}`);
       }
-      if (!observation.type.trim()) {
-        throw new Error(`Empty lesson type in ${source.sourceKey}/${observation.key}`);
-      }
       const relations = [
         ["group", observation.groups, observation.groups.values.map((value) => value.group)],
         ["teacher", observation.teachers, observation.teachers.values],

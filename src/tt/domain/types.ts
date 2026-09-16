@@ -75,6 +75,7 @@ export interface LessonSeries {
   academicYearStartYear: number;
   period: AcademicPeriod;
   subject: string;
+  /** Free-form portal label; empty when no source exposes one. */
   type: string;
   slotNumber?: number;
   time?: TimeRange;
@@ -99,6 +100,7 @@ export interface LessonOccurrence {
   nominalDate: LocalDate;
   scheduledDate: LocalDate;
   subject: string;
+  /** Free-form portal label; empty when no source exposes one. */
   type: string;
   slotNumber?: number;
   time?: TimeRange;
@@ -118,6 +120,7 @@ interface ObservationBase {
   /** Stable only inside one source page projection. */
   key: string;
   subject: string;
+  /** Free-form portal label; empty when this source does not expose one. */
   type: string;
   slotNumber?: number;
   time?: TimeRange;

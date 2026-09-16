@@ -84,6 +84,7 @@ export interface ParsedLesson {
   /** Missing means this source projection does not expose room information. */
   room?: string | null;
   subject: string;
+  /** Free-form portal label; empty when this source does not expose one. */
   type: string;
   /** Recurrence range; absent for concrete session lessons or unknown evidence. */
   weeks?: WeekRange;

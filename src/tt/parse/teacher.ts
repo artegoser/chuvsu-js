@@ -21,17 +21,13 @@ import {
   parseSubstitutionDiv,
   parseTransferDiv,
 } from "./overlays.js";
-import {
-  FLEXIBLE_LESSON_TYPE_RE_I,
-  LESSON_TYPE_RE,
-  SUBGROUP_RE,
-  WEEKS_RE,
-} from "./patterns.js";
+import { SUBGROUP_RE, WEEKS_RE } from "./patterns.js";
 import {
   containsGroupCode,
   hasDistanceMarker,
   linesAfterSubject,
   parseEntryRoom,
+  parseLessonTypeAfterSubject,
   stripDistanceMarker,
 } from "./entry-parts.js";
 
@@ -90,10 +86,10 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   }
 
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(LESSON_TYPE_RE);
   const weeksMatch = cleanText.match(WEEKS_RE);
   const room = parseEntryRoom(cleanHtml, subject);
   const groupsLine = linesAfterSubject(cleanHtml, subject).find(
@@ -106,7 +102,7 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   return {
     room: room || undefined,
     subject,
-    type: typeMatch?.[1] ?? "",
+    type: parseLessonTypeAfterSubject(subjectEl),
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     groups: groups.length > 0 ? groups : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
@@ -131,13 +127,13 @@ function parseTeacherSessionEntry(
     (td.getAttribute("class") ?? "").includes("want") || undefined;
 
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!subject) return null;
 
   const room = parseEntryRoom(fullHtml, subject);
 
-  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
-  const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
+  const type = parseLessonTypeAfterSubject(subjectEl).toLowerCase();
   const subgroupMatch = plainText.match(SUBGROUP_RE);
 
   const timeMatch = fullHtml.match(

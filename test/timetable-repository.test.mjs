@@ -418,6 +418,15 @@ test("same source position does not preserve ID for an unrelated lesson", () => 
   assert.equal(repo.getSeries().length, 1);
 });
 
+test("repository keeps lessons whose type is not exposed", () => {
+  const repo = repository();
+  const owner = { type: "group", group: groupA };
+
+  repo.ingest(snapshot("group:101", owner, [seriesObservation({ type: "" })]));
+
+  assert.equal(repo.getSeries()[0].type, "");
+});
+
 test("repository rejects duplicate observation keys and dangling snapshots", () => {
   const repo = repository();
   const owner = { type: "group", group: groupA };

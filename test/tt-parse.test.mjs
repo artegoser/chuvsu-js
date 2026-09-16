@@ -287,13 +287,27 @@ test("parseGroupSchedule supports individual and group lesson types", async () =
   assert.equal(uppercase.type, "КРП");
 });
 
-test("parseGroupSchedule supports control work lesson types", () => {
-  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+test("parseGroupSchedule parses free-form types by structural position", () => {
+  const controlWork = pickOnlyEntry(parseGroupSchedule(semesterPage(`
     <tr><td class="want">III-405 <span style="color: blue;">Практический курс перевода английского языка</span> (КР)<br>
       09:50 - 11:10</td></tr>
   `)));
+  const futureType = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+    <tr><td><span style="color: blue;">Новый предмет</span> (новый формат) (1 - 16 нед.)<br>
+      Иванов И. И.</td></tr>
+  `)));
 
-  assert.equal(entry.type, "КР");
+  assert.equal(controlWork.type, "КР");
+  assert.equal(futureType.type, "новый формат");
+});
+
+test("parseGroupSchedule does not mistake schedule metadata for a type", () => {
+  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+    <tr><td><span style="color: blue;">Экономика (предприятия)</span> (1 - 16 нед.)<br>
+      Иванов И. И.</td></tr>
+  `)));
+
+  assert.equal(entry.type, "");
 });
 
 test("parseTeacherSchedule parses live remote room and group markup", async () => {

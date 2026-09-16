@@ -17,16 +17,12 @@ import {
   parseSubstitutionDiv,
   parseTransferDiv,
 } from "./overlays.js";
-import {
-  FLEXIBLE_LESSON_TYPE_RE_I,
-  LESSON_TYPE_RE,
-  SUBGROUP_RE,
-  WEEKS_RE,
-} from "./patterns.js";
+import { SUBGROUP_RE, WEEKS_RE } from "./patterns.js";
 import {
   hasDistanceMarker,
   containsGroupCode,
   linesAfterSubject,
+  parseLessonTypeAfterSubject,
   parseEntryRoom,
   stripDistanceMarker,
 } from "./entry-parts.js";
@@ -152,10 +148,10 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
   }
 
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(LESSON_TYPE_RE);
   const weeksMatch = cleanText.match(WEEKS_RE);
   const room = parseEntryRoom(cleanHtml, subject);
   const teacherLine = linesAfterSubject(cleanHtml, subject).find((line) => {
@@ -168,7 +164,7 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
   return {
     room: room || undefined,
     subject,
-    type: typeMatch?.[1] ?? "",
+    type: parseLessonTypeAfterSubject(subjectEl),
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
@@ -246,14 +242,14 @@ function parseSessionEntry(td: Element): ParsedSessionEntry | null {
     (td.getAttribute("class") ?? "").includes("want") || undefined;
 
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!subject) return null;
 
   const room = parseEntryRoom(fullHtml, subject);
 
   // Type: parenthesized text after </span>, case-insensitive
-  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
-  const type = typeMatch ? typeMatch[1].replace(/\.$/, "").toLowerCase() : "";
+  const type = parseLessonTypeAfterSubject(subjectEl).toLowerCase();
 
   const subgroupMatch = plainText.match(SUBGROUP_RE);
   const parts = linesAfterSubject(fullHtml, subject);

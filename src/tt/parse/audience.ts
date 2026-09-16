@@ -24,8 +24,6 @@ import {
 } from "./overlays.js";
 import {
   LESSON_TYPE_GLOBAL_RE,
-  LESSON_TYPE_RE,
-  FLEXIBLE_LESSON_TYPE_RE_I,
   SUBGROUP_ANNOTATION_RE,
   SUBGROUP_RE,
   WEEKS_GLOBAL_RE,
@@ -35,6 +33,7 @@ import {
   containsGroupCode,
   hasDistanceMarker,
   linesAfterSubject,
+  parseLessonTypeAfterSubject,
   stripDistanceMarker,
 } from "./entry-parts.js";
 
@@ -149,10 +148,10 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
   }
 
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!subject) return null;
 
-  const typeMatch = cleanText.match(LESSON_TYPE_RE);
   const weeksMatch = cleanText.match(WEEKS_RE);
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
@@ -178,7 +177,7 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
 
   return {
     subject,
-    type: typeMatch?.[1] ?? "",
+    type: parseLessonTypeAfterSubject(subjectEl),
     weeks: parseWeeks(weeksMatch?.[1] ?? ""),
     teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
     groups: groups.length > 0 ? groups : undefined,
@@ -205,7 +204,8 @@ function parseRoomSessionEntry(td: Element): {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
   const subjectEl = td.querySelector('span[style*="color: blue"]');
-  const subject = subjectEl ? text(subjectEl) : "";
+  if (!subjectEl) return null;
+  const subject = text(subjectEl);
   if (!plainText || !subject) return null;
 
   const timeMatch = fullHtml.match(
@@ -213,7 +213,6 @@ function parseRoomSessionEntry(td: Element): {
   );
   if (!timeMatch) return null;
 
-  const typeMatch = plainText.match(FLEXIBLE_LESSON_TYPE_RE_I);
   const parts = linesAfterSubject(fullHtml, subject);
   const teacherLine = parts.find((part) =>
     !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
@@ -228,7 +227,7 @@ function parseRoomSessionEntry(td: Element): {
   return {
     lesson: {
       subject,
-      type: typeMatch?.[1].replace(/\.$/, "").toLowerCase() ?? "",
+      type: parseLessonTypeAfterSubject(subjectEl).toLowerCase(),
       teacher: teacherLine ? parseTeacher(stripDistanceMarker(teacherLine)) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
