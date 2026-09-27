@@ -1,6 +1,6 @@
 import type { AcademicPeriod, LocalDate } from "../../common/types.js";
 import { formatLocalDate, parseLocalDate, type Holiday } from "../utils/index.js";
-import { Schedule, type ScheduleDataSource, type ScheduleQueryOptions, type ScheduleOptions } from "./schedule.js";
+import { Schedule, type ScheduleQueryOptions, type ScheduleOptions } from "./schedule.js";
 import type {
   LessonOccurrence,
   LessonSeries,
@@ -36,18 +36,6 @@ function deserializeSources(sources: SerializedSource[]): LessonSourceRef[] {
   return sources.map((source) => ({ ...structuredClone(source), observedAt: new Date(source.observedAt) }));
 }
 
-class SnapshotScheduleDataSource implements ScheduleDataSource {
-  constructor(
-    private readonly frozenRevision: number,
-    private readonly frozenSeries: LessonSeries[],
-    private readonly frozenDirect: LessonOccurrence[],
-  ) {}
-
-  get revision(): number { return this.frozenRevision; }
-  getSeries(): LessonSeries[] { return structuredClone(this.frozenSeries); }
-  getDirectOccurrences(): LessonOccurrence[] { return structuredClone(this.frozenDirect); }
-}
-
 /** Browser-ready schedule backed by recurring rules and dated exceptions. */
 export class ScheduleSnapshot extends Schedule {
   private readonly snapshot: SerializedScheduleSnapshot;
@@ -72,7 +60,11 @@ export class ScheduleSnapshot extends Schedule {
       })),
     };
     super(
-      new SnapshotScheduleDataSource(snapshot.repositoryRevision, series, direct),
+      {
+        revision: snapshot.repositoryRevision,
+        getSeries: () => structuredClone(series),
+        getDirectOccurrences: () => structuredClone(direct),
+      },
       snapshot.owner,
       snapshot.academicYearStartYear,
       options,
