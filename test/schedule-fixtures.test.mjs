@@ -4,7 +4,7 @@ import test from "node:test";
 
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
-import { CompactSchedule, compactScheduleSnapshot } from "../dist/tt/domain/compact-schedule.js";
+import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import {
   parseAcademicYearFromPage,
@@ -289,22 +289,22 @@ test("full-page corpus contains genuine cross-owner canonical lessons", () => {
   assert.deepEqual(sourcePartition(reversed), sourcePartition(repository));
 });
 
-test("compact schedule preserves corpus dates with smaller transfer payload", () => {
+test("schedule snapshot preserves corpus dates with smaller transfer payload", () => {
   const fixture = CORPORA.filter((value) => value.kind === "group")
     .sort((a, b) => b.expected.lessons.length - a.expected.lessons.length)[0];
   const repository = corpusRepository([fixture]);
   const schedule = new Schedule(repository, fixture.source.owner, fixture.source.academicYearStartYear, {
     period: fixture.source.period,
   });
-  const compact = compactScheduleSnapshot(schedule, { includeSources: false });
-  const restored = new CompactSchedule(JSON.parse(JSON.stringify(compact)));
-  const end = new Date(`${compact.end}T12:00:00`);
-  for (const day = new Date(`${compact.start}T12:00:00`); day <= end; day.setDate(day.getDate() + 1)) {
+  const snapshot = createScheduleSnapshot(schedule, { includeSources: false });
+  const restored = new ScheduleSnapshot(JSON.parse(JSON.stringify(snapshot)));
+  const end = new Date(`${snapshot.end}T12:00:00`);
+  for (const day = new Date(`${snapshot.start}T12:00:00`); day <= end; day.setDate(day.getDate() + 1)) {
     const lessons = schedule.on(day).map((value) => ({ ...value, sources: [] }));
     assert.deepEqual(
       JSON.parse(JSON.stringify(restored.on(day))),
       JSON.parse(JSON.stringify(lessons)),
     );
   }
-  assert.ok(JSON.stringify(compact).length < 80_000);
+  assert.ok(JSON.stringify(snapshot).length < 80_000);
 });

@@ -13,7 +13,7 @@ type SerializedSource = Omit<LessonSourceRef, "observedAt"> & { observedAt: stri
 type SerializedSeries = Omit<LessonSeries, "sources"> & { sources: SerializedSource[] };
 type SerializedOccurrence = Omit<LessonOccurrence, "sources"> & { sources: SerializedSource[] };
 
-export interface CompactScheduleSnapshot {
+export interface SerializedScheduleSnapshot {
   schemaVersion: 2;
   repositoryRevision: number;
   owner: ScheduleOwner;
@@ -52,13 +52,13 @@ class FrozenScheduleRepository extends TimetableRepository {
 }
 
 /** Browser-ready schedule backed by recurring rules and dated exceptions. */
-export class CompactSchedule extends Schedule {
-  private readonly snapshot: CompactScheduleSnapshot;
+export class ScheduleSnapshot extends Schedule {
+  private readonly snapshot: SerializedScheduleSnapshot;
   private readonly dateSetCache = new Map<number | undefined, ReadonlySet<LocalDate>>();
 
-  constructor(snapshot: CompactScheduleSnapshot) {
+  constructor(snapshot: SerializedScheduleSnapshot) {
     if (snapshot.schemaVersion !== 2) {
-      throw new Error(`Unsupported compact schedule schema: ${snapshot.schemaVersion}`);
+      throw new Error(`Unsupported schedule snapshot schema: ${snapshot.schemaVersion}`);
     }
     const series = snapshot.series.map((value) => ({
       ...structuredClone(value), sources: deserializeSources(value.sources),
@@ -83,7 +83,7 @@ export class CompactSchedule extends Schedule {
     this.snapshot = structuredClone(snapshot);
   }
 
-  export(): CompactScheduleSnapshot { return structuredClone(this.snapshot); }
+  export(): SerializedScheduleSnapshot { return structuredClone(this.snapshot); }
 
   override on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
     const key = formatLocalDate(date);
@@ -104,16 +104,16 @@ export class CompactSchedule extends Schedule {
   }
 }
 
-export function compactScheduleSnapshot(
+export function createScheduleSnapshot(
   schedule: Schedule,
   options?: { start?: Date; end?: Date; includeSources?: boolean },
-): CompactScheduleSnapshot {
+): SerializedScheduleSnapshot {
   const start = options?.start == null ? new Date(schedule.academicYearStartYear, 8, 1) : new Date(options.start);
   const end = options?.end == null ? new Date(schedule.academicYearStartYear + 1, 7, 31) : new Date(options.end);
   if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime())) {
-    throw new RangeError("Compact schedule range contains an invalid date");
+    throw new RangeError("Schedule snapshot range contains an invalid date");
   }
-  if (start > end) throw new RangeError("Compact schedule start must not exceed end");
+  if (start > end) throw new RangeError("Schedule snapshot start must not exceed end");
   const includeSources = options?.includeSources !== false;
   const series = schedule.series().map((value) => ({
     ...value, sources: serializeSources(value.sources, includeSources),

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
-import { CompactSchedule, compactScheduleSnapshot } from "../dist/tt/domain/compact-schedule.js";
+import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import { formatLocalDate } from "../dist/tt/utils/index.js";
@@ -180,14 +180,14 @@ test("schedule queries reuse aggregation until the repository revision changes",
   assert.equal(occurrenceCalls, 2);
 });
 
-test("compact schedules survive JSON transport and provide dates", () => {
+test("schedule snapshots survive JSON transport and provide dates", () => {
   const schedule = recurringSchedule();
-  const payload = compactScheduleSnapshot(schedule, {
+  const payload = createScheduleSnapshot(schedule, {
     start: new Date(2026, 8, 1),
     end: new Date(2026, 8, 30),
   });
   const snapshot = JSON.parse(JSON.stringify(payload));
-  const restored = new CompactSchedule(snapshot);
+  const restored = new ScheduleSnapshot(snapshot);
 
   assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
     "2026-09-08",
@@ -204,11 +204,11 @@ test("compact schedules survive JSON transport and provide dates", () => {
   assert.equal("lessonsByDate" in snapshot, false);
 });
 
-test("compact snapshots rebuild recurring dates without repeated lessons", () => {
+test("schedule snapshots rebuild recurring dates without repeated lessons", () => {
   const schedule = recurringSchedule();
   const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31) };
-  const snapshot = JSON.parse(JSON.stringify(compactScheduleSnapshot(schedule, range)));
-  const restored = new CompactSchedule(snapshot);
+  const snapshot = JSON.parse(JSON.stringify(createScheduleSnapshot(schedule, range)));
+  const restored = new ScheduleSnapshot(snapshot);
   assert.equal(snapshot.schemaVersion, 2);
   assert.equal(snapshot.series.length, 1);
   assert.equal(snapshot.direct.length, 0);
@@ -221,24 +221,24 @@ test("compact snapshots rebuild recurring dates without repeated lessons", () =>
   assert.deepEqual(restored.export(), snapshot);
 });
 
-test("compact schedule validates ranges and can omit source metadata", () => {
+test("schedule snapshot validates ranges and can omit source metadata", () => {
   const schedule = recurringSchedule();
-  const withoutSources = compactScheduleSnapshot(schedule, {
+  const withoutSources = createScheduleSnapshot(schedule, {
     start: new Date(2026, 8, 8),
     end: new Date(2026, 8, 8),
     includeSources: false,
   });
   assert.deepEqual(withoutSources.series[0].sources, []);
   assert.throws(
-    () => new CompactSchedule({ ...withoutSources, schemaVersion: 1 }),
-    /Unsupported compact schedule schema/,
+    () => new ScheduleSnapshot({ ...withoutSources, schemaVersion: 1 }),
+    /Unsupported schedule snapshot schema/,
   );
   assert.throws(
-    () => compactScheduleSnapshot(schedule, { start: new Date("invalid") }),
+    () => createScheduleSnapshot(schedule, { start: new Date("invalid") }),
     /invalid date/,
   );
   assert.throws(
-    () => compactScheduleSnapshot(schedule, {
+    () => createScheduleSnapshot(schedule, {
       start: new Date(2026, 8, 9),
       end: new Date(2026, 8, 8),
     }),

@@ -1,6 +1,6 @@
-export { RandomLessonIdGenerator, occurrenceIdForSeries, compactLegacyLessonId } from "./ids.js";
-export { CompactSchedule, compactScheduleSnapshot } from "./compact-schedule.js";
-export type { CompactScheduleSnapshot } from "./compact-schedule.js";
+export { RandomLessonIdGenerator, occurrenceIdForSeries, migrateLegacyLessonId } from "./ids.js";
+export { ScheduleSnapshot, createScheduleSnapshot } from "./schedule-snapshot.js";
+export type { SerializedScheduleSnapshot } from "./schedule-snapshot.js";
 export { TimetableDirectory } from "./directory.js";
 export {
   entityKey,

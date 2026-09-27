@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
-import { compactLegacyLessonId, occurrenceIdForSeries, RandomLessonIdGenerator } from "../dist/tt/domain/ids.js";
+import { migrateLegacyLessonId, occurrenceIdForSeries, RandomLessonIdGenerator } from "../dist/tt/domain/ids.js";
 import {
   getAdjacentSemester,
   getCompensatingWorkDays,
@@ -64,16 +64,17 @@ test("holiday weekends, bridges, collisions and explicit overrides are determini
 
 test("lesson ID generators preserve namespace and deterministic occurrence IDs", () => {
   const generator = new RandomLessonIdGenerator();
-  assert.match(generator.seriesId(), /^s[A-Za-z0-9_-]{22}$/u);
-  assert.match(generator.lessonId(), /^l[A-Za-z0-9_-]{22}$/u);
-  assert.equal(occurrenceIdForSeries("ser_fixed", 3), "les_ser_fixed_3_0");
-  assert.equal(occurrenceIdForSeries("ser_fixed", 3, 2), "les_ser_fixed_3_2");
+  assert.match(generator.seriesId(), /^[A-Za-z0-9_-]{12}$/u);
+  assert.match(generator.lessonId(), /^[A-Za-z0-9_-]{12}$/u);
+  assert.equal(occurrenceIdForSeries("ser_fixed", 3), "ser_fixed.3.0");
+  assert.equal(occurrenceIdForSeries("ser_fixed", 3, 2), "ser_fixed.3.2");
   const uuid = "7f16eb63-7416-4220-b13d-5653c123dfaa";
-  const series = compactLegacyLessonId(`ser_${uuid}`);
-  assert.match(series, /^s[A-Za-z0-9_-]{22}$/u);
-  assert.equal(compactLegacyLessonId(`les_ser_${uuid}_5_0`), occurrenceIdForSeries(series, 5));
-  assert.equal(compactLegacyLessonId(`les_${uuid}`).length, 23);
-  assert.equal(compactLegacyLessonId(`les_ser_${uuid}_5_0`).length, 26);
+  const series = migrateLegacyLessonId(`ser_${uuid}`);
+  assert.match(series, /^[A-Za-z0-9_-]{12}$/u);
+  assert.equal(migrateLegacyLessonId(`les_ser_${uuid}_5_0`), occurrenceIdForSeries(series, 5));
+  assert.equal(migrateLegacyLessonId(`les_${uuid}`).length, 12);
+  assert.equal(migrateLegacyLessonId(`les_ser_${uuid}_5_0`), `${series}.5.0`);
+  assert.notEqual(occurrenceIdForSeries(series, 5), occurrenceIdForSeries(series, 6));
 });
 
 function lesson() {

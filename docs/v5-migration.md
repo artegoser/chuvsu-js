@@ -295,28 +295,28 @@ const snapshot = await client.exportRepository();
 Для API, SSR и офлайн-кеша передавайте компактное расписание владельца:
 
 ```ts
-import { compactScheduleSnapshot } from "chuvsu-js";
+import { createScheduleSnapshot } from "chuvsu-js";
 
 // Сервер: повторяющиеся серии + отдельные пары с датами.
-const payload = compactScheduleSnapshot(schedule, { includeSources: false });
+const payload = createScheduleSnapshot(schedule, { includeSources: false });
 return Response.json(payload);
 
 // Браузер: даты строятся из правил расписания.
-import { CompactSchedule } from "chuvsu-js/browser";
+import { ScheduleSnapshot } from "chuvsu-js/browser";
 
-const schedule = new CompactSchedule(await response.json());
+const schedule = new ScheduleSnapshot(await response.json());
 schedule.on(date);
 schedule.dateKeys({ subgroup: 2 }); // даты для календаря
 ```
 
-`CompactScheduleSnapshot` содержит серии и отдельные пары, но не канонический
+`SerializedScheduleSnapshot` содержит серии и отдельные пары, но не канонический
 репозиторий. `repositoryRevision` позволяет серверному кешу инвалидировать снимок
-после дополнения пары из другого расписания. `CompactSchedule` использует ту же
+после дополнения пары из другого расписания. ` ScheduleSnapshot` использует ту же
 логику дат, переносов, праздников и подгрупп, что и `Schedule`.
 
-Формат `CompactScheduleSnapshot` имеет `schemaVersion: 2`.
+Формат `SerializedScheduleSnapshot` имеет `schemaVersion: 2`.
 Новые UUID идентификаторы серий и пар кодируются короче; для перевода сохранённых
-идентификаторов v5 используйте `compactLegacyLessonId`.
+идентификаторов v5 используйте `migrateLegacyLessonId`.
 
 Не передавайте экспорт `exportCache()` из v4 в `importCache()` v5: изменились
 ключи, категории и форма закешированных страниц. Старый TTL-кеш и старые blob-
