@@ -790,7 +790,7 @@ export class TimetableRepository {
     if (!Number.isInteger(source.academicYearStartYear)) {
       throw new Error(`Invalid academic year for source ${source.sourceKey}`);
     }
-    if (!Object.values(AcademicPeriod).includes(source.period)) {
+    if (!Number.isInteger(source.period) || !Object.values(AcademicPeriod).includes(source.period)) {
       throw new Error(`Invalid academic period for source ${source.sourceKey}`);
     }
     if (!(source.observedAt instanceof Date) || !Number.isFinite(source.observedAt.getTime())) {
