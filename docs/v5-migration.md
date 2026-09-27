@@ -321,7 +321,7 @@ schedule.dateKeys({ subgroup: 2 }); // даты для календаря
 после дополнения пары из другого расписания. ` ScheduleSnapshot` использует ту же
 логику дат, переносов, праздников и подгрупп, что и `Schedule`.
 
-Формат `SerializedScheduleSnapshot` имеет `schemaVersion: 2`.
+Формат `SerializedScheduleSnapshot` имеет `schemaVersion: 3`.
 Новые UUID идентификаторы серий и пар кодируются короче; для перевода сохранённых
 идентификаторов v5 используйте `migrateLegacyLessonId`.
 
