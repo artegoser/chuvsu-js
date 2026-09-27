@@ -312,6 +312,27 @@ schedule.dateKeys({ subgroup: 2 }); // даты для календаря
 кешу инвалидировать снимок после дополнения пары из расписания преподавателя,
 аудитории или другой группы.
 
+Начиная с 5.3.0 для передачи клиенту используйте компактный снимок: он содержит
+повторяющиеся серии и отдельные пары с датами, а не копию каждой пары на каждый
+день. `CompactSchedule` использует ту же логику дат, переносов, праздников и
+подгрупп, что и `Schedule`.
+
+```ts
+import { CompactSchedule, compactScheduleSnapshot } from "chuvsu-js/browser";
+
+// Сервер: compactScheduleSnapshot доступен из основного пакета.
+const payload = compactScheduleSnapshot(schedule, { includeSources: false });
+// Браузер:
+const compact = new CompactSchedule(await response.json());
+compact.on(new Date());
+compact.dateKeys({ subgroup: 2 });
+```
+
+Формат `CompactScheduleSnapshot` имеет `schemaVersion: 2`. Старый формат
+`MaterializedScheduleSnapshot` (`schemaVersion: 1`) оставлен для совместимости.
+Новые UUID идентификаторы серий и пар кодируются короче; для перевода сохранённых
+идентификаторов v5 используйте `compactLegacyLessonId`.
+
 Не передавайте экспорт `exportCache()` из v4 в `importCache()` v5: изменились
 ключи, категории и форма закешированных страниц. Старый TTL-кеш и старые blob-
 ключи следует удалить. Снимок репозитория v5 имеет `schemaVersion: 5`.
