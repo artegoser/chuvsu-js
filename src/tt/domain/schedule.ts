@@ -15,7 +15,6 @@ import {
 } from "../utils/index.js";
 import { occurrenceIdForSeries } from "./ids.js";
 import { entityKey, normalizeScheduleText } from "./normalize.js";
-import { TimetableRepository } from "./repository.js";
 import type {
   GroupAttendance,
   LessonOccurrence,
@@ -131,10 +130,11 @@ function sortOccurrences(
   );
 }
 
-export type ScheduleDataSource = Pick<
-  TimetableRepository,
-  "revision" | "getSeries" | "getDirectOccurrences"
->;
+interface ScheduleDataSource {
+  readonly revision: number;
+  getSeries(options?: { owner?: ScheduleOwner; academicYearStartYear?: number }): LessonSeries[];
+  getDirectOccurrences(options?: { owner?: ScheduleOwner; academicYearStartYear?: number }): LessonOccurrence[];
+}
 
 export class Schedule {
   readonly repository: ScheduleDataSource;
