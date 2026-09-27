@@ -12,8 +12,10 @@ type SerializedSource = Omit<LessonSourceRef, "observedAt"> & { observedAt: stri
 type SerializedSeries = Omit<LessonSeries, "sources"> & { sources: SerializedSource[] };
 type SerializedOccurrence = Omit<LessonOccurrence, "sources"> & { sources: SerializedSource[] };
 
+export const SCHEDULE_SNAPSHOT_SCHEMA_VERSION = 3;
+
 export interface SerializedScheduleSnapshot {
-  schemaVersion: 3;
+  schemaVersion: typeof SCHEDULE_SNAPSHOT_SCHEMA_VERSION;
   repositoryRevision: number;
   owner: ScheduleOwner;
   academicYearStartYear: number;
@@ -51,7 +53,7 @@ export class ScheduleSnapshot extends Schedule {
   private readonly dateSetCache = new Map<number | undefined, ReadonlySet<LocalDate>>();
 
   constructor(snapshot: SerializedScheduleSnapshot) {
-    if (snapshot.schemaVersion !== 3) {
+    if (snapshot.schemaVersion !== SCHEDULE_SNAPSHOT_SCHEMA_VERSION) {
       throw new Error(`Unsupported schedule snapshot schema: ${snapshot.schemaVersion}`);
     }
     const series = snapshot.series.map((value) => ({
@@ -119,7 +121,7 @@ export function createScheduleSnapshot(
     ...value, sources: serializeSources(value.sources, includeSources),
   }));
   return {
-    schemaVersion: 3,
+    schemaVersion: SCHEDULE_SNAPSHOT_SCHEMA_VERSION,
     repositoryRevision: schedule.revision,
     owner: structuredClone(schedule.owner),
     academicYearStartYear: schedule.academicYearStartYear,

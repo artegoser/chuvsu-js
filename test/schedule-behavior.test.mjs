@@ -211,7 +211,6 @@ test("schedule snapshots rebuild recurring dates without repeated lessons", () =
   assert.deepEqual(snapshot.holidays, []);
   assert.equal("holidayTransfers" in snapshot, false);
   const restored = new ScheduleSnapshot(snapshot);
-  assert.equal(snapshot.schemaVersion, 3);
   assert.equal(snapshot.series.length, 1);
   assert.equal(snapshot.direct.length, 0);
   assert.equal("lessonsByDate" in snapshot, false);

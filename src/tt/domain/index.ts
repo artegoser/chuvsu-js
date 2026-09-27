@@ -1,5 +1,5 @@
 export { RandomLessonIdGenerator, occurrenceIdForSeries, migrateLegacyLessonId } from "./ids.js";
-export { ScheduleSnapshot, createScheduleSnapshot } from "./schedule-snapshot.js";
+export { ScheduleSnapshot, createScheduleSnapshot, SCHEDULE_SNAPSHOT_SCHEMA_VERSION } from "./schedule-snapshot.js";
 export type { SerializedScheduleSnapshot } from "./schedule-snapshot.js";
 export { TimetableDirectory } from "./directory.js";
 export {
