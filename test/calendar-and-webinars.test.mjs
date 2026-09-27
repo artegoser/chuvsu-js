@@ -13,6 +13,7 @@ import {
   isSessionPeriod,
 } from "../dist/tt/utils/index.js";
 import { attachWebinars, findWebinar } from "../dist/tt/webinars.js";
+import { LessonType } from "../dist/tt/utils/lesson-type.js";
 
 function localDates(values) {
   return values.map((value) =>
@@ -85,7 +86,7 @@ function lesson() {
     nominalDate: "2026-09-08",
     scheduledDate: "2026-09-08",
     subject: "Базы данных",
-    type: "лк",
+    type: LessonType.Lecture,
     slotNumber: 2,
     time: { start: { hours: 9, minutes: 50 }, end: { hours: 11, minutes: 10 } },
     groups: { values: [], completeness: "unknown" },

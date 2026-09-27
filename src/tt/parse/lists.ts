@@ -7,10 +7,22 @@ const PERIOD_LABELS: Record<string, AcademicPeriod> = {
   "зимняя сессия": 2 as AcademicPeriod,
   "весенний семестр": 3 as AcademicPeriod,
   "летняя сессия": 4 as AcademicPeriod,
+  "гиа": AcademicPeriod.StateFinalAssessment,
   "ппа": AcademicPeriod.Retake,
 };
 
 const KNOWN_PERIODS = new Set<number>(Object.values(AcademicPeriod).filter((value): value is number => typeof value === "number"));
+
+/** Period tabs exposed by this timetable page, in portal order. */
+export function parseAvailablePeriodsFromPage(html: string): AcademicPeriod[] {
+  const doc = parseHtml(html);
+  const periods = new Set<AcademicPeriod>();
+  for (const input of doc.querySelectorAll('input[name="pertype"]')) {
+    const value = Number(input.getAttribute("value"));
+    if (KNOWN_PERIODS.has(value)) periods.add(value as AcademicPeriod);
+  }
+  return [...periods];
+}
 
 export function parsePeriodFromPage(html: string): AcademicPeriod | null {
   const doc = parseHtml(html);

@@ -1,5 +1,6 @@
 import type { LessonOccurrence } from "./domain/types.js";
 import type { Webinar } from "./types.js";
+import { LessonType, parseLessonType } from "./utils/lesson-type.js";
 
 export type LessonWithWebinar = LessonOccurrence & { webinar?: Webinar };
 
@@ -37,7 +38,7 @@ export function findWebinar(
       return false;
     }
     if (normalize(webinar.subject) !== normalize(lesson.subject)) return false;
-    if (webinar.type && lesson.type && webinar.type !== lesson.type) return false;
+    if (webinar.type && lesson.type !== LessonType.Unknown && parseLessonType(webinar.type) !== lesson.type) return false;
     return true;
   });
 }

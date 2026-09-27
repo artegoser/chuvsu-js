@@ -103,11 +103,11 @@ new TimetableClient({ educationLevel: EducationLevel.HigherEducation });
 | `getAudienceFloorplan(id)` | `getRoomFloorPlan(id)` |
 | `getTeacherPhoto(id)` / `getTeacherPhotoLazy(id)` | `getTeacherPhoto(id)` |
 
-`getGroupSchedule` по умолчанию загружает четыре основных периода и ППА
-(`AcademicPeriod.Retake`, 11). Уроки ППА содержат `retakeAttempt: 1 | 2`,
-если номер попытки указан на сайте. `getTeacherSchedule` и `getRoomSchedule`
-по умолчанию загружают четыре основных периода. Для ограничения запросов
-передайте `periods`:
+`getGroupSchedule`, `getTeacherSchedule` и `getRoomSchedule` по умолчанию
+загружают все периоды, доступные на соответствующей странице портала, включая
+ГИА (`AcademicPeriod.StateFinalAssessment`, 9) и ППА (`AcademicPeriod.Retake`, 11).
+Уроки ППА содержат `retakeAttempt: 1 | 2`, если номер попытки указан на сайте.
+Для ограничения запросов передайте `periods`:
 
 ```ts
 import { AcademicPeriod } from "chuvsu-js";
@@ -119,6 +119,10 @@ const schedule = await client.getTeacherSchedule(teacherId, {
   ],
 });
 ```
+
+`LessonType` хранит тип занятия числом в наблюдениях, репозитории и снимке.
+`parseLessonType(code)` переводит код портала в этот индекс. Для неизвестного
+кода возвращается `LessonType.Unknown`; текстовые расшифровки принадлежат клиенту.
 
 Для кода, который работает с разными владельцами одинаково, добавлен общий
 метод:

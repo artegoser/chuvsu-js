@@ -1,5 +1,6 @@
 export {
   parseAcademicYearFromPage,
+  parseAvailablePeriodsFromPage,
   parseRoomButtons,
   parseRoomSchedule,
   parseRoomInfo,

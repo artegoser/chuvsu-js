@@ -1,5 +1,5 @@
 import type { Teacher } from "../common/types.js";
-import { parseLocalDate } from "./utils/index.js";
+import { parseLessonType, parseLocalDate } from "./utils/index.js";
 import type {
   ParsedScheduleDay,
   ParsedLesson,
@@ -127,7 +127,7 @@ function observationBase(
   return {
     key,
     subject: entry.subject,
-    type: entry.type,
+    type: parseLessonType(entry.type),
     slotNumber: block.slotNumber,
     time: block.time,
     groups: groupsFor(entry, owner),

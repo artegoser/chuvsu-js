@@ -180,7 +180,7 @@ function observationScore(
   }
 
   let score = 35;
-  if (normalizeScheduleText(left.type) === normalizeScheduleText(right.type)) {
+  if (left.type === right.type) {
     score += 10;
   } else if (left.type && right.type) {
     score -= 12;

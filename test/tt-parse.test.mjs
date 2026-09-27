@@ -17,7 +17,7 @@ import { attachWebinars } from "../dist/tt/webinars.js";
 import { isHoliday } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
-import { parsePeriodFromPage } from "../dist/tt/parse/lists.js";
+import { parseAvailablePeriodsFromPage, parsePeriodFromPage } from "../dist/tt/parse/lists.js";
 import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
 import { AcademicPeriod } from "../dist/common/types.js";
 
@@ -58,6 +58,7 @@ test("PPA attempts survive parsing and browser snapshot transport", () => {
   const entry = (attempt) => `<tr><td class="want">Е-201 <span style="color: blue;">Гибкие навыки развития карьеры</span> (зач) - <span class="red">${attempt} ППА</span><br>Веденина О. А.<br>16:40 - 18:00</td></tr>`;
   const html = sessionPage(entry(1));
   assert.equal(parsePeriodFromPage('<input name="pertype" value="11" checked>'), AcademicPeriod.Retake);
+  assert.deepEqual(parseAvailablePeriodsFromPage('<input name="pertype" value="1"><input name="pertype" value="9"><input name="pertype" value="11">'), [AcademicPeriod.FallSemester, AcademicPeriod.StateFinalAssessment, AcademicPeriod.Retake]);
   const first = pickOnlyEntry(parseGroupSchedule(html));
   assert.equal(first.retakeAttempt, 1);
   assert.equal(first.type, "зач");
@@ -547,7 +548,7 @@ test("parseWebinars parses scheduled rows and attaches them to lessons", async (
           end: { hours: 9, minutes: 40 },
         },
         subject: "Правоведение",
-        type: "лк",
+        type: 1,
         groups: { values: [], completeness: "unknown" },
         teachers: { values: [{ name: "Верещак С. Б." }], completeness: "partial" },
         rooms: { values: [{ name: "Дистанционно (ДОТ)" }], completeness: "complete" },

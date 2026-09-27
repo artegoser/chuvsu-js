@@ -13,6 +13,7 @@ import {
 } from "../common/types.js";
 import {
   parseAcademicYearFromPage,
+  parseAvailablePeriodsFromPage,
   parseRoomButtons,
   parseRoomSchedule,
   parseRoomInfo,
@@ -56,15 +57,14 @@ const BASE = "https://tt.chuvsu.ru";
 const AUTH_URL = `${BASE}/auth`;
 const TIMETABLE_CONTEXT_TTL_MS = 15 * 60 * 1000;
 
-const ALL_PERIODS = [
+const SUPPORTED_PERIODS = [
   AcademicPeriod.FallSemester,
   AcademicPeriod.WinterSession,
   AcademicPeriod.SpringSemester,
   AcademicPeriod.SummerSession,
+  AcademicPeriod.StateFinalAssessment,
   AcademicPeriod.Retake,
 ] as const;
-
-const DEFAULT_PERIODS = ALL_PERIODS.filter((period) => period !== AcademicPeriod.Retake);
 
 function requirePositiveId(value: number | undefined, label: string): number {
   if (!Number.isInteger(value) || value == null || value < 1) {
@@ -86,13 +86,13 @@ function normalizeSearchQuery(
 }
 
 function normalizePeriods(
-  periods: readonly AcademicPeriod[] | undefined,
+  periods: readonly AcademicPeriod[],
 ): AcademicPeriod[] {
-  const values = [...(periods ?? DEFAULT_PERIODS)];
+  const values = [...periods];
   if (values.length === 0) throw new RangeError("At least one period is required");
   const unique = new Set<AcademicPeriod>();
   for (const period of values) {
-    if (!ALL_PERIODS.includes(period)) {
+    if (!SUPPORTED_PERIODS.includes(period)) {
       throw new RangeError(`Invalid academic period: ${period}`);
     }
     if (unique.has(period)) {
@@ -144,9 +144,12 @@ export class TimetableClient {
     | { type: "credentials"; email: string; password: string }
     | { type: "guest" }
     | null = null;
-  private timetableContext:
-    | { academicYearStartYear: number; period: AcademicPeriod; resolvedAt: number }
-    | null = null;
+  private timetableContexts = new Map<string, {
+    academicYearStartYear: number;
+    period: AcademicPeriod;
+    availablePeriods: AcademicPeriod[];
+    resolvedAt: number;
+  }>();
 
   constructor(opts?: TimetableClientOptions) {
     this.educationLevel = opts?.educationLevel ?? EducationLevel.HigherEducation;
@@ -297,7 +300,7 @@ export class TimetableClient {
       throw new AuthError("TT login failed");
     }
     this.loginMode = { type: "credentials", ...opts };
-    this.timetableContext = null;
+    this.timetableContexts.clear();
   }
 
   async loginAsGuest(): Promise<void> {
@@ -310,7 +313,7 @@ export class TimetableClient {
       throw new AuthError("TT guest login failed");
     }
     this.loginMode = { type: "guest" };
-    this.timetableContext = null;
+    this.timetableContexts.clear();
   }
 
   private isSessionExpired(body: string): boolean {
@@ -382,13 +385,9 @@ export class TimetableClient {
   /** Resolve the academic year and active period from tt.chuvsu.ru itself. */
   private async getTimetableContext(
     pageUrl: string,
-  ): Promise<{ academicYearStartYear: number; period: AcademicPeriod }> {
-    if (
-      this.timetableContext &&
-      Date.now() - this.timetableContext.resolvedAt < TIMETABLE_CONTEXT_TTL_MS
-    ) {
-      return this.timetableContext;
-    }
+  ): Promise<{ academicYearStartYear: number; period: AcademicPeriod; availablePeriods: AcademicPeriod[] }> {
+    const cached = this.timetableContexts.get(pageUrl);
+    if (cached && Date.now() - cached.resolvedAt < TIMETABLE_CONTEXT_TTL_MS) return cached;
 
     const { body } = await this.authGet(pageUrl);
     const academicYearStartYear = parseAcademicYearFromPage(body);
@@ -401,12 +400,14 @@ export class TimetableClient {
       throw new ParseError("TT page does not expose the active timetable period");
     }
 
+    const availablePeriods = parseAvailablePeriodsFromPage(body);
     const context = {
       academicYearStartYear,
       period,
+      availablePeriods: availablePeriods.length ? availablePeriods : [period],
       resolvedAt: Date.now(),
     };
-    this.timetableContext = context;
+    this.timetableContexts.set(pageUrl, context);
     return context;
   }
 
@@ -532,7 +533,7 @@ export class TimetableClient {
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
     const ownerUrl = this.ownerUrl(owner);
-    const periods = normalizePeriods(options?.periods ?? (owner.type === "group" ? ALL_PERIODS : DEFAULT_PERIODS));
+    const requestedPeriods = options?.periods ? normalizePeriods(options.periods) : null;
     await this.ensureRepository();
     if (owner.type === "group" && owner.group.name.trim()) {
       await this.rememberGroups([owner.group]);
@@ -545,6 +546,7 @@ export class TimetableClient {
     }
     const resolvedOwner = this.resolveOwner(owner);
     const context = await this.getTimetableContext(ownerUrl);
+    const periods = requestedPeriods ?? context.availablePeriods;
     const results = await Promise.all(
       periods.map(async (period) => ({
         period,

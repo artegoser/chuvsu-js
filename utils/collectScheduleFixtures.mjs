@@ -196,9 +196,9 @@ function parsePeriods() {
   assert.ok(
     periods.length > 0 &&
       periods.every(
-        (period) => [1, 2, 3, 4, 11].includes(period),
+        (period) => [1, 2, 3, 4, 9, 11].includes(period),
       ),
-    "--periods must contain comma-separated values from 1,2,3,4,11",
+    "--periods must contain comma-separated values from 1,2,3,4,9,11",
   );
   return [...new Set(periods)];
 }

@@ -17,7 +17,7 @@ import {
   parseTeacherInfo,
   parseTeacherSchedule,
 } from "../dist/tt/parse/index.js";
-import { isLocalDate } from "../dist/tt/utils/index.js";
+import { isLocalDate, parseLessonType } from "../dist/tt/utils/index.js";
 
 const CONFIG = {
   group: {
@@ -177,7 +177,7 @@ for (const [kind, config] of Object.entries(CONFIG)) {
     assert.ok(observations.length > 0);
     for (const observation of observations) {
       assert.ok(observation.subject.trim());
-      assert.ok(observation.type.trim());
+      assert.equal(typeof observation.type, "number");
       assert.ok(observation.slotNumber == null || observation.slotNumber >= 1);
       assert.ok(observation.groups.values.every((value) => value.group.name.trim()));
       assert.ok(observation.teachers.values.every((value) => value.name.trim()));
@@ -213,7 +213,7 @@ for (const [kind, config] of Object.entries(CONFIG)) {
       assert.deepEqual(fixture.source, fixture.expected.source);
       assert.deepEqual(
         JSON.parse(JSON.stringify(recreateCanonical(fixture))),
-        fixture.expected.lessons,
+        fixture.expected.lessons.map((lesson) => ({ ...lesson, type: parseLessonType(lesson.type) })),
       );
     });
   }

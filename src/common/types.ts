@@ -3,6 +3,7 @@ export enum AcademicPeriod {
   WinterSession = 2,
   SpringSemester = 3,
   SummerSession = 4,
+  StateFinalAssessment = 9,
   Retake = 11,
 }
 

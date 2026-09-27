@@ -479,6 +479,11 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
     <span class="htext">Группа <span style="color: blue;">КТ-41-24</span></span>
     <span style="color: blue;">2026/2027 учебный год</span>
     <input type="radio" name="pertype" value="1" checked="checked">
+    <input type="radio" name="pertype" value="2">
+    <input type="radio" name="pertype" value="3">
+    <input type="radio" name="pertype" value="4">
+    <input type="radio" name="pertype" value="9">
+    <input type="radio" name="pertype" value="11">
     <input type="hidden" id="htype" value="1">
   `;
   const fakeHttp = new FakeHttpClient({
@@ -488,7 +493,7 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
         body: schedulePage,
       },
     },
-    post: Object.fromEntries([1, 2, 3, 4, 11].map((period) => [
+    post: Object.fromEntries([1, 2, 3, 4, 9, 11].map((period) => [
       `${groupUrl}|${JSON.stringify({ htype: String(period) })}`,
       { status: 200, body: schedulePage },
     ])),
@@ -505,7 +510,7 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
     type: "group",
     group: { id: 8919, name: "КТ-41-24" },
   });
-  for (const period of [1, 2, 3, 4, 11]) {
+  for (const period of [1, 2, 3, 4, 9, 11]) {
     assert.ok(tt.exportCache()[`schedule:group:8919:${period}:2026-2027`]);
     assert.equal(
       fakeHttp.count(
@@ -517,7 +522,7 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
   }
   assert.equal(fakeHttp.count("get", groupUrl), 1);
   assert.ok(repositoryPatches.length > 0);
-  assert.equal(repositoryPatches.flatMap((patch) => patch.sourceReplacements).length, 5);
+  assert.equal(repositoryPatches.flatMap((patch) => patch.sourceReplacements).length, 6);
   assert.ok(repositoryPatches.some((patch) =>
     patch.directoryUpserts.groups.some((group) => group.id === 8919)
   ));

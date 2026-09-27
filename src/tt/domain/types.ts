@@ -4,6 +4,7 @@ import type {
   TimeRange,
   WeekRange,
 } from "../../common/types.js";
+import type { LessonType } from "../utils/lesson-type.js";
 
 export type LessonSeriesId = string;
 export type LessonId = string;
@@ -75,8 +76,7 @@ export interface LessonSeries {
   academicYearStartYear: number;
   period: AcademicPeriod;
   subject: string;
-  /** Free-form portal label; empty when no source exposes one. */
-  type: string;
+  type: LessonType;
   slotNumber?: number;
   time?: TimeRange;
   recurrence: LessonRecurrence;
@@ -101,8 +101,7 @@ export interface LessonOccurrence {
   nominalDate: LocalDate;
   scheduledDate: LocalDate;
   subject: string;
-  /** Free-form portal label; empty when no source exposes one. */
-  type: string;
+  type: LessonType;
   slotNumber?: number;
   time?: TimeRange;
   groups: RelationSet<GroupAttendance>;
@@ -122,8 +121,7 @@ interface ObservationBase {
   /** Stable only inside one source page projection. */
   key: string;
   subject: string;
-  /** Free-form portal label; empty when this source does not expose one. */
-  type: string;
+  type: LessonType;
   slotNumber?: number;
   time?: TimeRange;
   groups: RelationSet<GroupAttendance>;

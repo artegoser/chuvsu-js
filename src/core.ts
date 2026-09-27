@@ -19,6 +19,8 @@ export {
   isHoliday,
   isLocalDate,
   isSessionPeriod,
+  LessonType,
+  parseLessonType,
   parseLocalDate,
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils/index.js";
