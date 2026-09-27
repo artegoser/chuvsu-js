@@ -1,4 +1,4 @@
-export { RandomLessonIdGenerator, occurrenceIdForSeries } from "./ids.js";
+export { RandomLessonIdGenerator, occurrenceIdForSeries, compactLegacyLessonId } from "./ids.js";
 export { TimetableDirectory } from "./directory.js";
 export {
   entityKey,
