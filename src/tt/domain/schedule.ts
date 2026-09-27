@@ -131,8 +131,13 @@ function sortOccurrences(
   );
 }
 
+export type ScheduleDataSource = Pick<
+  TimetableRepository,
+  "revision" | "getSeries" | "getDirectOccurrences"
+>;
+
 export class Schedule {
-  readonly repository: TimetableRepository;
+  readonly repository: ScheduleDataSource;
   readonly owner: ScheduleOwner;
   readonly academicYearStartYear: number;
   readonly period: AcademicPeriod;
@@ -143,7 +148,7 @@ export class Schedule {
   private cachedDirectOccurrences: LessonOccurrence[] = [];
 
   constructor(
-    repository: TimetableRepository,
+    repository: ScheduleDataSource,
     owner: ScheduleOwner,
     academicYearStartYear: number,
     options?: ScheduleOptions,
