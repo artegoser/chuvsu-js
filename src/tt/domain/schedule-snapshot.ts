@@ -1,5 +1,5 @@
 import type { AcademicPeriod, LocalDate } from "../../common/types.js";
-import { formatLocalDate, parseLocalDate, type Holiday } from "../utils/index.js";
+import { formatLocalDate, parseLocalDate, RUSSIAN_HOLIDAYS, type Holiday } from "../utils/index.js";
 import { Schedule, type ScheduleQueryOptions, type ScheduleOptions } from "./schedule.js";
 import type {
   LessonOccurrence,
@@ -22,8 +22,8 @@ export interface SerializedScheduleSnapshot {
   end: LocalDate;
   series: SerializedSeries[];
   direct: SerializedOccurrence[];
-  holidays: Holiday[];
-  holidayTransfers: { dayOff: string; workDay: string | null }[];
+  holidays?: Holiday[];
+  holidayTransfers?: { dayOff: string; workDay: string | null }[];
 }
 
 function serializeSources(sources: LessonSourceRef[], include: boolean): SerializedSource[] {
@@ -34,6 +34,13 @@ function serializeSources(sources: LessonSourceRef[], include: boolean): Seriali
 
 function deserializeSources(sources: SerializedSource[]): LessonSourceRef[] {
   return sources.map((source) => ({ ...structuredClone(source), observedAt: new Date(source.observedAt) }));
+}
+
+function usesDefaultHolidays(holidays: Holiday[]): boolean {
+  return holidays.length === RUSSIAN_HOLIDAYS.length && holidays.every((holiday, index) => {
+    const standard = RUSSIAN_HOLIDAYS[index];
+    return holiday.month === standard.month && holiday.day === standard.day && holiday.name === standard.name;
+  });
 }
 
 /** Browser-ready schedule backed by recurring rules and dated exceptions. */
@@ -56,7 +63,7 @@ export class ScheduleSnapshot extends Schedule {
     const options: ScheduleOptions = {
       period: snapshot.period,
       holidays: snapshot.holidays,
-      holidayTransfers: snapshot.holidayTransfers.map((value) => ({
+      holidayTransfers: snapshot.holidayTransfers?.map((value) => ({
         dayOff: new Date(value.dayOff),
         workDay: value.workDay ? new Date(value.workDay) : null,
       })),
@@ -121,10 +128,12 @@ export function createScheduleSnapshot(
     end: formatLocalDate(end),
     series,
     direct,
-    holidays: structuredClone(schedule.holidays),
-    holidayTransfers: schedule.holidayTransfers.map((value) => ({
-      dayOff: value.dayOff.toISOString(),
-      workDay: value.workDay?.toISOString() ?? null,
-    })),
+    ...(!usesDefaultHolidays(schedule.holidays) ? { holidays: structuredClone(schedule.holidays) } : {}),
+    ...(schedule.holidayTransfers.length ? {
+      holidayTransfers: schedule.holidayTransfers.map((value) => ({
+        dayOff: value.dayOff.toISOString(),
+        workDay: value.workDay?.toISOString() ?? null,
+      })),
+    } : {}),
   };
 }

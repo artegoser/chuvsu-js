@@ -298,6 +298,8 @@ test("schedule snapshot preserves corpus dates with smaller transfer payload", (
     period: fixture.source.period,
   });
   const snapshot = createScheduleSnapshot(schedule, { includeSources: false });
+  assert.equal("holidays" in snapshot, false);
+  assert.equal("holidayTransfers" in snapshot, false);
   const restored = new ScheduleSnapshot(JSON.parse(JSON.stringify(snapshot)));
   const lessonsByDate = {};
   const end = new Date(`${snapshot.end}T12:00:00`);

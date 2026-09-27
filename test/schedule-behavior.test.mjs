@@ -208,6 +208,8 @@ test("schedule snapshots rebuild recurring dates without repeated lessons", () =
   const schedule = recurringSchedule();
   const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31) };
   const snapshot = JSON.parse(JSON.stringify(createScheduleSnapshot(schedule, range)));
+  assert.deepEqual(snapshot.holidays, []);
+  assert.equal("holidayTransfers" in snapshot, false);
   const restored = new ScheduleSnapshot(snapshot);
   assert.equal(snapshot.schemaVersion, 2);
   assert.equal(snapshot.series.length, 1);
