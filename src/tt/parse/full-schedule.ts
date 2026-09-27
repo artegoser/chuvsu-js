@@ -24,7 +24,9 @@ import {
   linesAfterSubject,
   parseLessonTypeAfterSubject,
   parseEntryRoom,
+  parseRetakeAttempt,
   stripDistanceMarker,
+  stripHtml,
 } from "./entry-parts.js";
 
 export function parseGroupSchedule(html: string): ParsedScheduleDay[] {
@@ -252,6 +254,7 @@ function parseSessionEntry(td: Element): ParsedSessionEntry | null {
   const type = parseLessonTypeAfterSubject(subjectEl).toLowerCase();
 
   const subgroupMatch = plainText.match(SUBGROUP_RE);
+  const retakeAttempt = parseRetakeAttempt(stripHtml(fullHtml));
   const parts = linesAfterSubject(fullHtml, subject);
 
   const teacherPart =
@@ -278,6 +281,7 @@ function parseSessionEntry(td: Element): ParsedSessionEntry | null {
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: hasDistanceMarker(plainText) || hasDistanceMarker(room ?? ""),
       possibleChanges,
+      ...(retakeAttempt ? { retakeAttempt } : {}),
     },
     time: { start: parseTime(timeMatch[1]), end: parseTime(timeMatch[2]) },
   };

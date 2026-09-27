@@ -1,4 +1,4 @@
-import type { AcademicPeriod } from "../../common/types.js";
+import { AcademicPeriod } from "../../common/types.js";
 import { isLocalDate } from "../utils/date.js";
 import { TimetableDirectory } from "./directory.js";
 import { RandomLessonIdGenerator } from "./ids.js";
@@ -73,7 +73,7 @@ function canonicalBucketKey(
   observation: ScheduleObservation,
   source: Pick<ScheduleSourceSnapshot, "academicYearStartYear" | "period">,
 ): string {
-  const prefix = `${source.academicYearStartYear}:${source.period}:${observation.kind}:${normalizeScheduleText(observation.subject)}`;
+  const prefix = `${source.academicYearStartYear}:${source.period}:${observation.kind}:${observation.retakeAttempt ?? 0}:${normalizeScheduleText(observation.subject)}`;
   return observation.kind === "series"
     ? `${prefix}:${observation.recurrence.weekday}:${recurrenceWeeks(observation)}`
     : `${prefix}:${observation.date}`;
@@ -790,7 +790,7 @@ export class TimetableRepository {
     if (!Number.isInteger(source.academicYearStartYear)) {
       throw new Error(`Invalid academic year for source ${source.sourceKey}`);
     }
-    if (!Number.isInteger(source.period) || source.period < 1 || source.period > 4) {
+    if (!Object.values(AcademicPeriod).includes(source.period)) {
       throw new Error(`Invalid academic period for source ${source.sourceKey}`);
     }
     if (!(source.observedAt instanceof Date) || !Number.isFinite(source.observedAt.getTime())) {
@@ -1228,6 +1228,7 @@ export class TimetableRepository {
       possibleChanges: claims.some(
         (value) => value.observation.possibleChanges === true,
       ),
+      ...(preferred.observation.retakeAttempt ? { retakeAttempt: preferred.observation.retakeAttempt } : {}),
       substitutions: this.aggregateSubstitutions(claims),
       sources: claims.map(sourceRef),
     };
@@ -1288,6 +1289,7 @@ export class TimetableRepository {
       possibleChanges: claims.some(
         (value) => value.observation.possibleChanges === true,
       ),
+      ...(preferred.observation.retakeAttempt ? { retakeAttempt: preferred.observation.retakeAttempt } : {}),
       status: transfer ? "moved" : "scheduled",
       movedFrom: transfer
         ? { date: transfer.fromDate, slotNumber: transfer.fromSlot }

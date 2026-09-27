@@ -6,6 +6,12 @@ const GROUP_TOKEN_RE = /^[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+$/u;
 const LEADING_PARENTHESIZED_RE = /^\s*\(([^()]*)\)/u;
 const WEEK_METADATA_RE = /(?:^|\s)нед\.?(?:\s|$)/iu;
 const SUBGROUP_METADATA_RE = /^\d+\s*подгруппа$/iu;
+const RETAKE_RE = /(?:^|\s)([12])\s*ППА(?:\s|$)/iu;
+
+export function parseRetakeAttempt(value: string): 1 | 2 | undefined {
+  const match = value.match(RETAKE_RE);
+  return match ? Number(match[1]) as 1 | 2 : undefined;
+}
 
 export function entryHtmlLines(html: string): string[] {
   return html.split(BR_RE).map((line) => line.trim());

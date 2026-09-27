@@ -135,6 +135,7 @@ function observationBase(
     rooms: roomsFor(entry, owner),
     isDistance: entry.isDistance,
     possibleChanges: entry.possibleChanges,
+    ...(entry.retakeAttempt ? { retakeAttempt: entry.retakeAttempt } : {}),
     substitutions: substitutionsFor(entry.substitutions),
   };
 }

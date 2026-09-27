@@ -17,6 +17,9 @@ import { attachWebinars } from "../dist/tt/webinars.js";
 import { isHoliday } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
+import { parsePeriodFromPage } from "../dist/tt/parse/lists.js";
+import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
+import { AcademicPeriod } from "../dist/common/types.js";
 
 const FIXTURE_DIR = new URL("./fixtures/tt/parser/", import.meta.url);
 
@@ -50,6 +53,30 @@ function sessionPage(entryRowsHtml) {
     </tbody></table>
   </body></html>`;
 }
+
+test("PPA attempts survive parsing and browser snapshot transport", () => {
+  const entry = (attempt) => `<tr><td class="want">Е-201 <span style="color: blue;">Гибкие навыки развития карьеры</span> (зач) - <span class="red">${attempt} ППА</span><br>Веденина О. А.<br>16:40 - 18:00</td></tr>`;
+  const html = sessionPage(entry(1));
+  assert.equal(parsePeriodFromPage('<input name="pertype" value="11" checked>'), AcademicPeriod.Retake);
+  const first = pickOnlyEntry(parseGroupSchedule(html));
+  assert.equal(first.retakeAttempt, 1);
+  assert.equal(first.type, "зач");
+  assert.equal(first.teacher.name, "Веденина О. А.");
+
+  const second = pickOnlyEntry(parseGroupSchedule(sessionPage(entry(2))));
+  assert.equal(second.retakeAttempt, 2);
+
+  const schedule = scheduleFromParsedDays(parseGroupSchedule(html), {
+    period: AcademicPeriod.Retake,
+    academicYearStartYear: 2025,
+  });
+  const snapshot = JSON.parse(JSON.stringify(createScheduleSnapshot(schedule, {
+    start: new Date(2026, 3, 25),
+    end: new Date(2026, 3, 25),
+  })));
+  assert.equal(snapshot.direct[0].retakeAttempt, 1);
+  assert.equal(new ScheduleSnapshot(snapshot).on(new Date(2026, 3, 25))[0].retakeAttempt, 1);
+});
 
 async function loadSemesterFixture(name, entryClass = "") {
   return semesterPage(await loadFixture(name), entryClass);

@@ -264,6 +264,7 @@ export class Schedule {
         rooms,
         isDistance,
         possibleChanges: series.possibleChanges,
+        ...(series.retakeAttempt ? { retakeAttempt: series.retakeAttempt } : {}),
         status: "scheduled",
         originalRooms,
         originalTeachers,

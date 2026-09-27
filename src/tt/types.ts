@@ -109,6 +109,8 @@ export interface ParsedLesson {
   substituteFor?: SubstituteForInfo;
   /** Whether this entry is marked as potentially changing (class="want"). */
   possibleChanges?: boolean;
+  /** Repeated interim assessment attempt (ППА), when marked by the portal. */
+  retakeAttempt?: 1 | 2;
 }
 
 export interface ParsedScheduleBlock {

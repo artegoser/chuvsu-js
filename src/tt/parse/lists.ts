@@ -7,7 +7,10 @@ const PERIOD_LABELS: Record<string, AcademicPeriod> = {
   "зимняя сессия": 2 as AcademicPeriod,
   "весенний семестр": 3 as AcademicPeriod,
   "летняя сессия": 4 as AcademicPeriod,
+  "ппа": AcademicPeriod.Retake,
 };
+
+const KNOWN_PERIODS = new Set<number>(Object.values(AcademicPeriod).filter((value): value is number => typeof value === "number"));
 
 export function parsePeriodFromPage(html: string): AcademicPeriod | null {
   const doc = parseHtml(html);
@@ -15,13 +18,13 @@ export function parsePeriodFromPage(html: string): AcademicPeriod | null {
   // Schedule pages expose the active period as the checked radio button.
   const checked = doc.querySelector('input[name="pertype"][checked]');
   const checkedValue = Number(checked?.getAttribute("value"));
-  if (checkedValue >= 1 && checkedValue <= 4) {
+  if (KNOWN_PERIODS.has(checkedValue)) {
     return checkedValue as AcademicPeriod;
   }
 
   // Some pages keep the selected period only in the hidden form field.
   const hiddenValue = Number(doc.querySelector('#htype')?.getAttribute("value"));
-  if (hiddenValue >= 1 && hiddenValue <= 4) {
+  if (KNOWN_PERIODS.has(hiddenValue)) {
     return hiddenValue as AcademicPeriod;
   }
 

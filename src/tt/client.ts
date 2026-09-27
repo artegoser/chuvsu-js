@@ -61,7 +61,10 @@ const ALL_PERIODS = [
   AcademicPeriod.WinterSession,
   AcademicPeriod.SpringSemester,
   AcademicPeriod.SummerSession,
+  AcademicPeriod.Retake,
 ] as const;
+
+const DEFAULT_PERIODS = ALL_PERIODS.filter((period) => period !== AcademicPeriod.Retake);
 
 function requirePositiveId(value: number | undefined, label: string): number {
   if (!Number.isInteger(value) || value == null || value < 1) {
@@ -85,7 +88,7 @@ function normalizeSearchQuery(
 function normalizePeriods(
   periods: readonly AcademicPeriod[] | undefined,
 ): AcademicPeriod[] {
-  const values = [...(periods ?? ALL_PERIODS)];
+  const values = [...(periods ?? DEFAULT_PERIODS)];
   if (values.length === 0) throw new RangeError("At least one period is required");
   const unique = new Set<AcademicPeriod>();
   for (const period of values) {
@@ -529,7 +532,7 @@ export class TimetableClient {
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
     const ownerUrl = this.ownerUrl(owner);
-    const periods = normalizePeriods(options?.periods);
+    const periods = normalizePeriods(options?.periods ?? (owner.type === "group" ? ALL_PERIODS : DEFAULT_PERIODS));
     await this.ensureRepository();
     if (owner.type === "group" && owner.group.name.trim()) {
       await this.rememberGroups([owner.group]);

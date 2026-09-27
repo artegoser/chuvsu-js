@@ -85,6 +85,7 @@ export interface LessonSeries {
   rooms: RelationSet<RoomRef>;
   isDistance: boolean;
   possibleChanges: boolean;
+  retakeAttempt?: 1 | 2;
   substitutions: LessonSubstitution[];
   sources: LessonSourceRef[];
 }
@@ -109,6 +110,7 @@ export interface LessonOccurrence {
   rooms: RelationSet<RoomRef>;
   isDistance: boolean;
   possibleChanges: boolean;
+  retakeAttempt?: 1 | 2;
   status: LessonStatus;
   movedFrom?: { date: LocalDate; slotNumber?: number };
   originalRooms?: RelationSet<RoomRef>;
@@ -129,6 +131,7 @@ interface ObservationBase {
   rooms: RelationSet<RoomRef>;
   isDistance?: boolean;
   possibleChanges?: boolean;
+  retakeAttempt?: 1 | 2;
   substitutions?: LessonSubstitution[];
 }
 

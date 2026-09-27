@@ -103,8 +103,11 @@ new TimetableClient({ educationLevel: EducationLevel.HigherEducation });
 | `getAudienceFloorplan(id)` | `getRoomFloorPlan(id)` |
 | `getTeacherPhoto(id)` / `getTeacherPhotoLazy(id)` | `getTeacherPhoto(id)` |
 
-`getGroupSchedule`, `getTeacherSchedule` и `getRoomSchedule` по умолчанию
-загружают все четыре периода. Для ограничения запросов передайте `periods`:
+`getGroupSchedule` по умолчанию загружает четыре основных периода и ППА
+(`AcademicPeriod.Retake`, 11). Уроки ППА содержат `retakeAttempt: 1 | 2`,
+если номер попытки указан на сайте. `getTeacherSchedule` и `getRoomSchedule`
+по умолчанию загружают четыре основных периода. Для ограничения запросов
+передайте `periods`:
 
 ```ts
 import { AcademicPeriod } from "chuvsu-js";
