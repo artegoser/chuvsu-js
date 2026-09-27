@@ -3,6 +3,8 @@ import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
+import { Schedule } from "../dist/tt/domain/schedule.js";
+import { CompactSchedule, compactScheduleSnapshot } from "../dist/tt/domain/compact-schedule.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import {
   parseAcademicYearFromPage,
@@ -285,4 +287,23 @@ test("full-page corpus contains genuine cross-owner canonical lessons", () => {
 
   const reversed = corpusRepository([...CORPORA].reverse());
   assert.deepEqual(sourcePartition(reversed), sourcePartition(repository));
+});
+
+test("compact schedule preserves corpus dates with smaller transfer payload", () => {
+  const fixture = CORPORA.filter((value) => value.kind === "group")
+    .sort((a, b) => b.expected.lessons.length - a.expected.lessons.length)[0];
+  const repository = corpusRepository([fixture]);
+  const schedule = new Schedule(repository, fixture.source.owner, fixture.source.academicYearStartYear, {
+    period: fixture.source.period,
+  });
+  const legacy = schedule.materializeSnapshot({ includeSources: false });
+  const compact = compactScheduleSnapshot(schedule, { includeSources: false });
+  const restored = new CompactSchedule(JSON.parse(JSON.stringify(compact)));
+  for (const [date, lessons] of Object.entries(legacy.lessonsByDate)) {
+    assert.deepEqual(
+      JSON.parse(JSON.stringify(restored.on(new Date(`${date}T12:00:00`)))),
+      JSON.parse(JSON.stringify(lessons)),
+    );
+  }
+  assert.ok(JSON.stringify(compact).length < JSON.stringify(legacy).length / 2);
 });

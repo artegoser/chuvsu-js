@@ -1,0 +1,143 @@
+import type { AcademicPeriod, LocalDate } from "../../common/types.js";
+import { formatLocalDate, parseLocalDate, type Holiday } from "../utils/index.js";
+import { TimetableRepository } from "./repository.js";
+import { Schedule, type ScheduleQueryOptions, type ScheduleOptions } from "./schedule.js";
+import type {
+  LessonOccurrence,
+  LessonSeries,
+  LessonSourceRef,
+  ScheduleOwner,
+} from "./types.js";
+
+type SerializedSource = Omit<LessonSourceRef, "observedAt"> & { observedAt: string };
+type SerializedSeries = Omit<LessonSeries, "sources"> & { sources: SerializedSource[] };
+type SerializedOccurrence = Omit<LessonOccurrence, "sources"> & { sources: SerializedSource[] };
+
+export interface CompactScheduleSnapshot {
+  schemaVersion: 2;
+  repositoryRevision: number;
+  owner: ScheduleOwner;
+  academicYearStartYear: number;
+  period: AcademicPeriod;
+  start: LocalDate;
+  end: LocalDate;
+  series: SerializedSeries[];
+  direct: SerializedOccurrence[];
+  holidays: Holiday[];
+  holidayTransfers: { dayOff: string; workDay: string | null }[];
+}
+
+function serializeSources(sources: LessonSourceRef[], include: boolean): SerializedSource[] {
+  return include
+    ? sources.map((source) => ({ ...structuredClone(source), observedAt: source.observedAt.toISOString() }))
+    : [];
+}
+
+function deserializeSources(sources: SerializedSource[]): LessonSourceRef[] {
+  return sources.map((source) => ({ ...structuredClone(source), observedAt: new Date(source.observedAt) }));
+}
+
+class FrozenScheduleRepository extends TimetableRepository {
+  constructor(
+    private readonly frozenRevision: number,
+    private readonly frozenSeries: LessonSeries[],
+    private readonly frozenDirect: LessonOccurrence[],
+  ) {
+    super();
+  }
+
+  override get revision(): number { return this.frozenRevision; }
+  override getSeries(): LessonSeries[] { return structuredClone(this.frozenSeries); }
+  override getDirectOccurrences(): LessonOccurrence[] { return structuredClone(this.frozenDirect); }
+}
+
+/** Browser-ready schedule backed by recurring rules and dated exceptions. */
+export class CompactSchedule extends Schedule {
+  private readonly snapshot: CompactScheduleSnapshot;
+  private readonly dateSetCache = new Map<number | undefined, ReadonlySet<LocalDate>>();
+
+  constructor(snapshot: CompactScheduleSnapshot) {
+    if (snapshot.schemaVersion !== 2) {
+      throw new Error(`Unsupported compact schedule schema: ${snapshot.schemaVersion}`);
+    }
+    const series = snapshot.series.map((value) => ({
+      ...structuredClone(value), sources: deserializeSources(value.sources),
+    }));
+    const direct = snapshot.direct.map((value) => ({
+      ...structuredClone(value), sources: deserializeSources(value.sources),
+    }));
+    const options: ScheduleOptions = {
+      period: snapshot.period,
+      holidays: snapshot.holidays,
+      holidayTransfers: snapshot.holidayTransfers.map((value) => ({
+        dayOff: new Date(value.dayOff),
+        workDay: value.workDay ? new Date(value.workDay) : null,
+      })),
+    };
+    super(
+      new FrozenScheduleRepository(snapshot.repositoryRevision, series, direct),
+      snapshot.owner,
+      snapshot.academicYearStartYear,
+      options,
+    );
+    this.snapshot = structuredClone(snapshot);
+  }
+
+  export(): CompactScheduleSnapshot { return structuredClone(this.snapshot); }
+
+  override on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {
+    const key = formatLocalDate(date);
+    return key < this.snapshot.start || key > this.snapshot.end ? [] : super.on(date, options);
+  }
+
+  dateKeys(options?: ScheduleQueryOptions): ReadonlySet<LocalDate> {
+    const subgroup = options?.subgroup;
+    const cached = this.dateSetCache.get(subgroup);
+    if (cached) return new Set(cached);
+    const dates = new Set<LocalDate>();
+    const end = parseLocalDate(this.snapshot.end);
+    for (const date = parseLocalDate(this.snapshot.start); date <= end; date.setDate(date.getDate() + 1)) {
+      if (this.on(date, options).length) dates.add(formatLocalDate(date));
+    }
+    this.dateSetCache.set(subgroup, dates);
+    return new Set(dates);
+  }
+}
+
+export function compactScheduleSnapshot(
+  schedule: Schedule,
+  options?: { start?: Date; end?: Date; includeSources?: boolean },
+): CompactScheduleSnapshot {
+  const start = options?.start == null ? new Date(schedule.academicYearStartYear, 8, 1) : new Date(options.start);
+  const end = options?.end == null ? new Date(schedule.academicYearStartYear + 1, 7, 31) : new Date(options.end);
+  if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime())) {
+    throw new RangeError("Compact schedule range contains an invalid date");
+  }
+  if (start > end) throw new RangeError("Compact schedule start must not exceed end");
+  const includeSources = options?.includeSources !== false;
+  const series = schedule.series().map((value) => ({
+    ...value, sources: serializeSources(value.sources, includeSources),
+  }));
+  const direct = schedule.repository.getDirectOccurrences({
+    owner: schedule.owner,
+    academicYearStartYear: schedule.academicYearStartYear,
+  }).map((value) => ({
+    ...value, sources: serializeSources(value.sources, includeSources),
+  }));
+  return {
+    schemaVersion: 2,
+    repositoryRevision: schedule.revision,
+    owner: structuredClone(schedule.owner),
+    academicYearStartYear: schedule.academicYearStartYear,
+    period: schedule.period,
+    start: formatLocalDate(start),
+    end: formatLocalDate(end),
+    series,
+    direct,
+    holidays: structuredClone(schedule.holidays),
+    holidayTransfers: schedule.holidayTransfers.map((value) => ({
+      dayOff: value.dayOff.toISOString(),
+      workDay: value.workDay?.toISOString() ?? null,
+    })),
+  };
+}

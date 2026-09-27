@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { AcademicPeriod } from "../dist/common/types.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
 import { MaterializedSchedule } from "../dist/tt/domain/materialized-schedule.js";
+import { CompactSchedule, compactScheduleSnapshot } from "../dist/tt/domain/compact-schedule.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import { formatLocalDate } from "../dist/tt/utils/index.js";
@@ -202,6 +203,25 @@ test("materialized schedules survive JSON transport and provide indexed dates", 
     "2026-09-22",
   ]);
   assert.equal("repository" in snapshot, false);
+});
+
+test("compact snapshots rebuild recurring dates without repeated lessons", () => {
+  const schedule = recurringSchedule();
+  const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31), includeSources: false };
+  const legacy = schedule.materializeSnapshot(range);
+  const materialized = new MaterializedSchedule(legacy);
+  const snapshot = JSON.parse(JSON.stringify(compactScheduleSnapshot(schedule, range)));
+  const restored = new CompactSchedule(snapshot);
+  assert.equal(snapshot.schemaVersion, 2);
+  assert.equal(snapshot.series.length, 1);
+  assert.equal(snapshot.direct.length, 0);
+  assert.equal("lessonsByDate" in snapshot, false);
+  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [...materialized.dateKeys({ subgroup: 1 })]);
+  for (let day = 1; day <= 31; day++) {
+    const date = new Date(2026, 8, day);
+    assert.deepEqual(restored.on(date), materialized.on(date));
+  }
+  assert.deepEqual(restored.export(), snapshot);
 });
 
 test("materialized schedule validates ranges and can omit source metadata", () => {
