@@ -15,6 +15,7 @@ import {
 } from "../utils/index.js";
 import { occurrenceIdForSeries } from "./ids.js";
 import { entityKey, normalizeScheduleText } from "./normalize.js";
+import { TimetableRepository } from "./repository.js";
 import type {
   GroupAttendance,
   LessonOccurrence,
@@ -130,14 +131,8 @@ function sortOccurrences(
   );
 }
 
-interface ScheduleDataSource {
-  readonly revision: number;
-  getSeries(options?: { owner?: ScheduleOwner; academicYearStartYear?: number }): LessonSeries[];
-  getDirectOccurrences(options?: { owner?: ScheduleOwner; academicYearStartYear?: number }): LessonOccurrence[];
-}
-
 export class Schedule {
-  readonly repository: ScheduleDataSource;
+  readonly repository?: TimetableRepository;
   readonly owner: ScheduleOwner;
   readonly academicYearStartYear: number;
   readonly period: AcademicPeriod;
@@ -148,7 +143,7 @@ export class Schedule {
   private cachedDirectOccurrences: LessonOccurrence[] = [];
 
   constructor(
-    repository: ScheduleDataSource,
+    repository: TimetableRepository | undefined,
     owner: ScheduleOwner,
     academicYearStartYear: number,
     options?: ScheduleOptions,
@@ -165,23 +160,25 @@ export class Schedule {
   }
 
   get revision(): number {
-    return this.repository.revision;
+    return this.repository?.revision ?? 0;
   }
 
-  private queryData(): {
+  protected queryData(): {
     series: LessonSeries[];
     direct: LessonOccurrence[];
   } {
-    if (this.cachedRevision !== this.repository.revision) {
-      this.cachedSeries = this.repository.getSeries({
+    const repository = this.repository;
+    if (!repository) throw new Error("Schedule has no live repository");
+    if (this.cachedRevision !== repository.revision) {
+      this.cachedSeries = repository.getSeries({
         owner: this.owner,
         academicYearStartYear: this.academicYearStartYear,
       });
-      this.cachedDirectOccurrences = this.repository.getDirectOccurrences({
+      this.cachedDirectOccurrences = repository.getDirectOccurrences({
         owner: this.owner,
         academicYearStartYear: this.academicYearStartYear,
       });
-      this.cachedRevision = this.repository.revision;
+      this.cachedRevision = repository.revision;
     }
     return {
       series: this.cachedSeries,
@@ -191,6 +188,10 @@ export class Schedule {
 
   series(): LessonSeries[] {
     return structuredClone(this.queryData().series);
+  }
+
+  directOccurrences(): LessonOccurrence[] {
+    return structuredClone(this.queryData().direct);
   }
 
   on(date: Date, options?: ScheduleQueryOptions): LessonOccurrence[] {

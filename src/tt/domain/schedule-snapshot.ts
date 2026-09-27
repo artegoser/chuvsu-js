@@ -39,6 +39,8 @@ function deserializeSources(sources: SerializedSource[]): LessonSourceRef[] {
 /** Browser-ready schedule backed by recurring rules and dated exceptions. */
 export class ScheduleSnapshot extends Schedule {
   private readonly snapshot: SerializedScheduleSnapshot;
+  private readonly snapshotSeries: LessonSeries[];
+  private readonly snapshotDirect: LessonOccurrence[];
   private readonly dateSetCache = new Map<number | undefined, ReadonlySet<LocalDate>>();
 
   constructor(snapshot: SerializedScheduleSnapshot) {
@@ -59,17 +61,16 @@ export class ScheduleSnapshot extends Schedule {
         workDay: value.workDay ? new Date(value.workDay) : null,
       })),
     };
-    super(
-      {
-        revision: snapshot.repositoryRevision,
-        getSeries: () => structuredClone(series),
-        getDirectOccurrences: () => structuredClone(direct),
-      },
-      snapshot.owner,
-      snapshot.academicYearStartYear,
-      options,
-    );
+    super(undefined, snapshot.owner, snapshot.academicYearStartYear, options);
+    this.snapshotSeries = series;
+    this.snapshotDirect = direct;
     this.snapshot = structuredClone(snapshot);
+  }
+
+  override get revision(): number { return this.snapshot.repositoryRevision; }
+
+  protected override queryData(): { series: LessonSeries[]; direct: LessonOccurrence[] } {
+    return { series: this.snapshotSeries, direct: this.snapshotDirect };
   }
 
   export(): SerializedScheduleSnapshot { return structuredClone(this.snapshot); }
@@ -107,10 +108,7 @@ export function createScheduleSnapshot(
   const series = schedule.series().map((value) => ({
     ...value, sources: serializeSources(value.sources, includeSources),
   }));
-  const direct = schedule.repository.getDirectOccurrences({
-    owner: schedule.owner,
-    academicYearStartYear: schedule.academicYearStartYear,
-  }).map((value) => ({
+  const direct = schedule.directOccurrences().map((value) => ({
     ...value, sources: serializeSources(value.sources, includeSources),
   }));
   return {
