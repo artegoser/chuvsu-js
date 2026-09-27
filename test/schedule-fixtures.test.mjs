@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
+import { gzipSync } from "node:zlib";
 
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
@@ -298,13 +299,18 @@ test("schedule snapshot preserves corpus dates with smaller transfer payload", (
   });
   const snapshot = createScheduleSnapshot(schedule, { includeSources: false });
   const restored = new ScheduleSnapshot(JSON.parse(JSON.stringify(snapshot)));
+  const lessonsByDate = {};
   const end = new Date(`${snapshot.end}T12:00:00`);
   for (const day = new Date(`${snapshot.start}T12:00:00`); day <= end; day.setDate(day.getDate() + 1)) {
     const lessons = schedule.on(day).map((value) => ({ ...value, sources: [] }));
+    if (lessons.length) lessonsByDate[day.toISOString().slice(0, 10)] = lessons;
     assert.deepEqual(
       JSON.parse(JSON.stringify(restored.on(day))),
       JSON.parse(JSON.stringify(lessons)),
     );
   }
-  assert.ok(JSON.stringify(snapshot).length < 80_000);
+  const snapshotJson = JSON.stringify(snapshot);
+  const materializedJson = JSON.stringify({ ...snapshot, series: undefined, direct: undefined, lessonsByDate });
+  assert.ok(Buffer.byteLength(snapshotJson) < Buffer.byteLength(materializedJson) * 0.4);
+  assert.ok(gzipSync(snapshotJson).byteLength < gzipSync(materializedJson).byteLength * 0.8);
 });
