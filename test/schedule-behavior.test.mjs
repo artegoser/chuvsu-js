@@ -3,7 +3,6 @@ import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
-import { MaterializedSchedule } from "../dist/tt/domain/materialized-schedule.js";
 import { CompactSchedule, compactScheduleSnapshot } from "../dist/tt/domain/compact-schedule.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
@@ -181,14 +180,14 @@ test("schedule queries reuse aggregation until the repository revision changes",
   assert.equal(occurrenceCalls, 2);
 });
 
-test("materialized schedules survive JSON transport and provide indexed dates", () => {
+test("compact schedules survive JSON transport and provide dates", () => {
   const schedule = recurringSchedule();
-  const materialized = schedule.materialize({
+  const payload = compactScheduleSnapshot(schedule, {
     start: new Date(2026, 8, 1),
     end: new Date(2026, 8, 30),
   });
-  const snapshot = JSON.parse(JSON.stringify(materialized.export()));
-  const restored = new MaterializedSchedule(snapshot);
+  const snapshot = JSON.parse(JSON.stringify(payload));
+  const restored = new CompactSchedule(snapshot);
 
   assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
     "2026-09-08",
@@ -202,46 +201,44 @@ test("materialized schedules survive JSON transport and provide indexed dates", 
     "2026-09-08",
     "2026-09-22",
   ]);
-  assert.equal("repository" in snapshot, false);
+  assert.equal("lessonsByDate" in snapshot, false);
 });
 
 test("compact snapshots rebuild recurring dates without repeated lessons", () => {
   const schedule = recurringSchedule();
-  const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31), includeSources: false };
-  const legacy = schedule.materializeSnapshot(range);
-  const materialized = new MaterializedSchedule(legacy);
+  const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31) };
   const snapshot = JSON.parse(JSON.stringify(compactScheduleSnapshot(schedule, range)));
   const restored = new CompactSchedule(snapshot);
   assert.equal(snapshot.schemaVersion, 2);
   assert.equal(snapshot.series.length, 1);
   assert.equal(snapshot.direct.length, 0);
   assert.equal("lessonsByDate" in snapshot, false);
-  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [...materialized.dateKeys({ subgroup: 1 })]);
+  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], ["2026-09-08", "2026-09-22"]);
   for (let day = 1; day <= 31; day++) {
     const date = new Date(2026, 8, day);
-    assert.deepEqual(restored.on(date), materialized.on(date));
+    assert.deepEqual(restored.on(date), schedule.on(date));
   }
   assert.deepEqual(restored.export(), snapshot);
 });
 
-test("materialized schedule validates ranges and can omit source metadata", () => {
+test("compact schedule validates ranges and can omit source metadata", () => {
   const schedule = recurringSchedule();
-  const withoutSources = schedule.materializeSnapshot({
+  const withoutSources = compactScheduleSnapshot(schedule, {
     start: new Date(2026, 8, 8),
     end: new Date(2026, 8, 8),
     includeSources: false,
   });
-  assert.deepEqual(withoutSources.lessonsByDate["2026-09-08"][0].sources, []);
+  assert.deepEqual(withoutSources.series[0].sources, []);
   assert.throws(
-    () => new MaterializedSchedule({ ...withoutSources, schemaVersion: 2 }),
-    /Unsupported materialized schedule schema/,
+    () => new CompactSchedule({ ...withoutSources, schemaVersion: 1 }),
+    /Unsupported compact schedule schema/,
   );
   assert.throws(
-    () => schedule.materialize({ start: new Date("invalid") }),
+    () => compactScheduleSnapshot(schedule, { start: new Date("invalid") }),
     /invalid date/,
   );
   assert.throws(
-    () => schedule.materialize({
+    () => compactScheduleSnapshot(schedule, {
       start: new Date(2026, 8, 9),
       end: new Date(2026, 8, 8),
     }),

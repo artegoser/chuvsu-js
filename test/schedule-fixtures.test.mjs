@@ -296,14 +296,15 @@ test("compact schedule preserves corpus dates with smaller transfer payload", ()
   const schedule = new Schedule(repository, fixture.source.owner, fixture.source.academicYearStartYear, {
     period: fixture.source.period,
   });
-  const legacy = schedule.materializeSnapshot({ includeSources: false });
   const compact = compactScheduleSnapshot(schedule, { includeSources: false });
   const restored = new CompactSchedule(JSON.parse(JSON.stringify(compact)));
-  for (const [date, lessons] of Object.entries(legacy.lessonsByDate)) {
+  const end = new Date(`${compact.end}T12:00:00`);
+  for (const day = new Date(`${compact.start}T12:00:00`); day <= end; day.setDate(day.getDate() + 1)) {
+    const lessons = schedule.on(day).map((value) => ({ ...value, sources: [] }));
     assert.deepEqual(
-      JSON.parse(JSON.stringify(restored.on(new Date(`${date}T12:00:00`)))),
+      JSON.parse(JSON.stringify(restored.on(day))),
       JSON.parse(JSON.stringify(lessons)),
     );
   }
-  assert.ok(JSON.stringify(compact).length < JSON.stringify(legacy).length / 2);
+  assert.ok(JSON.stringify(compact).length < 80_000);
 });

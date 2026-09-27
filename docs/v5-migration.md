@@ -292,44 +292,29 @@ const snapshot = await client.exportRepository();
 снимка. Используйте его для экспорта, резервной копии или миграции, не на пути
 каждого запроса.
 
-Для API, SSR и офлайн-кеша материализуйте только готовое расписание владельца:
+Для API, SSR и офлайн-кеша передавайте компактное расписание владельца:
 
 ```ts
-// Сервер: агрегация выполняется один раз, источники можно убрать из payload.
-const payload = schedule.materializeSnapshot({ includeSources: false });
+import { compactScheduleSnapshot } from "chuvsu-js";
+
+// Сервер: повторяющиеся серии + отдельные пары с датами.
+const payload = compactScheduleSnapshot(schedule, { includeSources: false });
 return Response.json(payload);
 
-// Браузер: JSON восстанавливается в индексированное по дате представление.
-import { MaterializedSchedule } from "chuvsu-js/browser";
+// Браузер: даты строятся из правил расписания.
+import { CompactSchedule } from "chuvsu-js/browser";
 
-const schedule = new MaterializedSchedule(await response.json());
-schedule.on(date);                  // O(1) поиск даты
+const schedule = new CompactSchedule(await response.json());
+schedule.on(date);
 schedule.dateKeys({ subgroup: 2 }); // даты для календаря
 ```
 
-`MaterializedScheduleSnapshot` содержит уже объединенные `LessonOccurrence`,
-но не канонический репозиторий. Поле `repositoryRevision` позволяет серверному
-кешу инвалидировать снимок после дополнения пары из расписания преподавателя,
-аудитории или другой группы.
+`CompactScheduleSnapshot` содержит серии и отдельные пары, но не канонический
+репозиторий. `repositoryRevision` позволяет серверному кешу инвалидировать снимок
+после дополнения пары из другого расписания. `CompactSchedule` использует ту же
+логику дат, переносов, праздников и подгрупп, что и `Schedule`.
 
-Начиная с 5.3.0 для передачи клиенту используйте компактный снимок: он содержит
-повторяющиеся серии и отдельные пары с датами, а не копию каждой пары на каждый
-день. `CompactSchedule` использует ту же логику дат, переносов, праздников и
-подгрупп, что и `Schedule`.
-
-```ts
-import { CompactSchedule, compactScheduleSnapshot } from "chuvsu-js/browser";
-
-// Сервер: compactScheduleSnapshot доступен из основного пакета.
-const payload = compactScheduleSnapshot(schedule, { includeSources: false });
-// Браузер:
-const compact = new CompactSchedule(await response.json());
-compact.on(new Date());
-compact.dateKeys({ subgroup: 2 });
-```
-
-Формат `CompactScheduleSnapshot` имеет `schemaVersion: 2`. Старый формат
-`MaterializedScheduleSnapshot` (`schemaVersion: 1`) оставлен для совместимости.
+Формат `CompactScheduleSnapshot` имеет `schemaVersion: 2`.
 Новые UUID идентификаторы серий и пар кодируются короче; для перевода сохранённых
 идентификаторов v5 используйте `compactLegacyLessonId`.
 

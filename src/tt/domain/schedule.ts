@@ -16,13 +16,6 @@ import {
 import { occurrenceIdForSeries } from "./ids.js";
 import { entityKey, normalizeScheduleText } from "./normalize.js";
 import { TimetableRepository } from "./repository.js";
-import {
-  materializeSchedule,
-  materializeScheduleSnapshot,
-  type MaterializeScheduleOptions,
-  type MaterializedSchedule,
-  type MaterializedScheduleSnapshot,
-} from "./materialized-schedule.js";
 import type {
   GroupAttendance,
   LessonOccurrence,
@@ -298,16 +291,6 @@ export class Schedule {
     }
 
     return occurrences.sort(sortOccurrences);
-  }
-
-  materialize(options?: MaterializeScheduleOptions): MaterializedSchedule {
-    return materializeSchedule(this, options);
-  }
-
-  materializeSnapshot(
-    options?: MaterializeScheduleOptions,
-  ): MaterializedScheduleSnapshot {
-    return materializeScheduleSnapshot(this, options);
   }
 
   week(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {
