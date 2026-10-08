@@ -16,6 +16,7 @@ import {
 import { occurrenceIdForSeries } from "./ids.js";
 import { entityKey, normalizeScheduleText } from "./normalize.js";
 import { TimetableRepository } from "./repository.js";
+import { coalesceSubstitutionOccurrences } from "./substitution-occurrences.js";
 import type {
   GroupAttendance,
   LessonOccurrence,
@@ -297,7 +298,10 @@ export class Schedule {
       occurrences.push(structuredClone(occurrence));
     }
 
-    return occurrences.sort(sortOccurrences);
+    const substitutedSeriesIds = new Set(recurringSeries
+      .filter((series) => series.substitutions.some((value) => value.date === localDate))
+      .map((series) => series.id));
+    return coalesceSubstitutionOccurrences(occurrences, substitutedSeriesIds).sort(sortOccurrences);
   }
 
   week(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {
