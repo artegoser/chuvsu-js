@@ -8,6 +8,7 @@ import { AuthError, ParseError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
 import { parseWebinarPage } from "./parse/webinars.js";
 import { parsePortfolio, parsePortfolioUrl } from "./parse/portfolio.js";
+import { WebinarGateway } from "../webinar/gateway.js";
 import type { StudentPortfolio } from "./portfolio-types.js";
 import { isLocalDate } from "../tt/utils/date.js";
 import type { LocalDate } from "../common/types.js";
@@ -202,6 +203,13 @@ export class StudentPortalClient {
 
   async getWebinars(opts?: { date?: LocalDate }): Promise<Webinar[]> {
     return (await this.getWebinarPage(opts)).webinars;
+  }
+
+  /** Creates a BBB participant session. May register the student's room presence. */
+  async openWebinar(opts: { webinarId: string | number }): Promise<WebinarGateway> {
+    const gateway = new WebinarGateway();
+    await gateway.openSession({ joinUrl: await this.getWebinarJoinUrl(opts) });
+    return gateway;
   }
 
   /** Discovers the current student's portfolio through the home navigation. */

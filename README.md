@@ -292,6 +292,10 @@ credits are booleans, missing grades are `null`.
 Referral controls are parsed as metadata only; no orders are submitted.
 API details and examples: [docs/student-portal.md](docs/student-portal.md).
 
+Live participant sessions, users, chat, presentation downloads and explicit room
+actions: [docs/webinar.md](docs/webinar.md). Session setup is backend-only;
+live state can connect directly from a custom browser UI.
+
 ## Разработка
 
 ```bash

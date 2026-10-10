@@ -1,4 +1,4 @@
-import { Agent, fetch, type Dispatcher, type Headers as UndiciHeaders } from "undici";
+import { Agent, fetch, WebSocket, type Dispatcher, type Headers as UndiciHeaders } from "undici";
 import { CHUVSU_CA_CERTS } from "./certs.js";
 
 const agent = new Agent({
@@ -53,10 +53,11 @@ export class HttpClient {
     return (await this.getBufferResponse(url)).body;
   }
 
-  async getBufferResponse(url: string): Promise<HttpBufferResponse> {
+  async getBufferResponse(url: string, followRedirects = true): Promise<HttpBufferResponse> {
     const res = await fetch(url, {
       method: "GET",
       headers: { Cookie: this.cookieHeader() },
+      redirect: followRedirects ? "follow" : "manual",
       dispatcher: agent as Dispatcher,
     });
     this.saveCookies(res.headers);
@@ -65,6 +66,13 @@ export class HttpClient {
       body: Buffer.from(await res.arrayBuffer()),
       contentType: res.headers.get("content-type") ?? undefined,
     };
+  }
+
+  createWebSocket(url: string): InstanceType<typeof WebSocket> {
+    return new WebSocket(url, {
+      dispatcher: agent,
+      headers: { Cookie: this.cookieHeader() },
+    });
   }
 
   async post(

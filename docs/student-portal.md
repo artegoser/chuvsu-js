@@ -32,6 +32,9 @@ console.log(portfolio.student.fields, portfolio.grades);
 
 ## Webinar listings and links
 
+For participant sessions, live users/chat, presentations and explicit room
+actions, see [Live webinars](webinar.md).
+
 `getWebinarPage()` returns `{ date, availableDates, webinars }`.
 `getWebinars()` returns just the rows. An optional `{ date: "2026-10-12" }`
 filters the listing through LK's `day` form field. Availability depends on LK;
@@ -65,7 +68,7 @@ This method uses the authenticated LK session and `POST /student/joinweb.php`
 with `idw`; separate TT credentials and `idType` are no longer used. URLs are
 not cached or automatically opened. HTTP(S) URLs are accepted; malformed or
 unsuccessful responses throw `ParseError`. The endpoint contract was inspected
-in LK JavaScript and tested with mocked responses; it was not called live.
+in LK JavaScript and verified with mocked responses and live URL retrieval.
 
 `findWebinar(lesson, webinars)` returns a unique compatible row.
 `findWebinars` returns all candidates. Matching checks actual scheduled date,
