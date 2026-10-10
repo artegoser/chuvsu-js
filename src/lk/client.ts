@@ -7,6 +7,8 @@ import { HybridCache } from "../common/cache.js";
 import { AuthError, ParseError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
 import { parseWebinarPage } from "./parse/webinars.js";
+import { parsePortfolio, parsePortfolioUrl } from "./parse/portfolio.js";
+import type { StudentPortfolio } from "./portfolio-types.js";
 import { isLocalDate } from "../tt/utils/date.js";
 import type { LocalDate } from "../common/types.js";
 import type {
@@ -200,6 +202,22 @@ export class StudentPortalClient {
 
   async getWebinars(opts?: { date?: LocalDate }): Promise<Webinar[]> {
     return (await this.getWebinarPage(opts)).webinars;
+  }
+
+  /** Discovers the current student's portfolio through the home navigation. */
+  async getPortfolio(): Promise<StudentPortfolio> {
+    const cached = await this.cache?.get("portfolio", "self");
+    if (cached) return cached as StudentPortfolio;
+    const home = await this.authGet(`${STUDENT_BASE}/index.php`);
+    const target = parsePortfolioUrl(home.body);
+    const { body } = await this.authGet(target);
+    const portfolio = parsePortfolio(body, { url: target });
+    await this.cache?.set("portfolio", "self", portfolio);
+    return portfolio;
+  }
+
+  async getPortfolioUrl(): Promise<string> {
+    return (await this.getPortfolio()).url;
   }
 
   /** Resolves a URL only. Does not open or connect to the webinar. */

@@ -21,3 +21,16 @@
 
 Live-тест сравнивает парсер с текущими страницами портала, но не заменяет
 зафиксированные HTML и ручные эталоны.
+
+## Student portal checks
+
+Synthetic LK fixtures cover webinar availability, topics, selected dates,
+lesson matching, all portfolio tabs, grades, control weeks, merged attendance
+headers, activity fields, documents and referral metadata. LK parsers and webinar
+matching participate in `pnpm test:coverage` alongside the timetable core.
+Client contracts use mocked HTTP; automated tests never call a real join or
+referral endpoint.
+
+Read-only live verification used login, home navigation, webinar listing and
+own portfolio only. Join URL resolution was checked against the site's
+JavaScript and mocked responses. Live pages and credentials are not fixtures.

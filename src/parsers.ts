@@ -22,3 +22,4 @@ export type {
   ParsedScheduleBlock,
 } from "./tt/types.js";
 export { parseWebinars, parseWebinarPage } from "./lk/parse/webinars.js";
+export { parsePortfolio, parsePortfolioUrl } from "./lk/parse/portfolio.js";

@@ -267,6 +267,7 @@ const photo = await portal.getProfilePhoto();
 const groupId = await portal.getTimetableGroupId();
 const webinars = await portal.getWebinars(); // LK current day
 const page = await portal.getWebinarPage(); // date + availableDates + webinars
+const portfolio = await portal.getPortfolio(); // own URL discovered from home
 // Optional listing filter: { date: "2026-10-12" } (LocalDate)
 
 const withWebinars = attachWebinars(schedule.today(), webinars);
@@ -283,6 +284,11 @@ Webinar methods belong to `StudentPortalClient`; removed from `TimetableClient`.
 lesson type and known group/subgroup/teacher. `findWebinars` returns ambiguous
 candidates for manual selection. Missing dates never match. Join URLs are resolved
 on demand through LK; no webinar window opens automatically.
+
+`getPortfolio()` returns identity fields, semester grades, control weeks,
+attendance, planned activities and all portfolio tabs with document links.
+Referral controls are parsed as metadata only; no orders are submitted.
+API details and examples: [docs/student-portal.md](docs/student-portal.md).
 
 ## Разработка
 
