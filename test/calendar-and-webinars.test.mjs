@@ -13,7 +13,7 @@ import {
   isSessionPeriod,
 } from "../dist/tt/utils/index.js";
 import { attachWebinars, findWebinar } from "../dist/lk/webinars.js";
-import { LessonType } from "../dist/tt/utils/lesson-type.js";
+import { LessonType } from "../dist/common/lesson-type.js";
 
 function localDates(values) {
   return values.map((value) =>
@@ -107,7 +107,7 @@ function webinar(overrides = {}) {
     slotNumber: 2,
     time: { start: { hours: 9, minutes: 50 }, end: { hours: 11, minutes: 10 } },
     subject: "Базы данных",
-    type: "лк",
+    type: LessonType.Lecture,
     teacher: { name: "Иванов И. И." },
     groups: [],
     title: "",
@@ -125,7 +125,7 @@ test("webinar matching rejects each conflicting identity field", () => {
     webinar({ slotNumber: 3 }),
     webinar({ time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } }),
     webinar({ subject: "Сети" }),
-    webinar({ type: "пр" }),
+    webinar({ type: LessonType.Practical }),
   ]) {
     assert.equal(findWebinar(target, [candidate]), undefined);
   }

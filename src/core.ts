@@ -1,5 +1,7 @@
 // Runtime-safe core for Node.js, browsers, Deno, and workers.
 
+export { LessonType, parseLessonType } from "./common/lesson-type.js";
+
 export * from "./tt/domain/index.js";
 export { attachWebinars, findWebinar, findWebinars } from "./lk/webinars.js";
 export type { LessonWithWebinar } from "./lk/webinars.js";
@@ -20,8 +22,6 @@ export {
   isHoliday,
   isLocalDate,
   isSessionPeriod,
-  LessonType,
-  parseLessonType,
   parseLocalDate,
   RUSSIAN_HOLIDAYS,
 } from "./tt/utils/index.js";

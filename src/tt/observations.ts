@@ -1,5 +1,6 @@
 import type { Teacher } from "../common/types.js";
-import { parseLessonType, parseLocalDate } from "./utils/index.js";
+import { parseLessonType } from "../common/lesson-type.js";
+import { parseLocalDate } from "./utils/index.js";
 import type {
   ParsedScheduleDay,
   ParsedLesson,

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { StudentPortalClient, parsePortfolio, parsePortfolioUrl } from '../dist/index.js';
+import { StudentPortalClient, parsePortfolio, parsePortfolioUrl, LessonType } from '../dist/index.js';
 import { expandPortfolioRows, parsePortfolioTable } from '../dist/lk/parse/portfolio-content.js';
 import { parseHtml } from '../dist/common/parse.js';
 const html = await readFile(new URL('./fixtures/lk/portfolio.html', import.meta.url), 'utf8');
@@ -29,11 +29,13 @@ test('portfolio exposes identity, every tab, grades and referral metadata withou
  assert.deepEqual(p.student.fields, {'Факультет':'Тестовый факультет','Группа':'КТ-00-00'});
  assert.equal(p.sections.length,10);
  assert.equal(p.grades.length,3);
- assert.deepEqual(p.grades[0],{semester:1,code:'Б1.О.01',subject:'Математика (прикладная)',assessment:'Экзамен',grade:'4 (Хорошо)',notes:['Дата оценки: 2026-01-20'],referral:undefined});
- assert.equal(p.grades[1].grade,'');
+ assert.deepEqual(p.grades[0],{semester:1,code:'Б1.О.01',subject:'Математика (прикладная)',assessment:LessonType.Exam,grade:4,notes:['Дата оценки: 2026-01-20'],referral:undefined});
+ assert.equal(p.grades[1].grade,null);
+ assert.equal(p.grades[1].assessment,LessonType.Credit);
+ assert.equal(p.grades[2].grade,true);
  assert.deepEqual(p.grades[1].referral,{semester:1,disciplineId:77,lessonTypeId:4,type:2,key:1,code:'Б1.О.02'});
  assert.equal(p.grades[2].semester,2);
- assert.deepEqual(p.controlWeeks,[{semester:1,subject:'Базы данных',grades:['0','']}]);
+ assert.deepEqual(p.controlWeeks,[{semester:1,subject:'Базы данных',grades:[0,null]}]);
  const serialized=JSON.stringify(p.sections);
  assert.ok(!serialized.includes('never evaluate'));
  assert.ok(!serialized.includes('savelist'));
@@ -66,9 +68,9 @@ test('journal aligns merged month/day headers and preserves missing marks and ac
  const [p]=parsePortfolio(html).performance;
  assert.equal(p.subject,'Базы данных');
  assert.deepEqual(p.attendance,[
-  {month:'Сентябрь',day:9,slotNumber:1,type:'лб',subgroup:1,mark:'+',notes:['Присутствовал']},
-  {month:'Сентябрь',day:9,slotNumber:2,type:'лк',subgroup:undefined,mark:'Н',notes:[]},
-  {month:'Октябрь',day:10,slotNumber:3,type:'лб',subgroup:2,mark:'',notes:[]},
+  {month:'Сентябрь',day:9,slotNumber:1,type:LessonType.Laboratory,subgroup:1,mark:'+',notes:['Присутствовал']},
+  {month:'Сентябрь',day:9,slotNumber:2,type:LessonType.Lecture,subgroup:undefined,mark:'Н',notes:[]},
+  {month:'Октябрь',day:10,slotNumber:3,type:LessonType.Laboratory,subgroup:2,mark:'',notes:[]},
  ]);
  assert.equal(p.activities[0].teacher,'Иванов И. И.');
  assert.equal(p.activities[0].items[0].title,'Лаб\n№ 1');
@@ -108,4 +110,28 @@ test('failed portfolio parse is never cached', async () => {
  await assert.rejects(client.getPortfolio());
  await assert.rejects(client.getPortfolio());
  assert.equal(reads,4);
+});
+
+
+test('portfolio converts failed credits and graded-credit assessments without text fields', () => {
+ const p = parsePortfolio(html.replace('4 (Хорошо)', 'Не зачтено').replace('(Экзамен)</td>', '(Зачёт с оценкой)</td>'));
+ assert.equal(p.grades[0].grade,false);
+ assert.equal(p.grades[0].assessment,LessonType.GradedCredit);
+ assert.ok(!('gradeRaw' in p.grades[0]));
+ assert.ok(!('assessmentRaw' in p.grades[0]));
+});
+
+test('portfolio cache skips stale string schemas', async () => {
+ const client = new StudentPortalClient({cache:60_000});
+ await client.cache.set('portfolio','self',{grades:[{grade:'4 (Хорошо)',assessment:'Экзамен'}]});
+ client.http={get:async(url)=>({status:200,body:url.endsWith('/student/index.php')?home:html})};
+ assert.equal((await client.getPortfolio()).grades[0].grade,4);
+});
+
+
+test('portfolio distinguishes exams, state exams and thesis defenses', () => {
+ for(const [label,expected] of [['Экзамен',LessonType.Exam],['Госэкзамен',LessonType.StateExam],['Защита выпускной квалификационной работы',LessonType.ThesisDefense]]) {
+  const p=parsePortfolio(html.replace('(Экзамен)</td>',`(${label})</td>`));
+  assert.equal(p.grades[0].assessment,expected);
+ }
 });

@@ -1,6 +1,6 @@
 import type { LessonOccurrence } from "../tt/domain/types.js";
 import type { Webinar } from "./types.js";
-import { LessonType, parseLessonType } from "../tt/utils/lesson-type.js";
+import { LessonType } from "../common/lesson-type.js";
 
 export type LessonWithWebinar = LessonOccurrence & { webinar?: Webinar };
 
@@ -47,7 +47,7 @@ export function findWebinars(
       return false;
     }
     if (normalize(webinar.subject) !== normalize(lesson.subject)) return false;
-    if (webinar.type && lesson.type !== LessonType.Unknown && parseLessonType(webinar.type) !== lesson.type) return false;
+    if (webinar.type !== LessonType.Unknown && lesson.type !== LessonType.Unknown && webinar.type !== lesson.type) return false;
     const groups = lesson.groups.values;
     if (groups.length && webinar.groups.length && !groups.some((attendance) =>
       webinar.groups.some((group) => normalize(group) === normalize(attendance.group.name)) &&

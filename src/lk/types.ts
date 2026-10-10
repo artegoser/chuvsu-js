@@ -1,5 +1,6 @@
 import type { LocalDate, Teacher, TimeRange } from "../common/types.js";
 import type { BlobAdapter, CacheAdapter } from "../common/cache.js";
+import type { LessonType } from "../common/lesson-type.js";
 
 export interface StudentProfile {
   lastName: string;
@@ -40,7 +41,7 @@ export interface Webinar {
   slotNumber?: number;
   time: TimeRange;
   subject: string;
-  type: string;
+  type: LessonType;
   teacher: Teacher;
   groups: string[];
   subgroup?: number;

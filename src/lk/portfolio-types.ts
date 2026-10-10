@@ -1,3 +1,7 @@
+import type { LessonType } from "../common/lesson-type.js";
+
+export type PortfolioGradeValue = number | boolean | null;
+
 /** Displayed content only; scripts and profile-changing controls are excluded. */
 export interface PortfolioLink {
   text: string;
@@ -48,9 +52,9 @@ export interface PortfolioGrade {
   semester: number;
   code: string;
   subject: string;
-  assessment: string;
-  /** Original LK value; empty means no reported grade, not zero. */
-  grade: string;
+  assessment: LessonType;
+  /** Numeric grade, credit result, or null when no recognized grade is reported. */
+  grade: PortfolioGradeValue;
   notes: string[];
   referral?: PortfolioReferral;
 }
@@ -58,14 +62,14 @@ export interface PortfolioGrade {
 export interface PortfolioControlWeek {
   semester: number;
   subject: string;
-  grades: string[];
+  grades: (number | null)[];
 }
 
 export interface PortfolioAttendance {
   month: string;
   day: number;
   slotNumber: number;
-  type: string;
+  type: LessonType;
   subgroup?: number;
   /** Preserve +, Н, numeric grades and empty cells without reinterpretation. */
   mark: string;

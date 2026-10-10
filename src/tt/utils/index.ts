@@ -17,7 +17,6 @@ export {
   getWeekNumber,
 } from "./semester.js";
 export { getStandardScheduleBlocks } from "./time-slots.js";
-export { LessonType, parseLessonType } from "./lesson-type.js";
 export {
   getCompensatingWorkDays,
   getEffectiveHolidays,

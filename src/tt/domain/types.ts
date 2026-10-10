@@ -4,7 +4,7 @@ import type {
   TimeRange,
   WeekRange,
 } from "../../common/types.js";
-import type { LessonType } from "../utils/lesson-type.js";
+import type { LessonType } from "../../common/lesson-type.js";
 
 export type LessonSeriesId = string;
 export type LessonId = string;

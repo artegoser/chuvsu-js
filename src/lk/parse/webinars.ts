@@ -1,6 +1,7 @@
 import { parseHtml, parseTeacher, parseTime, text } from "../../common/parse.js";
 import { ParseError, type LocalDate } from "../../common/types.js";
 import { isLocalDate } from "../../tt/utils/date.js";
+import { parseLessonType } from "../../common/lesson-type.js";
 import { parseGroupsString } from "../../tt/parse/groups.js";
 import type { Webinar, WebinarPage } from "../types.js";
 import { splitWebinarLesson } from "./webinar-lesson.js";
@@ -50,7 +51,7 @@ export function parseWebinarPage(html: string): WebinarPage {
         slotNumber: slot ? Number(slot) : undefined,
         time: { start: parseTime(start), end: parseTime(end) },
         subject: lesson.subject,
-        type: lesson.type,
+        type: parseLessonType(lesson.type),
         teacher: parseTeacher(lesson.teacherRaw),
         groups: parseGroupsString(lesson.groupsRaw),
         subgroup: lesson.subgroup,

@@ -287,6 +287,8 @@ on demand through LK; no webinar window opens automatically.
 
 `getPortfolio()` returns identity fields, semester grades, control weeks,
 attendance, planned activities and all portfolio tabs with document links.
+Webinar/journal types and assessments use `LessonType`; grades are numeric,
+credits are booleans, missing grades are `null`.
 Referral controls are parsed as metadata only; no orders are submitted.
 API details and examples: [docs/student-portal.md](docs/student-portal.md).
 

@@ -17,7 +17,8 @@ import {
   parseTeacherInfo,
   parseTeacherSchedule,
 } from "../dist/tt/parse/index.js";
-import { isLocalDate, parseLessonType } from "../dist/tt/utils/index.js";
+import { isLocalDate } from "../dist/tt/utils/index.js";
+import { parseLessonType } from "../dist/common/lesson-type.js";
 
 const CONFIG = {
   group: {

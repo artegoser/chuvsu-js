@@ -1,6 +1,8 @@
 import { text } from "../../common/parse.js";
 import type { PortfolioControlWeek, PortfolioGrade, PortfolioReferral } from "../portfolio-types.js";
 import { displayedText, portfolioNotes } from "./portfolio-content.js";
+import { parseLessonType } from "../../common/lesson-type.js";
+import { parseGradeValue, parseNumericGrade } from "./grade-value.js";
 
 function referral(row: Element): PortfolioReferral | undefined {
   const onclick = row.querySelector('[onclick*="iexlist"]')?.getAttribute("onclick");
@@ -27,10 +29,10 @@ export function parsePortfolioGrades(panel: Element): PortfolioGrade[] {
       if (cells.length < 3) return [];
       const code = text(cells[0].querySelector(".red"));
       const raw = displayedText(cells[0]);
-      const assessment = raw.match(/\(([^()]*)\)\s*$/u)?.[1] ?? "";
+      const assessment = parseLessonType(raw.match(/\(([^()]*)\)\s*$/u)?.[1] ?? "");
       const subject = raw.slice(code && raw.startsWith(code) ? code.length : 0)
         .replace(/\s*\([^()]*\)\s*$/u, "").trim();
-      return [{ semester, code, subject, assessment, grade: displayedText(cells[2]), notes: portfolioNotes(cells[2]), referral: referral(row) }];
+      return [{ semester, code, subject, assessment, grade: parseGradeValue(displayedText(cells[2])), notes: portfolioNotes(cells[2]), referral: referral(row) }];
     }),
   );
 }
@@ -40,7 +42,7 @@ export function parsePortfolioControlWeeks(panel: Element): PortfolioControlWeek
     [...body.querySelectorAll("tbody > tr")].flatMap((row) => {
       const cells = [...row.children];
       if (!cells.length || cells.some((cell) => cell.tagName === "TH")) return [];
-      return [{ semester, subject: displayedText(cells[0]), grades: cells.slice(1).map(displayedText) }];
+      return [{ semester, subject: displayedText(cells[0]), grades: cells.slice(1).map((cell) => parseNumericGrade(displayedText(cell))) }];
     }),
   );
 }

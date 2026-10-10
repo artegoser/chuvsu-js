@@ -185,7 +185,7 @@ export class StudentPortalClient {
       throw new RangeError("Invalid webinar date");
     }
     const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Moscow" }).format(new Date());
-    const key = opts?.date ?? `today:${today}`;
+    const key = `v2:${opts?.date ?? `today:${today}`}`;
     const cached = await this.cache?.get("webinars", key);
     if (cached) return cached as WebinarPage;
     const url = `${STUDENT_BASE}/mywebinars.php`;
@@ -206,13 +206,13 @@ export class StudentPortalClient {
 
   /** Discovers the current student's portfolio through the home navigation. */
   async getPortfolio(): Promise<StudentPortfolio> {
-    const cached = await this.cache?.get("portfolio", "self");
+    const cached = await this.cache?.get("portfolio", "v2:self");
     if (cached) return cached as StudentPortfolio;
     const home = await this.authGet(`${STUDENT_BASE}/index.php`);
     const target = parsePortfolioUrl(home.body);
     const { body } = await this.authGet(target);
     const portfolio = parsePortfolio(body, { url: target });
-    await this.cache?.set("portfolio", "self", portfolio);
+    await this.cache?.set("portfolio", "v2:self", portfolio);
     return portfolio;
   }
 

@@ -1,6 +1,7 @@
 import { text } from "../../common/parse.js";
 import type { PortfolioPerformance } from "../portfolio-types.js";
 import { expandPortfolioRows, parsePortfolioTable } from "./portfolio-content.js";
+import { parseLessonType } from "../../common/lesson-type.js";
 
 export function parsePortfolioPerformance(panel: Element, base: string): PortfolioPerformance[] {
   return [...panel.querySelectorAll("h3")].flatMap((heading) => {
@@ -22,7 +23,7 @@ export function parsePortfolioPerformance(panel: Element, base: string): Portfol
             const subgroup = typeRaw.match(/\((\d+)\)/u)?.[1];
             performance.attendance.push({
               month: headers[1]?.[index]?.text ?? "", day, slotNumber,
-              type: typeRaw.replace(/\s*\(\d+\)/u, "").trim(),
+              type: parseLessonType(typeRaw.replace(/\s*\(\d+\)/u, "")),
               subgroup: subgroup ? Number(subgroup) : undefined,
               mark: cell.text, notes: cell.notes,
             });

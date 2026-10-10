@@ -43,7 +43,7 @@ Each row includes:
 
 - `subject`: discipline, without the type/teacher/group suffix.
 - `title`: webinar topic, as rendered by LK.
-- `scheduledDate`, `slotNumber`, `time`, `type`, `teacher`, `groups`, `subgroup`.
+- `scheduledDate`, `slotNumber`, `time`, `type` (`LessonType`), `teacher`, `groups`, `subgroup`.
 - `server`, `completedAt`, `joinAvailable` and `raw` discipline-cell text.
 - `id`: LK join ID, or `null` when no join button is exposed.
 
@@ -86,9 +86,9 @@ The returned `StudentPortfolio` contains:
 
 - `id`, `url`, `student.fullName`, `student.photoUrl`, and `student.fields`.
   Identity-field keys retain LK's Russian labels without the trailing colon.
-- `grades`: semester, subject code, discipline, assessment, original grade,
-  tooltips, and optional referral metadata.
-- `controlWeeks`: semester, discipline and original grade strings for each week.
+- `grades`: semester, subject code, discipline, assessment (`LessonType`),
+  grade (`number | boolean | null`), tooltips, and optional referral metadata.
+- `controlWeeks`: semester, discipline and numeric grades (`number | null`) for each week.
 - `performance`: discipline, attendance cells and planned activity tables.
 - `sections`: every top-level tab in page order, including curriculum,
   programs, achievements, interests, practices, coursework and thesis.
@@ -100,11 +100,17 @@ are resolved against the portfolio page; no linked files are downloaded.
 Unknown tabs are preserved without requiring a parser update.
 
 Attendance expands merged month/day headers into individual cells, retaining
-month label, day, slot, lesson type, subgroup and raw mark (`+`, `Н`, grade or
+month label, day, slot, lesson type (`LessonType`), subgroup and raw mark (`+`, `Н`, grade or
 empty). The page does not reliably identify the journal year, so absolute dates
 are not invented. Activity `content` preserves separate grade/date fields even
-when their displayed text is concatenated. Empty grades stay empty; control-week
-`"0"` stays `"0"`.
+when their displayed text is concatenated. Numeric grades such as `4 (Хорошо)` become `4`; `Зачтено` becomes `true`,
+`Не зачтено` becomes `false`. Missing/unrecognized grades become `null`;
+control-week `"0"` becomes numeric `0`. No extra source-text fields are added.
+Assessment labels such as `Экзамен`, `Зачет`, `Зачет с оценкой`, and
+`Курсовой проект` use the existing `LessonType` values. Labels without an
+existing enum equivalent use `LessonType.Unknown`. Existing enum IDs remain unchanged; `StateExam = 12` and `ThesisDefense = 13`
+distinguish state exams and thesis defenses. Referral endpoint IDs remain
+separate from domain lesson types.
 
 Referral `semester`, `disciplineId`, `lessonTypeId`, `type`, `key`, and `code`
 are parsed from the existing button. **No referral ordering method is provided
@@ -126,3 +132,17 @@ Unrelated pages, missing identity and mismatched student IDs are rejected before
 caching. Cache TTLs are milliseconds. Keep webinar TTL short because LK refreshes
 availability frequently. Shared cache adapters should be scoped to one account,
 as with the existing profile cache.
+
+## Typed-value migration
+
+Webinar/journal `type` and grade `assessment` are now `LessonType`, replacing
+short codes and full text labels. Grade consumers should distinguish numbers,
+booleans and `null`; avoid truthiness checks because `false` is a failed credit
+and `0` is a reported control-week score. Updated cache keys skip cached results
+using the old string schema. Generic portfolio section tables remain display
+content; normalized fields are available in `grades`, `controlWeeks`, and
+`performance`.
+
+`LessonType` and `parseLessonType` are defined in `common/lesson-type`; LK and
+TT share them. Import from `chuvsu-js` or `chuvsu-js/browser`; the old TT utility
+exports are removed.

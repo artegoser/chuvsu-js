@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { StudentPortalClient, TimetableClient, parseWebinarPage, parseWebinars, findWebinar, findWebinars } from '../dist/index.js';
+import { StudentPortalClient, TimetableClient, parseWebinarPage, parseWebinars, findWebinar, findWebinars, LessonType } from '../dist/index.js';
 const html = await readFile(new URL('./fixtures/lk/webinars.html', import.meta.url), 'utf8');
 
 test('LK webinars retain unavailable rows, selected day, topics and join IDs', () => {
@@ -16,6 +16,9 @@ test('LK webinars retain unavailable rows, selected day, topics and join IDs', (
  assert.equal(active.id, '12345');
  assert.equal(active.joinAvailable, true);
  assert.equal(active.subject, 'Базы данных');
+ assert.equal(active.type,LessonType.Lecture);
+ assert.equal(pending.type,LessonType.Laboratory);
+ assert.equal(external.type,LessonType.Unknown);
  assert.equal(active.title, 'Тема & вопросы');
  assert.equal(active.server, 'webinar');
  assert.deepEqual(active.groups, ['КТ-41-24','КТ-41-24ин']);
@@ -70,4 +73,21 @@ test('URL resolver rejects malformed, failed and unsafe responses', async () => 
   client.http = {post:async()=>({status:200,body})};
   await assert.rejects(client.getWebinarJoinUrl({webinarId:1}));
  }
+});
+
+
+test('webinar matching uses shared enum and accepts unknown types', () => {
+ const webinar=parseWebinars(html)[2];
+ const lesson={scheduledDate:webinar.scheduledDate,subject:webinar.subject,type:LessonType.Laboratory,slotNumber:webinar.slotNumber,time:webinar.time,status:'scheduled',groups:{values:[]},teachers:{values:[]}};
+ assert.equal(findWebinar(lesson,[webinar]),webinar);
+ assert.equal(findWebinar(lesson,[{...webinar,type:LessonType.Practical}]),undefined);
+ assert.ok(findWebinar(lesson,[{...webinar,type:LessonType.Unknown}]));
+ assert.ok(findWebinar({...lesson,type:LessonType.Unknown},[webinar]));
+});
+
+test('webinar cache skips stale string schemas', async () => {
+ const client=new StudentPortalClient({cache:60_000});
+ await client.cache.set('webinars','2026-10-10',{date:'2026-10-10',webinars:[{type:'лк'}]});
+ client.http={post:async()=>({status:200,body:html})};
+ assert.equal((await client.getWebinars({date:'2026-10-10'}))[1].type,LessonType.Lecture);
 });

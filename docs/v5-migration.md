@@ -121,7 +121,7 @@ const schedule = await client.getTeacherSchedule(teacherId, {
 ```
 
 `LessonType` хранит тип занятия числом в наблюдениях, репозитории и снимке.
-`parseLessonType(code)` переводит код портала в этот индекс. Для неизвестного
+`parseLessonType(code)` переводит код портала или полное название формы контроля в этот индекс. Для неизвестного
 кода возвращается `LessonType.Unknown`; текстовые расшифровки принадлежат клиенту.
 
 Для кода, который работает с разными владельцами одинаково, добавлен общий
@@ -506,3 +506,18 @@ const schedule = new Schedule(
 10. Проверить сессию, переносы, замены, подгруппы и ДОТ на реальных данных.
 
 Описание внутренней модели: [`v5-architecture.md`](v5-architecture.md).
+
+## Typed LK values
+
+`Webinar.type`, `PortfolioAttendance.type`, and `PortfolioGrade.assessment`
+now reuse `LessonType`. `PortfolioGrade.grade` is `number | boolean | null`:
+`4 (Хорошо)` → `4`, `Зачтено` → `true`, `Не зачтено` → `false`, absent → `null`.
+`PortfolioControlWeek.grades` contains `number | null`; zero remains zero.
+No additional raw grade or assessment fields are introduced.
+
+`LessonType.StateExam = 12` and `LessonType.ThesisDefense = 13` distinguish
+state exams and thesis defenses. Existing enum values 0–11 are unchanged.
+
+Shared lesson/assessment types now live in `common/lesson-type`. Import
+`LessonType` and `parseLessonType` from the package root or browser entrypoint.
+The old TT utility exports are removed without compatibility shims.
