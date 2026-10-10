@@ -14,7 +14,6 @@ export {
   parseTeacherButtons,
   parseTeacherSchedule,
   parseTeacherInfo,
-  parseWebinars,
 } from "./tt/parse/index.js";
 export { createScheduleSourceSnapshot } from "./tt/observations.js";
 export type {
@@ -22,3 +21,4 @@ export type {
   ParsedLesson,
   ParsedScheduleBlock,
 } from "./tt/types.js";
+export { parseWebinars, parseWebinarPage } from "./lk/parse/webinars.js";

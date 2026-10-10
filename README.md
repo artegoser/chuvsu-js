@@ -5,8 +5,8 @@
 
 Типизированная библиотека для сервисов ЧГУ им. И. Н. Ульянова:
 
-- `tt.chuvsu.ru` — расписания групп, преподавателей, аудиторий и вебинары;
-- `lk.chuvsu.ru` — личный кабинет студента.
+- `tt.chuvsu.ru` — расписания групп, преподавателей, аудиторий;
+- `lk.chuvsu.ru` — личный кабинет, вебинары и портфолио студента.
 
 В версии 5 расписание хранится в едином каноническом репозитории. Если одна
 пара встречается в расписаниях группы, преподавателя и аудитории, она сохраняет
@@ -257,7 +257,7 @@ const floorPlan = await client.getRoomFloorPlan(roomId);
 ## Личный кабинет
 
 ```ts
-import { StudentPortalClient } from "chuvsu-js";
+import { StudentPortalClient, attachWebinars } from "chuvsu-js";
 
 const portal = new StudentPortalClient({ cache: 60_000 });
 await portal.login({ email: "student@example.com", password: "password" });
@@ -265,7 +265,24 @@ await portal.login({ email: "student@example.com", password: "password" });
 const profile = await portal.getProfile();
 const photo = await portal.getProfilePhoto();
 const groupId = await portal.getTimetableGroupId();
+const webinars = await portal.getWebinars(); // LK current day
+const page = await portal.getWebinarPage(); // date + availableDates + webinars
+// Optional listing filter: { date: "2026-10-12" } (LocalDate)
+
+const withWebinars = attachWebinars(schedule.today(), webinars);
+const active = webinars.find((webinar) => webinar.joinAvailable);
+if (active?.id) {
+  const url = await portal.getWebinarJoinUrl({ webinarId: active.id });
+}
 ```
+
+Webinar methods belong to `StudentPortalClient`; removed from `TimetableClient`.
+`id` is `null` when LK exposes no join button. `title` is the topic;
+`subject` is the discipline. Completed and not-yet-started rows remain in the list.
+`findWebinar` attaches only a unique match by actual date, time, subject,
+lesson type and known group/subgroup/teacher. `findWebinars` returns ambiguous
+candidates for manual selection. Missing dates never match. Join URLs are resolved
+on demand through LK; no webinar window opens automatically.
 
 ## Разработка
 

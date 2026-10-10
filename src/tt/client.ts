@@ -26,7 +26,6 @@ import {
   parseTeacherSchedule,
   parseTeacherInfo,
   parsePeriodFromPage,
-  parseWebinars,
 } from "./parse/index.js";
 import { Schedule } from "./domain/schedule.js";
 import { TimetableRepository } from "./domain/repository.js";
@@ -50,7 +49,6 @@ import type {
   DirectoryPreloadOptions,
   EntityResolutionStrategy,
   GetScheduleOptions,
-  Webinar,
 } from "./types.js";
 
 const BASE = "https://tt.chuvsu.ru";
@@ -115,15 +113,7 @@ function makeUniformCacheConfig(ttl: number): CacheConfig {
     teacherPhotos: ttl,
     roomInfo: ttl,
     roomImages: ttl,
-    webinars: ttl,
   };
-}
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
 }
 
 interface CachedSchedulePage {
@@ -594,54 +584,6 @@ export class TimetableClient {
       },
       options,
     );
-  }
-
-  async getWebinars(opts?: {
-    date?: Date;
-    facultyId?: number;
-  }): Promise<Webinar[]> {
-    const date = opts?.date ?? new Date();
-    const facultyId = opts?.facultyId ?? 0;
-    const cacheKey = `${formatDate(date)}:${facultyId}:${this.pertt}`;
-    const cached = await this.cache?.get("webinars", cacheKey);
-    if (cached) return cached as Webinar[];
-
-    const { body } = await this.authPost(`${BASE}/webinar`, {
-      seldate: formatDate(date),
-      selfac: String(facultyId),
-      pertt: this.pertt,
-    });
-    const data = parseWebinars(body);
-    await this.cache?.set("webinars", cacheKey, data);
-    return data;
-  }
-
-  async getWebinarJoinUrl(opts: {
-    webinarId: string | number;
-    idType?: number;
-    email: string;
-    password: string;
-  }): Promise<string> {
-    const { body } = await this.authPost(`${BASE}/webinar/getjoin`, {
-      idw: String(opts.webinarId),
-      idwt: String(opts.idType ?? 1),
-      name: opts.email,
-      pass: opts.password,
-      auto: "1",
-    });
-
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(body);
-    } catch {
-      throw new AuthError("TT webinar join failed: invalid response");
-    }
-
-    const data = parsed as { mes?: string; url?: string };
-    if (data.mes !== "SUCCESS" || !data.url?.startsWith("http")) {
-      throw new AuthError(data.mes ?? "TT webinar join failed");
-    }
-    return data.url;
   }
 
   // --- Search / Discovery ---

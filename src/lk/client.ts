@@ -6,10 +6,15 @@ import {
 import { HybridCache } from "../common/cache.js";
 import { AuthError, ParseError } from "../common/types.js";
 import { extractScriptValues } from "./parse.js";
+import { parseWebinarPage } from "./parse/webinars.js";
+import { isLocalDate } from "../tt/utils/date.js";
+import type { LocalDate } from "../common/types.js";
 import type {
   StudentPortalCacheConfig,
   StudentPortalClientOptions,
   StudentProfile,
+  Webinar,
+  WebinarPage,
 } from "./types.js";
 
 const BASE = "https://lk.chuvsu.ru";
@@ -21,6 +26,8 @@ function makeUniformCacheConfig(ttl: number): StudentPortalCacheConfig {
     profile: ttl,
     profilePhoto: ttl,
     timetableGroupId: ttl,
+    webinars: ttl,
+    portfolio: ttl,
   };
 }
 
@@ -168,5 +175,74 @@ export class StudentPortalClient {
     const groupId = match ? parseInt(match[1]) : null;
     await this.cache?.set("timetableGroupId", "self", groupId);
     return groupId;
+  }
+
+  /** No date means the portal's current day. Date POST only filters the listing. */
+  async getWebinarPage(opts?: { date?: LocalDate }): Promise<WebinarPage> {
+    if (opts?.date !== undefined && !isLocalDate(opts.date)) {
+      throw new RangeError("Invalid webinar date");
+    }
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Moscow" }).format(new Date());
+    const key = opts?.date ?? `today:${today}`;
+    const cached = await this.cache?.get("webinars", key);
+    if (cached) return cached as WebinarPage;
+    const url = `${STUDENT_BASE}/mywebinars.php`;
+    const response = opts?.date
+      ? await this.authPost(url, { day: opts.date })
+      : await this.authGet(url);
+    const page = parseWebinarPage(response.body);
+    if (opts?.date && page.date !== opts.date) {
+      throw new ParseError("LK did not return the requested webinar date");
+    }
+    await this.cache?.set("webinars", key, page);
+    return page;
+  }
+
+  async getWebinars(opts?: { date?: LocalDate }): Promise<Webinar[]> {
+    return (await this.getWebinarPage(opts)).webinars;
+  }
+
+  /** Resolves a URL only. Does not open or connect to the webinar. */
+  async getWebinarJoinUrl(opts: { webinarId: string | number }): Promise<string> {
+    if (!/^[1-9]\d*$/u.test(String(opts.webinarId))) {
+      throw new RangeError("Webinar ID must be a positive integer");
+    }
+    const { body } = await this.authPost(`${STUDENT_BASE}/joinweb.php`, {
+      idw: String(opts.webinarId),
+    });
+    let data: { mes?: unknown; url?: unknown } | null;
+    try {
+      data = JSON.parse(body);
+    } catch {
+      throw new ParseError("LK webinar join returned invalid JSON");
+    }
+    if (data?.mes !== "SUCCESS" || typeof data.url !== "string") {
+      throw new ParseError("LK webinar join returned no URL");
+    }
+    let url: URL;
+    try {
+      url = new URL(data.url);
+    } catch {
+      throw new ParseError("LK webinar join returned an invalid URL");
+    }
+    if (!["https:", "http:"].includes(url.protocol)) {
+      throw new ParseError("LK webinar join returned an unsafe URL");
+    }
+    return data.url;
+  }
+
+  private async authPost(url: string, data: Record<string, string>): Promise<HttpResponse> {
+    let response = await this.http.post(url, data);
+    if (this.credentials && this.isSessionExpired(response.body)) {
+      await this.login(this.credentials);
+      response = await this.http.post(url, data);
+    }
+    if (this.isSessionExpired(response.body)) {
+      throw new AuthError("LK request returned an authentication page");
+    }
+    if (response.status < 200 || response.status >= 300) {
+      throw new Error(`LK request failed with HTTP ${response.status}: ${url}`);
+    }
+    return response;
   }
 }

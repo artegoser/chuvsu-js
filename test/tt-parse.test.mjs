@@ -11,9 +11,7 @@ import {
   parseTeacherButtons,
   parseTeacherSchedule,
   parseTeacherInfo,
-  parseWebinars,
 } from "../dist/tt/parse/index.js";
-import { attachWebinars } from "../dist/tt/webinars.js";
 import { isHoliday } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
@@ -516,51 +514,6 @@ test("parseGroupSchedule marks distance substitutions", async () => {
     completeness: "complete",
   });
   assert.equal(lessons[0].isDistance, true);
-});
-
-test("parseWebinars parses scheduled rows and attaches them to lessons", async () => {
-  const html = await loadFixture("webinars.html");
-  const webinars = parseWebinars(html);
-
-  assert.equal(webinars.length, 1);
-  assert.equal(webinars[0].id, "122123");
-  assert.equal(webinars[0].slotNumber, 1);
-  assert.equal(webinars[0].subject, "Правоведение");
-  assert.equal(webinars[0].type, "лк");
-  assert.deepEqual(webinars[0].teacher, {
-    position: "зав.каф.",
-    degree: "к.ю.н.",
-    name: "Верещак С. Б.",
-  });
-  assert.deepEqual(webinars[0].groups, ["ФМ-10-24", "ФМ-11-24"]);
-
-  const lessons = attachWebinars(
-    [
-      {
-        id: "les_test",
-        academicYearStartYear: 2025,
-        period: 3,
-        nominalDate: "2026-05-07",
-        scheduledDate: "2026-05-07",
-        slotNumber: 1,
-        time: {
-          start: { hours: 8, minutes: 20 },
-          end: { hours: 9, minutes: 40 },
-        },
-        subject: "Правоведение",
-        type: 1,
-        groups: { values: [], completeness: "unknown" },
-        teachers: { values: [{ name: "Верещак С. Б." }], completeness: "partial" },
-        rooms: { values: [{ name: "Дистанционно (ДОТ)" }], completeness: "complete" },
-        isDistance: true,
-        possibleChanges: false,
-        status: "scheduled",
-        sources: [],
-      },
-    ],
-    webinars,
-  );
-  assert.equal(lessons[0].webinar?.id, "122123");
 });
 
 test("Schedule applies spring substitutions and suppresses transferred source lessons", async () => {

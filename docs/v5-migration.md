@@ -407,12 +407,20 @@ for (const day of days) {
 import { attachWebinars } from "chuvsu-js";
 
 const lessons = schedule.on(date);
-const webinars = await client.getWebinars({ date });
+const webinars = await portal.getWebinars(); // StudentPortalClient, current LK day
 const withWebinars = attachWebinars(lessons, webinars);
 ```
 
 `attachWebinars` возвращает новые объекты `LessonWithWebinar` и не изменяет
 занятия в репозитории.
+
+Webinars now belong to LK: use `StudentPortalClient.getWebinars`,
+`getWebinarPage` and `getWebinarJoinUrl({ webinarId })` after `portal.login`.
+The old TT methods and TT parser are removed. The root `parseWebinars` export
+now parses LK HTML. `Webinar.idType` is removed; `id` is nullable because
+completed/pending rows have no join button. Optional listing date is a
+`LocalDate` string, not a `Date`. Matching rejects ambiguity and conflicting
+known groups, subgroups or teachers.
 
 ## Сетка звонков
 

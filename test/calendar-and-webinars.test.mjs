@@ -12,7 +12,7 @@ import {
   isHoliday,
   isSessionPeriod,
 } from "../dist/tt/utils/index.js";
-import { attachWebinars, findWebinar } from "../dist/tt/webinars.js";
+import { attachWebinars, findWebinar } from "../dist/lk/webinars.js";
 import { LessonType } from "../dist/tt/utils/lesson-type.js";
 
 function localDates(values) {
@@ -102,7 +102,6 @@ function lesson() {
 function webinar(overrides = {}) {
   return {
     id: "web",
-    idType: 1,
     scheduled: true,
     scheduledDate: "2026-09-08",
     slotNumber: 2,

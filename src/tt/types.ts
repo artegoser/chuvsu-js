@@ -149,27 +149,6 @@ export interface SemesterWeek {
   end: Date;
 }
 
-export interface Webinar {
-  /** Internal tt.chuvsu.ru webinar id used by `/webinar/getjoin`. */
-  id: string;
-  /** Webinar table type argument (`idwt`) used by `/webinar/getjoin`. */
-  idType: number;
-  /** True for "Вебинары по расписанию"; false for external webinars. */
-  scheduled: boolean;
-  scheduledDate?: LocalDate;
-  slotNumber?: number;
-  time: TimeRange;
-  subject: string;
-  type: string;
-  teacher: Teacher;
-  groups: string[];
-  subgroup?: number;
-  /** Free-form title/topic from the second table column. */
-  title: string;
-  /** Raw first-column text as rendered by tt.chuvsu.ru. */
-  raw: string;
-}
-
 export interface CacheConfig {
   schedule?: number;
   faculties?: number;
@@ -181,7 +160,6 @@ export interface CacheConfig {
   teacherPhotos?: number;
   roomInfo?: number;
   roomImages?: number;
-  webinars?: number;
 }
 
 export interface TimetableClientOptions {

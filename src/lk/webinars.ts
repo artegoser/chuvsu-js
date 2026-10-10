@@ -1,6 +1,6 @@
-import type { LessonOccurrence } from "./domain/types.js";
+import type { LessonOccurrence } from "../tt/domain/types.js";
 import type { Webinar } from "./types.js";
-import { LessonType, parseLessonType } from "./utils/lesson-type.js";
+import { LessonType, parseLessonType } from "../tt/utils/lesson-type.js";
 
 export type LessonWithWebinar = LessonOccurrence & { webinar?: Webinar };
 
@@ -16,10 +16,19 @@ export function findWebinar(
   lesson: LessonOccurrence,
   webinars: Webinar[],
 ): Webinar | undefined {
-  return webinars.find((webinar) => {
+  const matches = findWebinars(lesson, webinars);
+  return matches.length === 1 ? matches[0] : undefined;
+}
+
+/** All compatible rows; callers can resolve ambiguity explicitly. */
+export function findWebinars(
+  lesson: LessonOccurrence,
+  webinars: Webinar[],
+): Webinar[] {
+  if (lesson.status === "cancelled") return [];
+  return webinars.filter((webinar) => {
     if (!webinar.scheduled) return false;
     if (
-      webinar.scheduledDate &&
       webinar.scheduledDate !== lesson.scheduledDate
     ) return false;
     if (
@@ -39,6 +48,15 @@ export function findWebinar(
     }
     if (normalize(webinar.subject) !== normalize(lesson.subject)) return false;
     if (webinar.type && lesson.type !== LessonType.Unknown && parseLessonType(webinar.type) !== lesson.type) return false;
+    const groups = lesson.groups.values;
+    if (groups.length && webinar.groups.length && !groups.some((attendance) =>
+      webinar.groups.some((group) => normalize(group) === normalize(attendance.group.name)) &&
+      (webinar.subgroup == null || attendance.subgroup == null || webinar.subgroup === attendance.subgroup)
+    )) return false;
+    const teachers = lesson.teachers.values.filter((teacher) => teacher.name.trim());
+    if (teachers.length && webinar.teacher.name.trim() && !teachers.some((teacher) =>
+      normalize(teacher.name) === normalize(webinar.teacher.name)
+    )) return false;
     return true;
   });
 }
