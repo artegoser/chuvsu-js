@@ -34,6 +34,7 @@ export function buildWebinarSnapshot(
   for (const doc of documents("group-chat-msg")) messages.set(string(doc.id) || string(doc._id), doc);
   const presentations = documents("presentations");
   const meeting = documents("meetings").find((doc) => doc.meetingId === session.meeting.id);
+  const self = users.find((user) => user.userId === session.user.id);
   const origin = session.server.origin;
   const normalizeSlide = (doc: WebinarDocument, presentationId: string): WebinarSlide => {
     const position = positions.find((p) => p.id === doc.id);
@@ -85,7 +86,10 @@ export function buildWebinarSnapshot(
       };
     }),
     streams: [
-      ...documents("video-streams").map((stream) => ({
+      ...documents("video-streams").filter((stream) => {
+        if (self?.role === "MODERATOR" || record(meeting?.usersProp).webcamsOnlyForModerator !== true) return true;
+        return stream.userId === session.user.id || users.some((user) => user.userId === stream.userId && user.role === "MODERATOR");
+      }).map((stream) => ({
         id: string(stream.stream), kind: "camera" as const, userId: string(stream.userId) || null, hasAudio: false,
       })),
       ...documents("screenshare").filter((stream) => stream.screenshare !== false).map((stream) => ({

@@ -87,6 +87,51 @@ only after a state connection exposes `downloadable: true`. Disabled originals
 are not fetched. SVG slide downloads remain separate from original downloads;
 callers can assemble exported slides into a rendered PDF.
 
+## Direct browser media
+
+```ts
+import { WebinarClient, WebinarMediaClient } from "chuvsu-js/browser";
+
+// Session obtained from your authenticated backend, scoped to this student.
+const room = new WebinarClient(session);
+await room.connect();
+const media = new WebinarMediaClient(session, room);
+const audio = await media.listen(); // Explicit listen-only connection.
+audioElement.srcObject = audio.stream;
+await audioElement.play(); // Invoke from a user gesture when autoplay is blocked.
+
+const camera = room.getMediaStreams().find((stream) => stream.kind === "camera");
+if (camera) {
+  const playback = await media.receiveCamera({ streamId: camera.id });
+  videoElement.srcObject = playback.stream;
+}
+// Only when a screen is currently published:
+// const screen = await media.receiveScreen({ signal });
+// screenElement.srcObject = screen.stream;
+
+const stats = await audio.getStats();
+audio.onError(handleMediaError);
+audio.onClose(handlePlaybackEnd);
+// Component/page teardown:
+media.close();
+room.close();
+```
+
+Media uses the server's authenticated SFU WebSocket and browser WebRTC directly.
+No backend media receiver or forwarding is required. `listen()` receives the
+mixed room audio, not separate speaker tracks. Every playback exposes `stream`,
+`connection`, `getStats()`, `onError()`, `onClose()`, and idempotent `close()`.
+ICE candidates queue until negotiation is ready. Timeouts, aborts, disconnects
+and remote stream termination release sockets, peers and tracks. Media teardown
+is separate from room state teardown. Browser and network restrictions can still
+require the BBB server's TURN relay.
+
+Camera/screen IDs must be currently published to this participant. Camera lists
+respect the moderator-only visibility setting. No microphone or camera is
+captured/published by these receivers. Microphone connection, camera publication,
+programmatic notes editing, and newer server adapters are not implemented in this
+initial API; `setMuted()` only controls an already connected microphone session.
+
 ## Server versions
 
 Initial adapter supports the inspected **BBB 2.3 Meteor/DDP + Kurento** protocol.
