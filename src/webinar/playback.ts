@@ -1,8 +1,16 @@
 import { record, string } from "./parse.js";
 import { openWebinarSocket } from "./socket.js";
 import { webinarMediaMessages } from "./media-protocol.js";
-import { WebinarProtocolError, type WebinarSession, type WebinarSocket } from "./types.js";
-import type { WebinarMediaOptions, WebinarPlaybackKind, WebinarReceiveOptions } from "./media-types.js";
+import {
+  WebinarProtocolError,
+  type WebinarSession,
+  type WebinarSocket,
+} from "./types.js";
+import type {
+  WebinarMediaOptions,
+  WebinarPlaybackKind,
+  WebinarReceiveOptions,
+} from "./media-types.js";
 
 /** Direct browser-to-BBB receiver. Attach stream to an audio/video element. */
 export class WebinarPlayback {
@@ -35,11 +43,16 @@ export class WebinarPlayback {
     this.socket = socket;
     this.messages = webinarMediaMessages(session, kind, streamId, hasAudio);
     this.stream = new MediaStream();
-    this.connection = (opts.peerFactory ?? ((config) => new RTCPeerConnection(config)))({ iceServers: session.iceServers });
-    if (kind !== "camera" && (kind === "audio" || hasAudio)) this.connection.addTransceiver("audio", { direction: "recvonly" });
-    if (kind !== "audio") this.connection.addTransceiver("video", { direction: "recvonly" });
+    this.connection = (
+      opts.peerFactory ?? ((config) => new RTCPeerConnection(config))
+    )({ iceServers: session.iceServers });
+    if (kind !== "camera" && (kind === "audio" || hasAudio))
+      this.connection.addTransceiver("audio", { direction: "recvonly" });
+    if (kind !== "audio")
+      this.connection.addTransceiver("video", { direction: "recvonly" });
     this.connection.addEventListener("track", (event) => {
-      if (!this.stream.getTracks().some((track) => track.id === event.track.id)) this.stream.addTrack(event.track);
+      if (!this.stream.getTracks().some((track) => track.id === event.track.id))
+        this.stream.addTrack(event.track);
     });
     this.connection.addEventListener("icecandidate", (event) => {
       if (!event.candidate || this.closed) return;
@@ -48,27 +61,47 @@ export class WebinarPlayback {
       else this.send(this.messages.candidate(candidate));
     });
     this.connection.addEventListener("connectionstatechange", () => {
-      if (this.connection.connectionState === "connected") this.connectionResolve?.();
-      if (!this.closed && this.connection.connectionState === "failed") this.fail(new WebinarProtocolError("Webinar media connection failed"));
+      if (this.connection.connectionState === "connected")
+        this.connectionResolve?.();
+      if (!this.closed && this.connection.connectionState === "failed")
+        this.fail(new WebinarProtocolError("Webinar media connection failed"));
     });
     socket.addEventListener("message", (event) => {
-      this.pendingReceive = this.pendingReceive.then(async () => {
-        if (this.closed) return;
-        if (typeof event.data !== "string") throw new WebinarProtocolError("Invalid media frame");
-        await this.receive(record(JSON.parse(event.data)));
-      }).catch(() => this.fail(new WebinarProtocolError("Webinar media negotiation failed")));
+      this.pendingReceive = this.pendingReceive
+        .then(async () => {
+          if (this.closed) return;
+          if (typeof event.data !== "string")
+            throw new WebinarProtocolError("Invalid media frame");
+          await this.receive(record(JSON.parse(event.data)));
+        })
+        .catch(() =>
+          this.fail(
+            new WebinarProtocolError("Webinar media negotiation failed"),
+          ),
+        );
     });
     socket.addEventListener("close", () => {
-      if (!this.closed) this.fail(new WebinarProtocolError("Webinar media signaling disconnected"));
+      if (!this.closed)
+        this.fail(
+          new WebinarProtocolError("Webinar media signaling disconnected"),
+        );
     });
     socket.addEventListener("error", () => {
-      if (!this.closed) this.fail(new WebinarProtocolError("Webinar media signaling failed"));
+      if (!this.closed)
+        this.fail(new WebinarProtocolError("Webinar media signaling failed"));
     });
   }
 
-  async connect(timeout: number, opts: WebinarReceiveOptions = {}): Promise<void> {
-    if (this.closed || this.started) throw new WebinarProtocolError("Playback already opened or closed");
-    if (opts.signal?.aborted) { this.close(); throw new Error("Webinar playback aborted"); }
+  async connect(
+    timeout: number,
+    opts: WebinarReceiveOptions = {},
+  ): Promise<void> {
+    if (this.closed || this.started)
+      throw new WebinarProtocolError("Playback already opened or closed");
+    if (opts.signal?.aborted) {
+      this.close();
+      throw new Error("Webinar playback aborted");
+    }
     this.signal = opts.signal;
     this.abort = () => this.fail(new Error("Webinar playback aborted"));
     this.signal?.addEventListener("abort", this.abort, { once: true });
@@ -78,13 +111,21 @@ export class WebinarPlayback {
     });
     // Observe early failures while the WebSocket/offer is still opening.
     void connected.catch(() => {});
-    const timer = setTimeout(() => this.fail(new WebinarProtocolError("Webinar media connection timed out")), timeout);
+    const timer = setTimeout(
+      () =>
+        this.fail(
+          new WebinarProtocolError("Webinar media connection timed out"),
+        ),
+      timeout,
+    );
     try {
       await openWebinarSocket(this.socket, timeout);
-      if (this.closed) throw new WebinarProtocolError("Webinar playback closed");
+      if (this.closed)
+        throw new WebinarProtocolError("Webinar playback closed");
       const offer = await this.connection.createOffer();
       await this.connection.setLocalDescription(offer);
-      if (this.closed) throw new WebinarProtocolError("Webinar playback closed");
+      if (this.closed)
+        throw new WebinarProtocolError("Webinar playback closed");
       this.started = true;
       this.send(this.messages.start(offer.sdp ?? ""));
       this.pingTimer = setInterval(() => this.send({ id: "ping" }), 10_000);
@@ -100,16 +141,23 @@ export class WebinarPlayback {
   }
 
   private send(message: Record<string, unknown>): void {
-    if (!this.closed && this.socket.readyState === 1) this.socket.send(JSON.stringify(message));
+    if (!this.closed && this.socket.readyState === 1)
+      this.socket.send(JSON.stringify(message));
   }
 
   private async receive(message: Record<string, unknown>): Promise<void> {
     if (message.id === "startResponse") {
-      if (message.response !== "accepted" || !string(message.sdpAnswer)) throw new WebinarProtocolError("Webinar media offer rejected");
-      await this.connection.setRemoteDescription({ type: "answer", sdp: string(message.sdpAnswer) });
+      if (message.response !== "accepted" || !string(message.sdpAnswer))
+        throw new WebinarProtocolError("Webinar media offer rejected");
+      await this.connection.setRemoteDescription({
+        type: "answer",
+        sdp: string(message.sdpAnswer),
+      });
       this.answered = true;
-      for (const candidate of this.remoteCandidates.splice(0)) await this.connection.addIceCandidate(candidate);
-      for (const candidate of this.localCandidates.splice(0)) this.send(this.messages.candidate(candidate));
+      for (const candidate of this.remoteCandidates.splice(0))
+        await this.connection.addIceCandidate(candidate);
+      for (const candidate of this.localCandidates.splice(0))
+        this.send(this.messages.candidate(candidate));
     } else if (message.id === "iceCandidate") {
       const candidate = record(message.candidate) as RTCIceCandidateInit;
       if (!this.answered) this.remoteCandidates.push(candidate);
@@ -123,28 +171,42 @@ export class WebinarPlayback {
 
   onError(listener: (error: Error) => void): () => void {
     this.errorListeners.add(listener);
-    return () => { this.errorListeners.delete(listener); };
+    return () => {
+      this.errorListeners.delete(listener);
+    };
   }
 
   onClose(listener: () => void): () => void {
     this.closeListeners.add(listener);
-    return () => { this.closeListeners.delete(listener); };
+    return () => {
+      this.closeListeners.delete(listener);
+    };
   }
 
   private fail(error: Error): void {
     if (this.closed) return;
     this.connectionReject?.(error);
-    for (const listener of this.errorListeners) { try { listener(error); } catch { /* Caller owns listener errors. */ } }
+    for (const listener of this.errorListeners) {
+      try {
+        listener(error);
+      } catch {
+        /* Caller owns listener errors. */
+      }
+    }
     this.close();
   }
 
-  getStats(): Promise<RTCStatsReport> { return this.connection.getStats(); }
+  getStats(): Promise<RTCStatsReport> {
+    return this.connection.getStats();
+  }
 
   close(): void {
     if (this.closed) return;
     if (this.started && this.kind === "camera") this.send(this.messages.stop());
     this.closed = true;
-    this.connectionReject?.(new WebinarProtocolError("Webinar playback closed"));
+    this.connectionReject?.(
+      new WebinarProtocolError("Webinar playback closed"),
+    );
     if (this.pingTimer) clearInterval(this.pingTimer);
     if (this.abort) this.signal?.removeEventListener("abort", this.abort);
     this.socket.close();
@@ -153,7 +215,13 @@ export class WebinarPlayback {
     this.localCandidates.length = 0;
     this.remoteCandidates.length = 0;
     this.errorListeners.clear();
-    for (const listener of this.closeListeners) { try { listener(); } catch { /* Caller owns listener errors. */ } }
+    for (const listener of this.closeListeners) {
+      try {
+        listener();
+      } catch {
+        /* Caller owns listener errors. */
+      }
+    }
     this.closeListeners.clear();
   }
 }

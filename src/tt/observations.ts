@@ -1,11 +1,7 @@
 import type { Teacher } from "../common/types.js";
 import { parseLessonType } from "../common/lesson-type.js";
 import { parseLocalDate } from "./utils/index.js";
-import type {
-  ParsedScheduleDay,
-  ParsedLesson,
-  Substitution,
-} from "./types.js";
+import type { ParsedScheduleDay, ParsedLesson, Substitution } from "./types.js";
 import type {
   GroupAttendance,
   LessonSubstitution,
@@ -49,7 +45,11 @@ function relationSet<T>(
 ): RelationSet<T> {
   return {
     values: values ?? [],
-    completeness: explicitlyEmpty ? "complete" : values?.length ? "partial" : "unknown",
+    completeness: explicitlyEmpty
+      ? "complete"
+      : values?.length
+        ? "partial"
+        : "unknown",
   };
 }
 
@@ -57,13 +57,15 @@ function groupsFor(
   entry: ParsedLesson,
   owner: ScheduleOwner,
 ): RelationSet<GroupAttendance> {
-  const visible = entry.groups?.map((name) => ({
-    group: { name },
-    subgroup: entry.subgroup,
-  })) ?? [];
+  const visible =
+    entry.groups?.map((name) => ({
+      group: { name },
+      subgroup: entry.subgroup,
+    })) ?? [];
   const groups = relationSet(
     visible,
-    entry.groups === null || Array.isArray(entry.groups) && entry.groups.length === 0,
+    entry.groups === null ||
+      (Array.isArray(entry.groups) && entry.groups.length === 0),
   );
   if (owner.type === "group") {
     groups.values.unshift({ group: owner.group, subgroup: entry.subgroup });

@@ -34,7 +34,12 @@ export interface WebinarUser {
   locked: boolean;
   raisedHand: boolean;
   emoji: string;
-  audio: { joined: boolean; listenOnly: boolean; muted: boolean; speaking: boolean };
+  audio: {
+    joined: boolean;
+    listenOnly: boolean;
+    muted: boolean;
+    speaking: boolean;
+  };
 }
 
 export interface WebinarChat {
@@ -108,8 +113,14 @@ export interface WebinarSocket {
   readonly readyState: number;
   send(data: string): void;
   close(code?: number, reason?: string): void;
-  addEventListener(type: "open" | "close" | "error", listener: () => void): void;
-  addEventListener(type: "message", listener: (event: { data: unknown }) => void): void;
+  addEventListener(
+    type: "open" | "close" | "error",
+    listener: () => void,
+  ): void;
+  addEventListener(
+    type: "message",
+    listener: (event: { data: unknown }) => void,
+  ): void;
 }
 
 export type WebinarSocketFactory = (url: string) => WebinarSocket;
@@ -120,7 +131,10 @@ export interface WebinarClientOptions {
 }
 
 export class WebinarProtocolError extends Error {
-  constructor(message: string, readonly code?: string | number) {
+  constructor(
+    message: string,
+    readonly code?: string | number,
+  ) {
     super(message);
     this.name = "WebinarProtocolError";
   }

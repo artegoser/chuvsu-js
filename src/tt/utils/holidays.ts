@@ -123,9 +123,7 @@ export function getEffectiveHolidays(
   transfers: HolidayTransfer[] = [],
   sixDayWeek: boolean = true,
 ): Date[] {
-  const originalDates = holidays.map(
-    (h) => new Date(year, h.month - 1, h.day),
-  );
+  const originalDates = holidays.map((h) => new Date(year, h.month - 1, h.day));
 
   const isOriginalHoliday = (d: Date) =>
     originalDates.some((od) => isSameDay(od, d));
@@ -197,9 +195,7 @@ export function getHolidayTransfers(
   transfers: HolidayTransfer[] = [],
   sixDayWeek: boolean,
 ): HolidayTransfer[] {
-  const originalDates = holidays.map(
-    (h) => new Date(year, h.month - 1, h.day),
-  );
+  const originalDates = holidays.map((h) => new Date(year, h.month - 1, h.day));
   const effectiveDays: Date[] = [...originalDates];
 
   // Replay weekend transfers to build effectiveDays for bridge computation

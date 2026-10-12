@@ -13,10 +13,7 @@ import type {
   ParsedLesson,
   Substitution,
 } from "../types.js";
-import {
-  parseSubstitutionDiv,
-  parseTransferDiv,
-} from "./overlays.js";
+import { parseSubstitutionDiv, parseTransferDiv } from "./overlays.js";
 import { SUBGROUP_RE, WEEKS_RE } from "./patterns.js";
 import {
   hasDistanceMarker,
@@ -121,9 +118,7 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
     (td.getAttribute("class") ?? "").includes("want") || undefined;
 
   // Detect red-bordered divs (transfers / substitutions)
-  const redDivs = td.querySelectorAll(
-    'div[style*="border: 2px solid red"]',
-  );
+  const redDivs = td.querySelectorAll('div[style*="border: 2px solid red"]');
 
   // Transfer (перенос) — the whole entry is the transferred lesson
   for (const div of redDivs) {
@@ -156,10 +151,11 @@ function parseSemesterEntry(el: Element): ParsedLesson | null {
 
   const weeksMatch = cleanText.match(WEEKS_RE);
   const room = parseEntryRoom(cleanHtml, subject);
-  const teacherLine = linesAfterSubject(cleanHtml, subject).find((line) => {
-    const candidate = stripDistanceMarker(line);
-    return candidate.length > 0 && !SUBGROUP_RE.test(candidate);
-  }) ?? "";
+  const teacherLine =
+    linesAfterSubject(cleanHtml, subject).find((line) => {
+      const candidate = stripDistanceMarker(line);
+      return candidate.length > 0 && !SUBGROUP_RE.test(candidate);
+    }) ?? "";
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
 

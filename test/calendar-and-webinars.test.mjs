@@ -2,7 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
-import { migrateLegacyLessonId, occurrenceIdForSeries, RandomLessonIdGenerator } from "../dist/tt/domain/ids.js";
+import {
+  migrateLegacyLessonId,
+  occurrenceIdForSeries,
+  RandomLessonIdGenerator,
+} from "../dist/tt/domain/ids.js";
 import {
   getAdjacentSemester,
   getCompensatingWorkDays,
@@ -16,22 +20,44 @@ import { attachWebinars, findWebinar } from "../dist/lk/webinars.js";
 import { LessonType } from "../dist/common/lesson-type.js";
 
 function localDates(values) {
-  return values.map((value) =>
-    `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`
+  return values.map(
+    (value) =>
+      `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}-${String(value.getDate()).padStart(2, "0")}`,
   );
 }
 
 test("period helpers cover every annual boundary", () => {
-  assert.equal(getCurrentPeriod({ date: new Date(2026, 0, 10) }), AcademicPeriod.WinterSession);
-  assert.equal(getCurrentPeriod({ date: new Date(2026, 1, 1) }), AcademicPeriod.SpringSemester);
-  assert.equal(getCurrentPeriod({ date: new Date(2026, 5, 1) }), AcademicPeriod.SummerSession);
-  assert.equal(getCurrentPeriod({ date: new Date(2026, 8, 1) }), AcademicPeriod.FallSemester);
-  assert.equal(getCurrentPeriod({ date: new Date(2026, 11, 25) }), AcademicPeriod.WinterSession);
+  assert.equal(
+    getCurrentPeriod({ date: new Date(2026, 0, 10) }),
+    AcademicPeriod.WinterSession,
+  );
+  assert.equal(
+    getCurrentPeriod({ date: new Date(2026, 1, 1) }),
+    AcademicPeriod.SpringSemester,
+  );
+  assert.equal(
+    getCurrentPeriod({ date: new Date(2026, 5, 1) }),
+    AcademicPeriod.SummerSession,
+  );
+  assert.equal(
+    getCurrentPeriod({ date: new Date(2026, 8, 1) }),
+    AcademicPeriod.FallSemester,
+  );
+  assert.equal(
+    getCurrentPeriod({ date: new Date(2026, 11, 25) }),
+    AcademicPeriod.WinterSession,
+  );
   assert.equal(isSessionPeriod(AcademicPeriod.WinterSession), true);
   assert.equal(isSessionPeriod(AcademicPeriod.SummerSession), true);
   assert.equal(isSessionPeriod(AcademicPeriod.FallSemester), false);
-  assert.equal(getAdjacentSemester(AcademicPeriod.WinterSession), AcademicPeriod.FallSemester);
-  assert.equal(getAdjacentSemester(AcademicPeriod.SummerSession), AcademicPeriod.SpringSemester);
+  assert.equal(
+    getAdjacentSemester(AcademicPeriod.WinterSession),
+    AcademicPeriod.FallSemester,
+  );
+  assert.equal(
+    getAdjacentSemester(AcademicPeriod.SummerSession),
+    AcademicPeriod.SpringSemester,
+  );
 });
 
 test("holiday weekends, bridges, collisions and explicit overrides are deterministic", () => {
@@ -43,7 +69,9 @@ test("holiday weekends, bridges, collisions and explicit overrides are determini
   ];
 
   assert.deepEqual(
-    localDates(getHolidayTransfers(2026, tuesday, [], true).map((value) => value.dayOff)),
+    localDates(
+      getHolidayTransfers(2026, tuesday, [], true).map((value) => value.dayOff),
+    ),
     ["2026-08-31"],
   );
   assert.deepEqual(
@@ -51,15 +79,29 @@ test("holiday weekends, bridges, collisions and explicit overrides are determini
     ["2026-08-29"],
   );
   assert.deepEqual(
-    localDates(getHolidayTransfers(2026, thursday, [], false).map((value) => value.dayOff)),
+    localDates(
+      getHolidayTransfers(2026, thursday, [], false).map(
+        (value) => value.dayOff,
+      ),
+    ),
     ["2026-09-04"],
   );
   assert.equal(getHolidayTransfers(2026, thursday, [], true).length, 0);
-  assert.ok(localDates(getEffectiveHolidays(2026, weekendCollision, [], true)).includes("2026-09-08"));
+  assert.ok(
+    localDates(getEffectiveHolidays(2026, weekendCollision, [], true)).includes(
+      "2026-09-08",
+    ),
+  );
 
   const override = [{ dayOff: new Date(2026, 7, 31), workDay: null }];
-  assert.deepEqual(getHolidayTransfers(2026, tuesday, override, false), override);
-  assert.equal(isHoliday(new Date(2026, 7, 31), tuesday, override, false), true);
+  assert.deepEqual(
+    getHolidayTransfers(2026, tuesday, override, false),
+    override,
+  );
+  assert.equal(
+    isHoliday(new Date(2026, 7, 31), tuesday, override, false),
+    true,
+  );
   assert.equal(isHoliday(new Date(2026, 7, 31), [], []), false);
 });
 
@@ -72,10 +114,16 @@ test("lesson ID generators preserve namespace and deterministic occurrence IDs",
   const uuid = "7f16eb63-7416-4220-b13d-5653c123dfaa";
   const series = migrateLegacyLessonId(`ser_${uuid}`);
   assert.match(series, /^[A-Za-z0-9_-]{12}$/u);
-  assert.equal(migrateLegacyLessonId(`les_ser_${uuid}_5_0`), occurrenceIdForSeries(series, 5));
+  assert.equal(
+    migrateLegacyLessonId(`les_ser_${uuid}_5_0`),
+    occurrenceIdForSeries(series, 5),
+  );
   assert.equal(migrateLegacyLessonId(`les_${uuid}`).length, 12);
   assert.equal(migrateLegacyLessonId(`les_ser_${uuid}_5_0`), `${series}.5.0`);
-  assert.notEqual(occurrenceIdForSeries(series, 5), occurrenceIdForSeries(series, 6));
+  assert.notEqual(
+    occurrenceIdForSeries(series, 5),
+    occurrenceIdForSeries(series, 6),
+  );
 });
 
 function lesson() {
@@ -123,13 +171,38 @@ test("webinar matching rejects date and slot conflicts, falling back to time", (
     webinar({ scheduled: false }),
     webinar({ scheduledDate: "2026-09-09" }),
     webinar({ slotNumber: 3 }),
-    webinar({ slotNumber: undefined, time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } }),
+    webinar({
+      slotNumber: undefined,
+      time: {
+        start: { hours: 10, minutes: 0 },
+        end: { hours: 11, minutes: 10 },
+      },
+    }),
   ]) {
     assert.equal(findWebinar(target, [candidate]), undefined);
   }
-  assert.equal(findWebinar(target, [webinar({ time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } })])?.id, "web");
-  assert.equal(findWebinar(target, [webinar({ slotNumber: undefined })])?.id, "web");
-  assert.equal(findWebinar({ ...target, slotNumber: undefined }, [webinar()])?.id, "web");
+  assert.equal(
+    findWebinar(target, [
+      webinar({
+        time: {
+          start: { hours: 10, minutes: 0 },
+          end: { hours: 11, minutes: 10 },
+        },
+      }),
+    ])?.id,
+    "web",
+  );
+  assert.equal(
+    findWebinar(target, [webinar({ slotNumber: undefined })])?.id,
+    "web",
+  );
+  assert.equal(
+    findWebinar({ ...target, slotNumber: undefined }, [webinar()])?.id,
+    "web",
+  );
   assert.equal(attachWebinars([target], [webinar()])[0].webinar.id, "web");
-  assert.equal(attachWebinars([target], [webinar({ scheduled: false })])[0].webinar, undefined);
+  assert.equal(
+    attachWebinars([target], [webinar({ scheduled: false })])[0].webinar,
+    undefined,
+  );
 });

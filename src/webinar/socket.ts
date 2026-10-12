@@ -1,6 +1,7 @@
 import type { WebinarSocket, WebinarSocketFactory } from "./types.js";
 
-export const browserWebinarSocket: WebinarSocketFactory = (url) => new WebSocket(url);
+export const browserWebinarSocket: WebinarSocketFactory = (url) =>
+  new WebSocket(url);
 
 export async function openWebinarSocket(
   socket: WebinarSocket,
@@ -16,7 +17,10 @@ export async function openWebinarSocket(
       clearTimeout(timer);
       reject(new Error("Webinar WebSocket connection failed"));
     };
-    socket.addEventListener("open", () => { clearTimeout(timer); resolve(); });
+    socket.addEventListener("open", () => {
+      clearTimeout(timer);
+      resolve();
+    });
     socket.addEventListener("error", fail);
     socket.addEventListener("close", fail);
   });

@@ -58,18 +58,18 @@ for (const lesson of schedule.on(new Date())) {
 
 ## Переименования клиентов и общих типов
 
-| v4 | v5 |
-|---|---|
-| `TtClient` | `TimetableClient` |
-| `TtClientOptions` | `TimetableClientOptions` |
-| `LkClient` | `StudentPortalClient` |
+| v4                | v5                           |
+| ----------------- | ---------------------------- |
+| `TtClient`        | `TimetableClient`            |
+| `TtClientOptions` | `TimetableClientOptions`     |
+| `LkClient`        | `StudentPortalClient`        |
 | `LkClientOptions` | `StudentPortalClientOptions` |
-| `LkCacheConfig` | `StudentPortalCacheConfig` |
-| `PersonalData` | `StudentProfile` |
-| `Audience` | `Room` |
-| `AudienceInfo` | `RoomInfo` |
-| `EducationType` | `EducationLevel` |
-| `Period` | `AcademicPeriod` |
+| `LkCacheConfig`   | `StudentPortalCacheConfig`   |
+| `PersonalData`    | `StudentProfile`             |
+| `Audience`        | `Room`                       |
+| `AudienceInfo`    | `RoomInfo`                   |
+| `EducationType`   | `EducationLevel`             |
+| `Period`          | `AcademicPeriod`             |
 
 Опция клиента также переименована:
 
@@ -83,25 +83,25 @@ new TimetableClient({ educationLevel: EducationLevel.HigherEducation });
 
 ## Методы `TimetableClient`
 
-| v4 | v5 |
-|---|---|
-| `getSchedule(groupId)` | `getGroupSchedule(groupId)` |
-| `getScheduleForPeriod({ groupId, period })` | `getGroupSchedule(groupId, { periods: [period] })` |
-| `getTeacherScheduleForPeriod({ teacherId, period })` | `getTeacherSchedule(teacherId, { periods: [period] })` |
-| `getAudienceSchedule(id)` | `getRoomSchedule(id)` |
-| `getAudienceScheduleForPeriod({ audienceId, period })` | `getRoomSchedule(audienceId, { periods: [period] })` |
-| `searchGroup({ name })` | `searchGroups(name)` |
-| `searchTeacher({ name })` | `searchTeachers(name)` |
-| `searchAudience({ name })` | `searchRooms(name)` |
-| `getGroupsForFaculty({ facultyId })` | `getFacultyGroups(facultyId)` |
-| `getAudiences()` | `getRooms()` |
-| `findAudienceByName({ name })` | `findRoomByName(name)` |
-| `getAudienceName(id)` | `getRoomName(id)` |
-| `getAudienceInfo(id)` | `getRoomInfo(id)` |
-| `getAudienceImage(id)` | `getRoomImage(id)` |
-| `getAudienceBlockImage(id)` | `getRoomBuildingImage(id)` |
-| `getAudienceFloorplan(id)` | `getRoomFloorPlan(id)` |
-| `getTeacherPhoto(id)` / `getTeacherPhotoLazy(id)` | `getTeacherPhoto(id)` |
+| v4                                                     | v5                                                     |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| `getSchedule(groupId)`                                 | `getGroupSchedule(groupId)`                            |
+| `getScheduleForPeriod({ groupId, period })`            | `getGroupSchedule(groupId, { periods: [period] })`     |
+| `getTeacherScheduleForPeriod({ teacherId, period })`   | `getTeacherSchedule(teacherId, { periods: [period] })` |
+| `getAudienceSchedule(id)`                              | `getRoomSchedule(id)`                                  |
+| `getAudienceScheduleForPeriod({ audienceId, period })` | `getRoomSchedule(audienceId, { periods: [period] })`   |
+| `searchGroup({ name })`                                | `searchGroups(name)`                                   |
+| `searchTeacher({ name })`                              | `searchTeachers(name)`                                 |
+| `searchAudience({ name })`                             | `searchRooms(name)`                                    |
+| `getGroupsForFaculty({ facultyId })`                   | `getFacultyGroups(facultyId)`                          |
+| `getAudiences()`                                       | `getRooms()`                                           |
+| `findAudienceByName({ name })`                         | `findRoomByName(name)`                                 |
+| `getAudienceName(id)`                                  | `getRoomName(id)`                                      |
+| `getAudienceInfo(id)`                                  | `getRoomInfo(id)`                                      |
+| `getAudienceImage(id)`                                 | `getRoomImage(id)`                                     |
+| `getAudienceBlockImage(id)`                            | `getRoomBuildingImage(id)`                             |
+| `getAudienceFloorplan(id)`                             | `getRoomFloorPlan(id)`                                 |
+| `getTeacherPhoto(id)` / `getTeacherPhotoLazy(id)`      | `getTeacherPhoto(id)`                                  |
 
 `getGroupSchedule`, `getTeacherSchedule` и `getRoomSchedule` по умолчанию
 загружают все периоды, доступные на соответствующей странице портала, включая
@@ -113,10 +113,7 @@ new TimetableClient({ educationLevel: EducationLevel.HigherEducation });
 import { AcademicPeriod } from "chuvsu-js";
 
 const schedule = await client.getTeacherSchedule(teacherId, {
-  periods: [
-    AcademicPeriod.FallSemester,
-    AcademicPeriod.WinterSession,
-  ],
+  periods: [AcademicPeriod.FallSemester, AcademicPeriod.WinterSession],
 });
 ```
 
@@ -136,15 +133,15 @@ const schedule = await client.getSchedule({
 
 ## Методы `Schedule`
 
-| v4 | v5 |
-|---|---|
-| `forDate(date)` | `on(date)` |
-| `forWeek(week, options)` | `week(week, options)` |
+| v4                         | v5                          |
+| -------------------------- | --------------------------- |
+| `forDate(date)`            | `on(date)`                  |
+| `forWeek(week, options)`   | `week(week, options)`       |
 | `forDay(weekday, options)` | `weekday(weekday, options)` |
-| `currentLesson(options)` | `current(options)` |
-| `today(options)` | `today(options)` |
-| `tomorrow(options)` | `tomorrow(options)` |
-| `thisWeek(options)` | `thisWeek(options)` |
+| `currentLesson(options)`   | `current(options)`          |
+| `today(options)`           | `today(options)`            |
+| `tomorrow(options)`        | `tomorrow(options)`         |
+| `thisWeek(options)`        | `thisWeek(options)`         |
 
 `on`, `week`, `weekday`, `today`, `tomorrow` и `thisWeek` теперь всегда
 возвращают `LessonOccurrence[]`. Опция `subgroup` сохранена:
@@ -159,20 +156,20 @@ const lessons = schedule.weekday(1, { week: 4, subgroup: 2 });
 
 ## Миграция `Lesson` на `LessonOccurrence`
 
-| v4 `Lesson` | v5 `LessonOccurrence` |
-|---|---|
-| `number` | `slotNumber` |
-| `start.hours`, `start.minutes` | `time?.start.hours`, `time?.start.minutes` |
-| `end.hours`, `end.minutes` | `time?.end.hours`, `time?.end.minutes` |
-| `start.date` | `scheduledDate` (`YYYY-MM-DD`) |
-| `room` | `rooms.values` |
-| `teacher` | `teachers.values` |
-| `groups: string[]` | `groups.values: GroupAttendance[]` |
-| `originalRoom` | `originalRooms` |
-| `originalTeacher` | `originalTeachers` |
-| `transfer` | `status`, `nominalDate`, `scheduledDate`, `movedFrom` |
-| отсутствовало | `id` и необязательный `seriesId` |
-| отсутствовало | `sources` |
+| v4 `Lesson`                    | v5 `LessonOccurrence`                                 |
+| ------------------------------ | ----------------------------------------------------- |
+| `number`                       | `slotNumber`                                          |
+| `start.hours`, `start.minutes` | `time?.start.hours`, `time?.start.minutes`            |
+| `end.hours`, `end.minutes`     | `time?.end.hours`, `time?.end.minutes`                |
+| `start.date`                   | `scheduledDate` (`YYYY-MM-DD`)                        |
+| `room`                         | `rooms.values`                                        |
+| `teacher`                      | `teachers.values`                                     |
+| `groups: string[]`             | `groups.values: GroupAttendance[]`                    |
+| `originalRoom`                 | `originalRooms`                                       |
+| `originalTeacher`              | `originalTeachers`                                    |
+| `transfer`                     | `status`, `nominalDate`, `scheduledDate`, `movedFrom` |
+| отсутствовало                  | `id` и необязательный `seriesId`                      |
+| отсутствовало                  | `sources`                                             |
 
 `slotNumber` и `time` необязательны и независимы. Нельзя использовать
 утверждение `lesson.number === 5` как источник времени или вычислять номер пары
@@ -230,9 +227,9 @@ type RelationSet<T> = {
 Ссылки на сущности теперь могут содержать ID:
 
 ```ts
-lesson.teachers.values // TeacherRef[]: { id?, name, position?, degree? }
-lesson.rooms.values    // RoomRef[]: { id?, name, building? }
-lesson.groups.values   // GroupAttendance[]: { group: GroupRef, subgroup? }
+lesson.teachers.values; // TeacherRef[]: { id?, name, position?, degree? }
+lesson.rooms.values; // RoomRef[]: { id?, name, building? }
+lesson.groups.values; // GroupAttendance[]: { group: GroupRef, subgroup? }
 ```
 
 ## Даты, сессия и переносы
@@ -245,7 +242,7 @@ lesson.groups.values   // GroupAttendance[]: { group: GroupRef, subgroup? }
 import { formatLocalDate, parseLocalDate } from "chuvsu-js";
 
 const key = formatLocalDate(new Date(2026, 8, 3)); // "2026-09-03"
-const date = parseLocalDate(key);                  // локальный Date
+const date = parseLocalDate(key); // локальный Date
 ```
 
 Экзамен, консультация и другая строка сессии сразу являются
@@ -368,15 +365,15 @@ const searched = await client.resolveTeacher("Иванов И. И.", {
 Если приложение использовало табличные типы v4 напрямую, миграция выполняется
 отдельно от канонического `Schedule`:
 
-| v4 | v5 (`chuvsu-js/parsers`) |
-|---|---|
-| `FullScheduleDay` | `ParsedScheduleDay` |
-| `FullScheduleSlot` | `ParsedScheduleBlock` |
-| `ScheduleEntry` | `ParsedLesson` |
-| `day.slots` | `day.blocks` |
-| `slot.number` | `block.slotNumber` |
+| v4                               | v5 (`chuvsu-js/parsers`)               |
+| -------------------------------- | -------------------------------------- |
+| `FullScheduleDay`                | `ParsedScheduleDay`                    |
+| `FullScheduleSlot`               | `ParsedScheduleBlock`                  |
+| `ScheduleEntry`                  | `ParsedLesson`                         |
+| `day.slots`                      | `day.blocks`                           |
+| `slot.number`                    | `block.slotNumber`                     |
 | `slot.timeStart`, `slot.timeEnd` | `block.time?.start`, `block.time?.end` |
-| `slot.entries` | `block.lessons` |
+| `slot.entries`                   | `block.lessons`                        |
 
 ```ts
 import { parseGroupSchedule } from "chuvsu-js/parsers";
@@ -396,11 +393,11 @@ for (const day of days) {
 
 ## Вебинары
 
-| v4 | v5 |
-|---|---|
-| `attachWebinarsToLessons` | `attachWebinars` |
-| `matchWebinarToLesson` | `findWebinar` |
-| `webinar.date` | `webinar.scheduledDate` |
+| v4                                     | v5                                       |
+| -------------------------------------- | ---------------------------------------- |
+| `attachWebinarsToLessons`              | `attachWebinars`                         |
+| `matchWebinarToLesson`                 | `findWebinar`                            |
+| `webinar.date`                         | `webinar.scheduledDate`                  |
 | `webinar.timeStart`, `webinar.timeEnd` | `webinar.time.start`, `webinar.time.end` |
 
 ```ts
@@ -424,22 +421,22 @@ known groups, subgroups or teachers.
 
 ## Сетка звонков
 
-| v4 | v5 |
-|---|---|
-| `getTimeSlots()` | `getStandardScheduleBlocks()` |
-| `getLessonNumber(time)` | удален |
+| v4                      | v5                            |
+| ----------------------- | ----------------------------- |
+| `getTimeSlots()`        | `getStandardScheduleBlocks()` |
+| `getLessonNumber(time)` | удален                        |
 
 Стандартная сетка в v5 является только справочником. Она не исправляет данные
 портала и не используется для вычисления `slotNumber` по времени.
 
 ## Личный кабинет
 
-| v4 | v5 |
-|---|---|
-| `new LkClient()` | `new StudentPortalClient()` |
-| `getPersonalData()` | `getProfile()` |
-| `getPhoto()` | `getProfilePhoto()` |
-| `getGroupId()` | `getTimetableGroupId()` |
+| v4                  | v5                          |
+| ------------------- | --------------------------- |
+| `new LkClient()`    | `new StudentPortalClient()` |
+| `getPersonalData()` | `getProfile()`              |
+| `getPhoto()`        | `getProfilePhoto()`         |
+| `getGroupId()`      | `getTimetableGroupId()`     |
 
 Поля профиля не изменились; изменились имена класса, типа и методов. Ключи
 настроек кеша переименованы с `personalData`, `photo`, `groupId` на `profile`,
@@ -449,11 +446,11 @@ known groups, subgroups or teachers.
 
 В расписании переименованы категории:
 
-| v4 | v5 |
-|---|---|
-| `audiences` | `rooms` |
-| `audienceNames` | `roomNames` |
-| `audienceInfo` | `roomInfo` |
+| v4               | v5           |
+| ---------------- | ------------ |
+| `audiences`      | `rooms`      |
+| `audienceNames`  | `roomNames`  |
+| `audienceInfo`   | `roomInfo`   |
 | `audienceImages` | `roomImages` |
 
 Остальные категории сохраняют назначение, но содержимое кеша v4 повторно

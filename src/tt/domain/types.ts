@@ -144,9 +144,7 @@ export interface OccurrenceObservation extends ObservationBase {
   transfer?: LessonTransfer;
 }
 
-export type ScheduleObservation =
-  | SeriesObservation
-  | OccurrenceObservation;
+export type ScheduleObservation = SeriesObservation | OccurrenceObservation;
 
 export interface ScheduleSourceSnapshot {
   sourceKey: string;
@@ -166,8 +164,10 @@ export interface IngestResult {
   removedObservations: number;
 }
 
-export interface SerializedScheduleSourceSnapshot
-  extends Omit<ScheduleSourceSnapshot, "observedAt" | "observations"> {
+export interface SerializedScheduleSourceSnapshot extends Omit<
+  ScheduleSourceSnapshot,
+  "observedAt" | "observations"
+> {
   observedAt: string;
   observations: SerializedScheduleObservation[];
 }

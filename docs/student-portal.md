@@ -5,7 +5,12 @@ All new methods belong to `StudentPortalClient` from `chuvsu-js` or
 Types and lesson matching helpers are available from `chuvsu-js/browser`.
 
 ```ts
-import { StudentPortalClient, TimetableClient, attachWebinars, parseLocalDate } from "chuvsu-js";
+import {
+  StudentPortalClient,
+  TimetableClient,
+  attachWebinars,
+  parseLocalDate,
+} from "chuvsu-js";
 
 const portal = new StudentPortalClient({
   cache: { portfolio: 60_000, webinars: 15_000 },
@@ -123,7 +128,11 @@ from section content. Parsing never evaluates scripts or follows links.
 Offline parsing:
 
 ```ts
-import { parsePortfolio, parsePortfolioUrl, parseWebinarPage } from "chuvsu-js/parsers";
+import {
+  parsePortfolio,
+  parsePortfolioUrl,
+  parseWebinarPage,
+} from "chuvsu-js/parsers";
 
 const portfolio = parsePortfolio(portfolioHtml);
 const landingUrl = parsePortfolioUrl(homeHtml);

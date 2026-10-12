@@ -3,7 +3,10 @@ import assert from "node:assert/strict";
 
 import { AcademicPeriod } from "../dist/common/types.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
-import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
+import {
+  ScheduleSnapshot,
+  createScheduleSnapshot,
+} from "../dist/tt/domain/schedule-snapshot.js";
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import { formatLocalDate } from "../dist/tt/utils/index.js";
@@ -14,51 +17,74 @@ const teacher = { id: 2, name: "Иванов Иван Иванович" };
 const room = { id: 3, name: "А-101" };
 
 function recurringSchedule(options = {}) {
-  return scheduleFromParsedDays([{
-    weekday: "Вторник",
-    blocks: [{
-      slotNumber: 2,
-      time: {
-        start: { hours: 9, minutes: 50 },
-        end: { hours: 11, minutes: 10 },
+  return scheduleFromParsedDays(
+    [
+      {
+        weekday: "Вторник",
+        blocks: [
+          {
+            slotNumber: 2,
+            time: {
+              start: { hours: 9, minutes: 50 },
+              end: { hours: 11, minutes: 10 },
+            },
+            lessons: [
+              {
+                subject: "Архитектура",
+                type: "лк",
+                weeks: { from: 1, to: 4 },
+                weekParity: "even",
+                room: room.name,
+                teacher,
+                groups: [group.name],
+                subgroup: 1,
+                substitutions: [
+                  {
+                    date: "2026-09-08",
+                    room: "Дистанционно (ДОТ)",
+                    teacher: { name: "Петров Петр Петрович" },
+                    isDistance: true,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
-      lessons: [{
-        subject: "Архитектура",
-        type: "лк",
-        weeks: { from: 1, to: 4 },
-        weekParity: "even",
-        room: room.name,
-        teacher,
-        groups: [group.name],
-        subgroup: 1,
-        substitutions: [{
-          date: "2026-09-08",
-          room: "Дистанционно (ДОТ)",
-          teacher: { name: "Петров Петр Петрович" },
-          isDistance: true,
-        }],
-      }],
-    }],
-  }], {
-    owner: { type: "group", group },
-    academicYearStartYear: 2026,
-    period: AcademicPeriod.FallSemester,
-    ...options,
-  });
+    ],
+    {
+      owner: { type: "group", group },
+      academicYearStartYear: 2026,
+      period: AcademicPeriod.FallSemester,
+      ...options,
+    },
+  );
 }
 
 test("recurrence, subgroup and substitutions are applied independently", () => {
   const schedule = recurringSchedule();
-  assert.equal(schedule.on(new Date(2026, 8, 1)).length, 0, "odd week excluded");
-  assert.equal(schedule.on(new Date(2026, 8, 15)).length, 0, "odd week excluded");
+  assert.equal(
+    schedule.on(new Date(2026, 8, 1)).length,
+    0,
+    "odd week excluded",
+  );
+  assert.equal(
+    schedule.on(new Date(2026, 8, 15)).length,
+    0,
+    "odd week excluded",
+  );
   assert.equal(schedule.on(new Date(2026, 8, 29)).length, 0, "outside range");
   assert.equal(schedule.on(new Date(2026, 8, 9)).length, 0, "wrong weekday");
 
   const substituted = schedule.on(new Date(2026, 8, 8), { subgroup: 1 });
   assert.equal(substituted.length, 1);
-  assert.deepEqual(substituted[0].rooms.values, [{ name: "Дистанционно (ДОТ)" }]);
+  assert.deepEqual(substituted[0].rooms.values, [
+    { name: "Дистанционно (ДОТ)" },
+  ]);
   assert.deepEqual(substituted[0].originalRooms.values, [{ name: room.name }]);
-  assert.deepEqual(substituted[0].teachers.values, [{ name: "Петров Петр Петрович" }]);
+  assert.deepEqual(substituted[0].teachers.values, [
+    { name: "Петров Петр Петрович" },
+  ]);
   assert.deepEqual(substituted[0].originalTeachers.values, [teacher]);
   assert.equal(substituted[0].isDistance, true);
   assert.equal(schedule.on(new Date(2026, 8, 8), { subgroup: 2 }).length, 0);
@@ -86,16 +112,18 @@ test("direct occurrences project to group, teacher and room owners", () => {
     academicYearStartYear: 2026,
     period: AcademicPeriod.WinterSession,
     observedAt: new Date("2026-09-01T00:00:00Z"),
-    observations: [{
-      kind: "occurrence",
-      key: "exam",
-      date: "2027-01-10",
-      subject: "Экзамен",
-      type: "экз",
-      groups: { values: [{ group }], completeness: "partial" },
-      teachers: { values: [teacher], completeness: "partial" },
-      rooms: { values: [room], completeness: "partial" },
-    }],
+    observations: [
+      {
+        kind: "occurrence",
+        key: "exam",
+        date: "2027-01-10",
+        subject: "Экзамен",
+        type: "экз",
+        groups: { values: [{ group }], completeness: "partial" },
+        teachers: { values: [teacher], completeness: "partial" },
+        rooms: { values: [room], completeness: "partial" },
+      },
+    ],
   });
   for (const owner of [
     { type: "group", group },
@@ -114,33 +142,48 @@ test("convenience queries and semester metadata use the same calendar", () => {
   const now = new Date();
   const tomorrow = new Date(now);
   tomorrow.setDate(now.getDate() + 1);
-  const academicYearStartYear = now.getMonth() >= 8
-    ? now.getFullYear()
-    : now.getFullYear() - 1;
-  const schedule = scheduleFromParsedDays([{
-      weekday: "Сегодня",
-      date: formatLocalDate(now),
-      blocks: [{
-        time: { start: { hours: 0, minutes: 0 }, end: { hours: 23, minutes: 59 } },
-        lessons: [{ subject: "Сегодня", type: "экз" }],
-      }],
-    }], {
-    owner: { type: "group", group },
-    academicYearStartYear,
-    period: AcademicPeriod.SummerSession,
-  });
-  const tomorrowAcademicYear = tomorrow.getMonth() >= 8
-    ? tomorrow.getFullYear()
-    : tomorrow.getFullYear() - 1;
-  const tomorrowSchedule = scheduleFromParsedDays([{
-      weekday: "Завтра",
-      date: formatLocalDate(tomorrow),
-      blocks: [{ lessons: [{ subject: "Завтра", type: "конс" }] }],
-    }], {
-    owner: { type: "group", group },
-    academicYearStartYear: tomorrowAcademicYear,
-    period: AcademicPeriod.SummerSession,
-  });
+  const academicYearStartYear =
+    now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1;
+  const schedule = scheduleFromParsedDays(
+    [
+      {
+        weekday: "Сегодня",
+        date: formatLocalDate(now),
+        blocks: [
+          {
+            time: {
+              start: { hours: 0, minutes: 0 },
+              end: { hours: 23, minutes: 59 },
+            },
+            lessons: [{ subject: "Сегодня", type: "экз" }],
+          },
+        ],
+      },
+    ],
+    {
+      owner: { type: "group", group },
+      academicYearStartYear,
+      period: AcademicPeriod.SummerSession,
+    },
+  );
+  const tomorrowAcademicYear =
+    tomorrow.getMonth() >= 8
+      ? tomorrow.getFullYear()
+      : tomorrow.getFullYear() - 1;
+  const tomorrowSchedule = scheduleFromParsedDays(
+    [
+      {
+        weekday: "Завтра",
+        date: formatLocalDate(tomorrow),
+        blocks: [{ lessons: [{ subject: "Завтра", type: "конс" }] }],
+      },
+    ],
+    {
+      owner: { type: "group", group },
+      academicYearStartYear: tomorrowAcademicYear,
+      period: AcademicPeriod.SummerSession,
+    },
+  );
 
   assert.equal(schedule.today()[0]?.subject, "Сегодня");
   assert.equal(tomorrowSchedule.tomorrow()[0]?.subject, "Завтра");
@@ -189,32 +232,39 @@ test("schedule snapshots survive JSON transport and provide dates", () => {
   const snapshot = JSON.parse(JSON.stringify(payload));
   const restored = new ScheduleSnapshot(snapshot);
 
-  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
-    "2026-09-08",
-    "2026-09-22",
-  ]);
+  assert.deepEqual(
+    [...restored.dateKeys({ subgroup: 1 })],
+    ["2026-09-08", "2026-09-22"],
+  );
   assert.deepEqual([...restored.dateKeys({ subgroup: 2 })], []);
   assert.equal(restored.on(new Date(2026, 8, 8))[0].isDistance, true);
-  assert.ok(restored.on(new Date(2026, 8, 8))[0].sources[0].observedAt instanceof Date);
+  assert.ok(
+    restored.on(new Date(2026, 8, 8))[0].sources[0].observedAt instanceof Date,
+  );
   assert.deepEqual(JSON.parse(JSON.stringify(restored.export())), snapshot);
-  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], [
-    "2026-09-08",
-    "2026-09-22",
-  ]);
+  assert.deepEqual(
+    [...restored.dateKeys({ subgroup: 1 })],
+    ["2026-09-08", "2026-09-22"],
+  );
   assert.equal("lessonsByDate" in snapshot, false);
 });
 
 test("schedule snapshots rebuild recurring dates without repeated lessons", () => {
   const schedule = recurringSchedule();
   const range = { start: new Date(2026, 8, 1), end: new Date(2026, 9, 31) };
-  const snapshot = JSON.parse(JSON.stringify(createScheduleSnapshot(schedule, range)));
+  const snapshot = JSON.parse(
+    JSON.stringify(createScheduleSnapshot(schedule, range)),
+  );
   assert.deepEqual(snapshot.holidays, []);
   assert.equal("holidayTransfers" in snapshot, false);
   const restored = new ScheduleSnapshot(snapshot);
   assert.equal(snapshot.series.length, 1);
   assert.equal(snapshot.direct.length, 0);
   assert.equal("lessonsByDate" in snapshot, false);
-  assert.deepEqual([...restored.dateKeys({ subgroup: 1 })], ["2026-09-08", "2026-09-22"]);
+  assert.deepEqual(
+    [...restored.dateKeys({ subgroup: 1 })],
+    ["2026-09-08", "2026-09-22"],
+  );
   for (let day = 1; day <= 31; day++) {
     const date = new Date(2026, 8, day);
     assert.deepEqual(restored.on(date), schedule.on(date));
@@ -239,10 +289,11 @@ test("schedule snapshot validates ranges and can omit source metadata", () => {
     /invalid date/,
   );
   assert.throws(
-    () => createScheduleSnapshot(schedule, {
-      start: new Date(2026, 8, 9),
-      end: new Date(2026, 8, 8),
-    }),
+    () =>
+      createScheduleSnapshot(schedule, {
+        start: new Date(2026, 8, 9),
+        end: new Date(2026, 8, 8),
+      }),
     /must not exceed/,
   );
 });

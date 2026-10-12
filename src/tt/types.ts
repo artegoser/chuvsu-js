@@ -173,7 +173,6 @@ export interface TimetableClientOptions {
   repositoryAdapter?: TimetableRepositoryAdapter;
 }
 
-
 export interface GetScheduleOptions {
   periods?: readonly AcademicPeriod[];
 }

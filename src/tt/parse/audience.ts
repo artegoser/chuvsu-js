@@ -68,8 +68,7 @@ export function parseRoomInfo(html: string): RoomInfo | null {
   // Highlight rect from the image map: prefer the <area> whose id matches
   // the current audience (planaudNNNN); fall back to the first rect area.
   let floorplanRect:
-    | { x1: number; y1: number; x2: number; y2: number }
-    | undefined;
+    { x1: number; y1: number; x2: number; y2: number } | undefined;
   const areas = doc.querySelectorAll('map[name="flooraud"] area[shape="rect"]');
   let chosen: Element | undefined = undefined;
   for (const a of areas) {
@@ -114,9 +113,7 @@ function parseRoomSemesterEntry(el: Element): ParsedLesson | null {
   const possibleChanges =
     (td.getAttribute("class") ?? "").includes("want") || undefined;
 
-  const redDivs = td.querySelectorAll(
-    'div[style*="border: 2px solid red"]',
-  );
+  const redDivs = td.querySelectorAll('div[style*="border: 2px solid red"]');
 
   for (const div of redDivs) {
     const result = parseTransferDiv(div);
@@ -199,7 +196,10 @@ export function parseRoomSchedule(html: string): ParsedScheduleDay[] {
 
 function parseRoomSessionEntry(td: Element): {
   lesson: ParsedLesson;
-  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
+  time: {
+    start: { hours: number; minutes: number };
+    end: { hours: number; minutes: number };
+  };
 } | null {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);
@@ -214,12 +214,13 @@ function parseRoomSessionEntry(td: Element): {
   if (!timeMatch) return null;
 
   const parts = linesAfterSubject(fullHtml, subject);
-  const teacherLine = parts.find((part) =>
-    !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
-    !containsGroupCode(stripDistanceMarker(part))
+  const teacherLine = parts.find(
+    (part) =>
+      !/^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/.test(part) &&
+      !containsGroupCode(stripDistanceMarker(part)),
   );
   const groupsLine = parts.find((part) =>
-    containsGroupCode(stripDistanceMarker(part))
+    containsGroupCode(stripDistanceMarker(part)),
   );
   const groups = parseGroupsString(stripDistanceMarker(groupsLine ?? ""));
   const subgroupMatch = plainText.match(SUBGROUP_RE);
@@ -228,7 +229,9 @@ function parseRoomSessionEntry(td: Element): {
     lesson: {
       subject,
       type: parseLessonTypeAfterSubject(subjectEl).toLowerCase(),
-      teacher: teacherLine ? parseTeacher(stripDistanceMarker(teacherLine)) : undefined,
+      teacher: teacherLine
+        ? parseTeacher(stripDistanceMarker(teacherLine))
+        : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
       isDistance: hasDistanceMarker(plainText),

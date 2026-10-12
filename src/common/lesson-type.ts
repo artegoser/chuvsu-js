@@ -45,5 +45,14 @@ const TYPE_BY_CODE: Readonly<Record<string, LessonType>> = {
 
 /** Convert portal short code or full assessment label into a domain identifier. */
 export function parseLessonType(code: string): LessonType {
-  return TYPE_BY_CODE[code.trim().toLocaleLowerCase("ru-RU").replace(/ё/gu, "е").replace(/\s+/gu, " ").replace(/\.$/u, "")] ?? LessonType.Unknown;
+  return (
+    TYPE_BY_CODE[
+      code
+        .trim()
+        .toLocaleLowerCase("ru-RU")
+        .replace(/ё/gu, "е")
+        .replace(/\s+/gu, " ")
+        .replace(/\.$/u, "")
+    ] ?? LessonType.Unknown
+  );
 }

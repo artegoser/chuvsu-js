@@ -1,10 +1,6 @@
 import { parseTeacher, text } from "../../common/parse.js";
 import type { LocalDate, Teacher } from "../../common/types.js";
-import type {
-  ParsedLesson,
-  Substitution,
-  TransferInfo,
-} from "../types.js";
+import type { ParsedLesson, Substitution, TransferInfo } from "../types.js";
 import { parseGroupsString } from "./groups.js";
 import {
   containsGroupCode,
@@ -12,11 +8,7 @@ import {
   linesAfterSubject,
   stripDistanceMarker,
 } from "./entry-parts.js";
-import {
-  LESSON_TYPE_RE,
-  LESSON_TYPE_RE_I,
-  SUBGROUP_RE,
-} from "./patterns.js";
+import { LESSON_TYPE_RE, LESSON_TYPE_RE_I, SUBGROUP_RE } from "./patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+/u;
 const ROOM_CODE_RE = /^[А-Яа-яA-Za-z]-\d+$/u;
@@ -50,10 +42,12 @@ export function parseTransferDiv(
     }) ?? "";
   const subjectMatch = lessonLineHtml.match(BLUE_SPAN_RE);
   const subjectEl = div.querySelector('span[style*="color: blue"]');
-  const subject = subjectMatch?.[1]?.trim() ?? (subjectEl ? text(subjectEl) : "");
+  const subject =
+    subjectMatch?.[1]?.trim() ?? (subjectEl ? text(subjectEl) : "");
   if (!subject) return null;
 
-  const roomMatch = lessonLineHtml.match(/([А-Яа-яA-Za-z]-\d+)/) ??
+  const roomMatch =
+    lessonLineHtml.match(/([А-Яа-яA-Za-z]-\d+)/) ??
     divHtml.match(/([А-Яа-яA-Za-z]-\d+)/);
   const typeMatch = divText.match(LESSON_TYPE_RE);
   const parts = lineHtmls
@@ -96,7 +90,8 @@ export function parseTransferDiv(
       teacher: teacherPart ? parseTeacher(teacherPart) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
+      isDistance:
+        hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
       transfer,
     },
   };
@@ -114,9 +109,7 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
   let room: string | undefined;
   let teacher: Teacher | undefined;
 
-  const roomMatch = divHtml.match(
-    /Аудитория:\s*<span[^>]*>([^<]+)<\/span>/,
-  );
+  const roomMatch = divHtml.match(/Аудитория:\s*<span[^>]*>([^<]+)<\/span>/);
   if (roomMatch) room = roomMatch[1].trim();
 
   const teacherMatch = divHtml.match(
@@ -124,7 +117,12 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
   );
   if (teacherMatch) teacher = parseTeacher(teacherMatch[1].trim());
 
-  return { date, room, teacher, isDistance: hasDistanceMarker(room ?? divText) };
+  return {
+    date,
+    room,
+    teacher,
+    isDistance: hasDistanceMarker(room ?? divText),
+  };
 }
 
 export function parseSubstituteForDiv(div: Element): {
@@ -143,9 +141,10 @@ export function parseSubstituteForDiv(div: Element): {
     /замена\s*вместо:\s*<\/b><\/span>\s*<span[^>]*>([^<]+)<\/span>/,
   );
   const originalValue = origTeacherMatch?.[1].trim();
-  const originalTeacher = originalValue && !ROOM_CODE_RE.test(originalValue)
-    ? parseTeacher(originalValue)
-    : undefined;
+  const originalTeacher =
+    originalValue && !ROOM_CODE_RE.test(originalValue)
+      ? parseTeacher(originalValue)
+      : undefined;
 
   // Subject: second blue span
   const subjectEl = div.querySelectorAll('span[style*="color: blue"]');
@@ -180,7 +179,8 @@ export function parseSubstituteForDiv(div: Element): {
       teacher: teacherLine ? parseTeacher(teacherLine) : undefined,
       groups: groups.length > 0 ? groups : undefined,
       subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
-      isDistance: hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
+      isDistance:
+        hasDistanceMarker(divText) || hasDistanceMarker(roomMatch?.[1] ?? ""),
       substituteFor: { date, originalTeacher },
     },
   };

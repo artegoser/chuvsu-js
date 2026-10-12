@@ -7,11 +7,15 @@ const PERIOD_LABELS: Record<string, AcademicPeriod> = {
   "зимняя сессия": 2 as AcademicPeriod,
   "весенний семестр": 3 as AcademicPeriod,
   "летняя сессия": 4 as AcademicPeriod,
-  "гиа": AcademicPeriod.StateFinalAssessment,
-  "ппа": AcademicPeriod.Retake,
+  гиа: AcademicPeriod.StateFinalAssessment,
+  ппа: AcademicPeriod.Retake,
 };
 
-const KNOWN_PERIODS = new Set<number>(Object.values(AcademicPeriod).filter((value): value is number => typeof value === "number"));
+const KNOWN_PERIODS = new Set<number>(
+  Object.values(AcademicPeriod).filter(
+    (value): value is number => typeof value === "number",
+  ),
+);
 
 /** Period tabs exposed by this timetable page, in portal order. */
 export function parseAvailablePeriodsFromPage(html: string): AcademicPeriod[] {
@@ -35,7 +39,9 @@ export function parsePeriodFromPage(html: string): AcademicPeriod | null {
   }
 
   // Some pages keep the selected period only in the hidden form field.
-  const hiddenValue = Number(doc.querySelector('#htype')?.getAttribute("value"));
+  const hiddenValue = Number(
+    doc.querySelector("#htype")?.getAttribute("value"),
+  );
   if (KNOWN_PERIODS.has(hiddenValue)) {
     return hiddenValue as AcademicPeriod;
   }
@@ -75,9 +81,7 @@ export function parseGroupButtons(html: string): Group[] {
 
 export function parseGroupName(html: string): string | null {
   const doc = parseHtml(html);
-  const name = text(
-    doc.querySelector('span.htext span[style*="color: blue"]'),
-  );
+  const name = text(doc.querySelector('span.htext span[style*="color: blue"]'));
   return name || null;
 }
 

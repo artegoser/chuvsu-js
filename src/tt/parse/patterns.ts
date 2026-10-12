@@ -1,7 +1,5 @@
-export const LESSON_TYPE_PATTERN =
-  "лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп|кр";
-export const FLEXIBLE_LESSON_TYPE_PATTERN =
-  `(?:${LESSON_TYPE_PATTERN})\\.?|Экз`;
+export const LESSON_TYPE_PATTERN = "лк|пр|лб|зачо|зач|экз|конс|кп|из|гз|крп|кр";
+export const FLEXIBLE_LESSON_TYPE_PATTERN = `(?:${LESSON_TYPE_PATTERN})\\.?|Экз`;
 
 export const LESSON_TYPE_RE = new RegExp(`\\((${LESSON_TYPE_PATTERN})\\)`, "i");
 export const LESSON_TYPE_RE_I = new RegExp(

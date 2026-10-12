@@ -301,10 +301,22 @@ test("TimetableClient caches discovery/search requests and image fetches when ca
   );
   assert.equal(fakeHttp.count("get", `${TT_BASE}/index/audtt/aud/852`), 1);
   assert.equal(fakeHttp.count("get", `${TT_BASE}/index/techtt/tech/10`), 1);
-  assert.equal(fakeHttp.count("getBuffer", `${TT_BASE}/index/photo/tech/10/id/10`), 1);
-  assert.equal(fakeHttp.count("getBuffer", `${TT_BASE}/index/audimage/aud/852/aid/852`), 1);
-  assert.equal(fakeHttp.count("getBuffer", `${TT_BASE}/index/blockimage/aud/852/bid/6`), 1);
-  assert.equal(fakeHttp.count("getBuffer", `${TT_BASE}/index/floorplan/aud/852/fid/37`), 1);
+  assert.equal(
+    fakeHttp.count("getBuffer", `${TT_BASE}/index/photo/tech/10/id/10`),
+    1,
+  );
+  assert.equal(
+    fakeHttp.count("getBuffer", `${TT_BASE}/index/audimage/aud/852/aid/852`),
+    1,
+  );
+  assert.equal(
+    fakeHttp.count("getBuffer", `${TT_BASE}/index/blockimage/aud/852/bid/6`),
+    1,
+  );
+  assert.equal(
+    fakeHttp.count("getBuffer", `${TT_BASE}/index/floorplan/aud/852/fid/37`),
+    1,
+  );
 
   const cache = tt.exportCache();
   assert.ok(cache["teachers:all"]);
@@ -332,10 +344,22 @@ test("TimetableClient caches discovery/search requests and image fetches when ca
   assert.deepEqual(cacheAdapter.store.get("roomImages:floor:852"), {
     blobKey: "tt/room-images/floor:852",
   });
-  assert.equal(blobAdapter.store.get("tt/teacher-photos/10")?.toString(), "teacher-photo");
-  assert.equal(blobAdapter.store.get("tt/room-images/room:852")?.toString(), "audience-photo");
-  assert.equal(blobAdapter.store.get("tt/room-images/block:852")?.toString(), "block-photo");
-  assert.equal(blobAdapter.store.get("tt/room-images/floor:852")?.toString(), "floor-photo");
+  assert.equal(
+    blobAdapter.store.get("tt/teacher-photos/10")?.toString(),
+    "teacher-photo",
+  );
+  assert.equal(
+    blobAdapter.store.get("tt/room-images/room:852")?.toString(),
+    "audience-photo",
+  );
+  assert.equal(
+    blobAdapter.store.get("tt/room-images/block:852")?.toString(),
+    "block-photo",
+  );
+  assert.equal(
+    blobAdapter.store.get("tt/room-images/floor:852")?.toString(),
+    "floor-photo",
+  );
 });
 
 test("StudentPortalClient caches profile, photo and timetable group id", async () => {
@@ -493,13 +517,19 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
         body: schedulePage,
       },
     },
-    post: Object.fromEntries([1, 2, 3, 4, 9, 11].map((period) => [
-      `${groupUrl}|${JSON.stringify({ htype: String(period) })}`,
-      { status: 200, body: schedulePage },
-    ])),
+    post: Object.fromEntries(
+      [1, 2, 3, 4, 9, 11].map((period) => [
+        `${groupUrl}|${JSON.stringify({ htype: String(period) })}`,
+        { status: 200, body: schedulePage },
+      ]),
+    ),
   });
 
-  const tt = new TimetableClient({ cache: 10_000, cacheAdapter, repositoryAdapter });
+  const tt = new TimetableClient({
+    cache: 10_000,
+    cacheAdapter,
+    repositoryAdapter,
+  });
   tt.http = fakeHttp;
 
   const schedule = await tt.getGroupSchedule(8919);
@@ -522,10 +552,15 @@ test("TimetableClient uses timetable context for canonical group schedule cache"
   }
   assert.equal(fakeHttp.count("get", groupUrl), 1);
   assert.ok(repositoryPatches.length > 0);
-  assert.equal(repositoryPatches.flatMap((patch) => patch.sourceReplacements).length, 6);
-  assert.ok(repositoryPatches.some((patch) =>
-    patch.directoryUpserts.groups.some((group) => group.id === 8919)
-  ));
+  assert.equal(
+    repositoryPatches.flatMap((patch) => patch.sourceReplacements).length,
+    6,
+  );
+  assert.ok(
+    repositoryPatches.some((patch) =>
+      patch.directoryUpserts.groups.some((group) => group.id === 8919),
+    ),
+  );
 });
 
 test("TimetableClient never caches an invalid schedule response", async () => {
@@ -604,11 +639,17 @@ test("TimetableClient rejects invalid public inputs before network access", asyn
 
 test("TimetableClient ingests real teacher and room pages through public methods", async () => {
   const teacherHtml = await readFile(
-    new URL("./fixtures/tt/teacher-schedules/teacher-543-period-1.html", import.meta.url),
+    new URL(
+      "./fixtures/tt/teacher-schedules/teacher-543-period-1.html",
+      import.meta.url,
+    ),
     "utf8",
   );
   const roomHtml = await readFile(
-    new URL("./fixtures/tt/room-schedules/room-811-period-1.html", import.meta.url),
+    new URL(
+      "./fixtures/tt/room-schedules/room-811-period-1.html",
+      import.meta.url,
+    ),
     "utf8",
   );
   const teacherUrl = `${TT_BASE}/index/techtt/tech/543`;
@@ -644,10 +685,12 @@ test("TimetableClient ingests real teacher and room pages through public methods
   });
   assert.ok(teacherSchedule.series().length > 0);
   assert.ok(roomSchedule.series().length > 0);
-  assert.ok(tt.repository.getSeries().some((lesson) => {
-    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
-    return kinds.has("teacher") && kinds.has("room");
-  }));
+  assert.ok(
+    tt.repository.getSeries().some((lesson) => {
+      const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+      return kinds.has("teacher") && kinds.has("room");
+    }),
+  );
   assert.equal(fakeHttp.count("post", postKey(teacherUrl)), 1);
   assert.equal(fakeHttp.count("post", postKey(roomUrl)), 1);
 });

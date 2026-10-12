@@ -51,9 +51,7 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   const possibleChanges =
     (td.getAttribute("class") ?? "").includes("want") || undefined;
 
-  const redDivs = td.querySelectorAll(
-    'div[style*="border: 2px solid red"]',
-  );
+  const redDivs = td.querySelectorAll('div[style*="border: 2px solid red"]');
 
   for (const div of redDivs) {
     const result = parseTransferDiv(div);
@@ -92,9 +90,10 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
 
   const weeksMatch = cleanText.match(WEEKS_RE);
   const room = parseEntryRoom(cleanHtml, subject);
-  const groupsLine = linesAfterSubject(cleanHtml, subject).find(
-    (line) => containsGroupCode(stripDistanceMarker(line)),
-  ) ?? "";
+  const groupsLine =
+    linesAfterSubject(cleanHtml, subject).find((line) =>
+      containsGroupCode(stripDistanceMarker(line)),
+    ) ?? "";
   const subgroupMatch = cleanText.match(SUBGROUP_RE);
   const weekParity = parseWeekParity(cleanHtml);
   const groups = parseGroupsString(stripDistanceMarker(groupsLine));
@@ -113,11 +112,12 @@ function parseTeacherSemesterEntry(el: Element): ParsedLesson | null {
   };
 }
 
-function parseTeacherSessionEntry(
-  td: Element,
-): {
+function parseTeacherSessionEntry(td: Element): {
   lesson: ParsedLesson;
-  time: { start: { hours: number; minutes: number }; end: { hours: number; minutes: number } };
+  time: {
+    start: { hours: number; minutes: number };
+    end: { hours: number; minutes: number };
+  };
 } | null {
   const fullHtml = td.innerHTML ?? "";
   const plainText = text(td);

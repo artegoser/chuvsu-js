@@ -24,7 +24,10 @@ function personKey(name: string): string {
   return `${surname}|${initials}`;
 }
 
-function validateRefs<T extends NamedEntityRef>(values: T[], label: string): void {
+function validateRefs<T extends NamedEntityRef>(
+  values: T[],
+  label: string,
+): void {
   for (const value of values) {
     if (!value.name.trim()) throw new TypeError(`${label} name is empty`);
     if (value.id != null && (!Number.isInteger(value.id) || value.id < 1)) {
@@ -62,13 +65,16 @@ class EntityIndex<T extends NamedEntityRef> {
   }
 
   resolve(value: T): T {
-    const exact = value.id == null
-      ? this.byName.get(normalizeScheduleText(value.name))
-      : this.byId.get(value.id);
+    const exact =
+      value.id == null
+        ? this.byName.get(normalizeScheduleText(value.name))
+        : this.byId.get(value.id);
     if (exact) return mergeEntityRefs([value, exact.value])[0];
     if (!this.teacherIdentity) return structuredClone(value);
     const candidates = this.byPerson.get(personKey(value.name)) ?? new Set();
-    const identified = [...candidates].filter((candidate) => candidate.value.id != null);
+    const identified = [...candidates].filter(
+      (candidate) => candidate.value.id != null,
+    );
     const ids = new Set(identified.map((candidate) => candidate.value.id));
     return ids.size === 1
       ? mergeEntityRefs([value, identified[0].value])[0]
@@ -87,8 +93,9 @@ class EntityIndex<T extends NamedEntityRef> {
     let record = value.id == null ? undefined : this.byId.get(value.id);
     record ??= this.byName.get(name);
     if (!record && this.teacherIdentity) {
-      const identified = [...(this.byPerson.get(person) ?? [])]
-        .filter((candidate) => candidate.value.id != null);
+      const identified = [...(this.byPerson.get(person) ?? [])].filter(
+        (candidate) => candidate.value.id != null,
+      );
       const ids = new Set(identified.map((candidate) => candidate.value.id));
       if (ids.size === 1) record = identified[0];
     }
@@ -97,7 +104,8 @@ class EntityIndex<T extends NamedEntityRef> {
       record = { value, ids: new Set(), names: new Set(), people: new Set() };
       this.records.add(record);
       this.index(record, value);
-      if (this.teacherIdentity && value.id != null) this.mergeTeacherAliases(record, person);
+      if (this.teacherIdentity && value.id != null)
+        this.mergeTeacherAliases(record, person);
       return true;
     }
 
@@ -105,7 +113,8 @@ class EntityIndex<T extends NamedEntityRef> {
     record.value = mergeEntityRefs([record.value, value])[0];
     this.index(record, value);
     this.index(record, record.value);
-    if (this.teacherIdentity && record.value.id != null) this.mergeTeacherAliases(record, person);
+    if (this.teacherIdentity && record.value.id != null)
+      this.mergeTeacherAliases(record, person);
     return before !== JSON.stringify(record.value);
   }
 
@@ -132,8 +141,9 @@ class EntityIndex<T extends NamedEntityRef> {
   }
 
   private mergeTeacherAliases(target: EntityRecord<T>, person: string): void {
-    const aliases = [...(this.byPerson.get(person) ?? [])]
-      .filter((candidate) => candidate !== target && candidate.value.id == null);
+    const aliases = [...(this.byPerson.get(person) ?? [])].filter(
+      (candidate) => candidate !== target && candidate.value.id == null,
+    );
     for (const alias of aliases) this.mergeRecords(target, alias);
   }
 

@@ -78,7 +78,9 @@ function normalizeSearchQuery(
 ): string {
   const normalized = value.trim();
   if (normalized.length < minimumLength) {
-    throw new RangeError(`${label} must contain at least ${minimumLength} characters`);
+    throw new RangeError(
+      `${label} must contain at least ${minimumLength} characters`,
+    );
   }
   return normalized;
 }
@@ -87,7 +89,8 @@ function normalizePeriods(
   periods: readonly AcademicPeriod[],
 ): AcademicPeriod[] {
   const values = [...periods];
-  if (values.length === 0) throw new RangeError("At least one period is required");
+  if (values.length === 0)
+    throw new RangeError("At least one period is required");
   const unique = new Set<AcademicPeriod>();
   for (const period of values) {
     if (!SUPPORTED_PERIODS.includes(period)) {
@@ -134,15 +137,19 @@ export class TimetableClient {
     | { type: "credentials"; email: string; password: string }
     | { type: "guest" }
     | null = null;
-  private timetableContexts = new Map<string, {
-    academicYearStartYear: number;
-    period: AcademicPeriod;
-    availablePeriods: AcademicPeriod[];
-    resolvedAt: number;
-  }>();
+  private timetableContexts = new Map<
+    string,
+    {
+      academicYearStartYear: number;
+      period: AcademicPeriod;
+      availablePeriods: AcademicPeriod[];
+      resolvedAt: number;
+    }
+  >();
 
   constructor(opts?: TimetableClientOptions) {
-    this.educationLevel = opts?.educationLevel ?? EducationLevel.HigherEducation;
+    this.educationLevel =
+      opts?.educationLevel ?? EducationLevel.HigherEducation;
     if (
       this.educationLevel !== EducationLevel.HigherEducation &&
       this.educationLevel !== EducationLevel.VocationalEducation
@@ -157,7 +164,10 @@ export class TimetableClient {
       this.cache = null;
     } else if (typeof opts.cache === "number") {
       this.cache = new HybridCache(
-        makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+        makeUniformCacheConfig(opts.cache) as Record<
+          string,
+          number | undefined
+        >,
         opts.cacheAdapter,
       );
     } else {
@@ -208,13 +218,18 @@ export class TimetableClient {
     await this.ensureRepository();
     for (let attempt = 0; attempt < 4; attempt++) {
       const expectedRevision = this._repository.revision;
-      const mutation = this._repository.capturePatch(() => mutate(this._repository));
+      const mutation = this._repository.capturePatch(() =>
+        mutate(this._repository),
+      );
       const result = mutation.result;
       if (!mutation.patch) return result;
       if (!this.repositoryAdapter) return result;
       let saved: boolean;
       if (this.repositoryAdapter.compareAndSetPatch) {
-        saved = await this.repositoryAdapter.compareAndSetPatch(expectedRevision, mutation.patch);
+        saved = await this.repositoryAdapter.compareAndSetPatch(
+          expectedRevision,
+          mutation.patch,
+        );
       } else if (this.repositoryAdapter.compareAndSet) {
         saved = await this.repositoryAdapter.compareAndSet(
           expectedRevision,
@@ -227,13 +242,15 @@ export class TimetableClient {
         return result;
       }
       const latest = await this.repositoryAdapter.load();
-      this._repository.replaceSnapshot(latest ?? {
-        schemaVersion: 5,
-        revision: 0,
-        directory: { groups: [], teachers: [], rooms: [] },
-        sources: [],
-        links: [],
-      });
+      this._repository.replaceSnapshot(
+        latest ?? {
+          schemaVersion: 5,
+          revision: 0,
+          directory: { groups: [], teachers: [], rooms: [] },
+          sources: [],
+          links: [],
+        },
+      );
     }
     throw new Error("Timetable repository update conflict");
   }
@@ -244,7 +261,9 @@ export class TimetableClient {
   }
 
   private async rememberGroups(values: GroupRef[]): Promise<void> {
-    await this.mutateRepository((repository) => repository.rememberGroups(values));
+    await this.mutateRepository((repository) =>
+      repository.rememberGroups(values),
+    );
   }
 
   private async rememberTeachers(values: TeacherRef[]): Promise<void> {
@@ -254,7 +273,9 @@ export class TimetableClient {
   }
 
   private async rememberRooms(values: RoomRef[]): Promise<void> {
-    await this.mutateRepository((repository) => repository.rememberRooms(values));
+    await this.mutateRepository((repository) =>
+      repository.rememberRooms(values),
+    );
   }
 
   // --- Cache ---
@@ -375,9 +396,14 @@ export class TimetableClient {
   /** Resolve the academic year and active period from tt.chuvsu.ru itself. */
   private async getTimetableContext(
     pageUrl: string,
-  ): Promise<{ academicYearStartYear: number; period: AcademicPeriod; availablePeriods: AcademicPeriod[] }> {
+  ): Promise<{
+    academicYearStartYear: number;
+    period: AcademicPeriod;
+    availablePeriods: AcademicPeriod[];
+  }> {
     const cached = this.timetableContexts.get(pageUrl);
-    if (cached && Date.now() - cached.resolvedAt < TIMETABLE_CONTEXT_TTL_MS) return cached;
+    if (cached && Date.now() - cached.resolvedAt < TIMETABLE_CONTEXT_TTL_MS)
+      return cached;
 
     const { body } = await this.authGet(pageUrl);
     const academicYearStartYear = parseAcademicYearFromPage(body);
@@ -387,7 +413,9 @@ export class TimetableClient {
 
     const period = parsePeriodFromPage(body);
     if (period == null) {
-      throw new ParseError("TT page does not expose the active timetable period");
+      throw new ParseError(
+        "TT page does not expose the active timetable period",
+      );
     }
 
     const availablePeriods = parseAvailablePeriodsFromPage(body);
@@ -436,15 +464,20 @@ export class TimetableClient {
   ): string {
     const pageYear = parseAcademicYearFromPage(html);
     if (pageYear !== academicYearStartYear) {
-      throw new ParseError("TT schedule response has an unexpected academic year");
+      throw new ParseError(
+        "TT schedule response has an unexpected academic year",
+      );
     }
-    const ownerName = owner.type === "group"
-      ? parseGroupName(html)
-      : owner.type === "teacher"
-        ? parseTeacherInfo(html)?.name ?? null
-        : parseRoomName(html);
+    const ownerName =
+      owner.type === "group"
+        ? parseGroupName(html)
+        : owner.type === "teacher"
+          ? (parseTeacherInfo(html)?.name ?? null)
+          : parseRoomName(html);
     if (!ownerName) {
-      throw new ParseError(`TT ${owner.type} schedule response has no owner name`);
+      throw new ParseError(
+        `TT ${owner.type} schedule response has no owner name`,
+      );
     }
     return ownerName;
   }
@@ -523,7 +556,9 @@ export class TimetableClient {
     options?: GetScheduleOptions,
   ): Promise<Schedule> {
     const ownerUrl = this.ownerUrl(owner);
-    const requestedPeriods = options?.periods ? normalizePeriods(options.periods) : null;
+    const requestedPeriods = options?.periods
+      ? normalizePeriods(options.periods)
+      : null;
     await this.ensureRepository();
     if (owner.type === "group" && owner.group.name.trim()) {
       await this.rememberGroups([owner.group]);
@@ -551,17 +586,19 @@ export class TimetableClient {
     await this.mutateRepository((repository) => {
       for (const result of results) {
         const currentOwner = this.resolveOwner(resolvedOwner);
-        repository.ingest(createScheduleSourceSnapshot({
-          sourceKey: this.sourceKey(
-            currentOwner,
-            result.period,
-            context.academicYearStartYear,
-          ),
-          owner: currentOwner,
-          academicYearStartYear: context.academicYearStartYear,
-          period: result.period,
-          days: result.days,
-        }));
+        repository.ingest(
+          createScheduleSourceSnapshot({
+            sourceKey: this.sourceKey(
+              currentOwner,
+              result.period,
+              context.academicYearStartYear,
+            ),
+            owner: currentOwner,
+            academicYearStartYear: context.academicYearStartYear,
+            period: result.period,
+            days: result.days,
+          }),
+        );
       }
     });
 
@@ -580,7 +617,10 @@ export class TimetableClient {
     return this.getSchedule(
       {
         type: "group",
-        group: this._repository.directory.resolveGroup({ id: groupId, name: "" }),
+        group: this._repository.directory.resolveGroup({
+          id: groupId,
+          name: "",
+        }),
       },
       options,
     );
@@ -776,9 +816,7 @@ export class TimetableClient {
       return name;
     }
 
-    const { body } = await this.authGet(
-      `${BASE}/index/audtt/aud/${roomId}`,
-    );
+    const { body } = await this.authGet(`${BASE}/index/audtt/aud/${roomId}`);
     const name = parseRoomName(body);
     const info = parseRoomInfo(body);
     await this.cache?.set("roomNames", cacheKey, name);
@@ -800,9 +838,7 @@ export class TimetableClient {
       return info;
     }
 
-    const { body } = await this.authGet(
-      `${BASE}/index/audtt/aud/${roomId}`,
-    );
+    const { body } = await this.authGet(`${BASE}/index/audtt/aud/${roomId}`);
     const info = parseRoomInfo(body);
     if (info) await this.cache?.set("roomInfo", String(roomId), info);
     if (info) await this.rememberRooms([{ id: roomId, name: info.name }]);
@@ -862,7 +898,7 @@ export class TimetableClient {
   ): Promise<Buffer | null> {
     const cached =
       this.cache?.getLocal("roomImages", cacheKey) ??
-      await this.cache?.get("roomImages", cacheKey);
+      (await this.cache?.get("roomImages", cacheKey));
     if (cached !== null && cached !== undefined) {
       const entry = cached as { data?: string | null; blobKey?: string };
       if (entry.data !== undefined) {
@@ -1032,7 +1068,6 @@ export class TimetableClient {
     );
   }
 
-
   async getTeacherInfo(teacherId: number): Promise<TeacherInfo | null> {
     requirePositiveId(teacherId, "Teacher ID");
     const cached = await this.cache?.get("teacherInfo", String(teacherId));
@@ -1066,7 +1101,7 @@ export class TimetableClient {
     const photoCacheKey = String(teacherId);
     const cachedPhoto =
       this.cache?.getLocal("teacherPhotos", photoCacheKey) ??
-      await this.cache?.get("teacherPhotos", photoCacheKey);
+      (await this.cache?.get("teacherPhotos", photoCacheKey));
     if (cachedPhoto !== null && cachedPhoto !== undefined) {
       const entry = cachedPhoto as { data?: string | null; blobKey?: string };
       if (entry.data !== undefined) {
@@ -1099,7 +1134,9 @@ export class TimetableClient {
       await this.blobAdapter.put(blobKey, photoBuffer, {
         ttl: this.cache?.ttl("teacherPhotos"),
       });
-      await this.cache?.setExternal("teacherPhotos", photoCacheKey, { blobKey });
+      await this.cache?.setExternal("teacherPhotos", photoCacheKey, {
+        blobKey,
+      });
     } else {
       await this.cache?.set("teacherPhotos", photoCacheKey, {
         data: photoBuffer.toString("base64"),

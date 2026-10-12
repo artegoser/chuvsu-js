@@ -1,4 +1,7 @@
-import { FLEXIBLE_LESSON_TYPE_RE_I, SUBGROUP_RE } from "../../tt/parse/patterns.js";
+import {
+  FLEXIBLE_LESSON_TYPE_RE_I,
+  SUBGROUP_RE,
+} from "../../tt/parse/patterns.js";
 
 const GROUP_CODE_RE = /[A-ZА-ЯЁ]{1,}(?:-[A-ZА-ЯЁa-zа-яё0-9]+)+(?:\s*ин)?/u;
 
@@ -9,7 +12,9 @@ export function splitWebinarLesson(raw: string): {
   groupsRaw: string;
   subgroup?: number;
 } {
-  const typeMatches = [...raw.matchAll(new RegExp(FLEXIBLE_LESSON_TYPE_RE_I, "gi"))];
+  const typeMatches = [
+    ...raw.matchAll(new RegExp(FLEXIBLE_LESSON_TYPE_RE_I, "gi")),
+  ];
   const typeMatch = typeMatches.at(-1);
   if (!typeMatch || typeMatch.index == null) {
     return {
@@ -38,4 +43,3 @@ export function splitWebinarLesson(raw: string): {
     subgroup: subgroupMatch ? parseInt(subgroupMatch[1]) : undefined,
   };
 }
-

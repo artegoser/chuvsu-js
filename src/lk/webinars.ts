@@ -27,9 +27,7 @@ export function findWebinars(
   if (lesson.status === "cancelled") return [];
   return webinars.filter((webinar) => {
     if (!webinar.scheduled) return false;
-    if (
-      webinar.scheduledDate !== lesson.scheduledDate
-    ) return false;
+    if (webinar.scheduledDate !== lesson.scheduledDate) return false;
     if (webinar.slotNumber != null && lesson.slotNumber != null) {
       if (webinar.slotNumber !== lesson.slotNumber) return false;
     } else if (
@@ -43,14 +41,22 @@ export function findWebinars(
     }
     const groups = lesson.groups.values;
     const attendance = webinar.groups.length
-      ? groups.filter((entry) => webinar.groups.some((group) =>
-        normalize(group) === normalize(entry.group.name)
-      ))
+      ? groups.filter((entry) =>
+          webinar.groups.some(
+            (group) => normalize(group) === normalize(entry.group.name),
+          ),
+        )
       : groups;
     if (groups.length && !attendance.length) return false;
-    if (webinar.subgroup != null && attendance.length && !attendance.some((entry) =>
-      entry.subgroup == null || entry.subgroup === webinar.subgroup
-    )) return false;
+    if (
+      webinar.subgroup != null &&
+      attendance.length &&
+      !attendance.some(
+        (entry) =>
+          entry.subgroup == null || entry.subgroup === webinar.subgroup,
+      )
+    )
+      return false;
     return true;
   });
 }

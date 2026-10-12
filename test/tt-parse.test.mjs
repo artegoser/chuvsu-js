@@ -15,8 +15,14 @@ import {
 import { isHoliday } from "../dist/tt/utils/index.js";
 import { scheduleFromParsedDays } from "./helpers/schedule.mjs";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
-import { parseAvailablePeriodsFromPage, parsePeriodFromPage } from "../dist/tt/parse/lists.js";
-import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
+import {
+  parseAvailablePeriodsFromPage,
+  parsePeriodFromPage,
+} from "../dist/tt/parse/lists.js";
+import {
+  ScheduleSnapshot,
+  createScheduleSnapshot,
+} from "../dist/tt/domain/schedule-snapshot.js";
 import { AcademicPeriod } from "../dist/common/types.js";
 
 const FIXTURE_DIR = new URL("./fixtures/tt/parser/", import.meta.url);
@@ -53,10 +59,23 @@ function sessionPage(entryRowsHtml) {
 }
 
 test("PPA attempts survive parsing and browser snapshot transport", () => {
-  const entry = (attempt) => `<tr><td class="want">Е-201 <span style="color: blue;">Гибкие навыки развития карьеры</span> (зач) - <span class="red">${attempt} ППА</span><br>Веденина О. А.<br>16:40 - 18:00</td></tr>`;
+  const entry = (attempt) =>
+    `<tr><td class="want">Е-201 <span style="color: blue;">Гибкие навыки развития карьеры</span> (зач) - <span class="red">${attempt} ППА</span><br>Веденина О. А.<br>16:40 - 18:00</td></tr>`;
   const html = sessionPage(entry(1));
-  assert.equal(parsePeriodFromPage('<input name="pertype" value="11" checked>'), AcademicPeriod.Retake);
-  assert.deepEqual(parseAvailablePeriodsFromPage('<input name="pertype" value="1"><input name="pertype" value="9"><input name="pertype" value="11">'), [AcademicPeriod.FallSemester, AcademicPeriod.StateFinalAssessment, AcademicPeriod.Retake]);
+  assert.equal(
+    parsePeriodFromPage('<input name="pertype" value="11" checked>'),
+    AcademicPeriod.Retake,
+  );
+  assert.deepEqual(
+    parseAvailablePeriodsFromPage(
+      '<input name="pertype" value="1"><input name="pertype" value="9"><input name="pertype" value="11">',
+    ),
+    [
+      AcademicPeriod.FallSemester,
+      AcademicPeriod.StateFinalAssessment,
+      AcademicPeriod.Retake,
+    ],
+  );
   const first = pickOnlyEntry(parseGroupSchedule(html));
   assert.equal(first.retakeAttempt, 1);
   assert.equal(first.type, "зач");
@@ -69,12 +88,19 @@ test("PPA attempts survive parsing and browser snapshot transport", () => {
     period: AcademicPeriod.Retake,
     academicYearStartYear: 2025,
   });
-  const snapshot = JSON.parse(JSON.stringify(createScheduleSnapshot(schedule, {
-    start: new Date(2026, 3, 25),
-    end: new Date(2026, 3, 25),
-  })));
+  const snapshot = JSON.parse(
+    JSON.stringify(
+      createScheduleSnapshot(schedule, {
+        start: new Date(2026, 3, 25),
+        end: new Date(2026, 3, 25),
+      }),
+    ),
+  );
   assert.equal(snapshot.direct[0].retakeAttempt, 1);
-  assert.equal(new ScheduleSnapshot(snapshot).on(new Date(2026, 3, 25))[0].retakeAttempt, 1);
+  assert.equal(
+    new ScheduleSnapshot(snapshot).on(new Date(2026, 3, 25))[0].retakeAttempt,
+    1,
+  );
 });
 
 async function loadSemesterFixture(name, entryClass = "") {
@@ -102,9 +128,7 @@ test("parseGroupsString covers plain groups, qualifiers and subgroup stripping",
     "КТ-42-25 (АихС)",
     "КТ-41-25",
   ]);
-  assert.deepEqual(parseGroupsString("КТ-42-25 (1 подгруппа)"), [
-    "КТ-42-25",
-  ]);
+  assert.deepEqual(parseGroupsString("КТ-42-25 (1 подгруппа)"), ["КТ-42-25"]);
   assert.deepEqual(parseGroupsString("КТ-42-25 (АихС) (1 подгруппа)"), [
     "КТ-42-25 (АихС)",
   ]);
@@ -123,14 +147,22 @@ test("missing and explicitly absent relations remain distinguishable", () => {
     period: 1,
     observedAt: new Date("2026-08-31T00:00:00.000Z"),
   };
-  const makeDays = (lesson) => [{
-    weekday: "Понедельник",
-    blocks: [{ lessons: [{
-      subject: "Архитектура",
-      type: "лк",
-      ...lesson,
-    }] }],
-  }];
+  const makeDays = (lesson) => [
+    {
+      weekday: "Понедельник",
+      blocks: [
+        {
+          lessons: [
+            {
+              subject: "Архитектура",
+              type: "лк",
+              ...lesson,
+            },
+          ],
+        },
+      ],
+    },
+  ];
   const unknown = createScheduleSourceSnapshot({ ...base, days: makeDays({}) })
     .observations[0];
   const absent = createScheduleSourceSnapshot({
@@ -261,10 +293,14 @@ test("parseGroupSchedule parses subgroup, degree and week parity from group entr
 });
 
 test("parseGroupSchedule recognizes a candidate of arts degree", () => {
-  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+  const entry = pickOnlyEntry(
+    parseGroupSchedule(
+      semesterPage(`
     III-110в <span style="color: blue;">Эстетика и теория искусства</span> (лк) (2 - 11 нед.)<br>
     зав.каф. к.иск. Данилова И. В.
-  `)));
+  `),
+    ),
+  );
 
   assert.deepEqual(entry.teacher, {
     position: "зав.каф.",
@@ -314,24 +350,36 @@ test("parseGroupSchedule supports individual and group lesson types", async () =
 });
 
 test("parseGroupSchedule parses free-form types by structural position", () => {
-  const controlWork = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+  const controlWork = pickOnlyEntry(
+    parseGroupSchedule(
+      semesterPage(`
     <tr><td class="want">III-405 <span style="color: blue;">Практический курс перевода английского языка</span> (КР)<br>
       09:50 - 11:10</td></tr>
-  `)));
-  const futureType = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+  `),
+    ),
+  );
+  const futureType = pickOnlyEntry(
+    parseGroupSchedule(
+      semesterPage(`
     <tr><td><span style="color: blue;">Новый предмет</span> (новый формат) (1 - 16 нед.)<br>
       Иванов И. И.</td></tr>
-  `)));
+  `),
+    ),
+  );
 
   assert.equal(controlWork.type, "КР");
   assert.equal(futureType.type, "новый формат");
 });
 
 test("parseGroupSchedule does not mistake schedule metadata for a type", () => {
-  const entry = pickOnlyEntry(parseGroupSchedule(semesterPage(`
+  const entry = pickOnlyEntry(
+    parseGroupSchedule(
+      semesterPage(`
     <tr><td><span style="color: blue;">Экономика (предприятия)</span> (1 - 16 нед.)<br>
       Иванов И. И.</td></tr>
-  `)));
+  `),
+    ),
+  );
 
   assert.equal(entry.type, "");
 });
@@ -361,10 +409,14 @@ test("parseRoomSchedule strips remote marker from teacher and groups", async () 
 });
 
 test("parseRoomSchedule does not treat Федотова as a ДОТ marker", () => {
-  const entry = pickOnlyEntry(parseRoomSchedule(semesterPage(`
+  const entry = pickOnlyEntry(
+    parseRoomSchedule(
+      semesterPage(`
     <tr><td class="want"><span style="color: blue;">История России</span> (пр) (1 - 16 нед.)<br>
       Федотова Т. Ю.<br>Б-91-25</td></tr>
-  `)));
+  `),
+    ),
+  );
 
   assert.equal(entry.teacher.name, "Федотова Т. Ю.");
   assert.equal(entry.isDistance, false);
@@ -423,12 +475,14 @@ test("parseRoomSchedule preserves room-page substitutions", () => {
   `);
   const entry = pickOnlyEntry(parseRoomSchedule(html));
 
-  assert.deepEqual(entry.substitutions, [{
-    date: "2026-09-08",
-    room: "Б-116",
-    teacher: { position: "доц.", name: "Петров П. П." },
-    isDistance: false,
-  }]);
+  assert.deepEqual(entry.substitutions, [
+    {
+      date: "2026-09-08",
+      room: "Б-116",
+      teacher: { position: "доц.", name: "Петров П. П." },
+      isDistance: false,
+    },
+  ]);
 });
 
 test("parseRoomSchedule parses teacher and groups in substitute-for overlays", () => {
@@ -525,15 +579,21 @@ test("Schedule applies spring substitutions and suppresses transferred source le
     subgroup: 1,
   });
   assert.equal(substituted.length, 1);
-  assert.deepEqual(substituted[0].teachers.values, [{ name: "Мытников А. Н." }]);
-  assert.deepEqual(substituted[0].originalTeachers.values, [{ name: "Мытникова Е. А." }]);
+  assert.deepEqual(substituted[0].teachers.values, [
+    { name: "Мытников А. Н." },
+  ]);
+  assert.deepEqual(substituted[0].originalTeachers.values, [
+    { name: "Мытникова Е. А." },
+  ]);
 
   const sourceDate = schedule.on(new Date(2026, 3, 2), { subgroup: 2 });
   assert.equal(sourceDate.length, 0);
 
   const targetDate = schedule.on(new Date(2026, 4, 26), { subgroup: 2 });
   assert.equal(targetDate.length, 1);
-  assert.deepEqual(targetDate[0].teachers.values, [{ name: "Мытникова Е. А." }]);
+  assert.deepEqual(targetDate[0].teachers.values, [
+    { name: "Мытникова Е. А." },
+  ]);
   assert.equal(targetDate[0].movedFrom?.slotNumber, 3);
 });
 
@@ -619,7 +679,8 @@ test("parseTeacherInfo parses teacher pages without degree", async () => {
   assert.deepEqual(info, {
     name: "Давыдова Наталия Анатольевна",
     degree: undefined,
-    department: "Кафедра Техносферной безопасности, метрологии и технологии материалов",
+    department:
+      "Кафедра Техносферной безопасности, метрологии и технологии материалов",
     photoUrl: "/index/photo/tech/2125/id/2125",
   });
 });

@@ -112,7 +112,9 @@ const audio = await media.listen(); // Explicit listen-only connection.
 audioElement.srcObject = audio.stream;
 await audioElement.play(); // Invoke from a user gesture when autoplay is blocked.
 
-const camera = room.getMediaStreams().find((stream) => stream.kind === "camera");
+const camera = room
+  .getMediaStreams()
+  .find((stream) => stream.kind === "camera");
 if (camera) {
   const playback = await media.receiveCamera({ streamId: camera.id });
   videoElement.srcObject = playback.stream;

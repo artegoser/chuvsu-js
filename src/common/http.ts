@@ -1,4 +1,10 @@
-import { Agent, fetch, WebSocket, type Dispatcher, type Headers as UndiciHeaders } from "undici";
+import {
+  Agent,
+  fetch,
+  WebSocket,
+  type Dispatcher,
+  type Headers as UndiciHeaders,
+} from "undici";
 import { CHUVSU_CA_CERTS } from "./certs.js";
 
 const agent = new Agent({
@@ -21,9 +27,7 @@ export class HttpClient {
   private cookies = new Map<string, string>();
 
   private cookieHeader(): string {
-    return [...this.cookies.entries()]
-      .map(([k, v]) => `${k}=${v}`)
-      .join("; ");
+    return [...this.cookies.entries()].map(([k, v]) => `${k}=${v}`).join("; ");
   }
 
   private saveCookies(headers: UndiciHeaders): void {
@@ -53,7 +57,10 @@ export class HttpClient {
     return (await this.getBufferResponse(url)).body;
   }
 
-  async getBufferResponse(url: string, followRedirects = true): Promise<HttpBufferResponse> {
+  async getBufferResponse(
+    url: string,
+    followRedirects = true,
+  ): Promise<HttpBufferResponse> {
     const res = await fetch(url, {
       method: "GET",
       headers: { Cookie: this.cookieHeader() },

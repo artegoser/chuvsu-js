@@ -1,4 +1,9 @@
-import { parseHtml, parseTeacher, parseTime, text } from "../../common/parse.js";
+import {
+  parseHtml,
+  parseTeacher,
+  parseTime,
+  text,
+} from "../../common/parse.js";
 import { ParseError, type LocalDate } from "../../common/types.js";
 import { isLocalDate } from "../../tt/utils/date.js";
 import { parseLessonType } from "../../common/lesson-type.js";
@@ -20,10 +25,15 @@ export function parseWebinarPage(html: string): WebinarPage {
   if (!select && !doc.querySelector("table.webtable")) {
     throw new ParseError("LK response has no webinar page");
   }
-  const scriptDate = html.match(/\$\(['"]#day['"]\)\.val\(['"]([^'"]+)['"]\)/u)?.[1];
-  const date = dateValue(scriptDate) ?? dateValue(
-    select?.querySelector("option[selected]")?.getAttribute("value"),
-  ) ?? dateValue(select?.querySelector("option")?.getAttribute("value"));
+  const scriptDate = html.match(
+    /\$\(['"]#day['"]\)\.val\(['"]([^'"]+)['"]\)/u,
+  )?.[1];
+  const date =
+    dateValue(scriptDate) ??
+    dateValue(
+      select?.querySelector("option[selected]")?.getAttribute("value"),
+    ) ??
+    dateValue(select?.querySelector("option")?.getAttribute("value"));
   const availableDates = [...(select?.querySelectorAll("option") ?? [])]
     .map((option) => dateValue(option.getAttribute("value")))
     .filter((value): value is LocalDate => value !== undefined);
@@ -40,7 +50,10 @@ export function parseWebinarPage(html: string): WebinarPage {
       const raw = text(cells[3]);
       const lesson = splitWebinarLesson(raw);
       const button = cells[5].querySelector('[onclick*="jointo"]');
-      const id = button?.getAttribute("onclick")?.match(/jointo\(\s*['"]?(\d+)['"]?\s*\)/u)?.[1] ?? null;
+      const id =
+        button
+          ?.getAttribute("onclick")
+          ?.match(/jointo\(\s*['"]?(\d+)['"]?\s*\)/u)?.[1] ?? null;
       const server = cells[5].cloneNode(true) as Element;
       for (const control of server.querySelectorAll("button")) control.remove();
       const slot = text(cells[0]).match(/\((\d+)\)/u)?.[1];

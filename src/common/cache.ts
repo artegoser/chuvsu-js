@@ -152,7 +152,11 @@ export class HybridCache {
     await this.setExternal(category, key, data);
   }
 
-  async setExternal(category: string, key: string, data: unknown): Promise<void> {
+  async setExternal(
+    category: string,
+    key: string,
+    data: unknown,
+  ): Promise<void> {
     const ttl = this.ttls[category];
     if (ttl == null || !this.adapter) return;
     await this.adapter.set(category, key, structuredClone(data), ttl);

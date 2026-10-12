@@ -38,10 +38,7 @@ export interface ScheduleOptions {
   holidayTransfers?: HolidayTransfer[];
 }
 
-function dateAt(
-  date: Date,
-  time: { hours: number; minutes: number },
-): Date {
+function dateAt(date: Date, time: { hours: number; minutes: number }): Date {
   const value = new Date(date);
   value.setHours(time.hours, time.minutes, 0, 0);
   return value;
@@ -94,7 +91,9 @@ function occurrenceMatchesOwner(
 ): boolean {
   if (owner.type === "group") {
     const key = entityKey(owner.group);
-    return occurrence.groups.values.some((value) => entityKey(value.group) === key);
+    return occurrence.groups.values.some(
+      (value) => entityKey(value.group) === key,
+    );
   }
   if (owner.type === "teacher") {
     const key = entityKey(owner.teacher);
@@ -109,12 +108,15 @@ function attendanceOverlaps(
   right: GroupAttendance[],
 ): boolean | undefined {
   if (left.length === 0 || right.length === 0) return undefined;
-  return left.some((leftValue) => right.some((rightValue) =>
-    entityKey(leftValue.group) === entityKey(rightValue.group) &&
-    (leftValue.subgroup == null ||
-      rightValue.subgroup == null ||
-      leftValue.subgroup === rightValue.subgroup)
-  ));
+  return left.some((leftValue) =>
+    right.some(
+      (rightValue) =>
+        entityKey(leftValue.group) === entityKey(rightValue.group) &&
+        (leftValue.subgroup == null ||
+          rightValue.subgroup == null ||
+          leftValue.subgroup === rightValue.subgroup),
+    ),
+  );
 }
 
 function sortOccurrences(
@@ -123,8 +125,10 @@ function sortOccurrences(
 ): number {
   return (
     left.scheduledDate.localeCompare(right.scheduledDate) ||
-    ((left.time?.start.hours ?? 24) * 60 + (left.time?.start.minutes ?? 0)) -
-      ((right.time?.start.hours ?? 24) * 60 + (right.time?.start.minutes ?? 0)) ||
+    (left.time?.start.hours ?? 24) * 60 +
+      (left.time?.start.minutes ?? 0) -
+      ((right.time?.start.hours ?? 24) * 60 +
+        (right.time?.start.minutes ?? 0)) ||
     (left.slotNumber ?? Number.MAX_SAFE_INTEGER) -
       (right.slotNumber ?? Number.MAX_SAFE_INTEGER) ||
     left.subject.localeCompare(right.subject) ||
@@ -233,8 +237,8 @@ export class Schedule {
       let isDistance = series.isDistance;
       let originalRooms: typeof rooms | undefined;
       let originalTeachers: typeof teachers | undefined;
-      const substitution = series.substitutions.find((value) =>
-        value.date === localDate,
+      const substitution = series.substitutions.find(
+        (value) => value.date === localDate,
       );
       if (substitution?.rooms) {
         originalRooms = rooms;
@@ -265,7 +269,9 @@ export class Schedule {
         rooms,
         isDistance,
         possibleChanges: series.possibleChanges,
-        ...(series.retakeAttempt ? { retakeAttempt: series.retakeAttempt } : {}),
+        ...(series.retakeAttempt
+          ? { retakeAttempt: series.retakeAttempt }
+          : {}),
         status: "scheduled",
         originalRooms,
         originalTeachers,
@@ -298,10 +304,17 @@ export class Schedule {
       occurrences.push(structuredClone(occurrence));
     }
 
-    const substitutedSeriesIds = new Set(recurringSeries
-      .filter((series) => series.substitutions.some((value) => value.date === localDate))
-      .map((series) => series.id));
-    return coalesceSubstitutionOccurrences(occurrences, substitutedSeriesIds).sort(sortOccurrences);
+    const substitutedSeriesIds = new Set(
+      recurringSeries
+        .filter((series) =>
+          series.substitutions.some((value) => value.date === localDate),
+        )
+        .map((series) => series.id),
+    );
+    return coalesceSubstitutionOccurrences(
+      occurrences,
+      substitutedSeriesIds,
+    ).sort(sortOccurrences);
   }
 
   week(week?: number, options?: ScheduleQueryOptions): LessonOccurrence[] {

@@ -5,7 +5,10 @@ import { gzipSync } from "node:zlib";
 
 import { TimetableRepository } from "../dist/tt/domain/repository.js";
 import { Schedule } from "../dist/tt/domain/schedule.js";
-import { ScheduleSnapshot, createScheduleSnapshot } from "../dist/tt/domain/schedule-snapshot.js";
+import {
+  ScheduleSnapshot,
+  createScheduleSnapshot,
+} from "../dist/tt/domain/schedule-snapshot.js";
 import { createScheduleSourceSnapshot } from "../dist/tt/observations.js";
 import {
   parseAcademicYearFromPage,
@@ -88,8 +91,13 @@ function ownerFromPage(kind, id, html) {
 
 async function loadCorpus(kind, config) {
   const dir = new URL(`./fixtures/tt/${config.fixtureDir}/`, import.meta.url);
-  const expectedDir = new URL(`./fixtures/tt/${config.expectedDir}/`, import.meta.url);
-  const files = (await readdir(dir)).filter((value) => value.endsWith(".html")).sort();
+  const expectedDir = new URL(
+    `./fixtures/tt/${config.expectedDir}/`,
+    import.meta.url,
+  );
+  const files = (await readdir(dir))
+    .filter((value) => value.endsWith(".html"))
+    .sort();
   const expectedFiles = (await readdir(expectedDir))
     .filter((value) => value.endsWith(".json"))
     .sort();
@@ -98,49 +106,56 @@ async function loadCorpus(kind, config) {
     expectedFiles,
     files.map((value) => value.replace(/\.html$/u, ".json")),
   );
-  return Promise.all(files.map(async (file) => {
-    const html = await readFile(new URL(file, dir), "utf8");
-    const expected = JSON.parse(await readFile(
-      new URL(file.replace(/\.html$/u, ".json"), expectedDir),
-      "utf8",
-    ));
-    const match = file.match(/-(\d+)-period-(\d+)\.html$/u);
-    assert.ok(match, `${file}: invalid filename`);
-    const id = Number(match[1]);
-    const period = Number(match[2]);
-    const academicYearStartYear = parseAcademicYearFromPage(html);
-    assert.ok(academicYearStartYear, `${file}: missing academic year`);
-    assert.equal(parsePeriodFromPage(html), period, `${file}: period`);
-    return {
-      kind,
-      file,
-      html,
-      days: config.parser(html),
-      expected,
-      source: {
-        sourceKey: `fixture:${kind}:${id}:${period}:${academicYearStartYear}`,
-        owner: ownerFromPage(kind, id, html),
-        academicYearStartYear,
-        period,
-      },
-    };
-  }));
+  return Promise.all(
+    files.map(async (file) => {
+      const html = await readFile(new URL(file, dir), "utf8");
+      const expected = JSON.parse(
+        await readFile(
+          new URL(file.replace(/\.html$/u, ".json"), expectedDir),
+          "utf8",
+        ),
+      );
+      const match = file.match(/-(\d+)-period-(\d+)\.html$/u);
+      assert.ok(match, `${file}: invalid filename`);
+      const id = Number(match[1]);
+      const period = Number(match[2]);
+      const academicYearStartYear = parseAcademicYearFromPage(html);
+      assert.ok(academicYearStartYear, `${file}: missing academic year`);
+      assert.equal(parsePeriodFromPage(html), period, `${file}: period`);
+      return {
+        kind,
+        file,
+        html,
+        days: config.parser(html),
+        expected,
+        source: {
+          sourceKey: `fixture:${kind}:${id}:${period}:${academicYearStartYear}`,
+          owner: ownerFromPage(kind, id, html),
+          academicYearStartYear,
+          period,
+        },
+      };
+    }),
+  );
 }
 
 function canonicalValue(value, kind) {
   return {
     kind,
     ...value,
-    sources: value.sources.map(({ observedAt: _observedAt, ...source }) => source),
+    sources: value.sources.map(
+      ({ observedAt: _observedAt, ...source }) => source,
+    ),
   };
 }
 
 function recreateCanonical(fixture) {
-  const ownerEntity = fixture.source.owner.type === "group"
-    ? fixture.source.owner.group
-    : fixture.source.owner.type === "teacher"
-      ? fixture.source.owner.teacher
-      : fixture.source.owner.room;
+  const ownerEntity =
+    fixture.source.owner.type === "group"
+      ? fixture.source.owner.group
+      : fixture.source.owner.type === "teacher"
+        ? fixture.source.owner.teacher
+        : fixture.source.owner.room;
   let series = 0;
   let occurrences = 0;
   const repository = new TimetableRepository({
@@ -151,15 +166,19 @@ function recreateCanonical(fixture) {
         `les_fixture_${fixture.source.owner.type}_${ownerEntity.id}_${++occurrences}`,
     },
   });
-  repository.ingest(createScheduleSourceSnapshot({
-    ...fixture.source,
-    observedAt: new Date("2026-08-31T00:00:00.000Z"),
-    days: fixture.days,
-  }));
+  repository.ingest(
+    createScheduleSourceSnapshot({
+      ...fixture.source,
+      observedAt: new Date("2026-08-31T00:00:00.000Z"),
+      days: fixture.days,
+    }),
+  );
   return [
-    ...repository.getSeries({ owner: fixture.source.owner })
+    ...repository
+      .getSeries({ owner: fixture.source.owner })
       .map((value) => canonicalValue(value, "series")),
-    ...repository.getDirectOccurrences({ owner: fixture.source.owner })
+    ...repository
+      .getDirectOccurrences({ owner: fixture.source.owner })
       .map((value) => canonicalValue(value, "occurrence")),
   ];
 }
@@ -168,23 +187,31 @@ for (const [kind, config] of Object.entries(CONFIG)) {
   const fixtures = await loadCorpus(kind, config);
   CORPORA.push(...fixtures);
   test(`${kind} full-page corpus satisfies canonical input invariants`, () => {
-    const observations = fixtures.flatMap((fixture) =>
-      createScheduleSourceSnapshot({
-        ...fixture.source,
-        observedAt: new Date("2026-08-31T00:00:00Z"),
-        days: fixture.days,
-      }).observations
+    const observations = fixtures.flatMap(
+      (fixture) =>
+        createScheduleSourceSnapshot({
+          ...fixture.source,
+          observedAt: new Date("2026-08-31T00:00:00Z"),
+          days: fixture.days,
+        }).observations,
     );
     assert.ok(observations.length > 0);
     for (const observation of observations) {
       assert.ok(observation.subject.trim());
       assert.equal(typeof observation.type, "number");
       assert.ok(observation.slotNumber == null || observation.slotNumber >= 1);
-      assert.ok(observation.groups.values.every((value) => value.group.name.trim()));
-      assert.ok(observation.teachers.values.every((value) => value.name.trim()));
+      assert.ok(
+        observation.groups.values.every((value) => value.group.name.trim()),
+      );
+      assert.ok(
+        observation.teachers.values.every((value) => value.name.trim()),
+      );
       assert.ok(observation.rooms.values.every((value) => value.name.trim()));
       if (observation.kind === "series") {
-        assert.ok(observation.recurrence.weeks == null || observation.recurrence.weeks.from >= 1);
+        assert.ok(
+          observation.recurrence.weeks == null ||
+            observation.recurrence.weeks.from >= 1,
+        );
       } else {
         assert.ok(isLocalDate(observation.date));
       }
@@ -196,7 +223,8 @@ for (const [kind, config] of Object.entries(CONFIG)) {
     assert.deepEqual(
       {
         lessons: lessons.length,
-        occurrences: lessons.filter((lesson) => lesson.kind === "occurrence").length,
+        occurrences: lessons.filter((lesson) => lesson.kind === "occurrence")
+          .length,
         substitutions: lessons.reduce(
           (count, lesson) => count + (lesson.substitutions?.length ?? 0),
           0,
@@ -214,16 +242,21 @@ for (const [kind, config] of Object.entries(CONFIG)) {
       assert.deepEqual(fixture.source, fixture.expected.source);
       assert.deepEqual(
         JSON.parse(JSON.stringify(recreateCanonical(fixture))),
-        fixture.expected.lessons.map((lesson) => ({ ...lesson, type: parseLessonType(lesson.type) })),
+        fixture.expected.lessons.map((lesson) => ({
+          ...lesson,
+          type: parseLessonType(lesson.type),
+        })),
       );
     });
   }
 }
 
-const manualCases = JSON.parse(await readFile(
-  new URL("./fixtures/tt/manual-schedule-cases.json", import.meta.url),
-  "utf8",
-));
+const manualCases = JSON.parse(
+  await readFile(
+    new URL("./fixtures/tt/manual-schedule-cases.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 test("hand-authored schedule cases match parser output", async () => {
   for (const testCase of manualCases) {
@@ -232,11 +265,12 @@ test("hand-authored schedule cases match parser output", async () => {
       "utf8",
     );
     const parser = CONFIG[testCase.kind].parser;
-    const page = testCase.wrapper === "session"
-      ? `<!doctype html><table><tr><td id="trd20260425" class="trfd">25.04.2026<br>Суббота</td><td class="trdata"><table>${html}</table></td></tr></table>`
-      : testCase.wrapper === "raw"
-        ? html
-        : `<!doctype html><table id="groupstt"><tr style="background: lightgray" class="trfd"><td>Суббота</td></tr><tr><td class="trf trdata"><div class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td class="trdata"><div class="tdd"><table><tr><td>${html}</td></tr></table></div></td></tr></table>`;
+    const page =
+      testCase.wrapper === "session"
+        ? `<!doctype html><table><tr><td id="trd20260425" class="trfd">25.04.2026<br>Суббота</td><td class="trdata"><table>${html}</table></td></tr></table>`
+        : testCase.wrapper === "raw"
+          ? html
+          : `<!doctype html><table id="groupstt"><tr style="background: lightgray" class="trfd"><td>Суббота</td></tr><tr><td class="trf trdata"><div class="trfd">4 пара<br>(13:30 - 14:50)</div></td><td class="trdata"><div class="tdd"><table><tr><td>${html}</td></tr></table></div></td></tr></table>`;
     const days = parser(page);
     assert.deepEqual(
       JSON.parse(JSON.stringify(days)),
@@ -249,63 +283,90 @@ test("hand-authored schedule cases match parser output", async () => {
 function corpusRepository(fixtures) {
   const repository = new TimetableRepository();
   for (const fixture of fixtures) {
-    repository.ingest(createScheduleSourceSnapshot({
-      ...fixture.source,
-      observedAt: new Date("2026-08-31T00:00:00Z"),
-      days: fixture.days,
-    }));
+    repository.ingest(
+      createScheduleSourceSnapshot({
+        ...fixture.source,
+        observedAt: new Date("2026-08-31T00:00:00Z"),
+        days: fixture.days,
+      }),
+    );
   }
   return repository;
 }
 
 function sourcePartition(repository) {
-  return repository.getSeries()
-    .map((lesson) => lesson.sources
-      .map((source) => `${source.sourceKey}:${source.observationKey}`)
-      .sort()
-      .join("|"))
+  return repository
+    .getSeries()
+    .map((lesson) =>
+      lesson.sources
+        .map((source) => `${source.sourceKey}:${source.observationKey}`)
+        .sort()
+        .join("|"),
+    )
     .sort();
 }
 
 test("full-page corpus contains genuine cross-owner canonical lessons", () => {
   const repository = corpusRepository(CORPORA);
-  const shared = repository.getSeries().filter((lesson) =>
-    new Set(lesson.sources.map((source) => source.owner.type)).size > 1
-  );
+  const shared = repository
+    .getSeries()
+    .filter(
+      (lesson) =>
+        new Set(lesson.sources.map((source) => source.owner.type)).size > 1,
+    );
   assert.ok(shared.length > 0);
-  assert.ok(shared.every((lesson) =>
-    lesson.groups.values.length > 0 &&
-    lesson.teachers.values.length > 0 &&
-    lesson.rooms.values.length > 0
-  ));
-  assert.ok(shared.some((lesson) => {
-    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
-    return kinds.has("teacher") && kinds.has("room");
-  }));
-  assert.ok(shared.some((lesson) => {
-    const kinds = new Set(lesson.sources.map((source) => source.owner.type));
-    return kinds.has("group") && kinds.has("room");
-  }));
+  assert.ok(
+    shared.every(
+      (lesson) =>
+        lesson.groups.values.length > 0 &&
+        lesson.teachers.values.length > 0 &&
+        lesson.rooms.values.length > 0,
+    ),
+  );
+  assert.ok(
+    shared.some((lesson) => {
+      const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+      return kinds.has("teacher") && kinds.has("room");
+    }),
+  );
+  assert.ok(
+    shared.some((lesson) => {
+      const kinds = new Set(lesson.sources.map((source) => source.owner.type));
+      return kinds.has("group") && kinds.has("room");
+    }),
+  );
 
   const reversed = corpusRepository([...CORPORA].reverse());
   assert.deepEqual(sourcePartition(reversed), sourcePartition(repository));
 });
 
 test("schedule snapshot preserves corpus dates with smaller transfer payload", () => {
-  const fixture = CORPORA.filter((value) => value.kind === "group")
-    .sort((a, b) => b.expected.lessons.length - a.expected.lessons.length)[0];
+  const fixture = CORPORA.filter((value) => value.kind === "group").sort(
+    (a, b) => b.expected.lessons.length - a.expected.lessons.length,
+  )[0];
   const repository = corpusRepository([fixture]);
-  const schedule = new Schedule(repository, fixture.source.owner, fixture.source.academicYearStartYear, {
-    period: fixture.source.period,
-  });
+  const schedule = new Schedule(
+    repository,
+    fixture.source.owner,
+    fixture.source.academicYearStartYear,
+    {
+      period: fixture.source.period,
+    },
+  );
   const snapshot = createScheduleSnapshot(schedule, { includeSources: false });
   assert.equal("holidays" in snapshot, false);
   assert.equal("holidayTransfers" in snapshot, false);
   const restored = new ScheduleSnapshot(JSON.parse(JSON.stringify(snapshot)));
   const lessonsByDate = {};
   const end = new Date(`${snapshot.end}T12:00:00`);
-  for (const day = new Date(`${snapshot.start}T12:00:00`); day <= end; day.setDate(day.getDate() + 1)) {
-    const lessons = schedule.on(day).map((value) => ({ ...value, sources: [] }));
+  for (
+    const day = new Date(`${snapshot.start}T12:00:00`);
+    day <= end;
+    day.setDate(day.getDate() + 1)
+  ) {
+    const lessons = schedule
+      .on(day)
+      .map((value) => ({ ...value, sources: [] }));
     if (lessons.length) lessonsByDate[day.toISOString().slice(0, 10)] = lessons;
     assert.deepEqual(
       JSON.parse(JSON.stringify(restored.on(day))),
@@ -313,7 +374,17 @@ test("schedule snapshot preserves corpus dates with smaller transfer payload", (
     );
   }
   const snapshotJson = JSON.stringify(snapshot);
-  const materializedJson = JSON.stringify({ ...snapshot, series: undefined, direct: undefined, lessonsByDate });
-  assert.ok(Buffer.byteLength(snapshotJson) < Buffer.byteLength(materializedJson) * 0.4);
-  assert.ok(gzipSync(snapshotJson).byteLength < gzipSync(materializedJson).byteLength * 0.8);
+  const materializedJson = JSON.stringify({
+    ...snapshot,
+    series: undefined,
+    direct: undefined,
+    lessonsByDate,
+  });
+  assert.ok(
+    Buffer.byteLength(snapshotJson) < Buffer.byteLength(materializedJson) * 0.4,
+  );
+  assert.ok(
+    gzipSync(snapshotJson).byteLength <
+      gzipSync(materializedJson).byteLength * 0.8,
+  );
 });

@@ -17,9 +17,7 @@ import { SUBGROUP_ANNOTATION_RE_I } from "./patterns.js";
 export function parseGroupsString(raw: string | undefined | null): string[] {
   if (!raw) return [];
 
-  const cleaned = raw
-    .replace(SUBGROUP_ANNOTATION_RE_I, " ")
-    .trim();
+  const cleaned = raw.replace(SUBGROUP_ANNOTATION_RE_I, " ").trim();
   if (!cleaned) return [];
 
   const out: string[] = [];

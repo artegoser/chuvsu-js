@@ -12,8 +12,10 @@ function assertSemesterPeriod(period: AcademicPeriod): void {
 }
 
 function calendarDayNumber(date: Date): number {
-  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) /
-    (24 * 60 * 60 * 1000);
+  return (
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) /
+    (24 * 60 * 60 * 1000)
+  );
 }
 
 function getAcademicYearStartYear(date: Date): number {
@@ -31,12 +33,14 @@ function resolveSemesterYear(opts: {
 }): number {
   assertSemesterPeriod(opts.period);
   if (opts.year != null) {
-    if (!Number.isInteger(opts.year)) throw new RangeError("Invalid semester year");
+    if (!Number.isInteger(opts.year))
+      throw new RangeError("Invalid semester year");
     return opts.year;
   }
 
   const baseDate = opts.date ?? new Date();
-  if (!Number.isFinite(baseDate.getTime())) throw new RangeError("Invalid date");
+  if (!Number.isFinite(baseDate.getTime()))
+    throw new RangeError("Invalid date");
   const academicYearStart = getAcademicYearStartYear(baseDate);
 
   return opts.period === AcademicPeriod.FallSemester

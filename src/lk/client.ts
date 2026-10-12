@@ -46,7 +46,10 @@ export class StudentPortalClient {
       this.cache = null;
     } else if (typeof opts.cache === "number") {
       this.cache = new HybridCache(
-        makeUniformCacheConfig(opts.cache) as Record<string, number | undefined>,
+        makeUniformCacheConfig(opts.cache) as Record<
+          string,
+          number | undefined
+        >,
         opts.cacheAdapter,
       );
     } else {
@@ -139,9 +142,10 @@ export class StudentPortalClient {
   async getProfilePhoto(): Promise<Buffer> {
     const cached =
       this.cache?.getLocal("profilePhoto", "self") ??
-      await this.cache?.get("profilePhoto", "self");
+      (await this.cache?.get("profilePhoto", "self"));
     if (cached !== null && cached !== undefined) {
-      const entry = cached as { data?: string | null; blobKey?: string } | string;
+      const entry = cached as
+        { data?: string | null; blobKey?: string } | string;
       if (typeof entry === "string") return Buffer.from(entry, "base64");
       if (entry.data !== undefined) {
         return entry.data ? Buffer.from(entry.data, "base64") : Buffer.alloc(0);
@@ -149,7 +153,9 @@ export class StudentPortalClient {
       if (entry.blobKey && this.blobAdapter) {
         const photo = await this.blobAdapter.get(entry.blobKey);
         if (photo) {
-          this.cache?.setLocal("profilePhoto", "self", { data: photo.toString("base64") });
+          this.cache?.setLocal("profilePhoto", "self", {
+            data: photo.toString("base64"),
+          });
           return photo;
         }
       }
@@ -158,7 +164,9 @@ export class StudentPortalClient {
     const photo = await this.authGetBuffer(`${STUDENT_BASE}/face.php`);
     if (this.blobAdapter) {
       const blobKey = "lk/photo/self";
-      this.cache?.setLocal("profilePhoto", "self", { data: photo.toString("base64") });
+      this.cache?.setLocal("profilePhoto", "self", {
+        data: photo.toString("base64"),
+      });
       await this.blobAdapter.put(blobKey, photo, {
         ttl: this.cache?.ttl("profilePhoto"),
       });
@@ -185,7 +193,9 @@ export class StudentPortalClient {
     if (opts?.date !== undefined && !isLocalDate(opts.date)) {
       throw new RangeError("Invalid webinar date");
     }
-    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Moscow" }).format(new Date());
+    const today = new Intl.DateTimeFormat("sv-SE", {
+      timeZone: "Europe/Moscow",
+    }).format(new Date());
     const key = `v2:${opts?.date ?? `today:${today}`}`;
     const cached = await this.cache?.get("webinars", key);
     if (cached) return cached as WebinarPage;
@@ -206,7 +216,9 @@ export class StudentPortalClient {
   }
 
   /** Creates a BBB participant session. May register the student's room presence. */
-  async openWebinar(opts: { webinarId: string | number }): Promise<WebinarGateway> {
+  async openWebinar(opts: {
+    webinarId: string | number;
+  }): Promise<WebinarGateway> {
     const gateway = new WebinarGateway();
     await gateway.openSession({ joinUrl: await this.getWebinarJoinUrl(opts) });
     return gateway;
@@ -229,7 +241,9 @@ export class StudentPortalClient {
   }
 
   /** Resolves a URL only. Does not open or connect to the webinar. */
-  async getWebinarJoinUrl(opts: { webinarId: string | number }): Promise<string> {
+  async getWebinarJoinUrl(opts: {
+    webinarId: string | number;
+  }): Promise<string> {
     if (!/^[1-9]\d*$/u.test(String(opts.webinarId))) {
       throw new RangeError("Webinar ID must be a positive integer");
     }
@@ -257,7 +271,10 @@ export class StudentPortalClient {
     return data.url;
   }
 
-  private async authPost(url: string, data: Record<string, string>): Promise<HttpResponse> {
+  private async authPost(
+    url: string,
+    data: Record<string, string>,
+  ): Promise<HttpResponse> {
     let response = await this.http.post(url, data);
     if (this.credentials && this.isSessionExpired(response.body)) {
       await this.login(this.credentials);

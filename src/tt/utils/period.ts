@@ -6,7 +6,8 @@ export function getCurrentPeriod(opts?: { date?: Date }): AcademicPeriod {
   const day = date.getDate();
 
   // Dec 25+ and Jan -> Winter session (зимняя сессия)
-  if (month === 0 || (month === 11 && day >= 25)) return AcademicPeriod.WinterSession;
+  if (month === 0 || (month === 11 && day >= 25))
+    return AcademicPeriod.WinterSession;
   // Feb-May -> Spring semester (весенний семестр)
   if (month >= 1 && month <= 4) return AcademicPeriod.SpringSemester;
   // Jun-Aug -> Summer session (летняя сессия)
@@ -16,7 +17,10 @@ export function getCurrentPeriod(opts?: { date?: Date }): AcademicPeriod {
 }
 
 export function isSessionPeriod(period: AcademicPeriod): boolean {
-  return period === AcademicPeriod.WinterSession || period === AcademicPeriod.SummerSession;
+  return (
+    period === AcademicPeriod.WinterSession ||
+    period === AcademicPeriod.SummerSession
+  );
 }
 
 export function getAdjacentSemester(session: AcademicPeriod): AcademicPeriod {

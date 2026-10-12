@@ -9,7 +9,11 @@ export function parseNumericGrade(value: string): number | null {
 }
 
 export function parseGradeValue(value: string): PortfolioGradeValue {
-  const normalized = value.trim().toLocaleLowerCase("ru-RU").replace(/ё/gu, "е").replace(/\s+/gu, " ");
+  const normalized = value
+    .trim()
+    .toLocaleLowerCase("ru-RU")
+    .replace(/ё/gu, "е")
+    .replace(/\s+/gu, " ");
   if (normalized === "зачтено") return true;
   if (normalized === "не зачтено") return false;
   return parseNumericGrade(normalized);

@@ -10,7 +10,10 @@ export { WebinarClient } from "./webinar/client.js";
 export { WebinarMediaClient } from "./webinar/media.js";
 export { WebinarPlayback } from "./webinar/playback.js";
 export type * from "./webinar/media-types.js";
-export { WebinarPermissionError, WebinarProtocolError } from "./webinar/types.js";
+export {
+  WebinarPermissionError,
+  WebinarProtocolError,
+} from "./webinar/types.js";
 export type * from "./webinar/types.js";
 
 export {

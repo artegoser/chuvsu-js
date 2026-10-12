@@ -1,0 +1,4 @@
+dist/
+node_modules/
+# Captured parser inputs must retain exact source whitespace.
+test/fixtures/

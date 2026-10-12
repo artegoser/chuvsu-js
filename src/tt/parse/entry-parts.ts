@@ -10,7 +10,7 @@ const RETAKE_RE = /(?:^|\s)([12])\s*ППА(?:\s|$)/iu;
 
 export function parseRetakeAttempt(value: string): 1 | 2 | undefined {
   const match = value.match(RETAKE_RE);
-  return match ? Number(match[1]) as 1 | 2 : undefined;
+  return match ? (Number(match[1]) as 1 | 2) : undefined;
 }
 
 export function entryHtmlLines(html: string): string[] {
@@ -84,9 +84,9 @@ export function parseLessonTypeAfterSubject(subjectElement: Element): string {
     suffix += sibling.textContent ?? "";
   }
 
-  const candidate = suffix.match(LEADING_PARENTHESIZED_RE)?.[1]
-    ?.trim()
-    .replace(/\.$/, "") ?? "";
+  const candidate =
+    suffix.match(LEADING_PARENTHESIZED_RE)?.[1]?.trim().replace(/\.$/, "") ??
+    "";
   if (
     !candidate ||
     WEEK_METADATA_RE.test(candidate) ||

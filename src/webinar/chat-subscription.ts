@@ -9,7 +9,10 @@ export async function subscribeToWebinarChat(
   format: WebinarChatSubscriptionFormat | null,
 ): Promise<WebinarChatSubscriptionFormat> {
   if (format !== null) {
-    await transport.subscribe("group-chat-msg", format === "ids" ? [chatIds] : [chatIds.length]);
+    await transport.subscribe(
+      "group-chat-msg",
+      format === "ids" ? [chatIds] : [chatIds.length],
+    );
     return format;
   }
   try {
@@ -17,7 +20,11 @@ export async function subscribeToWebinarChat(
     return "ids";
   } catch (error) {
     // Only a signature mismatch permits another signature, never an auth/transport failure.
-    if (!(error instanceof WebinarProtocolError) || (error.code !== 400 && error.code !== "400")) throw error;
+    if (
+      !(error instanceof WebinarProtocolError) ||
+      (error.code !== 400 && error.code !== "400")
+    )
+      throw error;
     await transport.subscribe("group-chat-msg", [chatIds.length]);
     return "count";
   }

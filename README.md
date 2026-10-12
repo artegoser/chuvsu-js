@@ -108,7 +108,7 @@ const after = groupSchedule.on(date);
 Связи имеют вид `RelationSet<T>`:
 
 ```ts
-lesson.rooms // { values: RoomRef[], completeness: "unknown" | "partial" | "complete" }
+lesson.rooms; // { values: RoomRef[], completeness: "unknown" | "partial" | "complete" }
 ```
 
 `unknown` означает, что страница ничего не сообщила. `complete` с пустым
@@ -121,8 +121,8 @@ lesson.rooms // { values: RoomRef[], completeness: "unknown" | "partial" | "comp
 утверждения:
 
 ```ts
-lesson.slotNumber // 6
-lesson.time       // { start: { hours: 16, minutes: 40 }, end: ... }
+lesson.slotNumber; // 6
+lesson.time; // { start: { hours: 16, minutes: 40 }, end: ... }
 ```
 
 Номер не вычисляется из времени, а время — из номера. При объединении одна
@@ -197,10 +197,7 @@ const snapshot = await client.exportRepository();
 Для одного процесса есть память:
 
 ```ts
-import {
-  MemoryTimetableRepositoryAdapter,
-  TimetableClient,
-} from "chuvsu-js";
+import { MemoryTimetableRepositoryAdapter, TimetableClient } from "chuvsu-js";
 
 const repositoryAdapter = new MemoryTimetableRepositoryAdapter();
 const client = new TimetableClient({ repositoryAdapter });
@@ -228,8 +225,8 @@ const lessons = schedule.on(new Date(2026, 8, 7));
 портала нельзя надежно перенести в чистый браузерный пакет.
 
 ```ts
-import { TimetableClient } from "chuvsu-js";          // Node + ядро
-import { TimetableClient } from "chuvsu-js/node";     // явно Node
+import { TimetableClient } from "chuvsu-js"; // Node + ядро
+import { TimetableClient } from "chuvsu-js/node"; // явно Node
 import { TimetableRepository } from "chuvsu-js/browser";
 import { parseGroupSchedule } from "chuvsu-js/parsers";
 ```
