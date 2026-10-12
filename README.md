@@ -280,8 +280,9 @@ if (active?.id) {
 Webinar methods belong to `StudentPortalClient`; removed from `TimetableClient`.
 `id` is `null` when LK exposes no join button. `title` is the topic;
 `subject` is the discipline. Completed and not-yet-started rows remain in the list.
-`findWebinar` attaches only a unique match by actual date, time, subject,
-lesson type and known group/subgroup/teacher. `findWebinars` returns ambiguous
+`findWebinar` attaches only a unique match by actual date, lesson slot (exact
+time when a slot is unavailable), and known group/subgroup. Descriptive subject,
+type and teacher labels do not block a match. `findWebinars` returns ambiguous
 candidates for manual selection. Missing dates never match. Join URLs are resolved
 on demand through LK; no webinar window opens automatically.
 

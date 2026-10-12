@@ -32,14 +32,14 @@ test('LK webinars retain unavailable rows, selected day, topics and join IDs', (
  assert.equal(TimetableClient.prototype.getWebinarJoinUrl, undefined);
 });
 
-test('matching respects subgroups, teachers, cancellation and ambiguous rows', () => {
+test('matching respects subgroups, cancellation and ambiguous rows', () => {
  const webinar = parseWebinars(html)[2];
  const lesson = {scheduledDate: '2026-10-10', subject: 'Базы данных', type: 3, slotNumber:4, time:webinar.time,
   status:'scheduled', groups:{values:[{group:{name:'КТ-41-24'},subgroup:1}]}, teachers:{values:[{name:'Иванов И. И.'}]}};
  assert.equal(findWebinar(lesson,[webinar]),webinar);
  assert.equal(findWebinar({...lesson, groups:{values:[{group:{name:'КТ-41-24'},subgroup:2}]}},[webinar]),undefined);
  assert.equal(findWebinar({...lesson, groups:{values:[{group:{name:'КТ-42-24'}}]}},[webinar]),undefined);
- assert.equal(findWebinar({...lesson, teachers:{values:[{name:'Петров П. П.'}]}},[webinar]),undefined);
+ assert.equal(findWebinar({...lesson, teachers:{values:[{name:'Петров П. П.'}]}},[webinar]),webinar);
  assert.equal(findWebinar({...lesson,status:'cancelled'},[webinar]),undefined);
  assert.equal(findWebinar(lesson,[{...webinar,scheduledDate:undefined}]),undefined);
  assert.equal(findWebinar(lesson,[webinar,{...webinar,id:'other'}]),undefined);
@@ -76,11 +76,11 @@ test('URL resolver rejects malformed, failed and unsafe responses', async () => 
 });
 
 
-test('webinar matching uses shared enum and accepts unknown types', () => {
+test('webinar matching ignores descriptive subject, type and teacher fields', () => {
  const webinar=parseWebinars(html)[2];
  const lesson={scheduledDate:webinar.scheduledDate,subject:webinar.subject,type:LessonType.Laboratory,slotNumber:webinar.slotNumber,time:webinar.time,status:'scheduled',groups:{values:[]},teachers:{values:[]}};
  assert.equal(findWebinar(lesson,[webinar]),webinar);
- assert.equal(findWebinar(lesson,[{...webinar,type:LessonType.Practical}]),undefined);
+ assert.ok(findWebinar(lesson,[{...webinar,type:LessonType.Practical,subject:'Другое название',teacher:{name:'Полное имя'}}]));
  assert.ok(findWebinar(lesson,[{...webinar,type:LessonType.Unknown}]));
  assert.ok(findWebinar({...lesson,type:LessonType.Unknown},[webinar]));
 });
@@ -90,4 +90,22 @@ test('webinar cache skips stale string schemas', async () => {
  await client.cache.set('webinars','2026-10-10',{date:'2026-10-10',webinars:[{type:'лк'}]});
  client.http={post:async()=>({status:200,body:html})};
  assert.equal((await client.getWebinars({date:'2026-10-10'}))[1].type,LessonType.Lecture);
+});
+
+test('same date and slot match a full timetable name to LK initials', () => {
+ const row={...parseWebinars(html)[2],id:'127973',scheduledDate:'2026-10-12',slotNumber:6,
+  time:{start:{hours:16,minutes:40},end:{hours:18,minutes:0}},
+  subject:'Информационные справочно-правовые системы',teacher:{name:'Решетников А. В.'},
+  groups:['КТ-41-24','КТ-41-24ин'],subgroup:1};
+ const lesson={scheduledDate:row.scheduledDate,slotNumber:6,time:row.time,status:'scheduled',
+  subject:'Другое написание предмета',type:LessonType.Practical,
+  teachers:{values:[{id:1663,name:'Решетников Алексей Владимирович'}]},
+  groups:{values:[{group:{id:8919,name:'КТ-41-24'},subgroup:1}]}};
+ assert.equal(findWebinar(lesson,[row]),row);
+ assert.equal(findWebinar({...lesson,slotNumber:7},[row]),undefined);
+ assert.equal(findWebinar({...lesson,scheduledDate:'2026-10-13'},[row]),undefined);
+ assert.equal(findWebinar(lesson,[{...row,subgroup:2}]),undefined);
+ assert.equal(findWebinar(lesson,[{...row,groups:[],subgroup:2}]),undefined);
+ assert.equal(findWebinar({...lesson,time:undefined},[row]),row);
+ assert.equal(findWebinar({...lesson,time:undefined,slotNumber:undefined},[row]),undefined);
 });

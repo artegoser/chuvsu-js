@@ -116,19 +116,20 @@ function webinar(overrides = {}) {
   };
 }
 
-test("webinar matching rejects each conflicting identity field", () => {
+test("webinar matching rejects date and slot conflicts, falling back to time", () => {
   const target = lesson();
   assert.equal(findWebinar(target, [webinar()])?.id, "web");
   for (const candidate of [
     webinar({ scheduled: false }),
     webinar({ scheduledDate: "2026-09-09" }),
     webinar({ slotNumber: 3 }),
-    webinar({ time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } }),
-    webinar({ subject: "Сети" }),
-    webinar({ type: LessonType.Practical }),
+    webinar({ slotNumber: undefined, time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } }),
   ]) {
     assert.equal(findWebinar(target, [candidate]), undefined);
   }
+  assert.equal(findWebinar(target, [webinar({ time: { start: { hours: 10, minutes: 0 }, end: { hours: 11, minutes: 10 } } })])?.id, "web");
+  assert.equal(findWebinar(target, [webinar({ slotNumber: undefined })])?.id, "web");
+  assert.equal(findWebinar({ ...target, slotNumber: undefined }, [webinar()])?.id, "web");
   assert.equal(attachWebinars([target], [webinar()])[0].webinar.id, "web");
   assert.equal(attachWebinars([target], [webinar({ scheduled: false })])[0].webinar, undefined);
 });

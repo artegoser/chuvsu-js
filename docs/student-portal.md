@@ -72,10 +72,10 @@ in LK JavaScript and verified with mocked responses and live URL retrieval.
 
 `findWebinar(lesson, webinars)` returns a unique compatible row.
 `findWebinars` returns all candidates. Matching checks actual scheduled date,
-slot when known, exact time range, normalized discipline, type, and known
-group/subgroup/teacher data. Cancelled lessons never match. Name comparison
-normalizes case, whitespace and `ё`; it does not guess equivalence between
-full names and initials. Ambiguous rows require caller selection.
+slot when both sides expose it, otherwise the exact time range, and known
+group/subgroup data. Discipline, type and teacher labels do not affect matching;
+LK and timetable can describe the same lesson differently. Cancelled lessons
+never match. Ambiguous rows require caller selection.
 `attachWebinars` preserves lesson IDs and never changes repository records.
 
 ## Portfolio

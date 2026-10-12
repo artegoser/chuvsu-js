@@ -1,6 +1,5 @@
 import type { LessonOccurrence } from "../tt/domain/types.js";
 import type { Webinar } from "./types.js";
-import { LessonType } from "../common/lesson-type.js";
 
 export type LessonWithWebinar = LessonOccurrence & { webinar?: Webinar };
 
@@ -20,7 +19,7 @@ export function findWebinar(
   return matches.length === 1 ? matches[0] : undefined;
 }
 
-/** All compatible rows; callers can resolve ambiguity explicitly. */
+/** Match scheduled date, slot (time when unavailable), and known group/subgroup. */
 export function findWebinars(
   lesson: LessonOccurrence,
   webinars: Webinar[],
@@ -31,13 +30,9 @@ export function findWebinars(
     if (
       webinar.scheduledDate !== lesson.scheduledDate
     ) return false;
-    if (
-      webinar.slotNumber != null &&
-      webinar.slotNumber !== lesson.slotNumber
-    ) {
-      return false;
-    }
-    if (
+    if (webinar.slotNumber != null && lesson.slotNumber != null) {
+      if (webinar.slotNumber !== lesson.slotNumber) return false;
+    } else if (
       !lesson.time ||
       webinar.time.start.hours !== lesson.time.start.hours ||
       webinar.time.start.minutes !== lesson.time.start.minutes ||
@@ -46,16 +41,15 @@ export function findWebinars(
     ) {
       return false;
     }
-    if (normalize(webinar.subject) !== normalize(lesson.subject)) return false;
-    if (webinar.type !== LessonType.Unknown && lesson.type !== LessonType.Unknown && webinar.type !== lesson.type) return false;
     const groups = lesson.groups.values;
-    if (groups.length && webinar.groups.length && !groups.some((attendance) =>
-      webinar.groups.some((group) => normalize(group) === normalize(attendance.group.name)) &&
-      (webinar.subgroup == null || attendance.subgroup == null || webinar.subgroup === attendance.subgroup)
-    )) return false;
-    const teachers = lesson.teachers.values.filter((teacher) => teacher.name.trim());
-    if (teachers.length && webinar.teacher.name.trim() && !teachers.some((teacher) =>
-      normalize(teacher.name) === normalize(webinar.teacher.name)
+    const attendance = webinar.groups.length
+      ? groups.filter((entry) => webinar.groups.some((group) =>
+        normalize(group) === normalize(entry.group.name)
+      ))
+      : groups;
+    if (groups.length && !attendance.length) return false;
+    if (webinar.subgroup != null && attendance.length && !attendance.some((entry) =>
+      entry.subgroup == null || entry.subgroup === webinar.subgroup
     )) return false;
     return true;
   });
