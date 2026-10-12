@@ -1,7 +1,7 @@
 import { HttpClient } from "../common/http.js";
 import { AuthError, ParseError } from "../common/types.js";
 import { parseWebinarConfig, parseWebinarIceServers, parseWebinarSession } from "./parse.js";
-import { WebinarPermissionError, type WebinarSession, type WebinarSlide } from "./types.js";
+import { WebinarPermissionError, type WebinarSession, type WebinarSlide, type WebinarSocket } from "./types.js";
 import { WebinarClient } from "./client.js";
 
 /** Backend-only LK/BBB bootstrap and same-server presentation HTTP access. */
@@ -13,6 +13,12 @@ export class WebinarGateway {
   getSession(): WebinarSession {
     if (!this.session) throw new AuthError("Open a webinar session first");
     return structuredClone(this.session);
+  }
+
+  /** Cookie-authenticated signaling socket; audio/video WebRTC stays in the browser. */
+  createMediaSocket(): WebinarSocket {
+    if (!this.session) throw new AuthError("Open a webinar session first");
+    return this.http.createWebSocket(this.session.connections.media);
   }
 
   async openSession(opts: { joinUrl: string }): Promise<WebinarSession> {

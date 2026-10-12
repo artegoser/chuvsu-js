@@ -44,9 +44,6 @@ export function parseWebinarSession(opts: {
   const kurento = record(opts.config.kurento);
   const chat = record(opts.config.chat);
   const version = String(app.bbbServerVersion ?? "");
-  if (!/^2\.3(?:\.|$)/u.test(version)) {
-    throw new WebinarProtocolError(`Unsupported webinar version: ${version || "unknown"}`);
-  }
   const token = url.searchParams.get("sessionToken");
   const required = [token, response.authToken, response.internalUserID, response.meetingID,
     response.fullname, response.voicebridge];

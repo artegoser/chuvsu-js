@@ -18,13 +18,15 @@ const docs={
 };
 class Socket {
  readyState=0;listeners=new Map();sent=[];invalidAuth=false;
- constructor(){queueMicrotask(()=>{this.readyState=1;this.event('open');});}
+ constructor(version='2.3'){this.version=version;queueMicrotask(()=>{this.readyState=1;this.event('open');});}
  addEventListener(type,listener){const list=this.listeners.get(type)??[];list.push(listener);this.listeners.set(type,list);}
  event(type,value){for(const listener of this.listeners.get(type)??[])listener(value);}
  receive(data){this.event('message',{data:JSON.stringify(data)});}
  send(raw){const d=JSON.parse(raw);this.sent.push(d);queueMicrotask(()=>{
   if(d.msg==='connect')this.receive({msg:'connected',session:'connection'});
   if(d.msg==='sub'){
+   if(d.name==='group-chat-msg' && (this.version.startsWith('2.4') ? typeof d.params[0]!=='number' : !Array.isArray(d.params[0]))){this.receive({msg:'nosub',id:d.id,error:{error:400,reason:'Match failed'}});return;}
+
    if(d.name==='auth-token-validation')this.receive({msg:'added',collection:d.name,id:'auth',fields:{userId:'self',validationStatus:this.invalidAuth?4:3}});
    for(const doc of docs[d.name]??[]) {const {_id,...fields}=doc;this.receive({msg:'added',collection:d.name,id:_id,fields});}
    this.receive({msg:'ready',subs:[d.id]});
@@ -37,14 +39,15 @@ class Socket {
  });}
  close(){if(this.readyState===3)return;this.readyState=3;this.event('close');}
 }
-async function connected(){let socket;const client=new WebinarClient(session(),{socketFactory:()=>socket=new Socket(),timeout:100});await client.connect();return {client,socket};}
+async function connected(version='2.3'){let socket;const participant=session();participant.server.version=version;const client=new WebinarClient(participant,{socketFactory:()=>socket=new Socket(version),timeout:100});await client.connect();return {client,socket};}
 
 test('session parsing never evaluates scripts, detects version per server, validates endpoints',()=>{
  const html=`<script>__meteor_runtime_config__ = JSON.parse(decodeURIComponent("${encodeURIComponent(JSON.stringify({PUBLIC_SETTINGS:config}))}"));throw Error('do not execute');</script>`;
  assert.deepEqual(parseWebinarConfig(html),config);
  assert.equal(session().connections.state,'wss://webinar.example/html5client/websocket');
  assert.match(session().connections.media,/sessionToken=synthetic-session/);
- assert.throws(()=>parseWebinarSession({clientUrl:origin+'/?sessionToken=x',config:{...config,app:{bbbServerVersion:3}},entry,iceServers:[]}),WebinarProtocolError);
+ assert.equal(parseWebinarSession({clientUrl:origin+'/?sessionToken=x',config:{...config,app:{...config.app,bbbServerVersion:'9.0'}},entry,iceServers:[]}).server.version,'9.0');
+ assert.throws(()=>new WebinarClient({...session(),protocol:'graphql'}),WebinarProtocolError);
  assert.throws(()=>parseWebinarSession({clientUrl:origin+'/?sessionToken=x',config:{...config,kurento:{wsUrl:'wss://other.example/sfu'}},entry,iceServers:[]}),/media endpoint/);
  assert.throws(()=>parseWebinarConfig('<h1>Login</h1>'),WebinarProtocolError);
  assert.throws(()=>parseWebinarIceServers('{}'),/ICE/);
@@ -128,7 +131,7 @@ test('gateway blocks cross-server redirects and forbidden presentation downloads
 });
 
 test('gateway bootstraps once, downloads declared slide assets, and respects original-file permission',async()=>{
- const gateway=new WebinarGateway();const requests=[];
+ const gateway=new WebinarGateway();const requests=[];assert.throws(()=>gateway.createMediaSocket(),/first/);
  gateway.http={get:async(url,follow)=>{
   requests.push([new URL(url).pathname,follow]);
   if(new URL(url).pathname.endsWith('/api/join'))return {status:302,location:'/html5client/join?sessionToken=synthetic-session'};
@@ -138,9 +141,10 @@ test('gateway bootstraps once, downloads declared slide assets, and respects ori
  },getBufferResponse:async(url,follow)=>{
   assert.equal(follow,false);requests.push([new URL(url).pathname,follow]);
   return {status:200,body:Buffer.from('<svg/>'),contentType:'image/svg+xml'};
- }};
+ },createWebSocket:(url)=>{requests.push([new URL(url).pathname,false]);return new Socket();}};
  await gateway.openSession({joinUrl:origin+'/bigbluebutton/api/join?checksum=synthetic'});
  assert.ok(requests.every(([,follow])=>follow===false));
+ const signaling=gateway.createMediaSocket();assert.equal(signaling.sent.length,0);signaling.close();assert.equal(requests.at(-1)[0],'/bbb-webrtc-sfu');
  const copied=gateway.getSession();copied.authToken='different';assert.equal(gateway.getSession().authToken,'synthetic-auth');
  const file=await gateway.downloadSlide({slide:{number:1,svgUrl:docs.slides[0].svgUri}});
  assert.equal(file.filename,'slide-1.svg');assert.equal(file.body.toString(),'<svg/>');
@@ -161,4 +165,40 @@ test('async event streams stop on abort and reject overflow',async()=>{
   socket.receive({msg:'changed',collection:'users',id:'u1',fields:{emoji:'raiseHand'}});
   await assert.rejects(next,/overflow/);
  }finally{client.close();}
+});
+
+
+test('BBB 2.4 bootstrap, state and private chat use the numeric subscription contract',async()=>{
+ const participant=parseWebinarSession({clientUrl:origin+'/html5client/join?sessionToken=synthetic-session',
+  config:{...config,app:{...config.app,bbbServerVersion:2.4}},entry,iceServers:[]});
+ assert.equal(participant.server.version,'2.4');
+ const {client,socket}=await connected('2.4.2');
+ try{
+  assert.equal(client.getUsers().length,2);
+  assert.equal(client.getMessages()[0].text,'<b>Hello</b>');
+  assert.equal(client.getCurrentPresentation().slides.length,1);
+  const attempts=socket.sent.filter(message=>message.msg==='sub'&&message.name==='group-chat-msg');
+  assert.deepEqual(attempts.map(attempt=>attempt.params),[[['public']],[1]]);
+  await client.openPrivateChat({userId:'teacher'});
+  const last=socket.sent.filter(message=>message.msg==='sub'&&message.name==='group-chat-msg').at(-1);
+  assert.deepEqual(last.params,[2]);
+ }finally{client.close();}
+});
+
+test('explicit leave targets only the authenticated participant, once, and always closes', async () => {
+ const {client,socket}=await connected();
+ const first=client.leave();
+ assert.equal(client.leave(),first);
+ await first;
+ const exits=socket.sent.filter(frame=>frame.method==='userLeftMeeting');
+ assert.equal(exits.length,1);
+ assert.deepEqual(exits[0].params,[]);
+ assert.equal(socket.readyState,3);
+ await client.leave();
+ assert.equal(socket.sent.filter(frame=>frame.method==='userLeftMeeting').length,1);
+ const {client:rejected,socket:rejectSocket}=await connected();
+ const send=rejectSocket.send.bind(rejectSocket);
+ rejectSocket.send=raw=>{const frame=JSON.parse(raw);if(frame.method==='userLeftMeeting')queueMicrotask(()=>rejectSocket.receive({msg:'result',id:frame.id,error:{error:403}}));else send(raw);};
+ await assert.rejects(rejected.leave(),WebinarProtocolError);
+ assert.equal(rejectSocket.readyState,3);
 });

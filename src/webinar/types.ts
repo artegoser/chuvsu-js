@@ -120,7 +120,7 @@ export interface WebinarClientOptions {
 }
 
 export class WebinarProtocolError extends Error {
-  constructor(message: string) {
+  constructor(message: string, readonly code?: string | number) {
     super(message);
     this.name = "WebinarProtocolError";
   }

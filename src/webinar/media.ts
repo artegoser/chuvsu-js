@@ -16,7 +16,7 @@ export class WebinarMediaClient {
     private room: WebinarClient,
     private opts: WebinarMediaOptions = {},
   ) {
-    if (session.mediaBackend !== "kurento" || !/^2\.3(?:\.|$)/u.test(session.server.version)) {
+    if (session.mediaBackend !== "kurento") {
       throw new WebinarProtocolError("Unsupported webinar media backend");
     }
     this.session = structuredClone(session);

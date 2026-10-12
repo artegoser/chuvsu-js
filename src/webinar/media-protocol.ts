@@ -2,7 +2,7 @@ import type { WebinarDocument } from "./ddp.js";
 import type { WebinarPlaybackKind } from "./media-types.js";
 import type { WebinarSession } from "./types.js";
 
-/** BBB 2.3 SFU messages. One playback per socket; no publish commands. */
+/** BBB 2.3/2.4 SFU messages. One playback per socket; no publish commands. */
 export function webinarMediaMessages(
   session: WebinarSession,
   kind: WebinarPlaybackKind,

@@ -147,11 +147,15 @@ export class WebinarDdp {
         if (Array.isArray(data.subs)) for (const id of data.subs) this.settle(String(id), undefined);
         break;
       case "nosub":
-      case "result":
+      case "result": {
+        const error = data.error !== null && typeof data.error === "object"
+          ? data.error as WebinarDocument : {};
+        const code = typeof error.error === "number" || typeof error.error === "string" ? error.error : undefined;
         this.settle(String(data.id), data.result, data.error
-          ? new WebinarProtocolError(`Webinar ${data.msg === "nosub" ? "subscription" : "method"} rejected`)
+          ? new WebinarProtocolError(`Webinar ${data.msg === "nosub" ? "subscription" : "method"} rejected`, code)
           : undefined);
         break;
+      }
       case "added":
       case "changed":
       case "removed": {

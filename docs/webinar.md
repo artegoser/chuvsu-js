@@ -30,6 +30,14 @@ same participant can interfere with each other. Do not log, persist in shared
 caches, or expose participant session credentials to other users. The session
 contains BBB credentials, never LK email/password or cookies.
 
+Some servers require their HttpOnly BBB session cookie for the media signaling
+handshake. A frontend on another site cannot receive that backend cookie through
+`getSession()`. Use `gateway.createMediaSocket()` behind an authenticated,
+owner-scoped WebSocket signaling relay and provide its browser endpoint through
+`WebinarMediaClient`'s `socketFactory` option. This relays signaling only; peer
+connections and audio/video remain directly between the browser and BBB. Never
+serialize the gateway cookie jar or share a relay with another participant.
+
 ## State and events
 
 - `getUsers()`, `getPresenter()`, `getModerators()` distinguish participant roles.
@@ -65,6 +73,10 @@ Streams are bounded. Overflow raises an error; refresh the snapshot and resubscr
 Connection failures, rejected methods/subscriptions and unsupported versions fail
 explicitly. `close()` releases the connection; create a new session/client to
 reconnect. No automatic reconnect, replay of writes, or settings changes.
+For an explicit room exit, use `await room.leave()`: it calls BBB's
+`userLeftMeeting` for this authenticated participant and closes the transport
+even if the request fails. It is idempotent and never removes another participant.
+`close()` remains transport-only for disconnects and failed connections.
 
 ## Explicit actions
 
@@ -134,12 +146,19 @@ initial API; `setMuted()` only controls an already connected microphone session.
 
 ## Server versions
 
-Initial adapter supports the inspected **BBB 2.3 Meteor/DDP + Kurento** protocol.
-Version/build and endpoint configuration are read from each server's actual
-HTML5 client, not the REST API's unrelated `version=2.0`. Other versions fail
-explicitly until their participant protocol is implemented and tested. No shared
+Compatibility follows the participant protocol, not a version allowlist. The
+bootstrap decodes Meteor's public runtime configuration and validates participant
+credentials and endpoints. The DDP client negotiates the chat subscription's
+IDs/count signature and retains the accepted format per participant. Only a
+signature mismatch permits this fallback; authentication and transport failures
+remain errors. Server version/build stay informational.
+
+Meteor/DDP state and legacy SFU signaling are implemented. The 2.3 contracts are
+covered by fixtures; 2.4 bootstrap and live participant state were verified
+against the university server. Incompatible protocols fail explicitly. No shared
 BBB integration secret is required or used.
 
 Protocol references: [Meteor DDP](https://github.com/meteor/meteor/blob/devel/packages/ddp/DDP.md),
 [BBB 2.3 participant source](https://github.com/bigbluebutton/bigbluebutton/tree/v2.3.0/bigbluebutton-html5/imports/api),
+[BBB 2.4 participant source](https://github.com/bigbluebutton/bigbluebutton/tree/v2.4.0/bigbluebutton-html5/imports/api),
 [external UI configuration](https://docs.bigbluebutton.org/administration/cluster-proxy/).

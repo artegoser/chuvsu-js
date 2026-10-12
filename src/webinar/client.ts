@@ -3,6 +3,7 @@ import { WebinarDdp, type WebinarDocument } from "./ddp.js";
 import { webinarEvents } from "./events.js";
 import { record, string } from "./parse.js";
 import { browserWebinarSocket } from "./socket.js";
+import { subscribeToWebinarChat, type WebinarChatSubscriptionFormat } from "./chat-subscription.js";
 import { buildWebinarSnapshot, normalizeWebinarMessage } from "./state.js";
 import {
   WebinarPermissionError, WebinarProtocolError,
@@ -17,9 +18,11 @@ export class WebinarClient {
   private listeners = new Set<(event: WebinarEvent) => void>();
   private ready = false;
   private started = false;
+  private chatSubscriptionFormat: WebinarChatSubscriptionFormat | null = null;
+  private leaving: Promise<void> | null = null;
 
   constructor(session: WebinarSession, opts: WebinarClientOptions = {}) {
-    if (session.protocol !== "ddp" || !/^2\.3(?:\.|$)/u.test(session.server.version)) {
+    if (session.protocol !== "ddp") {
       throw new WebinarProtocolError("Unsupported webinar participant protocol");
     }
     this.session = structuredClone(session);
@@ -52,7 +55,7 @@ export class WebinarClient {
         "presentations", "slides", "slide-positions", "presentation-pods", "video-streams", "screenshare", "note", "group-chat",
       ].map((name) => this.ddp.subscribe(name)));
       const chatIds = this.ddp.documents("group-chat").map((chat) => string(chat.chatId));
-      await this.ddp.subscribe("group-chat-msg", [chatIds]);
+      this.chatSubscriptionFormat = await subscribeToWebinarChat(this.ddp, chatIds, this.chatSubscriptionFormat);
       this.ready = true;
       if (this.session.features.chat) await this.loadMessages();
     } catch (error) {
@@ -156,7 +159,9 @@ export class WebinarClient {
     await this.ddp.waitFor("group-chat", (chat) => chat.access === "PRIVATE_ACCESS"
       && Array.isArray(chat.users) && chat.users.includes(user.id) && chat.users.includes(this.session.user.id));
     const chat = this.getChats().find((chat) => chat.private && chat.userIds.includes(user.id))!;
-    await this.ddp.subscribe("group-chat-msg", [this.getChats().map((chat) => chat.id)]);
+    this.chatSubscriptionFormat = await subscribeToWebinarChat(
+      this.ddp, this.getChats().map((chat) => chat.id), this.chatSubscriptionFormat,
+    );
     return chat;
   }
 
@@ -174,7 +179,15 @@ export class WebinarClient {
     await this.ddp.call("muteToggle", [this.session.user.id, muted]);
   }
 
-  /** Closes local transport; does not issue userLeftMeeting or alter other users. */
+  /** Explicitly leaves this participant, then closes transport even if BBB rejects the request. */
+  leave(): Promise<void> {
+    if (this.leaving) return this.leaving;
+    if (!this.ready) { this.close(); return Promise.resolve(); }
+    this.leaving = this.ddp.call("userLeftMeeting").then(() => undefined).finally(() => this.close());
+    return this.leaving;
+  }
+
+  /** Closes local transport; use leave() for an explicit room exit. */
   close(): void {
     this.ready = false;
     this.ddp.close();
