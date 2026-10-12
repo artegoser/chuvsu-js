@@ -10,8 +10,14 @@ export interface WebinarSession {
   meeting: { id: string; name: string; voiceBridge: string };
   connections: { state: string; media: string };
   iceServers: RTCIceServer[];
+  mediaSettings?: {
+    listenOnlyOffering: boolean;
+    forceRelay: boolean;
+    forceRelayOnFirefox: boolean;
+  };
   features: {
     chat: boolean;
+    typing?: boolean;
     notes: boolean;
     audio: boolean;
     video: boolean;
@@ -21,6 +27,7 @@ export interface WebinarSession {
   };
   notesUrl: string | null;
   publicChatId: string;
+  publicTypingId?: string;
   chatPageSize: number;
   maxMessageLength: number;
 }
@@ -96,6 +103,7 @@ export interface WebinarSnapshot {
   users: WebinarUser[];
   chats: WebinarChat[];
   messages: WebinarMessage[];
+  typingUsers?: { userId: string; name: string; chatId: string }[];
   presentations: WebinarPresentation[];
   streams: WebinarMediaStream[];
   notes: WebinarNotes | null;

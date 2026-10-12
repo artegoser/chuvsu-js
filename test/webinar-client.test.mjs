@@ -611,3 +611,73 @@ test("explicit leave targets only the authenticated participant, once, and alway
   await assert.rejects(rejected.leave(), WebinarProtocolError);
   assert.equal(rejectSocket.readyState, 3);
 });
+
+test("typing uses public/private recipient IDs, respects locks and never starts on connect", async () => {
+  const { client, socket } = await connected("2.4");
+  try {
+    assert.equal(
+      socket.sent.some((frame) => frame.method === "startUserTyping"),
+      false,
+    );
+    await client.setTyping(true);
+    await client.setTyping(false);
+    assert.deepEqual(
+      socket.sent.find((frame) => frame.method === "startUserTyping").params,
+      ["typing-public"],
+    );
+    assert.deepEqual(
+      socket.sent.find((frame) => frame.method === "stopUserTyping").params,
+      [],
+    );
+    socket.receive({
+      msg: "added",
+      collection: "users-typing",
+      id: "typing",
+      fields: {
+        userId: "teacher",
+        name: "Teacher",
+        meetingId: "meeting",
+        isTypingTo: "typing-public",
+      },
+    });
+    assert.deepEqual(
+      client.getTypingUsers().map((user) => user.userId),
+      ["teacher"],
+    );
+    const privateChat = await client.openPrivateChat({ userId: "teacher" });
+    await client.setTyping(true, { chatId: privateChat.id });
+    assert.deepEqual(
+      socket.sent.filter((frame) => frame.method === "startUserTyping").at(-1)
+        .params,
+      ["teacher"],
+    );
+    socket.receive({
+      msg: "changed",
+      collection: "meetings",
+      id: "m",
+      fields: { lockSettingsProps: { disablePublicChat: true } },
+    });
+    await assert.rejects(client.setTyping(true), WebinarPermissionError);
+    socket.receive({
+      msg: "removed",
+      collection: "users-typing",
+      id: "typing",
+    });
+    assert.deepEqual(client.getTypingUsers(), []);
+  } finally {
+    client.close();
+  }
+});
+
+
+test("runtime media settings select server-offered listen-only and configured relay policy", () => {
+  const participant = parseWebinarSession({
+    clientUrl: origin + "/?sessionToken=x",
+    config: { ...config, media: { listenOnlyOffering: false, forceRelay: true }, kurento: { ...config.kurento, forceRelayOnFirefox: true } },
+    entry, iceServers: []
+  });
+  assert.deepEqual(participant.mediaSettings, {listenOnlyOffering: false, forceRelay: true, forceRelayOnFirefox: true});
+  assert.equal(participant.publicTypingId, "typing-public");
+  assert.equal(participant.features.typing, true);
+  assert.deepEqual(session().mediaSettings, {listenOnlyOffering: true, forceRelay: false, forceRelayOnFirefox: false});
+});

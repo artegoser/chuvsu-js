@@ -108,8 +108,15 @@ export function parseWebinarSession(opts: {
     },
     connections: { state: state.href, media: media.href },
     iceServers: opts.iceServers,
+    mediaSettings: {
+      listenOnlyOffering:
+        record(opts.config.media).listenOnlyOffering !== false,
+      forceRelay: record(opts.config.media).forceRelay === true,
+      forceRelayOnFirefox: kurento.forceRelayOnFirefox === true,
+    },
     features: {
       chat: enabled(chat.enabled),
+      typing: enabled(record(chat.typingIndicator).enabled),
       notes: enabled(record(opts.config.note).enabled),
       audio: enabled(kurento.enableListenOnly),
       video: enabled(kurento.enableVideo),
@@ -121,6 +128,10 @@ export function parseWebinarSession(opts: {
     },
     notesUrl: safeWebinarUrl(record(opts.config.note).url, url.origin),
     publicChatId: string(chat.public_group_id) || "MAIN-PUBLIC-GROUP-CHAT",
+    publicTypingId:
+      string(chat.public_id) ||
+      string(chat.public_group_id) ||
+      "MAIN-PUBLIC-GROUP-CHAT",
     chatPageSize:
       typeof chat.itemsPerPage === "number" && chat.itemsPerPage > 0
         ? chat.itemsPerPage

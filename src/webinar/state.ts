@@ -1,5 +1,6 @@
 import { parseHtml, text } from "../common/parse.js";
 import { record, safeWebinarUrl, string } from "./parse.js";
+import { webinarTypingUsers } from "./typing.js";
 import type { WebinarDdp, WebinarDocument } from "./ddp.js";
 import type {
   WebinarMessage,
@@ -104,6 +105,13 @@ export function buildWebinarSnapshot(
         (a, b) =>
           a.name.localeCompare(b.name, "ru") || a.id.localeCompare(b.id),
       ),
+    typingUsers: webinarTypingUsers(
+      documents("users-typing"),
+      users,
+      documents("group-chat"),
+      session,
+      meeting,
+    ),
     chats: documents("group-chat").map((chat) => ({
       id: string(chat.chatId),
       name: string(chat.name),

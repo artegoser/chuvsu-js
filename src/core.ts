@@ -1,6 +1,7 @@
 // Runtime-safe core for Node.js, browsers, Deno, and workers.
 
 export { LessonType, parseLessonType } from "./common/lesson-type.js";
+export { parseTeacher } from "./common/parse.js";
 
 export * from "./tt/domain/index.js";
 export { attachWebinars, findWebinar, findWebinars } from "./lk/webinars.js";

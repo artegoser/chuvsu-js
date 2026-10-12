@@ -109,6 +109,8 @@ export class WebinarClient {
         chatIds,
         this.chatSubscriptionFormat,
       );
+      if (this.session.features.typing)
+        await this.ddp.subscribe("users-typing");
       this.ready = true;
       if (this.session.features.chat) await this.loadMessages();
     } catch (error) {
@@ -143,6 +145,38 @@ export class WebinarClient {
     return this.getSnapshot().messages.filter(
       (message) => message.chatId === chatId,
     );
+  }
+  getTypingUsers(opts: { chatId?: string } = {}) {
+    const chatId = opts.chatId ?? this.session.publicChatId;
+    return (this.getSnapshot().typingUsers ?? []).filter(
+      (user) => user.chatId === chatId,
+    );
+  }
+
+  /** Explicit typing state only; opening/reading a room never sends typing events. */
+  async setTyping(
+    typing: boolean,
+    opts: { chatId?: string } = {},
+  ): Promise<void> {
+    if (typeof typing !== "boolean")
+      throw new TypeError("Typing state must be boolean");
+    const chatId = opts.chatId ?? this.session.publicChatId;
+    const chat = this.getChats().find((chat) => chat.id === chatId);
+    if (!chat) throw new WebinarPermissionError("Chat is not accessible");
+    this.assertPermission(
+      "typing",
+      chat.private ? "disablePrivateChat" : "disablePublicChat",
+    );
+    if (!typing) {
+      await this.ddp.call("stopUserTyping");
+      return;
+    }
+    const target = chat.private
+      ? chat.userIds.find((id) => id !== this.session.user.id)
+      : (this.session.publicTypingId ?? this.session.publicChatId);
+    if (!target)
+      throw new WebinarPermissionError("Typing recipient is not available");
+    await this.ddp.call("startUserTyping", [target]);
   }
   getPresentations() {
     return this.getSnapshot().presentations;

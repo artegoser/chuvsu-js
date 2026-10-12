@@ -16,6 +16,8 @@ export const config = {
   },
   chat: {
     enabled: true,
+    typingIndicator: { enabled: true },
+    public_id: "typing-public",
     public_group_id: "public",
     itemsPerPage: 2,
     max_message_length: 20,

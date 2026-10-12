@@ -43,6 +43,9 @@ serialize the gateway cookie jar or share a relay with another participant.
 - `getUsers()`, `getPresenter()`, `getModerators()` distinguish participant roles.
   Presenter/moderator does not automatically mean the scheduled lecturer.
 - `getChats()` exposes only chats published to this participant.
+- `getTypingUsers({ chatId? })` exposes other participants typing in accessible
+  chats, respecting hidden-viewer settings. Typing is subscribed only when the
+  server advertises it.
 - `getMessages({ chatId? })` reads accumulated history/live messages.
 - `loadMessages({ chatId?, page? })` fetches a historical page, starting at 1.
   `connect()` loads the first public-chat page; subsequent pages are explicit.
@@ -81,6 +84,8 @@ even if the request fails. It is idempotent and never removes another participan
 ## Explicit actions
 
 ```ts
+await room.setTyping(true); // Explicit, throttled by the UI (e.g. every 2 seconds).
+await room.setTyping(false); // Stop on empty input, submit or panel teardown.
 await room.setRaisedHand(true);
 await room.setRaisedHand(false);
 await room.sendMessage({ text: "Hello" }); // Public chat by default.
@@ -135,7 +140,13 @@ Media uses the server's authenticated SFU WebSocket and browser WebRTC directly.
 No backend media receiver or forwarding is required. `listen()` receives the
 mixed room audio, not separate speaker tracks. Every playback exposes `stream`,
 `connection`, `getStats()`, `onError()`, `onClose()`, and idempotent `close()`.
-ICE candidates queue until negotiation is ready. Timeouts, aborts, disconnects
+Listen-only negotiation follows the server's `media.listenOnlyOffering` setting:
+client offers and server offers are both supported. Server-offered audio sends
+`subscriberAnswer`; ICE candidates queue until negotiation is ready. The server's
+`forceRelay` and `forceRelayOnFirefox` settings select the browser ICE policy.
+These contracts are covered by mock protocol tests; live receive-only audio still
+requires verification on an available webinar. Autoplay denial should retain the
+stream and offer a user-gesture playback button. Timeouts, aborts, disconnects
 and remote stream termination release sockets, peers and tracks. Media teardown
 is separate from room state teardown. Browser and network restrictions can still
 require the BBB server's TURN relay.

@@ -27,10 +27,14 @@ class Peer {
   async createOffer() {
     return { type: "offer", sdp: "synthetic-offer" };
   }
+  async createAnswer() {
+    return { type: "answer", sdp: "synthetic-subscriber-answer" };
+  }
   async setLocalDescription() {
     this.listeners.get("icecandidate")?.({
       candidate: { toJSON: () => ({ candidate: "local" }) },
     });
+    if (this.remoteDescription?.type === "offer") this.connected();
   }
   async setRemoteDescription(description) {
     this.remoteDescription = description;
@@ -43,6 +47,9 @@ class Peer {
       },
     };
     this.listeners.get("track")?.({ track: this.track });
+    if (description.type === "answer") this.connected();
+  }
+  connected() {
     queueMicrotask(() => {
       this.connectionState = "connected";
       this.listeners.get("connectionstatechange")?.();
@@ -115,7 +122,9 @@ function setup(opts = {}) {
         { id: "screen", kind: "screen", hasAudio: true },
       ],
   };
-  const media = new WebinarMediaClient(session(), room, {
+  const participant = session();
+  if (opts.mediaSettings) participant.mediaSettings = opts.mediaSettings;
+  const media = new WebinarMediaClient(participant, room, {
     timeout: opts.timeout ?? 100,
     socketFactory: () => {
       const socket = new Socket();
@@ -123,8 +132,9 @@ function setup(opts = {}) {
       sockets.push(socket);
       return socket;
     },
-    peerFactory: () => {
+    peerFactory: (configuration) => {
       const peer = new Peer();
+      peer.configuration = configuration;
       peers.push(peer);
       return peer;
     },
@@ -248,4 +258,30 @@ test("ended meetings, absent streams and closed clients fail before creating a s
     assert.equal(missing.sockets.length, 0);
     missing.media.close();
     await assert.rejects(missing.media.listen(), /closed/);
+  }));
+
+test("server-offer listen-only answers before trickling ICE and honors relay settings", () =>
+  withStream(async () => {
+    const { media, sockets, peers } = setup({
+      mediaSettings: {
+        listenOnlyOffering: false,
+        forceRelay: true,
+        forceRelayOnFirefox: false,
+      },
+    });
+    const playback = await media.listen();
+    assert.equal(peers[0].remoteDescription.type, "offer");
+    assert.equal(peers[0].configuration.iceTransportPolicy, "relay");
+    const frames = sockets[0].sent;
+    assert.equal(frames[0].id, "start");
+    assert.equal("sdpOffer" in frames[0], false);
+    const answer = frames.findIndex((frame) => frame.id === "subscriberAnswer");
+    const candidate = frames.findIndex((frame) => frame.id === "iceCandidate");
+    assert.ok(answer >= 0 && candidate > answer);
+    assert.equal(frames[answer].sdpOffer, "synthetic-subscriber-answer");
+    assert.equal(frames[answer].role, "recv");
+    assert.deepEqual(peers[0].transceivers, [
+      { kind: "audio", direction: "recvonly" },
+    ]);
+    playback.close();
   }));

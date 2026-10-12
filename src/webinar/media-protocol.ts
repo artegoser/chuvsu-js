@@ -20,7 +20,7 @@ export function webinarMediaMessages(
         ? { callerName: session.user.id }
         : {};
   return {
-    start(sdpOffer: string): WebinarDocument {
+    start(sdpOffer?: string): WebinarDocument {
       return {
         ...identity,
         ...specific,
@@ -38,6 +38,9 @@ export function webinarMediaMessages(
           : {}),
         ...(kind === "screen" ? { hasAudio } : {}),
       };
+    },
+    answer(sdpOffer: string): WebinarDocument {
+      return { ...identity, id: "subscriberAnswer", sdpOffer };
     },
     candidate(candidate: RTCIceCandidateInit): WebinarDocument {
       return {

@@ -21,6 +21,7 @@ export class WebinarPlayback {
   private closed = false;
   private started = false;
   private answered = false;
+  private offering: boolean;
   private localCandidates: RTCIceCandidateInit[] = [];
   private remoteCandidates: RTCIceCandidateInit[] = [];
   private pendingReceive = Promise.resolve();
@@ -41,11 +42,22 @@ export class WebinarPlayback {
     hasAudio = false,
   ) {
     this.socket = socket;
+    this.offering =
+      kind !== "audio" || session.mediaSettings?.listenOnlyOffering !== false;
     this.messages = webinarMediaMessages(session, kind, streamId, hasAudio);
     this.stream = new MediaStream();
     this.connection = (
       opts.peerFactory ?? ((config) => new RTCPeerConnection(config))
-    )({ iceServers: session.iceServers });
+    )({
+      iceServers: session.iceServers,
+      iceTransportPolicy:
+        session.mediaSettings?.forceRelay ||
+        (session.mediaSettings?.forceRelayOnFirefox &&
+          typeof navigator !== "undefined" &&
+          /Firefox\//u.test(navigator.userAgent))
+          ? "relay"
+          : "all",
+    });
     if (kind !== "camera" && (kind === "audio" || hasAudio))
       this.connection.addTransceiver("audio", { direction: "recvonly" });
     if (kind !== "audio")
@@ -122,12 +134,15 @@ export class WebinarPlayback {
       await openWebinarSocket(this.socket, timeout);
       if (this.closed)
         throw new WebinarProtocolError("Webinar playback closed");
-      const offer = await this.connection.createOffer();
-      await this.connection.setLocalDescription(offer);
+      let offer: RTCSessionDescriptionInit | undefined;
+      if (this.offering) {
+        offer = await this.connection.createOffer();
+        await this.connection.setLocalDescription(offer);
+      }
       if (this.closed)
         throw new WebinarProtocolError("Webinar playback closed");
       this.started = true;
-      this.send(this.messages.start(offer.sdp ?? ""));
+      this.send(this.messages.start(offer?.sdp));
       this.pingTimer = setInterval(() => this.send({ id: "ping" }), 10_000);
       await connected;
     } catch (error) {
@@ -150,9 +165,15 @@ export class WebinarPlayback {
       if (message.response !== "accepted" || !string(message.sdpAnswer))
         throw new WebinarProtocolError("Webinar media offer rejected");
       await this.connection.setRemoteDescription({
-        type: "answer",
+        type: this.offering ? "answer" : "offer",
         sdp: string(message.sdpAnswer),
       });
+      if (!this.offering) {
+        const answer = await this.connection.createAnswer();
+        await this.connection.setLocalDescription(answer);
+        if (this.closed) return;
+        this.send(this.messages.answer(answer.sdp ?? ""));
+      }
       this.answered = true;
       for (const candidate of this.remoteCandidates.splice(0))
         await this.connection.addIceCandidate(candidate);

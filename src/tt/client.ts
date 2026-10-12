@@ -394,9 +394,7 @@ export class TimetableClient {
   }
 
   /** Resolve the academic year and active period from tt.chuvsu.ru itself. */
-  private async getTimetableContext(
-    pageUrl: string,
-  ): Promise<{
+  private async getTimetableContext(pageUrl: string): Promise<{
     academicYearStartYear: number;
     period: AcademicPeriod;
     availablePeriods: AcademicPeriod[];
