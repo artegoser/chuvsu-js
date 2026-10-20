@@ -681,3 +681,16 @@ test("runtime media settings select server-offered listen-only and configured re
   assert.equal(participant.features.typing, true);
   assert.deepEqual(session().mediaSettings, {listenOnlyOffering: true, forceRelay: false, forceRelayOnFirefox: false});
 });
+
+test("listen-only adapter is retained from the server configuration", () => {
+  const participant = parseWebinarSession({
+    clientUrl: origin + "/?sessionToken=x",
+    config: {
+      ...config,
+      kurento: { ...config.kurento, listenOnlyMediaServer: "mediasoup" },
+    },
+    entry,
+    iceServers: [],
+  });
+  assert.equal(participant.mediaSettings.listenOnlyMediaServer, "mediasoup");
+});

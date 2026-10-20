@@ -141,7 +141,11 @@ No backend media receiver or forwarding is required. `listen()` receives the
 mixed room audio, not separate speaker tracks. Every playback exposes `stream`,
 `connection`, `getStats()`, `onError()`, `onClose()`, and idempotent `close()`.
 Listen-only negotiation follows the server's `media.listenOnlyOffering` setting:
-client offers and server offers are both supported. Server-offered audio sends
+client offers and server offers are both supported. The server-advertised
+listen-only media adapter is retained in the start request; the SFU protocol name
+does not select that adapter. Audio resolves only after its receive track,
+connected transport, and server `MEDIA_FLOWING` confirmation are present, matching
+BBB's own listen-only client. Server-offered audio sends
 `subscriberAnswer`; ICE candidates queue until negotiation is ready. The server's
 `forceRelay` and `forceRelayOnFirefox` settings select the browser ICE policy.
 These contracts are covered by mock protocol tests; live receive-only audio still

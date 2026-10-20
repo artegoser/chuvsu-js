@@ -12,6 +12,8 @@ export interface WebinarSession {
   iceServers: RTCIceServer[];
   mediaSettings?: {
     listenOnlyOffering: boolean;
+    /** Server-advertised adapter for receive-only audio, independent of SFU protocol. */
+    listenOnlyMediaServer?: string;
     forceRelay: boolean;
     forceRelayOnFirefox: boolean;
   };

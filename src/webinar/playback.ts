@@ -22,6 +22,7 @@ export class WebinarPlayback {
   private started = false;
   private answered = false;
   private offering: boolean;
+  private audioFlowing = false;
   private localCandidates: RTCIceCandidateInit[] = [];
   private remoteCandidates: RTCIceCandidateInit[] = [];
   private pendingReceive = Promise.resolve();
@@ -65,6 +66,7 @@ export class WebinarPlayback {
     this.connection.addEventListener("track", (event) => {
       if (!this.stream.getTracks().some((track) => track.id === event.track.id))
         this.stream.addTrack(event.track);
+      this.resolveWhenReady();
     });
     this.connection.addEventListener("icecandidate", (event) => {
       if (!event.candidate || this.closed) return;
@@ -73,8 +75,7 @@ export class WebinarPlayback {
       else this.send(this.messages.candidate(candidate));
     });
     this.connection.addEventListener("connectionstatechange", () => {
-      if (this.connection.connectionState === "connected")
-        this.connectionResolve?.();
+      this.resolveWhenReady();
       if (!this.closed && this.connection.connectionState === "failed")
         this.fail(new WebinarProtocolError("Webinar media connection failed"));
     });
@@ -102,6 +103,17 @@ export class WebinarPlayback {
       if (!this.closed)
         this.fail(new WebinarProtocolError("Webinar media signaling failed"));
     });
+  }
+
+  private resolveWhenReady() {
+    if (this.connection.connectionState !== "connected") return;
+    if (
+      this.kind === "audio" &&
+      (!this.audioFlowing ||
+        !this.stream.getTracks().some((track) => track.kind === "audio"))
+    )
+      return;
+    this.connectionResolve?.();
   }
 
   async connect(
@@ -183,6 +195,11 @@ export class WebinarPlayback {
       const candidate = record(message.candidate) as RTCIceCandidateInit;
       if (!this.answered) this.remoteCandidates.push(candidate);
       else await this.connection.addIceCandidate(candidate);
+    } else if (message.id === "webRTCAudioSuccess" && this.kind === "audio") {
+      if (message.success !== "MEDIA_FLOWING" && message.success !== true)
+        throw new WebinarProtocolError("Webinar audio is not flowing");
+      this.audioFlowing = true;
+      this.resolveWhenReady();
     } else if (["error", "webRTCAudioError"].includes(string(message.id))) {
       throw new WebinarProtocolError("Webinar media rejected by server");
     } else if (["stopSharing", "playStop"].includes(string(message.id))) {

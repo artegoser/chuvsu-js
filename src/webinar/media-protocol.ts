@@ -34,6 +34,9 @@ export function webinarMediaMessages(
           ? {
               userId: session.user.id,
               caleeName: `GLOBAL_AUDIO_${session.meeting.voiceBridge}`,
+              ...(session.mediaSettings?.listenOnlyMediaServer
+                ? { mediaServer: session.mediaSettings.listenOnlyMediaServer }
+                : {}),
             }
           : {}),
         ...(kind === "screen" ? { hasAudio } : {}),

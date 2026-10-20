@@ -111,6 +111,9 @@ export function parseWebinarSession(opts: {
     mediaSettings: {
       listenOnlyOffering:
         record(opts.config.media).listenOnlyOffering !== false,
+      ...(/^[A-Za-z0-9_-]{1,64}$/u.test(string(kurento.listenOnlyMediaServer))
+        ? { listenOnlyMediaServer: string(kurento.listenOnlyMediaServer) }
+        : {}),
       forceRelay: record(opts.config.media).forceRelay === true,
       forceRelayOnFirefox: kurento.forceRelayOnFirefox === true,
     },

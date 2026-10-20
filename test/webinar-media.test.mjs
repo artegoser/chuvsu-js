@@ -103,6 +103,8 @@ class Socket {
           response: this.response,
           sdpAnswer: "synthetic-answer",
         });
+        if (d.type === "audio" && !this.silentAudio)
+          this.receive({ id: "webRTCAudioSuccess", success: "MEDIA_FLOWING" });
       });
   }
   close() {
@@ -284,4 +286,45 @@ test("server-offer listen-only answers before trickling ICE and honors relay set
       { kind: "audio", direction: "recvonly" },
     ]);
     playback.close();
+  }));
+
+test("listen-only preserves the server-selected adapter and waits for real audio flow", () =>
+  withStream(async () => {
+    const { media, sockets } = setup({
+      mediaSettings: {
+        listenOnlyOffering: true,
+        forceRelay: false,
+        forceRelayOnFirefox: false,
+        listenOnlyMediaServer: "mediasoup",
+      },
+    });
+    const listening = media.listen();
+    sockets[0].silentAudio = true;
+    let ready = false;
+    void listening.then(() => {
+      ready = true;
+    });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(sockets[0].sent[0].mediaServer, "mediasoup");
+    assert.equal(
+      ready,
+      false,
+      "an ICE/DTLS connection alone is not a joined audio conference",
+    );
+    sockets[0].receive({ id: "webRTCAudioSuccess", success: "MEDIA_FLOWING" });
+    const playback = await listening;
+    assert.equal(ready, true);
+    playback.close();
+    media.close();
+  }));
+
+test("an audio transport without server audio flow times out and releases its peer", () =>
+  withStream(async () => {
+    const { media, sockets, peers } = setup({ timeout: 15 });
+    const listening = media.listen();
+    sockets[0].silentAudio = true;
+    await assert.rejects(listening, /timed out/);
+    assert.equal(peers[0].connectionState, "closed");
+    assert.equal(sockets[0].readyState, 3);
+    media.close();
   }));
