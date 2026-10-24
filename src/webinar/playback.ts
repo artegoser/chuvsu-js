@@ -46,7 +46,7 @@ export class WebinarPlayback {
     this.offering =
       kind !== "audio" || session.mediaSettings?.listenOnlyOffering !== false;
     this.messages = webinarMediaMessages(session, kind, streamId, hasAudio);
-    this.stream = new MediaStream();
+    this.stream = opts.streamFactory ? opts.streamFactory() : new MediaStream();
     this.connection = (
       opts.peerFactory ?? ((config) => new RTCPeerConnection(config))
     )({

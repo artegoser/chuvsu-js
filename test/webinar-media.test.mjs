@@ -128,6 +128,7 @@ function setup(opts = {}) {
   if (opts.mediaSettings) participant.mediaSettings = opts.mediaSettings;
   const media = new WebinarMediaClient(participant, room, {
     timeout: opts.timeout ?? 100,
+    streamFactory: opts.streamFactory,
     socketFactory: () => {
       const socket = new Socket();
       socket.response = opts.response ?? "accepted";
@@ -328,3 +329,19 @@ test("an audio transport without server audio flow times out and releases its pe
     assert.equal(sockets[0].readyState, 3);
     media.close();
   }));
+
+test("a stream factory receives audio without changing the runtime globals", async () => {
+  const previous = globalThis.MediaStream;
+  const stream = new Stream();
+  const { media, peers } = setup({ streamFactory: () => stream });
+  try {
+    const playback = await media.listen();
+    assert.equal(playback.stream, stream);
+    assert.equal(stream.getTracks()[0], peers[0].track);
+    assert.equal(globalThis.MediaStream, previous);
+    media.close();
+    assert.equal(peers[0].track.stopped, true);
+  } finally {
+    media.close();
+  }
+});

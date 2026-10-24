@@ -24,6 +24,12 @@ export class WebinarGateway {
     return structuredClone(this.session);
   }
 
+  /** Cookie-authenticated state socket for managed reconnection and health checks. */
+  createStateSocket(): WebinarSocket {
+    if (!this.session) throw new AuthError("Open a webinar session first");
+    return this.http.createWebSocket(this.session.connections.state);
+  }
+
   /** Cookie-authenticated signaling socket; audio/video WebRTC stays in the browser. */
   createMediaSocket(): WebinarSocket {
     if (!this.session) throw new AuthError("Open a webinar session first");

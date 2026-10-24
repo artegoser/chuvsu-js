@@ -447,6 +447,7 @@ test("gateway bootstraps once, downloads declared slide assets, and respects ori
   const gateway = new WebinarGateway();
   const requests = [];
   assert.throws(() => gateway.createMediaSocket(), /first/);
+  assert.throws(() => gateway.createStateSocket(), /first/);
   gateway.http = {
     get: async (url, follow) => {
       requests.push([new URL(url).pathname, follow]);
@@ -482,6 +483,17 @@ test("gateway bootstraps once, downloads declared slide assets, and respects ori
     joinUrl: origin + "/bigbluebutton/api/join?checksum=synthetic",
   });
   assert.ok(requests.every(([, follow]) => follow === false));
+  const stateSocket = gateway.createStateSocket();
+  assert.equal(
+    stateSocket.sent.length,
+    0,
+    "constructing state transport sends no actions",
+  );
+  assert.equal(
+    requests.at(-1)[0],
+    new URL(gateway.getSession().connections.state).pathname,
+  );
+  stateSocket.close();
   const signaling = gateway.createMediaSocket();
   assert.equal(signaling.sent.length, 0);
   signaling.close();
@@ -668,7 +680,6 @@ test("typing uses public/private recipient IDs, respects locks and never starts 
     client.close();
   }
 });
-
 
 test("runtime media settings select server-offered listen-only and configured relay policy", () => {
   const participant = parseWebinarSession({

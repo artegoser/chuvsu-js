@@ -38,6 +38,18 @@ owner-scoped WebSocket signaling relay and provide its browser endpoint through
 connections and audio/video remain directly between the browser and BBB. Never
 serialize the gateway cookie jar or share a relay with another participant.
 
+For managed backend reconnection, `gateway.createStateSocket()` creates the state
+transport using the gateway's existing cookies and TLS configuration. Pass it as
+`new WebinarClient(gateway.getSession(), { socketFactory: () => gateway.createStateSocket() })`.
+Close the preceding state client before replacing it; constructing the socket
+alone does not authenticate or rejoin the participant.
+
+`WebinarMediaOptions.streamFactory` complements `peerFactory` for runtimes without
+a global `MediaStream`. Supply a compatible receive stream through
+`streamFactory: () => stream`; the library does not install global polyfills.
+Receive-only audio still requires a real WebRTC peer connection and consumes
+network bandwidth. These factories do not automatically enable media.
+
 ## State and events
 
 - `getUsers()`, `getPresenter()`, `getModerators()` distinguish participant roles.
