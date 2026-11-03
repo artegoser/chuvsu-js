@@ -131,6 +131,37 @@ test("query repeats retain stable IDs and do not accumulate sources", () => {
   assert.equal(schedule.on(date)[0].sources.length, 2);
 });
 
+for (const [name, recurringRoom, directRoom] of [
+  [
+    "virtual group room and missing teacher room",
+    "Дистанционно (ДОТ)",
+    undefined,
+  ],
+  ["missing group room and virtual teacher room", undefined, "Дистанционно"],
+  ["different remote room labels", "Дистанционно (ДОТ)", "ДОТ"],
+]) {
+  test(`remote replacement reconciles ${name}`, () => {
+    const schedule = replacementSchedule({
+      recurring: { isDistance: true, room: recurringRoom },
+      direct: { isDistance: true, room: directRoom },
+    });
+    for (const view of [
+      schedule,
+      new ScheduleSnapshot(
+        JSON.parse(JSON.stringify(createScheduleSnapshot(schedule))),
+      ),
+    ]) {
+      const lessons = view.on(date);
+      assert.equal(lessons.length, 1);
+      assert.ok(lessons[0].seriesId);
+      assert.equal(lessons[0].isDistance, true);
+      assert.deepEqual(lessons[0].originalTeachers.values, [originalTeacher]);
+      assert.deepEqual(lessons[0].teachers.values, [substituteTeacher]);
+      assert.equal(lessons[0].sources.length, 2);
+    }
+  });
+}
+
 for (const [name, direct] of [
   ["different subgroup", { subgroup: 2 }],
   ["different subject", { subject: "Базы данных" }],

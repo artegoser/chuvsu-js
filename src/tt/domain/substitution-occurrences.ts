@@ -78,9 +78,7 @@ function sameReplacement(
     compatibleSets(left.groups.values, right.groups.values, sameAttendance) &&
     left.teachers.values.length > 0 &&
     sameEntities(left.teachers.values, right.teachers.values) &&
-    ((left.isDistance &&
-      !left.rooms.values.length &&
-      !right.rooms.values.length) ||
+    (left.isDistance ||
       (left.rooms.values.length > 0 &&
         sameEntities(left.rooms.values, right.rooms.values)))
   );
