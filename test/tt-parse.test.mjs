@@ -570,6 +570,102 @@ test("parseGroupSchedule marks distance substitutions", async () => {
   assert.equal(lessons[0].isDistance, true);
 });
 
+test("KT-41-24 keeps DOT for the 2026-11-03 teacher replacements through browser transport", async () => {
+  const html = await loadFixture(
+    "group-8919-teacher-only-remote-substitution.html",
+  );
+  const schedule = scheduleFromParsedDays(parseGroupSchedule(html), {
+    academicYearStartYear: 2026,
+  });
+  const date = new Date(2026, 10, 3);
+  const snapshot = new ScheduleSnapshot(
+    JSON.parse(
+      JSON.stringify(
+        createScheduleSnapshot(schedule, { start: date, end: date }),
+      ),
+    ),
+  );
+  const lessons = snapshot.on(date);
+  assert.deepEqual(
+    lessons.map((lesson) => lesson.slotNumber),
+    [3, 4],
+  );
+  for (const lesson of lessons) {
+    assert.equal(lesson.subject, "Информационные справочно-правовые системы");
+    assert.equal(lesson.isDistance, true);
+    assert.deepEqual(lesson.teachers.values, [{ name: "Дмитриева М. Е." }]);
+    assert.equal(lesson.originalTeachers.values[0].name, "Решетников А. В.");
+  }
+});
+
+for (const [name, parse, details] of [
+  ["group", parseGroupSchedule, "Иванов И. И."],
+  ["teacher", parseTeacherSchedule, "КТ-41-24"],
+  ["room", parseRoomSchedule, "Иванов И. И.<br>КТ-41-24"],
+]) {
+  for (const scenario of [
+    {
+      name: "detects a DOT marker outside the replacement room span",
+      remote: false,
+      replacement:
+        'Аудитория: <span class="blue">Б-116</span><span style="color: blue;"> (ДОТ)</span>',
+      expected: true,
+    },
+    {
+      name: "preserves remote mode for a teacher-only replacement",
+      remote: true,
+      replacement: 'Преподаватель: <span class="blue">Петров П. П.</span>',
+      expected: undefined,
+    },
+    {
+      name: "preserves in-person mode for a teacher-only replacement",
+      remote: false,
+      replacement: 'Преподаватель: <span class="blue">Петров П. П.</span>',
+      expected: undefined,
+    },
+    {
+      name: "switches remote lessons to an explicit physical room",
+      remote: true,
+      replacement: 'Аудитория: <span class="blue">Б-116</span>',
+      expected: false,
+    },
+    {
+      name: "detects remote mode without a replacement room",
+      remote: false,
+      replacement: '<span style="color: blue;"> (ДОТ)</span>',
+      expected: true,
+    },
+  ]) {
+    test(`${name} substitution ${scenario.name}`, () => {
+      const html = semesterPage(`
+        ${name === "room" ? "" : "Б-314 "}<span style="color: blue;">Базы данных</span> (лб) (1 - 16 нед.)<br>
+        ${details}${scenario.remote ? '<span style="color: blue;"> (ДОТ)</span>' : ""}
+        <div style="border: 2px solid red; padding: 5px; margin-top: 1px;">
+          <span style="color: red;"><b>25.04.2026 замена на: </b></span><br>
+          ${scenario.replacement}
+        </div>
+      `);
+      const days = parse(html);
+      const entry = pickOnlyEntry(days);
+      assert.equal(entry.isDistance, scenario.remote);
+      assert.equal(entry.substitutions[0].isDistance, scenario.expected);
+
+      const schedule = scheduleFromParsedDays(days, { period: 3 });
+      const date = new Date(2026, 3, 25);
+      const snapshot = new ScheduleSnapshot(
+        JSON.parse(
+          JSON.stringify(
+            createScheduleSnapshot(schedule, { start: date, end: date }),
+          ),
+        ),
+      );
+      const lessons = snapshot.on(date);
+      assert.equal(lessons.length, 1);
+      assert.equal(lessons[0].isDistance, scenario.expected ?? scenario.remote);
+    });
+  }
+}
+
 test("Schedule applies spring substitutions and suppresses transferred source lessons", async () => {
   const html = await loadFixture("spring-substitutions.html");
   const springDays = parseGroupSchedule(html);

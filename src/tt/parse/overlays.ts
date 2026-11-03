@@ -121,7 +121,9 @@ export function parseSubstitutionDiv(div: Element): Substitution | null {
     date,
     room,
     teacher,
-    isDistance: hasDistanceMarker(room ?? divText),
+    // A teacher-only replacement leaves the lesson's existing format intact.
+    // The portal can place the DOT marker outside the replacement room span.
+    isDistance: hasDistanceMarker(divText) ? true : room ? false : undefined,
   };
 }
 

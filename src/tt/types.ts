@@ -54,7 +54,7 @@ export interface Substitution {
   date: LocalDate;
   /** New room, if changed. */
   room?: string;
-  /** Whether the substitution moves the lesson online. */
+  /** New distance format; absent when the substitution keeps the existing format. */
   isDistance?: boolean;
   /** New teacher, if changed. */
   teacher?: Teacher;
